@@ -208,10 +208,11 @@ public class MainActivity extends AppCompatActivity {
         GoalsDatabaseHelper dbHelper = new GoalsDatabaseHelper(this);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        // Query to fetch the shortest and latest goal
+        // Query to fetch the shortest and latest incomplete goal that is not expired
         Cursor cursor = db.rawQuery(
                 "SELECT * FROM " + GoalsDatabaseHelper.TABLE_GOALS +
                         " WHERE " + GoalsDatabaseHelper.COLUMN_PROGRESS_HOURS + " < " + GoalsDatabaseHelper.COLUMN_TARGET_HOURS +
+                        " AND date(" + GoalsDatabaseHelper.COLUMN_END_DATE + ") >= date('now')" + // Exclude expired goals
                         " ORDER BY " + GoalsDatabaseHelper.COLUMN_TARGET_HOURS + " ASC, " + GoalsDatabaseHelper.COLUMN_START_DATE + " DESC LIMIT 1",
                 null
         );
@@ -247,7 +248,8 @@ public class MainActivity extends AppCompatActivity {
 
             goalCardView.setVisibility(View.VISIBLE); // Show the card
         } else {
-            goalCardView.setVisibility(View.GONE); // Hide the card if no goal exists
+            // If no valid goals exist, hide the card
+            goalCardView.setVisibility(View.GONE);
         }
 
         if (cursor != null) {
@@ -255,7 +257,6 @@ public class MainActivity extends AppCompatActivity {
         }
         db.close();
     }
-
 
     // Open MenuActivity without animation
     private void openMenu() {

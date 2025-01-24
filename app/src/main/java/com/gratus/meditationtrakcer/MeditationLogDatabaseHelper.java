@@ -97,6 +97,7 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
 //        return totalHours;
 //    }
 
+    // Used in Main activity for goal item
     public double getLoggedHours(String startDateTime, String endDateTime) {
         Log.d("MeditationLogHelper", "getLoggedHours called with Start: " + startDateTime + ", End: " + endDateTime);
 
@@ -105,7 +106,7 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
 
         try {
             // Query the database
-            String query = "SELECT SUM(total_seconds) FROM logs WHERE strftime('%d/%m/%Y %H:%M:%S', date) >= ? AND strftime('%d/%m/%Y %H:%M:%S', date) < ?";
+            String query = "SELECT SUM(total_seconds) FROM logs WHERE strftime('%d/%m/%Y %H:%M:%S', date) >= ? AND strftime('%d/%m/%Y %H:%M:%S', date) <= ?";
             Cursor cursor = db.rawQuery(query, new String[]{startDateTime, endDateTime});
 
             if (cursor != null && cursor.moveToFirst()) {
@@ -127,6 +128,7 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
         return totalHours;
     }
 
+    // Used in goals activity
     public int getTotalSecondsForRange(String startDateTime, String endDateTime) {
         SQLiteDatabase db = this.getReadableDatabase();
         int totalSeconds = 0;
