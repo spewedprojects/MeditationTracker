@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f2f3f5"
+    app:circularflow_defaultRadius="10dp"
+    tools:context=".MainActivity">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar2"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#fff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </com.google.android.material.appbar.MaterialToolbar> <!-- Toolbar for the sake adding title and the menubutton, no function -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <!-- Menu button on toolbar next to title -->
+        <Button
+            android:id="@+id/menubutton"
+            android:layout_width="58dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:backgroundTint="#00FFFFFF"
+            android:text="@string/blank_spaces"
+            android:textColor="#00FFFFFF"
+            android:textColorHighlight="#00FFFFFF"
+            android:textColorHint="#00FFFFFF"
+            android:textColorLink="#00FFFFFF"
+            android:visibility="visible"
+            app:cornerRadius="8dp"
+            app:icon="@drawable/ic_hamburgermenu"
+            app:iconGravity="textStart"
+            app:iconPadding="4dp"
+            app:iconSize="24dp"
+            app:iconTint="#A4000000"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/toolbar_title"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Centered title on actionbar -->
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center_horizontal"
+            android:fontFamily="@font/kumbh_sans_bold"
+            android:foregroundGravity="center"
+            android:gravity="center"
+            android:text="@string/app_name"
+            android:textColor="@android:color/black"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout> <!-- Constrained layout for menubutton and Title -->
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView0"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_marginBottom="24dp"
+        app:barrierMargin="16dp"
+        app:cardCornerRadius="12dp"
+        app:cardBackgroundColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar2"
+        app:layout_constraintVertical_bias="0.04">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/date_display"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:layout_marginBottom="8dp"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:filterTouchesWhenObscured="false"
+                android:focusable="false"
+                android:focusableInTouchMode="true"
+                android:fontFamily="@font/kumbh_sans"
+                android:textStyle="bold"
+                android:inputType="date"
+                android:longClickable="false"
+                android:text="Monday, January 13, 2025"
+                android:textColorLink="#99010101"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@id/today_total"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.19999999"
+                tools:ignore="TextViewEdits" /> <!-- android:ems="10" removing this removed the touchsize too small and one another warning-->
+
+            <TextView
+                android:id="@+id/today_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="24dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:filterTouchesWhenObscured="false"
+                android:focusableInTouchMode="true"
+                android:fontFamily="@font/kumbh_sans_bold"
+                android:text="Today's Total: 0h 0m 0s"
+                android:textColor="#000000"
+                android:textColorLink="@color/black"
+                android:textSize="26sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/date_display"
+                app:layout_constraintVertical_bias="0.65"
+                tools:ignore="TextViewEdits" /> <!-- Today's total time -->
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView> <!-- For cardview Date and Total-->
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="24dp"
+        app:barrierMargin="16dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintCircleRadius="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView0"
+        app:layout_constraintVertical_bias="0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/timer_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="28dp"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/kumbh_sans_semibold"
+                android:gravity="center"
+                android:text="@string/timer_card_title"
+                android:textColor="#000000"
+                android:textColorLink="#000000"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/timer_display"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" /> <!-- Timer title -->
+
+            <TextView
+                android:id="@+id/timer_display"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/kumbh_sans_semibold"
+                android:gravity="center"
+                android:text="00:00:00"
+                android:textColor="#000"
+                android:textSize="58dp"
+                app:layout_constraintBottom_toTopOf="@id/record"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/timer_title"
+                app:layout_constraintVertical_bias="0" /> <!-- Timer display -->
+
+            <Button
+                android:id="@+id/record"
+                android:layout_width="130dp"
+                android:layout_height="53dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:backgroundTint="#000000"
+                android:fontFamily="@font/kumbh_sans_light"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="@string/record"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:cornerRadius="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/timer_display"
+                app:layout_constraintVertical_bias="0.866" /> <!-- Record button -->
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView> <!-- For cardview Timer -->
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_marginTop="30dp"
+        app:barrierMargin="16dp"
+        app:cardCornerRadius="12dp"
+        app:cardBackgroundColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintCircleRadius="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView1"
+        app:layout_constraintVertical_bias="0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/manualentry_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="28dp"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/kumbh_sans_semibold"
+                android:gravity="center"
+                android:text="@string/manual_card_title"
+                android:textColor="#000000"
+                android:textColorLink="#000000"
+                android:textSize="24dp"
+                android:textStyle="bold"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/manual_minutes"/> <!-- Title for manual entry  -->
+
+            <EditText
+                android:id="@+id/manual_hours"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/kumbh_sans"
+                android:textSize="20sp"
+                android:hint="hh"
+                android:inputType="number"
+                app:layout_constraintBottom_toTopOf="@id/add_entry"
+                app:layout_constraintEnd_toStartOf="@+id/manual_minutes"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/manualentry_title"
+                app:layout_constraintHorizontal_bias="0.8"/> <!-- hrs -->
+
+            <EditText
+                android:id="@+id/manual_minutes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/kumbh_sans"
+                android:hint="mm"
+                android:inputType="number"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@id/add_entry"
+                app:layout_constraintTop_toBottomOf="@id/manualentry_title"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" /> <!-- mm -->
+
+            <EditText
+                android:id="@+id/manual_seconds"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/kumbh_sans"
+                android:textSize="20sp"
+                android:hint="ss"
+                android:inputType="number"
+                app:layout_constraintBottom_toTopOf="@id/add_entry"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.2"
+                app:layout_constraintStart_toEndOf="@id/manual_minutes"
+                app:layout_constraintTop_toBottomOf="@id/manualentry_title" /> <!-- ss -->
+
+            <Button
+                android:id="@+id/add_entry"
+                android:layout_width="200dp"
+                android:layout_height="53dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="18dp"
+                android:backgroundTint="#000000"
+                android:fontFamily="@font/kumbh_sans_light"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="@string/add_entry"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:cornerRadius="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/manual_minutes"
+                app:layout_constraintVertical_bias="0.866" /> <!-- Add manually button -->
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView> <!-- For cardview Manual Entry-->
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView_goals_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="16dp"
+        android:visibility="visible"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardView2"
+        app:layout_constraintVertical_bias="0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!-- Add manually button -->
+
+            <Button
+                android:id="@+id/goto_goals"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#00FFFFFF"
+                android:gravity="center"
+                android:iconTint="@color/black"
+                android:includeFontPadding="false"
+                app:cornerRadius="8dp"
+                app:icon="@drawable/baseline_arrow_forward"
+                app:iconGravity="end"
+                app:iconTint="#46000000"
+                app:layout_constraintBottom_toTopOf="@id/goal_progress_percentage2"
+                app:layout_constraintHorizontal_bias="0.95"
+                app:layout_constraintLeft_toRightOf="@id/goal_title_home"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.3" />
+
+            <TextView
+                android:id="@+id/goal_title_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:filterTouchesWhenObscured="false"
+                android:focusableInTouchMode="true"
+                android:fontFamily="@font/kumbh_sans_semibold"
+                android:text="Goal title"
+                android:textColor="#000000"
+                android:textColorLink="@color/black"
+                android:textSize="21sp"
+                app:layout_constraintBottom_toTopOf="@id/goal_duration_home"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                tools:ignore="TextViewEdits" /> <!-- Target duration x hours in x days -->
+
+            <TextView
+                android:id="@+id/goal_duration_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="6dp"
+                android:filterTouchesWhenObscured="false"
+                android:focusableInTouchMode="true"
+                android:fontFamily="@font/kumbh_sans"
+                android:text="Target: 0 hours | 0 days"
+                android:textColor="#CD000000"
+                android:textColorLink="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toTopOf="@id/goal_progress_bar2"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/goal_title_home"
+                app:layout_constraintVertical_bias="0.0"
+                tools:ignore="TextViewEdits" /> <!-- Goals summary description -->
+
+            <ProgressBar
+                android:id="@+id/goal_progress_bar2"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="55dp"
+                android:layout_marginBottom="16dp"
+                android:max="100"
+                android:progress="0"
+                android:progressDrawable="@drawable/progress_bar_style"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/goal_duration_home" /> <!-- Goal progress bar -->
+
+            <TextView
+                android:id="@+id/goal_progress_percentage2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="15dp"
+                android:filterTouchesWhenObscured="false"
+                android:focusableInTouchMode="true"
+                android:fontFamily="@font/kumbh_sans_semibold"
+                android:text="0%"
+                android:textColor="#CD000000"
+                android:textColorLink="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintLeft_toRightOf="@+id/goal_progress_bar2"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/goal_duration_home"
+                app:layout_constraintVertical_bias="0.5"
+                tools:ignore="TextViewEdits" /> <!-- Goal completion progressbar -->
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

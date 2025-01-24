@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f2f3f5"
+    app:circularflow_defaultRadius="10dp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView_goals_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="16dp"
+        android:paddingBottom="16dp"
+        app:cardCornerRadius="12dp"
+        app:cardBackgroundColor="@color/white"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0"> <!-- Earlier, no bias was set. Breaking the container view to some extent,  -->
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/goal_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:filterTouchesWhenObscured="false"
+                android:focusableInTouchMode="true"
+                android:fontFamily="@font/kumbh_sans_bold"
+                android:text="Goal title"
+                android:textColor="#000000"
+                android:textColorLink="@color/black"
+                android:textSize="25sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                tools:ignore="TextViewEdits" /> <!-- Target duration x hours in x days -->
+
+            <TextView
+                android:id="@+id/goal_duration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="6dp"
+                android:filterTouchesWhenObscured="false"
+                android:focusableInTouchMode="true"
+                android:fontFamily="@font/kumbh_sans"
+                android:text="Target: 0 hours | 0 days"
+                android:textColor="#CD000000"
+                android:textColorLink="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/goal_title"
+                app:layout_constraintVertical_bias="0.0"
+                tools:ignore="TextViewEdits" /> <!-- Goals summary description -->
+
+            <ProgressBar
+                android:id="@+id/goal_progress_bar"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:max="100"
+                android:progress="0"
+                android:progressDrawable="@drawable/progress_bar_style"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/goal_duration" /> <!-- Goal progress bar -->
+
+            <TextView
+                android:id="@+id/goal_progress_percentage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="18dp"
+                android:filterTouchesWhenObscured="false"
+                android:focusableInTouchMode="true"
+                android:fontFamily="@font/kumbh_sans_semibold"
+                android:text="0% completed"
+                android:textColor="#CD000000"
+                android:textColorLink="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/goal_progress_bar"
+                app:layout_constraintVertical_bias="0.25"
+                tools:ignore="TextViewEdits" /> <!-- Goal completion progressbar -->
+
+            <Button
+                android:id="@+id/delete_goal_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="18dp"
+                android:backgroundTint="#F44336"
+                android:fontFamily="@font/kumbh_sans_medium"
+                android:padding="10dp"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                android:text="Delete Goal"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                app:cornerRadius="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/goal_progress_bar"
+                app:layout_constraintVertical_bias="0" /> <!-- Delete goal button -->
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

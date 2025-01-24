@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Meditation Tracker</string>
+    <string name="record">Start</string>
+    <string name="stop_recording">Stop</string>
+    <string name="add_entry">Add manually</string>
+    <string name="navigation_drawer_open">Open Navigation Drawer</string>
+    <string name="navigation_drawer_close">Close Navigation Drawer</string>
+    <string name="menu_title">Menu</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_weekly">Weekly Summary</string>
+    <string name="menu_monthly">Monthly Overview</string>
+    <string name="menu_yearly">Yearly Analysis</string>
+    <string name="menu_custgoals">Custom Goals</string>">
+    <string name="menu_export">Export Data</string>
+    <string name="close_menu">Close menu</string>
+    <string name="blank_spaces">blank</string>
+    <string name="timer_card_title">Timer</string>
+    <string name="manual_card_title">Manual Entry</string>
+    <string name="week_summ_desc">Your meditation progress for the past week</string>
+    <string name="month_summ_desc">Your meditation progress for the past month</string>
+    <string name="year_summ_desc">Your meditation progress for the past year</string>
+    <string name="total_hours">Total hours: </string>
+    <string name="goals_title">Set a New Goal</string>
+    <string name="goals_desc">Create a new meditation goal</string>
+
+</resources>

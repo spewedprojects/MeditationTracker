@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="status_bar_color">#FFFFFF</color>  <!-- White -->
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="light_secondary">#B2DFDB</color>
+    <color name="light_secondaryVariant">#26A69A</color>
+    <color name="light_primary">#f2f2f2</color>
+    <color name="dark_primaryVariant">#1c1c1c</color>"
+    <color name="dark_secondary">#004D40</color>
+    <color name="dark_secondaryVariant">#00897B</color>
+    <color name="barChart_color">#26A69A</color>
+</resources>

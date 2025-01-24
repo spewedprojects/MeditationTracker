@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f2f3f5"
+    app:circularflow_defaultRadius="10dp"
+    tools:context=".GoalsActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar2"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </androidx.appcompat.widget.Toolbar> <!-- Toolbar for the sake adding title and the menubutton, no function -->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Menu button on toolbar next to title -->
+        <Button
+            android:id="@+id/menubutton"
+            android:layout_width="58dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:backgroundTint="#00FFFFFF"
+            android:text="@string/blank_spaces"
+            android:textColor="#00FFFFFF"
+            android:textColorHighlight="#00FFFFFF"
+            android:textColorHint="#00FFFFFF"
+            android:textColorLink="#00FFFFFF"
+            android:visibility="visible"
+            app:cornerRadius="8dp"
+            app:icon="@drawable/ic_hamburgermenu"
+            app:iconGravity="textStart"
+            app:iconPadding="4dp"
+            app:iconSize="24dp"
+            app:iconTint="#A4000000"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/toolbar_title"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Centered title on actionbar -->
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center_horizontal"
+            android:fontFamily="@font/kumbh_sans_bold"
+            android:foregroundGravity="center"
+            android:gravity="center"
+            android:text="@string/app_name"
+            android:textColor="@android:color/black"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout> <!-- Constrained layout for menubutton and Title -->
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView_goals"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:barrierMargin="16dp"
+        app:cardCornerRadius="12dp"
+        android:elevation="8dp"
+        app:cardBackgroundColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar2"
+        app:layout_constraintVertical_bias="0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/goals_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:filterTouchesWhenObscured="false"
+                    android:focusableInTouchMode="true"
+                    android:fontFamily="@font/kumbh_sans_bold"
+                    android:text="@string/goals_title"
+                    android:textColor="#000000"
+                    android:textColorLink="@color/black"
+                    android:textSize="26sp"
+                    app:layout_constraintBottom_toTopOf="@id/goals_desc"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="TextViewEdits" /> <!-- Set new goal - card title -->
+
+                <TextView
+                    android:id="@+id/goals_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="6dp"
+                    android:filterTouchesWhenObscured="false"
+                    android:focusableInTouchMode="true"
+                    android:fontFamily="@font/kumbh_sans"
+                    android:text="@string/goals_desc"
+                    android:textColor="#CD000000"
+                    android:textColorLink="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toTopOf="@id/goal_input_title"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/goals_title"
+                    tools:ignore="TextViewEdits" /> <!-- Goals card description -->
+
+                <TextView
+                    android:id="@+id/goal_input_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="18dp"
+                    android:filterTouchesWhenObscured="false"
+                    android:focusableInTouchMode="true"
+                    android:fontFamily="@font/kumbh_sans_semibold"
+                    android:text="Goal description"
+                    android:textColor="#000000"
+                    android:textColorLink="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toTopOf="@id/goal_input"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/goals_desc"
+                    tools:ignore="TextViewEdits" /> <!-- Set goal blank title -->
+
+                <EditText
+                    android:id="@+id/goal_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/kumbh_sans_semibold"
+                    android:hint="Meditate every day"
+                    android:inputType="text"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toTopOf="@id/target_input_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/goal_input_title" /> <!-- Set goal blank (input) -->
+
+                <TextView
+                    android:id="@+id/target_input_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="14dp"
+                    android:filterTouchesWhenObscured="false"
+                    android:focusableInTouchMode="true"
+                    android:fontFamily="@font/kumbh_sans_semibold"
+                    android:text="Target Hours"
+                    android:textColor="#000000"
+                    android:textColorLink="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toTopOf="@id/target_input"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/goal_input"
+                    tools:ignore="TextViewEdits" /> <!-- Target hours blank title-->
+
+                <EditText
+                    android:id="@+id/target_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="0dp"
+                    android:fontFamily="@font/kumbh_sans_semibold"
+                    android:textSize="18sp"
+                    android:hint="50"
+                    android:inputType="number"
+                    app:layout_constraintBottom_toTopOf="@id/start_date_input_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/target_input_title"
+                    app:layout_constraintHorizontal_bias="0"/> <!-- Target hours blank (input) -->
+
+                <TextView
+                    android:id="@+id/start_date_input_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="14dp"
+                    android:filterTouchesWhenObscured="false"
+                    android:focusableInTouchMode="true"
+                    android:fontFamily="@font/kumbh_sans_semibold"
+                    android:text="Start Date"
+                    android:textColor="#000000"
+                    android:textColorLink="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toTopOf="@id/start_date_input"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/target_input"
+                    tools:ignore="TextViewEdits" /> <!-- Start date input title-->
+
+                <EditText
+                    android:id="@+id/start_date_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="0dp"
+                    android:fontFamily="@font/kumbh_sans_semibold"
+                    android:textSize="18sp"
+                    android:inputType="number"
+                    android:focusable="false"
+                    android:clickable="true"
+                    app:layout_constraintBottom_toTopOf="@id/end_date_input_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/start_date_input_title"
+                    app:layout_constraintHorizontal_bias="0"/> <!-- Start date input -->
+
+                <TextView
+                    android:id="@+id/end_date_input_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="14dp"
+                    android:filterTouchesWhenObscured="false"
+                    android:focusableInTouchMode="true"
+                    android:fontFamily="@font/kumbh_sans_semibold"
+                    android:text="End Date"
+                    android:textColor="#000000"
+                    android:textColorLink="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toTopOf="@id/end_date_input"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/start_date_input"
+                    tools:ignore="TextViewEdits" /> <!-- End date input title-->
+
+                <EditText
+                    android:id="@+id/end_date_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="0dp"
+                    android:fontFamily="@font/kumbh_sans_semibold"
+                    android:textSize="18sp"
+                    android:inputType="number"
+                    android:focusable="false"
+                    android:clickable="true"
+                    app:layout_constraintBottom_toTopOf="@id/add_goal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/end_date_input_title"
+                    app:layout_constraintHorizontal_bias="0"/> <!-- End date input -->
+
+                <Button
+                    android:id="@+id/add_goal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginBottom="18dp"
+                    android:backgroundTint="#000000"
+                    android:fontFamily="@font/kumbh_sans_medium"
+                    android:padding="8dp"
+                    android:text="Add Goal"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    app:cornerRadius="10dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/end_date_input"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintVertical_bias="0" /> <!-- Add goal button -->
+
+        </androidx.constraintlayout.widget.ConstraintLayout> <!-- items constrained to cardview -->
+
+
+    </androidx.cardview.widget.CardView> <!-- Set new goal card -->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/goals_recycler_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scrollbars="vertical"
+        android:padding="0dp"
+        android:clipToPadding="false"
+        android:paddingBottom="16dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/cardView_goals"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintVertical_bias="0"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
