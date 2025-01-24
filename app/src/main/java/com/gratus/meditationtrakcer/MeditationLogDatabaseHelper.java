@@ -105,7 +105,7 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
 
         try {
             // Query the database
-            String query = "SELECT SUM(total_seconds) FROM logs WHERE datetime(date) BETWEEN datetime(?) AND datetime(?)";
+            String query = "SELECT SUM(total_seconds) FROM logs WHERE strftime('%d/%m/%Y %H:%M:%S', date) >= ? AND strftime('%d/%m/%Y %H:%M:%S', date) < ?";
             Cursor cursor = db.rawQuery(query, new String[]{startDateTime, endDateTime});
 
             if (cursor != null && cursor.moveToFirst()) {
@@ -127,7 +127,28 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
         return totalHours;
     }
 
+    public int getTotalSecondsForRange(String startDateTime, String endDateTime) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        int totalSeconds = 0;
 
+        try {
+            String query = "SELECT SUM(total_seconds) FROM logs WHERE strftime('%d/%m/%Y %H:%M:%S', date) >= ? AND strftime('%d/%m/%Y %H:%M:%S', date) <= ?"; // datetime(date) BETWEEN datetime(?) AND datetime(?)" <- this doesn't work.
+            Cursor cursor = db.rawQuery(query, new String[]{startDateTime, endDateTime});
+
+            if (cursor != null && cursor.moveToFirst()) {
+                totalSeconds = cursor.getInt(0);
+            }
+
+            if (cursor != null) cursor.close();
+        } catch (Exception e) {
+            Log.e("MeditationLogHelper", "Error in getTotalSecondsForRange: " + e.getMessage());
+        } finally {
+            db.close();
+        }
+
+        Log.d("MeditationLogHelper", "Total Seconds for range " + startDateTime + " to " + endDateTime + ": " + totalSeconds);
+        return totalSeconds;
+    }
 
     // ✅ Update daily log
     public void updateDailyLog(int additionalSeconds) {
@@ -164,7 +185,6 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return totalSeconds;
     }
-
 
     // Methods to get weekly, monthly, and yearly data
 
@@ -270,7 +290,7 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.rawQuery(
-                "SELECT SUM(total_seconds)/3600.0 FROM logs WHERE strftime('%Y-%m-%d', date) >= ? AND strftime('%Y-%m-%d', date) < ?",
+                "SELECT SUM(total_seconds)/3600.0 FROM logs WHERE strftime('%d/%m/%Y', date) >= ? AND strftime('%d/%m/%Y', date) < ?",
                 new String[]{startDate, endDate});
 
         if (cursor.moveToFirst()) {
@@ -386,6 +406,5 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
         }
         return true;
     }
-
 
 }

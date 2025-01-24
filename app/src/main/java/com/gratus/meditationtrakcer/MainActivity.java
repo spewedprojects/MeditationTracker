@@ -111,6 +111,8 @@ public class MainActivity extends AppCompatActivity {
         //Intent intent = new Intent(this, GoalsActivity.class);
         //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         //startActivity(intent);
+        // 🟢 Refresh Goal Card
+        displayShortestAndLatestGoal(); // Refresh the goal card
     }
 
     // Timer logic
@@ -176,6 +178,9 @@ public class MainActivity extends AppCompatActivity {
         manualHours.clearFocus();
         manualMinutes.clearFocus();
         manualSeconds.clearFocus();
+
+        // 🟢 Refresh Goal Card
+        displayShortestAndLatestGoal(); // Refresh the goal card
     }
 
     // Parse input from EditText
@@ -256,5 +261,14 @@ public class MainActivity extends AppCompatActivity {
     private void openMenu() {
         Intent intent = new Intent(MainActivity.this, MenuActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateDateDisplay();  // Refresh date display when returning ot main screen.
+        updateTodayTotal(); // Refresh today's total when returning to main screen.
+        updateTimerDisplay(); // Refresh timer display when returning to main screen.
+        displayShortestAndLatestGoal(); // Refresh shortest and latest goal when returning to main screen.
     }
 }

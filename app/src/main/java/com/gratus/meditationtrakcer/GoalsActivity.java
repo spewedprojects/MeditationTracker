@@ -167,6 +167,35 @@ public class GoalsActivity extends BaseActivity {
         }
     }
 
+//    private void loadGoals() {
+//        List<Goal> goals = new ArrayList<>();
+//        SQLiteDatabase db = dbHelper.getReadableDatabase();
+//        Cursor cursor = db.rawQuery("SELECT * FROM " + GoalsDatabaseHelper.TABLE_GOALS, null);
+//
+//        while (cursor.moveToNext()) {
+//            String description = cursor.getString(cursor.getColumnIndex("description"));
+//            int targetHours = cursor.getInt(cursor.getColumnIndex("target_hours"));
+//            String startDateTime = cursor.getString(cursor.getColumnIndex("start_date"));
+//            String endDateTime = cursor.getString(cursor.getColumnIndex("end_date"));
+//            int goalId = cursor.getInt(cursor.getColumnIndex(GoalsDatabaseHelper.COLUMN_ID));
+//
+//            // Calculate progress dynamically
+//            double loggedHours = meditationLogDatabaseHelper.getLoggedHours(startDateTime, endDateTime);
+//            int progressPercent = (int) ((loggedHours / targetHours) * 100);
+//            if (progressPercent > 100) progressPercent = 100;
+//
+//            // Format dates
+//            String formattedStartDate = formatDate(startDateTime);
+//            String formattedEndDate = formatDate(endDateTime);
+//
+//            // Add goal to the list
+//            goals.add(new Goal(goalId, description, targetHours, loggedHours, formattedStartDate, formattedEndDate, progressPercent));
+//        }
+//        cursor.close();
+//
+//        goalsAdapter.updateGoals(goals); // Refresh RecyclerView
+//    }
+
     private void loadGoals() {
         List<Goal> goals = new ArrayList<>();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -179,8 +208,11 @@ public class GoalsActivity extends BaseActivity {
             String endDateTime = cursor.getString(cursor.getColumnIndex("end_date"));
             int goalId = cursor.getInt(cursor.getColumnIndex(GoalsDatabaseHelper.COLUMN_ID));
 
-            // Calculate progress dynamically
-            double loggedHours = meditationLogDatabaseHelper.getLoggedHours(startDateTime, endDateTime);
+            // Retrieve total seconds for the goal's date range
+            int totalSeconds = meditationLogDatabaseHelper.getTotalSecondsForRange(startDateTime, endDateTime);
+            double loggedHours = totalSeconds / 3600.0; // Convert to hours
+
+            // Calculate progress
             int progressPercent = (int) ((loggedHours / targetHours) * 100);
             if (progressPercent > 100) progressPercent = 100;
 
@@ -188,58 +220,12 @@ public class GoalsActivity extends BaseActivity {
             String formattedStartDate = formatDate(startDateTime);
             String formattedEndDate = formatDate(endDateTime);
 
-            // Add goal to the list
             goals.add(new Goal(goalId, description, targetHours, loggedHours, formattedStartDate, formattedEndDate, progressPercent));
         }
         cursor.close();
 
         goalsAdapter.updateGoals(goals); // Refresh RecyclerView
     }
-
-//    private void loadGoals() {
-//        List<Goal> goals = new ArrayList<>();
-//        SQLiteDatabase db = dbHelper.getReadableDatabase();
-//        Cursor cursor = db.rawQuery("SELECT * FROM " + GoalsDatabaseHelper.TABLE_GOALS, null);
-//
-//        // Prepare batch query parameters
-//        List<String> startDates = new ArrayList<>();
-//        List<String> endDates = new ArrayList<>();
-//
-//        while (cursor.moveToNext()) {
-//            String description = cursor.getString(cursor.getColumnIndex("description"));
-//            int targetHours = cursor.getInt(cursor.getColumnIndex("target_hours"));
-//            String startDateTime = cursor.getString(cursor.getColumnIndex("start_date"));
-//            String endDateTime = cursor.getString(cursor.getColumnIndex("end_date"));
-//            int goalId = cursor.getInt(cursor.getColumnIndex(GoalsDatabaseHelper.COLUMN_ID));
-//
-//            // Add to batch query parameters
-//            startDates.add(startDateTime);
-//            endDates.add(endDateTime);
-//
-//            goals.add(new Goal(goalId, description, targetHours, 0, startDateTime, endDateTime, 0));
-//        }
-//        cursor.close();
-//
-//        // Batch query to fetch logged hours for all goals
-//        new Thread(() -> {
-//            for (int i = 0; i < goals.size(); i++) {
-//                String startDate = startDates.get(i);
-//                String endDate = endDates.get(i);
-//                double loggedHours = meditationLogDatabaseHelper.getLoggedHours(startDate, endDate);
-//
-//                Goal goal = goals.get(i);
-//                goal.setLoggedHours(loggedHours);
-//
-//                int progressPercent = (int) ((loggedHours / goal.getTargetHours()) * 100);
-//                if (progressPercent > 100) progressPercent = 100;
-//
-//                goal.setProgressPercent(progressPercent); // Use setProgressPercent here
-//            }
-//
-//            // Update UI on the main thread
-//            runOnUiThread(() -> goalsAdapter.updateGoals(goals));
-//        }).start();
-//    }
 
 
     private void showDatePickerDialog(EditText dateInput) {
