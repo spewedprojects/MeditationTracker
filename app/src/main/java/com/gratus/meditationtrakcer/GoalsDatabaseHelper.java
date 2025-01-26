@@ -19,7 +19,7 @@ import java.util.Locale;
 public class GoalsDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "goals.db";
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 5;
 
     public static final String TABLE_GOALS = "goals";
     public static final String COLUMN_ID = "_id";
@@ -49,25 +49,27 @@ public class GoalsDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if (oldVersion < 4) { // Increment DATABASE_VERSION to 4
+        if (oldVersion < 4) {
             // Step 1: Create a new table with the updated schema
             db.execSQL("CREATE TABLE goals_new (" +
                     "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     "description TEXT, " +
                     "target_hours INTEGER, " +
                     "progress_hours INTEGER DEFAULT 0, " +
-                    "start_date TEXT, " + // New timestamp column
-                    "end_date TEXT);");    // New timestamp column
+                    "start_date TEXT, " +
+                    "end_date TEXT);");
 
-            // Step 2: Copy data from the old table to the new table, adding '00:00:00' to the dates
+            // Step 2: Copy data from the old table, converting dates to yyyy-MM-dd HH:mm:ss
             db.execSQL("INSERT INTO goals_new (description, target_hours, progress_hours, start_date, end_date) " +
                     "SELECT description, target_hours, progress_hours, " +
-                    "start_date || ' 00:00:00', end_date || ' 00:00:00' FROM " + TABLE_GOALS);
+                    "substr(start_date, 7, 4) || '-' || substr(start_date, 4, 2) || '-' || substr(start_date, 1, 2) || ' 00:00:00', " + // Convert dd/MM/yyyy to yyyy-MM-dd
+                    "substr(end_date, 7, 4) || '-' || substr(end_date, 4, 2) || '-' || substr(end_date, 1, 2) || ' 00:00:00' " + // Convert dd/MM/yyyy to yyyy-MM-dd
+                    "FROM " + TABLE_GOALS);
 
             // Step 3: Drop the old table
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_GOALS);
 
-            // Step 4: Rename the new table to the original name
+            // Step 4: Rename the new table
             db.execSQL("ALTER TABLE goals_new RENAME TO " + TABLE_GOALS);
         }
     }

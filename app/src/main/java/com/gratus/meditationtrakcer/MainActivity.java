@@ -193,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
     private String formatDate(String dateTime) {
         try {
             // Parse the original date format
-            SimpleDateFormat originalFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.getDefault());
+            SimpleDateFormat originalFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
             Date date = originalFormat.parse(dateTime);
 
             // Format to "MMM dd"
@@ -213,11 +213,7 @@ public class MainActivity extends AppCompatActivity {
         Cursor cursor = db.rawQuery(
                 "SELECT * FROM " + GoalsDatabaseHelper.TABLE_GOALS +
                         " WHERE " + GoalsDatabaseHelper.COLUMN_PROGRESS_HOURS + " < " + GoalsDatabaseHelper.COLUMN_TARGET_HOURS +
-                        " AND (" + GoalsDatabaseHelper.COLUMN_END_DATE + " IS NULL OR " +
-                        "substr(" + GoalsDatabaseHelper.COLUMN_END_DATE + ", 7, 4) || '-' || " + // Extract year (yyyy)
-                        "substr(" + GoalsDatabaseHelper.COLUMN_END_DATE + ", 4, 2) || '-' || " + // Extract month (MM)
-                        "substr(" + GoalsDatabaseHelper.COLUMN_END_DATE + ", 1, 2) || ' ' || " + // Extract day (dd) and add space
-                        "substr(" + GoalsDatabaseHelper.COLUMN_END_DATE + ", 12) >= datetime('now'))" + // Extract time (HH:mm:ss)
+                        " AND (" + GoalsDatabaseHelper.COLUMN_END_DATE + " IS NULL OR date(" + GoalsDatabaseHelper.COLUMN_END_DATE + ") >= date('now'))" +
                         " ORDER BY " + GoalsDatabaseHelper.COLUMN_TARGET_HOURS + " ASC, " + GoalsDatabaseHelper.COLUMN_START_DATE + " DESC LIMIT 1",
                 null
         );

@@ -99,7 +99,7 @@ public class GoalsActivity extends BaseActivity {
             try {
                 // Parse input date and append a timestamp
                 SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-                SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.getDefault());
+                SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 
                 Date parsedStartDate = inputFormat.parse(startDate);
                 Date parsedEndDate = inputFormat.parse(endDate);
@@ -155,7 +155,7 @@ public class GoalsActivity extends BaseActivity {
     private String formatDate(String dateTime) {
         try {
             // Parse the original date format
-            SimpleDateFormat originalFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.getDefault());
+            SimpleDateFormat originalFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
             Date date = originalFormat.parse(dateTime);
 
             // Format to "MMM dd"

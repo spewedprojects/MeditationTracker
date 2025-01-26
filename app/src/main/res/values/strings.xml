@@ -22,5 +22,6 @@
     <string name="total_hours">Total hours: </string>
     <string name="goals_title">Set a New Goal</string>
     <string name="goals_desc">Create a new meditation goal</string>
+    <string name="current_version_details">Current version: 1.12 \n\nChanged the date format saved in goals.db to yyyy-mm-dd. Matches SQL\'s default date format.</string>
 
 </resources>

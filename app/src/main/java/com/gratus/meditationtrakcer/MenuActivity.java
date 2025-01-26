@@ -48,6 +48,8 @@ public class MenuActivity extends AppCompatActivity {
         findViewById(R.id.menu_yearly).setOnClickListener(v -> navigateTo(YearlyActivity.class));
         findViewById(R.id.menu_goals).setOnClickListener(v -> navigateTo(GoalsActivity.class));
         findViewById(R.id.menu_about).setOnClickListener(v -> navigateTo(AboutActivity.class));
+        findViewById(R.id.menu_releasenotes).setOnClickListener(v -> navigateTo(ReleaseNotesActivity.class));
+        findViewById(R.id.close_menu).setOnClickListener(v -> finish());
 
         // Export and import buttons
         findViewById(R.id.menu_exportButton).setOnClickListener(v -> exportData());
@@ -227,6 +229,5 @@ public class MenuActivity extends AppCompatActivity {
         }
         return null;
     }
-
 
 }

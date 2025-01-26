@@ -154,6 +154,23 @@
                 app:layout_constraintVertical_bias="0" /> <!-- About app button -->
 
             <Button
+                android:id="@+id/menu_releasenotes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:backgroundTint="@android:color/transparent"
+                android:fontFamily="@font/kumbh_sans_medium"
+                android:text="Release notes"
+                android:textColor="#A7000000"
+                android:textSize="17sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/menu_about"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintVertical_bias="0" /> <!-- About app button -->
+
+            <Button
                 android:id="@+id/menu_exportButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -174,7 +191,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/menu_importButton"
-                app:layout_constraintTop_toBottomOf="@id/menu_about"
+                app:layout_constraintTop_toBottomOf="@id/menu_releasenotes"
                 app:layout_constraintVertical_bias="0" /> <!-- Export Button -->
 
             <Button
@@ -198,7 +215,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toRightOf="@id/menu_exportButton"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/menu_about"
+                app:layout_constraintTop_toBottomOf="@id/menu_releasenotes"
                 app:layout_constraintVertical_bias="0" /> <!-- Import Button -->
 
 

@@ -97,6 +97,22 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
 //        return totalHours;
 //    }
 
+    // ✅ Update daily log
+    public void updateDailyLog(int additionalSeconds) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String now = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
+
+        db.execSQL("INSERT OR IGNORE INTO " + TABLE_LOGS +
+                        " (" + COLUMN_DATE + ", " + COLUMN_TOTAL_SECONDS + ") VALUES (?, 0)",
+                new String[]{now});
+
+        db.execSQL("UPDATE " + TABLE_LOGS +
+                " SET " + COLUMN_TOTAL_SECONDS + " = " + COLUMN_TOTAL_SECONDS + " + ?" +
+                " WHERE " + COLUMN_DATE + " = ?", new String[]{String.valueOf(additionalSeconds), now});
+
+        db.close();
+    }
+
     // Used in Main activity for goal item
     public double getLoggedHours(String startDateTime, String endDateTime) {
         Log.d("MeditationLogHelper", "getLoggedHours called with Start: " + startDateTime + ", End: " + endDateTime);
@@ -106,7 +122,7 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
 
         try {
             // Query the database
-            String query = "SELECT SUM(total_seconds) FROM logs WHERE strftime('%d/%m/%Y %H:%M:%S', date) >= ? AND strftime('%d/%m/%Y %H:%M:%S', date) <= ?";
+            String query = "SELECT SUM(total_seconds) FROM logs WHERE strftime('%Y-%m-%d %H:%M:%S', date) >= ? AND strftime('%Y-%m-%d %H:%M:%S', date) <= ?";
             Cursor cursor = db.rawQuery(query, new String[]{startDateTime, endDateTime});
 
             if (cursor != null && cursor.moveToFirst()) {
@@ -134,7 +150,7 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
         int totalSeconds = 0;
 
         try {
-            String query = "SELECT SUM(total_seconds) FROM logs WHERE strftime('%d/%m/%Y %H:%M:%S', date) >= ? AND strftime('%d/%m/%Y %H:%M:%S', date) <= ?"; // datetime(date) BETWEEN datetime(?) AND datetime(?)" <- this doesn't work.
+            String query = "SELECT SUM(total_seconds) FROM logs WHERE strftime('%Y-%m-%d %H:%M:%S', date) >= ? AND strftime('%Y-%m-%d %H:%M:%S', date) <= ?"; // datetime(date) BETWEEN datetime(?) AND datetime(?)" <- this doesn't work.
             Cursor cursor = db.rawQuery(query, new String[]{startDateTime, endDateTime});
 
             if (cursor != null && cursor.moveToFirst()) {
@@ -150,22 +166,6 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
 
         Log.d("MeditationLogHelper", "Total Seconds for range " + startDateTime + " to " + endDateTime + ": " + totalSeconds);
         return totalSeconds;
-    }
-
-    // ✅ Update daily log
-    public void updateDailyLog(int additionalSeconds) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        String now = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
-
-        db.execSQL("INSERT OR IGNORE INTO " + TABLE_LOGS +
-                        " (" + COLUMN_DATE + ", " + COLUMN_TOTAL_SECONDS + ") VALUES (?, 0)",
-                new String[]{now});
-
-        db.execSQL("UPDATE " + TABLE_LOGS +
-                " SET " + COLUMN_TOTAL_SECONDS + " = " + COLUMN_TOTAL_SECONDS + " + ?" +
-                " WHERE " + COLUMN_DATE + " = ?", new String[]{String.valueOf(additionalSeconds), now});
-
-        db.close();
     }
 
     // ✅ Get today's logged time
