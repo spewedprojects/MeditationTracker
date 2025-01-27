@@ -1,6 +1,9 @@
 package com.gratus.meditationtrakcer;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -14,6 +17,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -23,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView dateDisplay, timerDisplay, todayTotalDisplay;
     private Button recordButton, addEntryButton, moreMenuButton;
     private EditText manualHours, manualMinutes, manualSeconds;
-
     private boolean isTimerRunning = false;
     private int secondsElapsed = 0;
     private int totalSecondsLogged = 0;
@@ -76,6 +80,16 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private BroadcastReceiver timerUpdateReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals("TIMER_UPDATED")) {
+                secondsElapsed = intent.getIntExtra("secondsElapsed", 0); // Get the elapsed time
+                updateTimerDisplay(); // Update the timer display
+            }
+        }
+    };
+
     // Update date in date_display
     private void updateDateDisplay() {
         String currentDate = new SimpleDateFormat("EEEE, MMMM d, yyyy", Locale.getDefault()).format(new Date());
@@ -84,17 +98,22 @@ public class MainActivity extends AppCompatActivity {
 
     // Start the timer
     private void startTimer() {
+        Intent serviceIntent = new Intent(this, TimerService.class);
+        startService(serviceIntent);
         isTimerRunning = true;
         recordButton.setText("Stop");
-        handler.postDelayed(timerRunnable, 1000);
     }
 
     // Stop the timer and reset the timer display
     private void stopTimer() {
+        Intent serviceIntent = new Intent(this, TimerService.class);
+        serviceIntent.setAction("STOP_TIMER");
+        startService(serviceIntent);
         isTimerRunning = false;
         recordButton.setText("Start");
-        handler.removeCallbacks(timerRunnable);
-        totalSecondsLogged += secondsElapsed; // Add timer session to total
+
+        // Update total and databases
+        totalSecondsLogged += secondsElapsed;
 
         // ✅ Update Meditation Log
         MeditationLogDatabaseHelper logDbHelper = new MeditationLogDatabaseHelper(this);
@@ -107,12 +126,6 @@ public class MainActivity extends AppCompatActivity {
         updateTodayTotal();
         secondsElapsed = 0; // Reset timer
         updateTimerDisplay();
-
-        // 🟢 Refresh Goals Progress
-        //Intent intent = new Intent(this, GoalsActivity.class);
-        //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        //startActivity(intent);
-        // 🟢 Refresh Goal Card
         displayShortestAndLatestGoal(); // Refresh the goal card
     }
 
@@ -258,7 +271,6 @@ public class MainActivity extends AppCompatActivity {
         db.close();
     }
 
-
     // Open MenuActivity without animation
     private void openMenu() {
         Intent intent = new Intent(MainActivity.this, MenuActivity.class);
@@ -267,10 +279,16 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        super.onResume();
+        super.onResume();LocalBroadcastManager.getInstance(this).registerReceiver(timerUpdateReceiver, new IntentFilter("TIMER_UPDATED"));
         updateDateDisplay();  // Refresh date display when returning ot main screen.
         updateTodayTotal(); // Refresh today's total when returning to main screen.
         updateTimerDisplay(); // Refresh timer display when returning to main screen.
         displayShortestAndLatestGoal(); // Refresh shortest and latest goal when returning to main screen.
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(timerUpdateReceiver);
     }
 }

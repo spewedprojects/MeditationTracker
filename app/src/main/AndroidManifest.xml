@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC"/>
 
     <application
         android:allowBackup="true"
@@ -87,6 +89,9 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity> <!-- About activity -->
+
+        <service android:name=".TimerService" android:foregroundServiceType="dataSync" />
+
 
     </application>
 
