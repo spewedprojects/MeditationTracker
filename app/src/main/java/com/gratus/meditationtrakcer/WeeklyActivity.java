@@ -65,8 +65,8 @@ public class WeeklyActivity extends BaseActivity {
         // Update chart and total hours
         BarDataSet weeklyDataSet = new BarDataSet(weeklyEntries, "Weekly Progress");
         weeklyDataSet.setColor(Color.parseColor("#9CCC65")); // Same color as in onCreate
-        weeklyDataSet.setValueTextColor(Color.BLACK);
-        weeklyDataSet.setValueTextSize(12f); // Same text size as in onCreate
+        weeklyDataSet.setValueTextColor(Color.parseColor("#969696"));
+        weeklyDataSet.setValueTextSize(14f); // Same text size as in onCreate
 
         BarData weeklyData = new BarData(weeklyDataSet);
         weeklyData.setBarWidth(0.8f); // Same bar width as in onCreate
@@ -80,6 +80,8 @@ public class WeeklyActivity extends BaseActivity {
 
         XAxis xAxis = weeklyBarChart.getXAxis();
         xAxis.setValueFormatter(new IndexAxisValueFormatter(weekLabels));
+        xAxis.setTextColor(Color.parseColor("#969696"));
+        xAxis.setTextSize(13f); // Same text size as in WeeklyActivity
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
         xAxis.setGranularity(1f); // Same granularity as in onCreate
@@ -87,6 +89,8 @@ public class WeeklyActivity extends BaseActivity {
         // Configure Y-Axis
         YAxis leftAxis = weeklyBarChart.getAxisLeft();
         leftAxis.setDrawGridLines(false);
+        leftAxis.setTextColor(Color.parseColor("#969696"));
+        leftAxis.setTextSize(13f);
         leftAxis.setAxisMinimum(0f); // Same axis minimum as in onCreate
         weeklyBarChart.getAxisRight().setEnabled(false);
 

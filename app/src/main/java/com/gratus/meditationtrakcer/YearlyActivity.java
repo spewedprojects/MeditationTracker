@@ -62,7 +62,7 @@ public class YearlyActivity extends BaseActivity {
         // Update chart and total hours
         BarDataSet yearlyDataSet = new BarDataSet(yearlyEntries, "Yearly Progress");
         yearlyDataSet.setColor(Color.parseColor("#26A69A")); // Consistent color
-        yearlyDataSet.setValueTextColor(Color.BLACK);
+        yearlyDataSet.setValueTextColor(Color.parseColor("#969696"));
         yearlyDataSet.setValueTextSize(12f); // Consistent text size
 
         BarData yearlyData = new BarData(yearlyDataSet);
@@ -78,6 +78,8 @@ public class YearlyActivity extends BaseActivity {
 
         XAxis xAxis = yearlyBarChart.getXAxis();
         xAxis.setValueFormatter(new IndexAxisValueFormatter(yearLabels));
+        xAxis.setTextColor(Color.parseColor("#969696"));
+        xAxis.setTextSize(13f); // Same text size as in WeeklyActivity
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
         xAxis.setGranularity(1f); // Same granularity
@@ -85,6 +87,8 @@ public class YearlyActivity extends BaseActivity {
         // Configure Y-Axis
         YAxis leftAxis = yearlyBarChart.getAxisLeft();
         leftAxis.setDrawGridLines(false);
+        leftAxis.setTextColor(Color.parseColor("#969696"));
+        leftAxis.setTextSize(13f);
         leftAxis.setAxisMinimum(0f); // Same axis minimum
         yearlyBarChart.getAxisRight().setEnabled(false);
 

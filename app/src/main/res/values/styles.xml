@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Group Shape (Outer Corners Rounded) -->
+    <style name="ExportImportGroupShape" parent="ShapeAppearance.Material3.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">10dp</item>
+    </style>
+
+    <!-- Button Style (Shared Properties) -->
+    <style name="ExportImportButtonStyle" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
+        <item name="android:fontFamily">@font/kumbh_sans_medium</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:icon">@drawable/export_button_bg</item>
+        <item name="iconSize">26dp</item>
+        <item name="iconTint">?attr/colorPrimary</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="backgroundTint">?attr/colorOnPrimary</item> <!-- Transparent background -->
+        <item name="background">?attr/colorOnPrimary</item>
+        <item name="strokeWidth">0dp</item> <!-- Remove border -->
+    </style>
+
+    <!-- Export Button Corners (Left Rounded, Right Square) -->
+    <style name="ExportButtonCorners">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">10dp</item>
+        <item name="cornerSizeBottomLeft">10dp</item>
+        <item name="cornerSizeTopRight">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+    </style>
+
+    <!-- Import Button Corners (Right Rounded, Left Square) -->
+    <style name="ImportButtonCorners">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">10dp</item>
+        <item name="cornerSizeBottomRight">10dp</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+</resources>

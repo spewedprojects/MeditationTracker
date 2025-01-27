@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
     // Stop the timer and reset the timer display
     private void stopTimer() {
         isTimerRunning = false;
-        recordButton.setText("Record");
+        recordButton.setText("Start");
         handler.removeCallbacks(timerRunnable);
         totalSecondsLogged += secondsElapsed; // Add timer session to total
 

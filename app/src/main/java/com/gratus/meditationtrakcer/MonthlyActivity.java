@@ -63,8 +63,8 @@ public class MonthlyActivity extends BaseActivity {
         // Update chart and total hours
         BarDataSet monthlyDataSet = new BarDataSet(monthlyEntries, "Monthly Progress");
         monthlyDataSet.setColor(Color.parseColor("#66BB6A")); // Same color as in WeeklyActivity
-        monthlyDataSet.setValueTextColor(Color.BLACK);
-        monthlyDataSet.setValueTextSize(12f); // Same text size as in WeeklyActivity
+        monthlyDataSet.setValueTextColor(Color.parseColor("#969696"));
+        monthlyDataSet.setValueTextSize(14f); // Same text size as in WeeklyActivity
 
         BarData monthlyData = new BarData(monthlyDataSet);
         monthlyData.setBarWidth(0.8f); // Same bar width as in WeeklyActivity
@@ -79,6 +79,8 @@ public class MonthlyActivity extends BaseActivity {
         XAxis xAxis = monthlyBarChart.getXAxis();
         xAxis.setValueFormatter(new IndexAxisValueFormatter(monthLabels));
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setTextColor(Color.parseColor("#969696"));
+        xAxis.setTextSize(13f); // Same text size as in WeeklyActivity
         xAxis.setDrawGridLines(false);
         xAxis.setGranularity(1f); // Same granularity as in WeeklyActivity
 
@@ -86,6 +88,8 @@ public class MonthlyActivity extends BaseActivity {
         YAxis leftAxis = monthlyBarChart.getAxisLeft();
         leftAxis.setDrawGridLines(false);
         leftAxis.setAxisMinimum(0f); // Same axis minimum as in WeeklyActivity
+        leftAxis.setTextColor(Color.parseColor("#969696"));
+        leftAxis.setTextSize(13f);
         monthlyBarChart.getAxisRight().setEnabled(false);
 
         // Removed Description Label

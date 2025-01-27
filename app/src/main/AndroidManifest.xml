@@ -12,7 +12,7 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/mtapp_icon2"
         android:supportsRtl="true"
-        android:theme="@style/Base.Theme.MeditationTracker"
+        android:theme="@style/Theme.MeditationsLogs"
         tools:targetApi="31">
 
         <activity

@@ -1,12 +1,20 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <item name="colorPrimary" type="color">@android:color/white</item>
-    <item name="colorPrimaryVariant" type="color">@android:color/white</item>
-    <item name="colorAccent" type="color">@android:color/black</item>
     <!-- Base application theme. -->
-    <style name="Base.Theme.MeditationTracker" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    <style name="Theme.MeditationsLogs" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/light_primary</item>
+        <item name="colorSurface">@color/light_primaryVariant</item>
+        <item name="colorPrimaryVariant">@color/light_primary</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorAccent">@color/light_onPrimary2</item>
+        <item name="colorButtonNormal">@color/light_switchbutton</item>
+        <item name="colorBackgroundFloating">@color/light_deletebutton</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/light_secondary</item>
+        <item name="colorSecondaryVariant">@color/light_secondaryVariant</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
     </style>
-
-    <style name="Theme.MeditationTracker" parent="Base.Theme.MeditationTracker" />
 </resources>

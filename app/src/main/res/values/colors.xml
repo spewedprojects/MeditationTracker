@@ -10,9 +10,17 @@
     <color name="teal_700">#FF018786</color>
     <color name="light_secondary">#B2DFDB</color>
     <color name="light_secondaryVariant">#26A69A</color>
-    <color name="light_primary">#f2f2f2</color>
-    <color name="dark_primaryVariant">#1c1c1c</color>"
+    <color name="light_primary">#FFFFFF</color>
+    <color name="light_primaryVariant">#f2f2f2</color>
+    <color name="light_switchbutton">#ECECEC</color>
+    <color name="light_deletebutton">#EF5350</color>
+    <color name="dark_deletebutton">#C62828</color>
+    <color name="dark_primary">#222121</color>
+    <color name="dark_primaryVariant">#131313</color>
+    <color name="light_onPrimary2">#A5000000</color>
+    <color name="dark_onPrimary2">#99FFFFFF</color>
     <color name="dark_secondary">#004D40</color>
     <color name="dark_secondaryVariant">#00897B</color>
+    <color name="dark_switchbutton">#4F4F4F</color>
     <color name="barChart_color">#26A69A</color>
 </resources>
