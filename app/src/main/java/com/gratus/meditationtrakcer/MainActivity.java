@@ -98,35 +98,44 @@ public class MainActivity extends AppCompatActivity {
 
     // Start the timer
     private void startTimer() {
-        Intent serviceIntent = new Intent(this, TimerService.class);
-        startService(serviceIntent);
-        isTimerRunning = true;
-        recordButton.setText("Stop");
+        if (!TimerService.isTimerRunning) {
+            Intent serviceIntent = new Intent(this, TimerService.class);
+            startService(serviceIntent);
+            isTimerRunning = true;
+            recordButton.setText("Stop");
+        } else {
+            Log.d("MainActivity", "Timer is already running. Ignoring start request.");
+        }
     }
+
 
     // Stop the timer and reset the timer display
     private void stopTimer() {
-        Intent serviceIntent = new Intent(this, TimerService.class);
-        serviceIntent.setAction("STOP_TIMER");
-        startService(serviceIntent);
-        isTimerRunning = false;
-        recordButton.setText("Start");
+        if (TimerService.isTimerRunning) {
+            Intent serviceIntent = new Intent(this, TimerService.class);
+            serviceIntent.setAction("STOP_TIMER");
+            startService(serviceIntent);
+            isTimerRunning = false;
+            recordButton.setText("Start");
 
-        // Update total and databases
-        totalSecondsLogged += secondsElapsed;
+            // Add elapsed time to today's total
+            totalSecondsLogged += secondsElapsed;
 
-        // ✅ Update Meditation Log
-        MeditationLogDatabaseHelper logDbHelper = new MeditationLogDatabaseHelper(this);
-        logDbHelper.updateDailyLog(secondsElapsed);
+            // Update the database
+            MeditationLogDatabaseHelper logDbHelper = new MeditationLogDatabaseHelper(this);
+            logDbHelper.updateDailyLog(secondsElapsed);
 
-        // ✅ Update Goals Progress
-        GoalsDatabaseHelper goalsDbHelper = new GoalsDatabaseHelper(this);
-        goalsDbHelper.updateGoalsProgress(secondsElapsed);
+            GoalsDatabaseHelper goalsDbHelper = new GoalsDatabaseHelper(this);
+            goalsDbHelper.updateGoalsProgress(secondsElapsed);
 
-        updateTodayTotal();
-        secondsElapsed = 0; // Reset timer
-        updateTimerDisplay();
-        displayShortestAndLatestGoal(); // Refresh the goal card
+            // Refresh UI
+            updateTodayTotal();
+            secondsElapsed = 0; // Reset elapsed time
+            updateTimerDisplay();
+            displayShortestAndLatestGoal(); // Refresh goal card
+        } else {
+            Log.d("MainActivity", "Timer is not running. Ignoring stop request.");
+        }
     }
 
     // Timer logic
@@ -279,7 +288,19 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        super.onResume();LocalBroadcastManager.getInstance(this).registerReceiver(timerUpdateReceiver, new IntentFilter("TIMER_UPDATED"));
+        super.onResume();
+
+        // Sync the timer state with TimerService
+        isTimerRunning = TimerService.isTimerRunning;
+
+        if (isTimerRunning) {
+            recordButton.setText("Stop"); // Update button to "Stop"
+        } else {
+            recordButton.setText("Start"); // Update button to "Start"
+        }
+
+        // Register the broadcast receiver for timer updates
+        LocalBroadcastManager.getInstance(this).registerReceiver(timerUpdateReceiver, new IntentFilter("TIMER_UPDATED"));
         updateDateDisplay();  // Refresh date display when returning ot main screen.
         updateTodayTotal(); // Refresh today's total when returning to main screen.
         updateTimerDisplay(); // Refresh timer display when returning to main screen.

@@ -23,11 +23,13 @@ public class TimerService extends Service {
     // Handler to manage periodic timer updates
     private Handler handler = new Handler();
 
+    // Indicates whether the timer is running
+    public static boolean isTimerRunning = false; // Static variable to track timer state
+
     // Tracks the total elapsed time in seconds
     private int secondsElapsed = 0;
+    private long startTime = 0;
 
-    // Indicates whether the timer is running
-    private boolean isTimerRunning = false;
 
     @Override
     public void onCreate() {
@@ -64,16 +66,29 @@ public class TimerService extends Service {
      * Starts the timer and schedules periodic updates.
      */
     private void startTimer() {
-        isTimerRunning = true;
-        handler.postDelayed(timerRunnable, 1000); // Schedule the timer to run every second
+        if (!isTimerRunning) {
+            startTime = System.currentTimeMillis(); // Record the start time
+            isTimerRunning = true;
+            handler.postDelayed(timerRunnable, 1000);
+        }
     }
 
     /**
      * Stops the timer and removes any scheduled updates.
      */
     private void stopTimer() {
-        isTimerRunning = false;
-        handler.removeCallbacks(timerRunnable); // Remove any pending timer updates
+        if (isTimerRunning) {
+            long endTime = System.currentTimeMillis();
+            secondsElapsed += (int) ((endTime - startTime) / 1000); // Calculate total elapsed time
+            isTimerRunning = false;
+            handler.removeCallbacks(timerRunnable);
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        isTimerRunning = false; // Reset the state when the service is destroyed
     }
 
     /**
