@@ -9,6 +9,7 @@
         <item name="colorAccent">@color/dark_onPrimary2</item>
         <item name="colorButtonNormal">@color/dark_switchbutton</item>
         <item name="colorBackgroundFloating">@color/dark_deletebutton</item>
+        <item name="android:windowBackground">@color/darkwindow_background</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/dark_secondary</item>
         <item name="colorSecondaryVariant">@color/dark_secondaryVariant</item>
@@ -16,6 +17,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowTranslucentNavigation">false</item>
         <!-- Customize your theme here. -->
     </style>
 </resources>

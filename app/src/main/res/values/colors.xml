@@ -23,4 +23,7 @@
     <color name="dark_secondaryVariant">#00897B</color>
     <color name="dark_switchbutton">#4F4F4F</color>
     <color name="barChart_color">#26A69A</color>
+    <color name="lightwindow_background">#f2f2f2</color>
+    <color name="darkwindow_background">#131313</color>
+    <color name="transparent">#00000000</color>
 </resources>
