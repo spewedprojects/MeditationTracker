@@ -23,7 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private TextView dateDisplay, timerDisplay, todayTotalDisplay;
     private Button recordButton, addEntryButton, moreMenuButton;
@@ -281,10 +281,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Open MenuActivity without animation
-    private void openMenu() {
-        Intent intent = new Intent(MainActivity.this, MenuActivity.class);
-        startActivity(intent);
-    }
+//    private void openMenu() {
+//        Intent intent = new Intent(MainActivity.this, MenuActivity.class);
+//        startActivity(intent);
+//    } // Commenting this out, yes, it is old method. main activity already extends base activity that includes this functionality.
 
     @Override
     protected void onResume() {

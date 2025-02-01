@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:background="?attr/colorSurface"
     app:circularflow_defaultRadius="10dp"
+    android:fitsSystemWindows="true"
     tools:context=".ReleaseNotesActivity">
 
     <com.google.android.material.appbar.MaterialToolbar
@@ -47,7 +48,7 @@
             app:icon="@drawable/ic_hamburgermenu"
             app:iconGravity="textStart"
             app:iconPadding="4dp"
-            app:iconSize="24dp"
+            app:iconSize="22dp"
             app:iconTint="?attr/colorAccent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/toolbar_title"
@@ -66,7 +67,7 @@
             android:gravity="center"
             android:text="@string/app_name"
             android:textColor="?attr/colorOnPrimary"
-            android:textSize="22sp"
+            android:textSize="20dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -87,7 +88,7 @@
         android:fontFamily="@font/kumbh_sans_bold"
         android:text="Release Notes:"
         android:textColor="?attr/colorOnPrimary"
-        android:textSize="26sp"
+        android:textSize="23sp"
         app:layout_constraintTop_toBottomOf="@id/toolbar2"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintVertical_bias="0"
@@ -108,7 +109,7 @@
         android:fontFamily="@font/kumbh_sans_semibold"
         android:text="@string/current_version_details"
         android:textColor="?attr/colorAccent"
-        android:textSize="16sp"
+        android:textSize="15sp"
         app:layout_constraintTop_toBottomOf="@id/release_notes"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintVertical_bias="0"

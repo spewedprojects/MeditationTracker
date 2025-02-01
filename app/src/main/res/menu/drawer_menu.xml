@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/nav_group_main">
+        <item android:id="@+id/menu_home" android:title="Home"/>
+        <item android:id="@+id/menu_weekly" android:title="@string/menu_weekly"/>
+        <item android:id="@+id/menu_monthly" android:title="@string/menu_monthly"/>
+        <item android:id="@+id/menu_yearly" android:title="@string/menu_yearly"/>
+        <item android:id="@+id/menu_goals" android:title="@string/menu_custgoals"/>
+        <item android:id="@+id/menu_about" android:title="About app"/>
+        <item android:id="@+id/menu_releasenotes" android:title="Release notes"/>
+    </group>
+
+    <!-- Placeholder for Custom View -->
+    <item android:id="@+id/export_import_group" android:title="Export / Import" />
+</menu>
