@@ -38,6 +38,9 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Initialize the toolbar and menu button
+        setupToolbar(R.id.toolbar2, R.id.menubutton);
+
         // Initialize UI elements
         dateDisplay = findViewById(R.id.date_display);
         timerDisplay = findViewById(R.id.timer_display);
@@ -71,7 +74,7 @@ public class MainActivity extends BaseActivity {
         addEntryButton.setOnClickListener(v -> addManualEntry());
 
         // Menu button functionality
-        moreMenuButton.setOnClickListener(v -> openMenu());
+        //moreMenuButton.setOnClickListener(v -> openMenu());
 
         Button gotoGoalsButton = findViewById(R.id.goto_goals);
         gotoGoalsButton.setOnClickListener(v -> {

@@ -22,6 +22,6 @@
     <string name="total_hours">Total hours: </string>
     <string name="goals_title">Set a New Goal</string>
     <string name="goals_desc">Create a new meditation goal</string>
-    <string name="current_version_details">Current version: 1.14.f \n\nThe app is now 100% optimized for dark mode.\nTimer now works in background.\nUpdated the theme to Material3.\nGoal Cards now have proper spacing.</string>
+    <string name="current_version_details">Current version: 1.15.a \n\nThe app is now 100% optimized for dark mode.\nTimer now works in background.\nUpdated the theme to Material3.\nGoal Cards now have proper spacing.</string>
 
 </resources>
