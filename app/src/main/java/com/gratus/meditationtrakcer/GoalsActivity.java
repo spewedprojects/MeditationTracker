@@ -2,6 +2,7 @@ package com.gratus.meditationtrakcer;
 
 import android.app.DatePickerDialog;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -20,6 +21,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -243,6 +245,23 @@ public class GoalsActivity extends BaseActivity {
         if (imm != null) {
             imm.hideSoftInputFromWindow(dateInput.getWindowToken(), 0);
         }
+
+        // Customize button colors when the dialog is shown
+        datePickerDialog.setOnShowListener(dialog -> {
+            Button positiveButton = datePickerDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+            Button negativeButton = datePickerDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+
+            // Check if the app is in dark mode
+            int nightModeFlags = getResources().getConfiguration().uiMode & android.content.res.Configuration.UI_MODE_NIGHT_MASK;
+            boolean isDarkMode = (nightModeFlags == android.content.res.Configuration.UI_MODE_NIGHT_YES);
+
+            // Apply colors based on the theme
+            int positiveColor = isDarkMode ? ContextCompat.getColor(this, R.color.light_primaryVariant) : ContextCompat.getColor(this, R.color.dark_primary);
+            int negativeColor = isDarkMode ? ContextCompat.getColor(this, R.color.light_primaryVariant) : ContextCompat.getColor(this, R.color.dark_primary);
+
+            positiveButton.setTextColor(positiveColor);
+            negativeButton.setTextColor(negativeColor);
+        });
 
         datePickerDialog.show();
     }
