@@ -5,9 +5,66 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorPrimaryVariant"
+    android:fitsSystemWindows="true"
     tools:context=".BaseActivity">
 
-    <!-- Menu Title -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/menu_head"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimaryVariant"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <!-- Menu button on toolbar next to title -->
+        <Button
+            android:id="@+id/close_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:textColor="?attr/colorPrimaryVariant"
+            android:background="#00FFFFFF"
+            app:cornerRadius="10dp"
+            app:icon="@drawable/arrow_menu_close"
+            app:iconGravity="end"
+            app:iconSize="23dp"
+            app:iconPadding="4dp"
+            app:iconTint="?attr/colorAccent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.024" /> <!-- Close Menu Button -->
+
+        <!-- Centered title on actionbar -->
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center_horizontal"
+            android:fontFamily="@font/kumbh_sans_bold"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/menu_title"
+            android:textColor="?attr/colorOnPrimary"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.55"
+            app:layout_constraintHorizontal_bias="0"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout> <!-- Constrained layout for menubutton and Title -->
+
+    <!-- Menu Title
     <TextView
         android:id="@+id/menu_title"
         android:layout_width="wrap_content"
@@ -25,7 +82,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.045"
-        app:layout_constraintHorizontal_bias="0"/>
+        app:layout_constraintHorizontal_bias="0"/> -->
 
     <!-- Home Button -->
     <Button
@@ -33,7 +90,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="2dp"
         android:backgroundTint="@android:color/transparent"
         android:fontFamily="@font/kumbh_sans_medium"
         android:text="@string/menu_home"
@@ -44,7 +101,7 @@
         android:background="#00FFFFFF"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/menu_title"
+        app:layout_constraintTop_toBottomOf="@id/menu_head"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintVertical_bias="0" />
@@ -210,26 +267,5 @@
             android:paddingStart="20dp"/>
 
     </com.google.android.material.button.MaterialButtonToggleGroup>
-
-    <Button
-        android:id="@+id/close_menu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:gravity="center"
-        android:textColor="?attr/colorPrimaryVariant"
-        android:background="#00FFFFFF"
-        app:cornerRadius="10dp"
-        app:icon="@drawable/arrow_menu_close"
-        app:iconGravity="end"
-        app:iconSize="23dp"
-        app:iconPadding="4dp"
-        app:iconTint="?attr/colorAccent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.024" /> <!-- Close Menu Button -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,7 +18,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
     </com.google.android.material.appbar.MaterialToolbar> <!-- Toolbar for the sake adding title and the menubutton, no function -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
