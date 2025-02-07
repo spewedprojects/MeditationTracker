@@ -3,7 +3,7 @@ If it is the app that you seek to use you can find it in here: root\app\release 
 Or alternatively, you can find it in Releases section also.
 
 
-**Current known issues: (v1.15.a)**
+**Current known issues: (v1.15.b)**
 - App screens not scrollable on tiny screens.
 - Progress bar does not consider the end date in the date range.
 
