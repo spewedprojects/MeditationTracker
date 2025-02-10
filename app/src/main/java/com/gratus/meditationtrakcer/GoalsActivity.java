@@ -20,6 +20,7 @@ import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -27,6 +28,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -226,6 +228,7 @@ public class GoalsActivity extends BaseActivity {
         }
         cursor.close();
 
+        Collections.reverse(goals); // Reverse list order to show newest first
         goalsAdapter.updateGoals(goals); // Refresh RecyclerView
     }
 
@@ -251,9 +254,8 @@ public class GoalsActivity extends BaseActivity {
             Button positiveButton = datePickerDialog.getButton(DialogInterface.BUTTON_POSITIVE);
             Button negativeButton = datePickerDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
 
-            // Check if the app is in dark mode
-            int nightModeFlags = getResources().getConfiguration().uiMode & android.content.res.Configuration.UI_MODE_NIGHT_MASK;
-            boolean isDarkMode = (nightModeFlags == android.content.res.Configuration.UI_MODE_NIGHT_YES);
+            // Determine the current effective theme
+            boolean isDarkMode = isDarkMode();
 
             // Apply colors based on the theme
             int positiveColor = isDarkMode ? ContextCompat.getColor(this, R.color.light_primaryVariant) : ContextCompat.getColor(this, R.color.dark_primary);
@@ -264,6 +266,19 @@ public class GoalsActivity extends BaseActivity {
         });
 
         datePickerDialog.show();
+    }
+
+    private boolean isDarkMode() {
+        boolean isDarkMode;
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM) {
+            // Check the system's current theme
+            int nightModeFlags = getResources().getConfiguration().uiMode & android.content.res.Configuration.UI_MODE_NIGHT_MASK;
+            isDarkMode = (nightModeFlags == android.content.res.Configuration.UI_MODE_NIGHT_YES);
+        } else {
+            // Use the app's explicitly set theme
+            isDarkMode = (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES);
+        }
+        return isDarkMode;
     }
 
     private void resetInputFields() {

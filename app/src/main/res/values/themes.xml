@@ -1,15 +1,17 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.MeditationsLogs" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="AppTheme_Auto" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/light_primary</item>
         <item name="colorSurface">@color/light_primaryVariant</item>
+        <item name="colorOnSurface">@color/black</item>
         <item name="colorPrimaryVariant">@color/light_primary</item>
         <item name="colorOnPrimary">@color/black</item>
         <item name="colorAccent">@color/light_onPrimary2</item>
         <item name="colorButtonNormal">@color/light_switchbutton</item>
         <item name="colorBackgroundFloating">@color/light_deletebutton</item>
         <item name="android:windowBackground">@color/lightwindow_background</item>
+        <item name="android:textColorHint">@color/light_textHintcolor</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/light_secondary</item>
         <item name="colorSecondaryVariant">@color/light_secondaryVariant</item>

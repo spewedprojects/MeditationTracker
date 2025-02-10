@@ -64,26 +64,6 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout> <!-- Constrained layout for menubutton and Title -->
 
-    <!-- Menu Title
-    <TextView
-        android:id="@+id/menu_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="18dp"
-        android:layout_marginStart="18dp"
-        android:fontFamily="@font/kumbh_sans_bold"
-        android:text="@string/menu_title"
-        android:textColor="?attr/colorOnPrimary"
-        android:textSize="24sp"
-        android:letterSpacing="0.03"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.045"
-        app:layout_constraintHorizontal_bias="0"/> -->
-
     <!-- Home Button -->
     <Button
         android:id="@+id/menu_home"
@@ -208,7 +188,7 @@
         app:layout_constraintTop_toBottomOf="@id/menu_goals"
         app:layout_constraintVertical_bias="0" /> <!-- About app button -->
 
-    <!-- About app button -->
+    <!-- Release notes button -->
     <Button
         android:id="@+id/menu_releasenotes"
         android:layout_width="wrap_content"
@@ -226,7 +206,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/menu_about"
-        app:layout_constraintVertical_bias="0" /> <!-- About app button -->
+        app:layout_constraintVertical_bias="0" /> <!-- Release notes button -->
 
     <!-- Export / Import Toggle Group -->
     <com.google.android.material.button.MaterialButtonToggleGroup
@@ -267,5 +247,60 @@
             android:paddingStart="20dp"/>
 
     </com.google.android.material.button.MaterialButtonToggleGroup>
+
+    <ImageButton
+        android:id="@+id/imageButton_light"
+        android:layout_width="65dp"
+        android:layout_height="50dp"
+        android:layout_margin="20dp"
+        android:background="@drawable/rounded_corners"
+        android:scaleX="1.1"
+        android:scaleY="1.1"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1"
+        app:srcCompat="@drawable/light_mode"
+        app:tint="?attr/colorOnPrimary" />
+
+    <ImageButton
+        android:id="@+id/imageButton_dark"
+        android:layout_width="65dp"
+        android:layout_height="50dp"
+        android:layout_margin="20dp"
+        android:background="@drawable/rounded_corners"
+        app:srcCompat="@drawable/dark_mode"
+        app:tint="?attr/colorOnPrimary"
+        android:scaleX="1.1"
+        android:scaleY="1.1"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1" />
+
+    <Button
+        android:id="@+id/Button_auto"
+        android:layout_width="65dp"
+        android:layout_height="50dp"
+        android:layout_margin="20dp"
+        android:background="@drawable/rounded_corners"
+        android:text="A"
+        android:fontFamily="@font/kumbh_sans_semibold"
+        android:textSize="21sp"
+        app:tint="?attr/colorOnPrimary"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
