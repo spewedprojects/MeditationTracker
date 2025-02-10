@@ -5,7 +5,11 @@ Or alternatively, you can find it in Releases section also.
 
 **Current known issues: (v1.16.c)**
 - App screens not scrollable on tiny screens.
-- ~Progress bar does not consider the end date in the date range.~
+
+
+__Resolved long standing issues:__
+- Progress bar does not consider the end date in the date range.
+- Huge space below each goal card.
 
 **Future updates:**
 - ~Making menu more intuitive - swipe gestures (using navigation drawer)~ __DONE!!__
