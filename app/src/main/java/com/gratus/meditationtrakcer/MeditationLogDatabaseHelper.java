@@ -122,8 +122,12 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
 
         try {
             // Query the database
-            String query = "SELECT SUM(total_seconds) FROM logs WHERE strftime('%Y-%m-%d %H:%M:%S', date) >= ? AND strftime('%Y-%m-%d %H:%M:%S', date) <= ?";
-            Cursor cursor = db.rawQuery(query, new String[]{startDateTime, endDateTime});
+            String adjustedStartDateTime = startDateTime.split(" ")[0] + " 00:00:00"; // Ensure it includes full day
+            String adjustedEndDateTime = endDateTime.split(" ")[0] + " 23:59:59"; // Ensure it includes full day
+
+            String query = "SELECT SUM(total_seconds) FROM logs WHERE datetime(date) >= datetime(?) AND datetime(date) <= datetime(?)";
+            Cursor cursor = db.rawQuery(query, new String[]{adjustedStartDateTime, adjustedEndDateTime});
+
 
             if (cursor != null && cursor.moveToFirst()) {
                 totalHours = cursor.getDouble(0) / 3600.0; // Convert seconds to hours
@@ -150,8 +154,13 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
         int totalSeconds = 0;
 
         try {
-            String query = "SELECT SUM(total_seconds) FROM logs WHERE strftime('%Y-%m-%d %H:%M:%S', date) >= ? AND strftime('%Y-%m-%d %H:%M:%S', date) <= ?"; // datetime(date) BETWEEN datetime(?) AND datetime(?)" <- this doesn't work.
-            Cursor cursor = db.rawQuery(query, new String[]{startDateTime, endDateTime});
+//            String query = "SELECT SUM(total_seconds) FROM logs WHERE strftime('%Y-%m-%d %H:%M:%S', date) >= ? AND strftime('%Y-%m-%d %H:%M:%S', date) <= ?"; // datetime(date) BETWEEN datetime(?) AND datetime(?)" <- this doesn't work.
+//            Cursor cursor = db.rawQuery(query, new String[]{startDateTime, endDateTime});
+            String adjustedStartDateTime = startDateTime.split(" ")[0] + " 00:00:00"; // Ensure it includes full day
+            String adjustedEndDateTime = endDateTime.split(" ")[0] + " 23:59:59"; // Ensure it includes full day
+
+            String query = "SELECT SUM(total_seconds) FROM logs WHERE datetime(date) >= datetime(?) AND datetime(date) <= datetime(?)";
+            Cursor cursor = db.rawQuery(query, new String[]{adjustedStartDateTime, adjustedEndDateTime});
 
             if (cursor != null && cursor.moveToFirst()) {
                 totalSeconds = cursor.getInt(0);

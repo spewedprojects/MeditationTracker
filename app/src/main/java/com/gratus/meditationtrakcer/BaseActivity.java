@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
@@ -24,6 +25,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.core.view.GravityCompat;
+import androidx.customview.widget.ViewDragHelper;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.annotation.LayoutRes;
 
@@ -37,6 +39,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -154,6 +157,30 @@ public class BaseActivity extends AppCompatActivity {
         recreate();
     }
 
+    public void setDrawerLeftEdgeSize(DrawerLayout drawerLayout, float displayWidthPercentage) {
+        if (drawerLayout == null) return;
+        try {
+            // Access the private mLeftDragger field in DrawerLayout
+            Field leftDraggerField = drawerLayout.getClass().getDeclaredField("mLeftDragger");
+            leftDraggerField.setAccessible(true);
+            ViewDragHelper leftDragger = (ViewDragHelper) leftDraggerField.get(drawerLayout);
+
+            // Access the private mEdgeSize field within ViewDragHelper
+            Field edgeSizeField = leftDragger.getClass().getDeclaredField("mEdgeSize");
+            edgeSizeField.setAccessible(true);
+            int edgeSize = edgeSizeField.getInt(leftDragger);
+
+            // Increase the edge size to a percentage of the screen width.
+            // For example, using 0.20 (20%) instead of the default (usually around 10%).
+            DisplayMetrics dm = new DisplayMetrics();
+            getWindowManager().getDefaultDisplay().getMetrics(dm);
+            int newEdgeSize = Math.max(edgeSize, (int) (dm.widthPixels * displayWidthPercentage));
+            edgeSizeField.setInt(leftDragger, newEdgeSize);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * Override setContentView so that the child layout is inflated into the content_frame
      * of our activity_base.xml.
@@ -162,6 +189,9 @@ public class BaseActivity extends AppCompatActivity {
     public void setContentView(@LayoutRes int layoutResID) {
         // Inflate the base layout which includes the DrawerLayout
         DrawerLayout fullView = (DrawerLayout) getLayoutInflater().inflate(R.layout.activity_base, null);
+
+        setDrawerLeftEdgeSize(drawerLayout, 0.20f); // sets edge swipe area to 20% of screen width
+
         // Find the container into which we will inflate the child layout
         // (child layouts like activity_main.xml, etc.)
         FrameLayout activityContainer = fullView.findViewById(R.id.content_frame);
