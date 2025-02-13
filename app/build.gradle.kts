@@ -10,8 +10,15 @@ android {
         applicationId = "com.gratus.meditationtrakcer"
         minSdk = 31
         targetSdk = 35
-        versionCode = 18
-        versionName = "1.16.c" // Format: Major (1), Minor (13), Patch (2)
+        versionCode = 19
+        versionName = "8.16.d" // Format: Major (1), Minor (13), Patch (2)
+
+        // Pass versionName to the app as a resource
+        resValue(
+            type = "string",
+            name = "app_version",
+            value = "Current: v" + versionName!! + " (" + versionCode!! + ")"
+        )
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -42,4 +49,6 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    implementation("io.noties.markwon:core:4.6.2")
+    implementation("io.noties.markwon:ext-tables:4.6.2") // 📌 Add Table support
 }
