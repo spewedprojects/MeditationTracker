@@ -2,8 +2,8 @@ If it is the app that you seek to use you can find it in here (this is always la
 
 Or alternatively, you can find it in Releases section also.
 
-
-**Current known issues: (v2.16.d)**
+# (v2.16.d)
+**Current known issues:**
 - App screens not scrollable on tiny screens.
 
 
