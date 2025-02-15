@@ -20,7 +20,7 @@
         android:filterTouchesWhenObscured="false"
         android:focusableInTouchMode="true"
         android:fontFamily="@font/kumbh_sans"
-        android:textColor="?attr/colorOnPrimary"
+        android:textColor="?attr/colorAccent"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0"
