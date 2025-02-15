@@ -234,14 +234,25 @@ public class MainActivity extends BaseActivity {
         GoalsDatabaseHelper dbHelper = new GoalsDatabaseHelper(this);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        // Query to fetch the shortest and latest goal
+        // Current date in "yyyy-MM-dd" format
+        String today = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
+
+        // Query to fetch:
+        // 1. A goal that includes today's date
+        // 2. If none, the shortest and latest future goal
         Cursor cursor = db.rawQuery(
                 "SELECT * FROM " + GoalsDatabaseHelper.TABLE_GOALS +
                         " WHERE " + GoalsDatabaseHelper.COLUMN_PROGRESS_HOURS + " < " + GoalsDatabaseHelper.COLUMN_TARGET_HOURS +
-                        " AND (" + GoalsDatabaseHelper.COLUMN_END_DATE + " IS NULL OR date(" + GoalsDatabaseHelper.COLUMN_END_DATE + ") >= date('now'))" +
-                        " ORDER BY " + GoalsDatabaseHelper.COLUMN_TARGET_HOURS + " ASC, " + GoalsDatabaseHelper.COLUMN_START_DATE + " DESC LIMIT 1",
-                null
+                        " AND (" +
+                        "   (date(" + GoalsDatabaseHelper.COLUMN_START_DATE + ") <= date(?) AND date(" + GoalsDatabaseHelper.COLUMN_END_DATE + ") >= date(?))" + // Prioritize goals that include today's date
+                        "   OR (date(" + GoalsDatabaseHelper.COLUMN_START_DATE + ") > date(?))" + // If no valid goal for today, pick the shortest & latest upcoming goal
+                        ") ORDER BY " +
+                        "   CASE WHEN date(" + GoalsDatabaseHelper.COLUMN_START_DATE + ") <= date(?) AND date(" + GoalsDatabaseHelper.COLUMN_END_DATE + ") >= date(?) THEN 0 ELSE 1 END, " + // Prioritize today's goal
+                        GoalsDatabaseHelper.COLUMN_TARGET_HOURS + " ASC, " +
+                        GoalsDatabaseHelper.COLUMN_START_DATE + " DESC LIMIT 1",
+                new String[]{today, today, today, today, today}
         );
+
 
         View goalCardView = findViewById(R.id.cardView_goals_list);
 

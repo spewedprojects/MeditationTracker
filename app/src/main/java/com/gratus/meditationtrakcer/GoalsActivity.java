@@ -171,35 +171,6 @@ public class GoalsActivity extends BaseActivity {
         }
     }
 
-//    private void loadGoals() {
-//        List<Goal> goals = new ArrayList<>();
-//        SQLiteDatabase db = dbHelper.getReadableDatabase();
-//        Cursor cursor = db.rawQuery("SELECT * FROM " + GoalsDatabaseHelper.TABLE_GOALS, null);
-//
-//        while (cursor.moveToNext()) {
-//            String description = cursor.getString(cursor.getColumnIndex("description"));
-//            int targetHours = cursor.getInt(cursor.getColumnIndex("target_hours"));
-//            String startDateTime = cursor.getString(cursor.getColumnIndex("start_date"));
-//            String endDateTime = cursor.getString(cursor.getColumnIndex("end_date"));
-//            int goalId = cursor.getInt(cursor.getColumnIndex(GoalsDatabaseHelper.COLUMN_ID));
-//
-//            // Calculate progress dynamically
-//            double loggedHours = meditationLogDatabaseHelper.getLoggedHours(startDateTime, endDateTime);
-//            int progressPercent = (int) ((loggedHours / targetHours) * 100);
-//            if (progressPercent > 100) progressPercent = 100;
-//
-//            // Format dates
-//            String formattedStartDate = formatDate(startDateTime);
-//            String formattedEndDate = formatDate(endDateTime);
-//
-//            // Add goal to the list
-//            goals.add(new Goal(goalId, description, targetHours, loggedHours, formattedStartDate, formattedEndDate, progressPercent));
-//        }
-//        cursor.close();
-//
-//        goalsAdapter.updateGoals(goals); // Refresh RecyclerView
-//    }
-
     private void loadGoals() {
         List<Goal> goals = new ArrayList<>();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
