@@ -2,7 +2,7 @@ If it is the app that you seek to use you can find it in here (this is always la
 
 Or alternatively, you can find it in Releases section also.
 
-# (v2.16.d)
+# (v2.16.e)
 **Current known issues:**
 - App screens not scrollable on tiny screens.
 
@@ -11,6 +11,7 @@ __Resolved long standing issues:__
 - Progress bar does not consider the end date in the date range.
 - Huge space below each goal card.
 
+# 
 **Future updates:**
 - ~Making menu more intuitive - swipe gestures (using navigation drawer)~ __DONE!!__
 - ~Adding theme switcher.~ __DONE!!__
