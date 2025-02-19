@@ -2,7 +2,7 @@ If it is the app that you seek to use you can find it in here (this is always la
 
 Or alternatively, you can find it in Releases section also.
 
-## Google Play protect may ask to scan the app before installing; let it scan. **The app is safe to use.**
+### Google Play protect may ask to scan the app before installing; let it scan. **The app is safe to use.**
 
 ***
 
@@ -15,7 +15,7 @@ __Resolved long standing issues:__
 - Progress bar does not consider the end date in the date range.
 - Huge space below each goal card.
 
-# 
+***
 **Future updates:**
 - ~Making menu more intuitive - swipe gestures (using navigation drawer)~ __DONE!!__
 - ~Adding theme switcher.~ __DONE!!__
