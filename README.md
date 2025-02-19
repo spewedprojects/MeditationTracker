@@ -2,6 +2,10 @@ If it is the app that you seek to use you can find it in here (this is always la
 
 Or alternatively, you can find it in Releases section also.
 
+## Google Play protect may ask to scan the app before installing; let it scan. **The app is safe to use.**
+
+***
+
 # (v2.16.e)
 **Current known issues:**
 - App screens not scrollable on tiny screens.
