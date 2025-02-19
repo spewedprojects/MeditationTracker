@@ -16,7 +16,7 @@ __Resolved long standing issues:__
 - Huge space below each goal card.
 
 ***
-**Future updates:**
+#### **Future updates:**
 - ~Making menu more intuitive - swipe gestures (using navigation drawer)~ __DONE!!__
 - ~Adding theme switcher.~ __DONE!!__
 - Making the navbar/status bar look immersive.
