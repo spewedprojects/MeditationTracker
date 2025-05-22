@@ -14,6 +14,7 @@ Or alternatively, you can find it in Releases section also.
 __Resolved long standing issues:__
 - Progress bar does not consider the end date in the date range.
 - Huge space below each goal card.
+- Monthly summary graphs show incorrect week division; likely consistency issues with Week start day (Sunday or Monday)
 
 ***
 #### **Future updates:**
@@ -22,5 +23,5 @@ __Resolved long standing issues:__
 - Making the navbar/status bar look immersive.
 - Overlay on existing graphs, showing time of mediation in a day.
   - Monthly graphs will show week wise avg.
-- Adding a homescreen widget to remind of meditation progress.
+- **Adding a homescreen widget to remind of meditation progress, specifically, most current goal progress.**
 - Changes to method of adding goals (Daily duration, total hours, Start date, end date will be automatically determined)
