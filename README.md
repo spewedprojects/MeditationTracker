@@ -9,12 +9,13 @@ Or alternatively, you can find it in Releases section also.
 # (v2.16.e)
 **Current known issues:**
 - App screens not scrollable on tiny screens.
+- Monthly summary graphs show incorrect week division; likely consistency issues with Week start day (Sunday or Monday)
 
 
 __Resolved long standing issues:__
 - Progress bar does not consider the end date in the date range.
 - Huge space below each goal card.
-- Monthly summary graphs show incorrect week division; likely consistency issues with Week start day (Sunday or Monday)
+
 
 ***
 #### **Future updates:**
