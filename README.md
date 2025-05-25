@@ -26,3 +26,5 @@ __Resolved long standing issues:__
   - Monthly graphs will show week wise avg.
 - **Adding a homescreen widget to remind of meditation progress, specifically, most current goal progress.**
 - Changes to method of adding goals (Daily duration, total hours, Start date, end date will be automatically determined)
+- Twice "back" to exit the app
+- A home screen widget - the same card that appears on main screen of the app.
