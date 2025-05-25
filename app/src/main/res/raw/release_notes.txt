@@ -15,6 +15,23 @@
 | 1.0 | Debug app |
 
 
+    33. 2.17.d
+     a. Current version of the app.
+     b. Rectified alignment issues with the two methods in the goals screen.
+     c. Resetting input fields works as intended.
+
+    33. 2.17.a
+     a. Current features.
+
+    32. 2.16.e
+     a. The app is now 100% optimized for dark mode.
+     b. Timer now works in background.
+     c. Progress bar works as intended.
+     d. Goal Cards now have proper spacing.
+     e. Theme switcher works flawlessly.
+
+    31. 2.13.2
+
     30. 2.13.1
      a. The app entirely supports dark mode.
 

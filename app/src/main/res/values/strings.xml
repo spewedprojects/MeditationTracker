@@ -22,6 +22,6 @@
     <string name="total_hours">Total hours: </string>
     <string name="goals_title">Set a New Goal</string>
     <string name="goals_desc">Create a new meditation goal</string>
-    <string name="current_version_details">▶ The app is now 100% optimized for dark mode.\n▶ Timer now works in background.\n▶ Progress bar works as intended.\n▶ Goal Cards now have proper spacing.\n▶ Theme switcher works flawlessly.</string>
+    <string name="current_version_details">▶ The app is now 100% optimized for dark mode.\n▶ New, switchable, method to add goals.\n▶ NEXT: Home screen widget.</string>
     <string name="v1.16.c">v1.16.c:\n- NOICE!\n  - Next indent.\n    ▶ Bullet point</string>
 </resources>

@@ -264,7 +264,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1"
         app:srcCompat="@drawable/light_mode"
-        app:tint="?attr/colorOnPrimary" />
+        app:tint="?attr/colorOnPrimary" /> <!-- Light Mode Button -->
 
     <ImageButton
         android:id="@+id/imageButton_dark"
@@ -282,7 +282,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1" />
+        app:layout_constraintVertical_bias="1" /> <!-- Dark Mode Button -->
 
     <Button
         android:id="@+id/Button_auto"
@@ -300,7 +300,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1" />
+        app:layout_constraintVertical_bias="1" /> <!-- Auto Mode Button -->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

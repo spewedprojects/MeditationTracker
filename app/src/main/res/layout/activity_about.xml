@@ -120,7 +120,7 @@
         android:focusableInTouchMode="true"
         android:fontFamily="@font/kumbh_sans_bold"
         android:gravity="center"
-        android:text="A simple meditation tracking app to log in hours and monitor regularity of your meditation and to set goals."
+        android:text="A simple meditation tracking app to log your hours, monitor the regularity of your practice, and set goals."
         android:textColor="?attr/colorOnPrimary"
         android:textSize="21sp"
         app:layout_constraintBottom_toBottomOf="parent"

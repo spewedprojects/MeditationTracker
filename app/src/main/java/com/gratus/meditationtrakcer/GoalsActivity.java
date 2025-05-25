@@ -19,6 +19,11 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.app.TimePickerDialog;
+import android.text.InputType;
+import android.text.method.DigitsKeyListener;
+import android.widget.TimePicker;
 
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.cardview.widget.CardView;
@@ -26,6 +31,10 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.button.MaterialButtonToggleGroup;
+
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -43,6 +52,19 @@ public class GoalsActivity extends BaseActivity {
     private RecyclerView goalsRecyclerView;
     private GoalsAdapter goalsAdapter;
 
+    // ── mode toggle ───────────────────────────────
+    private MaterialButtonToggleGroup modeGroup;
+    private MaterialButton btnMethodA, btnMethodB;
+    private enum GoalInputMode { A, B }
+    private GoalInputMode currentMode = GoalInputMode.A;
+
+    // ── Method-A views ────────────────────────────
+    private List<View> methodAViews;
+
+    // ── Method-B views ────────────────────────────
+    private EditText durationPerDayInput, numDaysInput, bStartDateInput;
+    private List<View> methodBViews;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +79,43 @@ public class GoalsActivity extends BaseActivity {
         startDateInput = findViewById(R.id.start_date_input);
         endDateInput = findViewById(R.id.end_date_input);
         addGoalButton = findViewById(R.id.add_goal);
+        // ── toggle & Method-B fields ─────────────────────────────
+        modeGroup   = findViewById(R.id.A_B_group);
+        btnMethodA  = findViewById(R.id.method_A_Button);
+        btnMethodB  = findViewById(R.id.method_B_Button);
+        // B-specific views
+        durationPerDayInput = findViewById(R.id.daily_duration_input);
+        numDaysInput        = findViewById(R.id.totaldays_input);
+        bStartDateInput     = findViewById(R.id.B_startdate_input);
+
+        // Build view lists for quick show / hide
+        methodAViews = Arrays.asList(
+                findViewById(R.id.target_input_title), targetHours,
+                findViewById(R.id.start_date_input_title), startDateInput,
+                findViewById(R.id.end_date_input_title),   endDateInput);
+
+        methodBViews = Arrays.asList(
+                findViewById(R.id.daily_duration_title),  durationPerDayInput,
+                findViewById(R.id.totaldays_input_title), numDaysInput,
+                findViewById(R.id.B_startdate_title),     bStartDateInput);
+
+        // Make group behave like two mutually-exclusive buttons
+        modeGroup.setSingleSelection(true);
+        modeGroup.check(R.id.method_A_Button);      // default to A
+        highlightActiveButton();                    // dim the inactive one
+        setMode(GoalInputMode.A);                   // show A-fields first
+
+        modeGroup.addOnButtonCheckedListener((g, id, state) -> {
+            if (!state) return;                     // ignore un-checks
+            if (id == R.id.method_A_Button) {
+                prefillAFromB();                    // copy-over if possible
+                setMode(GoalInputMode.A);
+            } else {
+                prefillBFromA();
+                setMode(GoalInputMode.B);
+            }
+            highlightActiveButton();
+        });
 
         // Initialize RecyclerView
         goalsRecyclerView = findViewById(R.id.goals_recycler_view);
@@ -70,10 +129,23 @@ public class GoalsActivity extends BaseActivity {
         // Load Goals
         loadGoals();
 
+        // —— Method-B picker listeners ————————————————————————————
+        durationPerDayInput.setOnClickListener(v -> showTimePickerDialog(durationPerDayInput));
+        bStartDateInput   .setOnClickListener(v -> showDatePickerDialog(bStartDateInput));
+
+        // digits-only for “No. of Days”
+        numDaysInput.setKeyListener(DigitsKeyListener.getInstance("0123456789"));
+        numDaysInput.setInputType(InputType.TYPE_CLASS_NUMBER);
+
+
         startDateInput.setOnClickListener(v -> showDatePickerDialog(startDateInput));
         endDateInput.setOnClickListener(v -> showDatePickerDialog(endDateInput));
         addGoalButton.setOnClickListener(v -> {
-            addGoal();
+            if (currentMode == GoalInputMode.A) {
+                addGoal();               // existing method
+            } else {
+                addGoalMethodB();        // new one below
+            }
             resetInputFields();
             loadGoals(); // Refresh goals
         });
@@ -132,8 +204,8 @@ public class GoalsActivity extends BaseActivity {
         }
         goalDescription.clearFocus();
         targetHours.clearFocus();
+        numDaysInput.clearFocus();
     }
-
 
     private double getLoggedHours(String startDateTime, String endDateTime) {
         SQLiteDatabase db = meditationLogDatabaseHelper.getReadableDatabase();
@@ -203,7 +275,6 @@ public class GoalsActivity extends BaseActivity {
         goalsAdapter.updateGoals(goals); // Refresh RecyclerView
     }
 
-
     private void showDatePickerDialog(EditText dateInput) {
         final Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
@@ -239,6 +310,38 @@ public class GoalsActivity extends BaseActivity {
         datePickerDialog.show();
     }
 
+    private void showTimePickerDialog(EditText timeInput) {
+        // ── derive a sensible default ──────────────────────────────
+        int hour = 0, minute = 0;                      // default 00:00
+        String existing = timeInput.getText().toString();
+        if (existing.matches("\\d{2}:\\d{2}")) {       // “HH:MM”
+            String[] p = existing.split(":");
+            hour   = Integer.parseInt(p[0]);
+            minute = Integer.parseInt(p[1]);
+        }
+
+        TimePickerDialog dialog = new TimePickerDialog(
+                this,
+                (TimePicker view, int selectedHour, int selectedMinute) -> {
+                    String hh = String.format(Locale.US, "%02d", selectedHour);
+                    String mm = String.format(Locale.US, "%02d", selectedMinute);
+                    timeInput.setText(hh + ":" + mm);
+                },
+                hour, minute, true);                     // 24-hour
+
+        // match the colour-tint logic you already use for DatePicker
+        dialog.setOnShowListener(d -> {
+            boolean dark = isDarkMode();
+            int colour   = ContextCompat.getColor(this,
+                    dark ? R.color.light_primaryVariant : R.color.dark_primary);
+            dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(colour);
+            dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(colour);
+        });
+
+        dialog.show();
+    }
+
+
     private boolean isDarkMode() {
         boolean isDarkMode;
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM) {
@@ -252,14 +355,6 @@ public class GoalsActivity extends BaseActivity {
         return isDarkMode;
     }
 
-    private void resetInputFields() {
-        goalDescription.setText("");
-        targetHours.setText("");
-        startDateInput.setText("");
-        endDateInput.setText("");
-        //goalDescription.requestFocus();  // Focus on goal description
-    }
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -269,10 +364,137 @@ public class GoalsActivity extends BaseActivity {
         finish();
     }
 
+    // ──────────────────────────────────────────────────────────
+    //  Visibility toggle
+    // ──────────────────────────────────────────────────────────
+
+    private void setMode(GoalInputMode mode) {
+        currentMode = mode;
+        for (View v : methodAViews) v.setVisibility(mode == GoalInputMode.A ? View.VISIBLE : View.INVISIBLE);
+        for (View v : methodBViews) v.setVisibility(mode == GoalInputMode.B ? View.VISIBLE : View.INVISIBLE);
+    }
+
+    // 60 % dim for inactive button
+    private void highlightActiveButton() {
+        btnMethodA.setAlpha(currentMode == GoalInputMode.A ? 1f : 0.3f);
+        btnMethodB.setAlpha(currentMode == GoalInputMode.B ? 1f : 0.3f);
+    }
+
+    // ── Quick pre-fill when switching ─────────────────────────
+    private void prefillBFromA() {
+        String hrsStr = targetHours.getText().toString().trim();
+        String sDate  = startDateInput.getText().toString().trim();
+        String eDate  = endDateInput.getText().toString().trim();
+        try {
+            if (hrsStr.isEmpty() || sDate.isEmpty() || eDate.isEmpty()) return;
+
+            float totalHours = Float.parseFloat(hrsStr);
+            SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            Date s             = fmt.parse(sDate);
+            Date e             = fmt.parse(eDate);
+            long diffMillis    = e.getTime() - s.getTime();
+            int  days          = (int) (diffMillis / (24*60*60*1000)) + 1;
+            if (days <= 0) return;
+
+            float hoursPerDay  = totalHours / days;
+            int hh = (int) hoursPerDay;
+            int mm = Math.round((hoursPerDay - hh) * 60f);
+
+            durationPerDayInput.setText(String.format(Locale.US,"%02d:%02d", hh, mm));
+            numDaysInput.setText(String.valueOf(days));
+            bStartDateInput.setText(sDate);
+        } catch (Exception ignore) {}
+    }
+
+    private void prefillAFromB() {
+        String dur = durationPerDayInput.getText().toString().trim(); // “HH:MM”
+        String nDaysStr = numDaysInput.getText().toString().trim();
+        String sDateStr = bStartDateInput.getText().toString().trim();
+        try {
+            if (dur.isEmpty() || nDaysStr.isEmpty() || sDateStr.isEmpty()) return;
+
+            String[] parts = dur.split(":");
+            int hh = Integer.parseInt(parts[0]);
+            int mm = Integer.parseInt(parts[1]);
+            int numDays = Integer.parseInt(nDaysStr);
+
+            float target = (hh + mm/60f) * numDays;
+
+            SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            Date start = fmt.parse(sDateStr);
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(start);
+            cal.add(Calendar.DATE, numDays - 1);
+            String endStr = fmt.format(cal.getTime());
+
+            targetHours.setText(String.format(Locale.US,"%.1f", target));
+            startDateInput.setText(sDateStr);
+            endDateInput.setText(endStr);
+        } catch (Exception ignore) {}
+    }
+
+    // ── Method-B “add goal” routine ───────────────────────────
+    private void addGoalMethodB() {
+        String durStr   = durationPerDayInput.getText().toString().trim();  // HH:MM
+        String daysStr  = numDaysInput.getText().toString().trim();
+        String startStr = bStartDateInput.getText().toString().trim();
+
+        if (durStr.isEmpty() || daysStr.isEmpty() || startStr.isEmpty()) {
+            toastInvalidInput();
+            return;
+        }
+        try {
+            String[] hhmm = durStr.split(":");
+            int hh = Integer.parseInt(hhmm[0]);
+            int mm = Integer.parseInt(hhmm[1]);
+            if (hh==0 && mm==0) throw new NumberFormatException();
+
+            int numDays = Integer.parseInt(daysStr);
+            if (numDays <= 0) throw new NumberFormatException();
+
+            // Derive target-hours & end-date
+            float target = (hh + mm/60f) * numDays;
+
+            SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            Date startDate = fmt.parse(startStr);
+            Calendar cal   = Calendar.getInstance();
+            cal.setTime(startDate);
+            cal.add(Calendar.DATE, numDays - 1);
+            String endStr  = fmt.format(cal.getTime());
+
+            // Re-use the existing addGoal() plumbing by filling A-fields then calling it
+            targetHours.setText(String.valueOf(target));
+            startDateInput.setText(startStr);
+            endDateInput.setText(endStr);
+
+            addGoal();                   // existing DB insert
+        } catch (Exception e) {
+            toastInvalidInput();
+        }
+    }
+
+    private void toastInvalidInput() {
+        Toast.makeText(this,"Invalid input", Toast.LENGTH_SHORT).show();
+    }
+
+    private void resetInputFields() {
+        goalDescription.setText("");
+        // ── Method A fields ──
+        targetHours.setText("");
+        startDateInput.setText("");
+        endDateInput.setText("");
+
+        // ── Method B fields ──
+        durationPerDayInput.setText("");
+        numDaysInput.setText("");
+        bStartDateInput.setText("");
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
         loadGoals();  // Refresh goal cards when returning to Goals screen
     }
+
 
 }
