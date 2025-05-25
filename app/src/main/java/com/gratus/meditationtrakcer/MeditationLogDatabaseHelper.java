@@ -27,6 +27,8 @@ import java.io.FileWriter;
 import java.nio.file.Files;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -195,6 +197,16 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return totalSeconds;
+    }
+
+    // MeditationLogDatabaseHelper.java  (just below other helpers)
+    public double getHoursForCurrentWeek() {
+        LocalDate today      = LocalDate.now();
+        LocalDate monday     = today.with(DayOfWeek.MONDAY);
+        LocalDate nextMonday = monday.plusWeeks(1);
+
+        return getTotalWeeklyMeditationHoursForDateRange(
+                monday.toString(), nextMonday.toString());
     }
 
     // Methods to get weekly, monthly, and yearly data

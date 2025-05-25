@@ -15,13 +15,16 @@
 | 1.0 | Debug app |
 
 
-    33. 2.17.d
-     a. Current version of the app.
-     b. Rectified alignment issues with the two methods in the goals screen.
-     c. Resetting input fields works as intended.
+    35. 2.17.e
+     > Current version
+     > Added "This Week: " in main screen.
+
+    34. 2.17.d
+     > Rectified alignment issues with the two methods in the goals screen.
+     > Resetting input fields works as intended.
 
     33. 2.17.a
-     a. Current features.
+     > New, switchable, method to add goals.
 
     32. 2.16.e
      a. The app is now 100% optimized for dark mode.

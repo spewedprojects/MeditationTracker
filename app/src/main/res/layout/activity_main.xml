@@ -126,7 +126,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:layout_marginBottom="24dp"
+                android:layout_marginBottom="8dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:filterTouchesWhenObscured="false"
@@ -135,12 +135,33 @@
                 android:text="Today's Total: 0h 0m 0s"
                 android:textColor="?attr/colorOnPrimary"
                 android:textSize="24sp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/week_total"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/date_display"
                 app:layout_constraintVertical_bias="0.65"
                 tools:ignore="TextViewEdits" /> <!-- Today's total time -->
+
+            <TextView
+                android:id="@+id/week_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="24dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:filterTouchesWhenObscured="false"
+                android:focusableInTouchMode="true"
+                android:fontFamily="@font/kumbh_sans_semibold"
+                android:text="This Week: 0.00hrs"
+                android:textColor="?attr/colorOnPrimary"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/today_total"
+                app:layout_constraintVertical_bias="0.65"
+                tools:ignore="TextViewEdits" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView> <!-- For cardview Date and Total-->

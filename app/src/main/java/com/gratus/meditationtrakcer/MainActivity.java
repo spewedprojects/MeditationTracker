@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -25,7 +26,7 @@ import java.util.Locale;
 
 public class MainActivity extends BaseActivity {
 
-    private TextView dateDisplay, timerDisplay, todayTotalDisplay;
+    private TextView dateDisplay, timerDisplay, todayTotalDisplay, weekTotalDisplay;
     private Button recordButton, addEntryButton, moreMenuButton;
     private EditText manualHours, manualMinutes, manualSeconds;
     private boolean isTimerRunning = false;
@@ -45,6 +46,7 @@ public class MainActivity extends BaseActivity {
         dateDisplay = findViewById(R.id.date_display);
         timerDisplay = findViewById(R.id.timer_display);
         todayTotalDisplay = findViewById(R.id.today_total);
+        weekTotalDisplay = findViewById(R.id.week_total);
         recordButton = findViewById(R.id.record);
         addEntryButton = findViewById(R.id.add_entry);
         manualHours = findViewById(R.id.manual_hours);
@@ -60,6 +62,7 @@ public class MainActivity extends BaseActivity {
         MeditationLogDatabaseHelper dbHelper = new MeditationLogDatabaseHelper(this);
         totalSecondsLogged = dbHelper.getTodayLoggedSeconds();
         updateTodayTotal();
+        updateWeekTotal();
 
         // Record button functionality
         recordButton.setOnClickListener(v -> {
@@ -133,6 +136,7 @@ public class MainActivity extends BaseActivity {
 
             // Refresh UI
             updateTodayTotal();
+            updateWeekTotal();
             secondsElapsed = 0; // Reset elapsed time
             updateTimerDisplay();
             displayShortestAndLatestGoal(); // Refresh goal card
@@ -169,6 +173,15 @@ public class MainActivity extends BaseActivity {
         todayTotalDisplay.setText(String.format(Locale.getDefault(), "Today's Total: %dh %dm %ds", hours, minutes, seconds));
     }
 
+    private void updateWeekTotal() {
+        MeditationLogDatabaseHelper db = new MeditationLogDatabaseHelper(this);
+        double hoursThisWeek = db.getHoursForCurrentWeek();
+
+        weekTotalDisplay.setText(
+                String.format(Locale.getDefault(),
+                        "This Week: %.2f hrs", hoursThisWeek));
+    }
+
     // Add manual entry time to total only
     private void addManualEntry() {
         int hours = parseInput(manualHours);
@@ -189,6 +202,7 @@ public class MainActivity extends BaseActivity {
         goalsDbHelper.updateGoalsProgress(additionalSeconds);
 
         updateTodayTotal();
+        updateWeekTotal();
 
         // Reset manual input fields
         manualHours.setText("");
@@ -317,6 +331,7 @@ public class MainActivity extends BaseActivity {
         LocalBroadcastManager.getInstance(this).registerReceiver(timerUpdateReceiver, new IntentFilter("TIMER_UPDATED"));
         updateDateDisplay();  // Refresh date display when returning ot main screen.
         updateTodayTotal(); // Refresh today's total when returning to main screen.
+        updateWeekTotal(); // Refresh week's total when returning to main screen.
         updateTimerDisplay(); // Refresh timer display when returning to main screen.
         displayShortestAndLatestGoal(); // Refresh shortest and latest goal when returning to main screen.
     }

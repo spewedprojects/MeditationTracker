@@ -11,7 +11,7 @@ android {
         minSdk = 31
         targetSdk = 35
         versionCode = 22
-        versionName = "2.17.d" // Format: Major (2), Minor (16), Patch (e)
+        versionName = "2.17.e" // Format: Major (2), Minor (16), Patch (e)
 
         // Pass versionName to the app as a resource
         resValue(
