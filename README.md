@@ -6,7 +6,7 @@ Or alternatively, you can find it in Releases section also.
 
 ***
 
-# (v2.16.e)
+# (v2.17.e)
 **Current known issues:**
 - App screens not scrollable on tiny screens.
 - Monthly summary graphs show incorrect week division; likely consistency issues with Week start day (Sunday or Monday)
@@ -25,6 +25,6 @@ __Resolved long standing issues:__
 - Overlay on existing graphs, showing time of mediation in a day.
   - Monthly graphs will show week wise avg.
 - **Adding a homescreen widget to remind of meditation progress, specifically, most current goal progress.**
-- Changes to method of adding goals (Daily duration, total hours, Start date, end date will be automatically determined)
+- ~Changes to method of adding goals (Daily duration, total hours, Start date, end date will be automatically determined)~ __DONE!!__
 - Twice "back" to exit the app
 - A home screen widget - the same card that appears on main screen of the app.
