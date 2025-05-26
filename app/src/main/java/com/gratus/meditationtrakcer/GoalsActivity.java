@@ -160,6 +160,7 @@ public class GoalsActivity extends BaseActivity {
         } else {
             Log.d("GoalsActivity", "Failed to delete goal.");
         }
+        db.close();
 
         // Refresh RecyclerView
         loadGoals();
@@ -171,7 +172,10 @@ public class GoalsActivity extends BaseActivity {
         String startDate = startDateInput.getText().toString().trim();
         String endDate = endDateInput.getText().toString().trim();
 
-        if (!description.isEmpty() && !target.isEmpty() && !startDate.isEmpty() && !endDate.isEmpty()) {
+        if (description.isEmpty() || target.isEmpty() || startDate.isEmpty() || endDate.isEmpty()) {
+            toastInvalidInput();
+            return;
+        }
             try {
                 // Parse input date and append a timestamp
                 SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
@@ -195,7 +199,6 @@ public class GoalsActivity extends BaseActivity {
             } catch (Exception e) {
                 Log.e("GoalsActivity", "Error formatting dates", e);
             }
-        }
 
         // Dismiss keyboard after adding goal
         InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
@@ -205,27 +208,6 @@ public class GoalsActivity extends BaseActivity {
         goalDescription.clearFocus();
         targetHours.clearFocus();
         numDaysInput.clearFocus();
-    }
-
-    private double getLoggedHours(String startDateTime, String endDateTime) {
-        SQLiteDatabase db = meditationLogDatabaseHelper.getReadableDatabase();
-
-        // Fetch total logged seconds between startDateTime and endDateTime
-        Cursor cursor = db.rawQuery(
-                "SELECT SUM(" + MeditationLogDatabaseHelper.COLUMN_TOTAL_SECONDS + ") FROM " +
-                        MeditationLogDatabaseHelper.TABLE_LOGS +
-                        " WHERE datetime(" + MeditationLogDatabaseHelper.COLUMN_DATE + ") BETWEEN datetime(?) AND datetime(?)",
-                new String[]{startDateTime, endDateTime}
-        );
-
-        double totalHours = 0;
-        if (cursor.moveToFirst()) {
-            totalHours = cursor.getDouble(0) / 3600.0; // Convert seconds to hours
-        }
-        cursor.close();
-
-        Log.d("GoalsActivity", "Logged Hours between " + startDateTime + " and " + endDateTime + ": " + totalHours);
-        return totalHours;
     }
 
     private String formatDate(String dateTime) {
@@ -270,6 +252,7 @@ public class GoalsActivity extends BaseActivity {
             goals.add(new Goal(goalId, description, targetHours, loggedHours, formattedStartDate, formattedEndDate, progressPercent));
         }
         cursor.close();
+        db.close();
 
         Collections.reverse(goals); // Reverse list order to show newest first
         goalsAdapter.updateGoals(goals); // Refresh RecyclerView
@@ -340,7 +323,6 @@ public class GoalsActivity extends BaseActivity {
 
         dialog.show();
     }
-
 
     private boolean isDarkMode() {
         boolean isDarkMode;
@@ -435,11 +417,12 @@ public class GoalsActivity extends BaseActivity {
 
     // ── Method-B “add goal” routine ───────────────────────────
     private void addGoalMethodB() {
+        String description = goalDescription.getText().toString().trim();
         String durStr   = durationPerDayInput.getText().toString().trim();  // HH:MM
         String daysStr  = numDaysInput.getText().toString().trim();
         String startStr = bStartDateInput.getText().toString().trim();
 
-        if (durStr.isEmpty() || daysStr.isEmpty() || startStr.isEmpty()) {
+        if (description.isEmpty() || durStr.isEmpty() || daysStr.isEmpty() || startStr.isEmpty()) {
             toastInvalidInput();
             return;
         }
@@ -496,5 +479,10 @@ public class GoalsActivity extends BaseActivity {
         loadGoals();  // Refresh goal cards when returning to Goals screen
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (dbHelper != null) dbHelper.close();
+        if (meditationLogDatabaseHelper != null) meditationLogDatabaseHelper.close();
+    }
 }

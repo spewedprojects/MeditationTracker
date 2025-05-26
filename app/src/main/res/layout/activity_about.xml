@@ -10,6 +10,12 @@
     android:fitsSystemWindows="true"
     tools:context=".AboutActivity">
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="&#xA;        android:padding=&quot;12dp&quot;" />
+
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar2"
         android:layout_width="0dp"
@@ -130,6 +136,21 @@
         app:layout_constraintTop_toBottomOf="@id/toolbar2"
         app:layout_constraintVertical_bias="0.8"
         tools:ignore="TextViewEdits" /> <!-- Today's total time -->
+
+    <ImageView
+        android:id="@+id/github_icon"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:padding="13dp"
+        app:srcCompat="@drawable/github_mark"
+        android:contentDescription="GitHub Link"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintTop_toBottomOf="@id/about_app"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

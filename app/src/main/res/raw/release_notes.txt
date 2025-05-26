@@ -15,9 +15,12 @@
 | 1.0 | Debug app |
 
 
-    35. 2.17.e
+    36. 2.17.f
      > Current version
+
+    35. 2.17.e
      > Added "This Week: " in main screen.
+     > New, switchable, method to add goals.
 
     34. 2.17.d
      > Rectified alignment issues with the two methods in the goals screen.

@@ -63,6 +63,7 @@ public class MainActivity extends BaseActivity {
         totalSecondsLogged = dbHelper.getTodayLoggedSeconds();
         updateTodayTotal();
         updateWeekTotal();
+        dbHelper.close();
 
         // Record button functionality
         recordButton.setOnClickListener(v -> {
@@ -130,9 +131,11 @@ public class MainActivity extends BaseActivity {
             // Update the database
             MeditationLogDatabaseHelper logDbHelper = new MeditationLogDatabaseHelper(this);
             logDbHelper.updateDailyLog(secondsElapsed);
+            logDbHelper.close();
 
             GoalsDatabaseHelper goalsDbHelper = new GoalsDatabaseHelper(this);
             goalsDbHelper.updateGoalsProgress(secondsElapsed);
+            goalsDbHelper.close();
 
             // Refresh UI
             updateTodayTotal();
@@ -146,16 +149,16 @@ public class MainActivity extends BaseActivity {
     }
 
     // Timer logic
-    private final Runnable timerRunnable = new Runnable() {
-        @Override
-        public void run() {
-            if (isTimerRunning) {
-                secondsElapsed++;
-                updateTimerDisplay();
-                handler.postDelayed(this, 1000);
-            }
-        }
-    };
+//    private final Runnable timerRunnable = new Runnable() {
+//        @Override
+//        public void run() {
+//            if (isTimerRunning) {
+//                secondsElapsed++;
+//                updateTimerDisplay();
+//                handler.postDelayed(this, 1000);
+//            }
+//        }
+//    };
 
     // Update timer display
     private void updateTimerDisplay() {
@@ -180,6 +183,7 @@ public class MainActivity extends BaseActivity {
         weekTotalDisplay.setText(
                 String.format(Locale.getDefault(),
                         "This Week: %.2f hrs", hoursThisWeek));
+        db.close();
     }
 
     // Add manual entry time to total only
@@ -196,10 +200,12 @@ public class MainActivity extends BaseActivity {
         // ✅ Update Meditation Log
         MeditationLogDatabaseHelper logDbHelper = new MeditationLogDatabaseHelper(this);
         logDbHelper.updateDailyLog(additionalSeconds);
+        logDbHelper.close();
 
         // ✅ Update Goals Progress
         GoalsDatabaseHelper goalsDbHelper = new GoalsDatabaseHelper(this);
         goalsDbHelper.updateGoalsProgress(additionalSeconds);
+        goalsDbHelper.close();
 
         updateTodayTotal();
         updateWeekTotal();
@@ -305,6 +311,7 @@ public class MainActivity extends BaseActivity {
         if (cursor != null) {
             cursor.close();
         }
+        dbHelper.close();
         db.close();
     }
 
@@ -341,4 +348,9 @@ public class MainActivity extends BaseActivity {
         super.onPause();
         LocalBroadcastManager.getInstance(this).unregisterReceiver(timerUpdateReceiver);
     }
+
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//    }
 }

@@ -80,25 +80,6 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-//    public double getLoggedHours(String startDateTime, String endDateTime) {
-//        SQLiteDatabase db = this.getReadableDatabase();
-//
-//        Cursor cursor = db.rawQuery(
-//                "SELECT SUM(" + COLUMN_TOTAL_SECONDS + ") FROM " + TABLE_LOGS +
-//                        " WHERE datetime(" + COLUMN_DATE + ") BETWEEN datetime(?) AND datetime(?)",
-//                new String[]{startDateTime, endDateTime}
-//        );
-//
-//        double totalHours = 0;
-//        if (cursor.moveToFirst()) {
-//            totalHours = cursor.getDouble(0) / 3600.0; // Convert seconds to hours
-//        }
-//        cursor.close();
-//
-//        Log.d("MeditationLogHelper", "Logged Hours between " + startDateTime + " and " + endDateTime + ": " + totalHours);
-//        return totalHours;
-//    }
-
     // ✅ Update daily log
     public void updateDailyLog(int additionalSeconds) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -231,6 +212,7 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
         cursor.close();
+        db.close();
 
         for (int i = 0; i < 7; i++) {
             entries.add(new BarEntry(i, dayTotals[i]));
@@ -251,6 +233,7 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
             totalHours = cursor.getFloat(0);
         }
         cursor.close();
+        db.close();
         return totalHours;
     }
 
@@ -320,6 +303,7 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
             totalHours = cursor.getFloat(0);
         }
         cursor.close();
+        db.close();
         return totalHours;
     }
 
@@ -344,6 +328,7 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
         cursor.close();
+        db.close();
 
         for (int i = 0; i < 12; i++) {
             entries.add(new BarEntry(i, monthTotals[i]));
@@ -374,6 +359,8 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
             db.close(); // Ensure the database is closed
         }
 
+        cursor.close();
+        db.close();
         return totalHours;
     }
 
