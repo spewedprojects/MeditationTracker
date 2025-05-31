@@ -269,7 +269,7 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
                     // Determine the week of the month
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTime(date);
-
+                    calendar.setFirstDayOfWeek(Calendar.MONDAY);
                     int weekOfMonth = calendar.get(Calendar.WEEK_OF_MONTH) - 1; // Zero-based index
                     if (weekOfMonth >= 0 && weekOfMonth < 5) {
                         weekTotals[weekOfMonth] += totalHours; // Add hours to the respective week

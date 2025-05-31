@@ -15,8 +15,13 @@
 | 1.0 | Debug app |
 
 
-    36. 2.17.f
+    37. 2.17.g
      > Current version
+
+    36. 2.17.f
+     > Fixed database leaks using "db.close();"
+     > Added a link to the GitHub profile via ImageView in the about screen.
+     > NEXT: Home screen widget.
 
     35. 2.17.e
      > Added "This Week: " in main screen.
