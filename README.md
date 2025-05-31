@@ -6,10 +6,10 @@ Or alternatively, you can find it in Releases section also.
 
 ***
 
-# (v2.17.e)
+# (v2.17.g)
 **Current known issues:**
 - App screens not scrollable on tiny screens.
-- Monthly summary graphs show incorrect week division; likely consistency issues with Week start day (Sunday or Monday)
+- ~Monthly summary graphs show incorrect week division; likely consistency issues with Week start day (Sunday or Monday)~
 
 
 __Resolved long standing issues:__
