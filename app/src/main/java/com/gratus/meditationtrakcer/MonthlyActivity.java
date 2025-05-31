@@ -24,6 +24,7 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.renderer.BarChartRenderer;
 import com.github.mikephil.charting.utils.ViewPortHandler;
+import android.util.TypedValue;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -60,9 +61,13 @@ public class MonthlyActivity extends BaseActivity {
         ArrayList<BarEntry> monthlyEntries = dbHelper.getMonthlyMeditationDataForDateRange(selectedMonthStartDate);
         float totalHours = dbHelper.getTotalMonthlyMeditationHoursForDateRange(selectedMonthStartDate, getNextMonthStartDate(selectedMonthStartDate));
 
+        TypedValue tv = new TypedValue();
+        getTheme().resolveAttribute(com.google.android.material.R.attr.colorOnPrimarySurface, tv, true);
+        int barColor = tv.data;
+
         // Update chart and total hours
-        BarDataSet monthlyDataSet = new BarDataSet(monthlyEntries, "Monthly Progress");
-        monthlyDataSet.setColor(Color.parseColor("#66BB6A")); // Same color as in WeeklyActivity
+        BarDataSet monthlyDataSet = new BarDataSet(monthlyEntries, "");
+        monthlyDataSet.setColor(barColor); // Same color as in WeeklyActivity
         monthlyDataSet.setValueTextColor(Color.parseColor("#969696"));
         monthlyDataSet.setValueTextSize(14f); // Same text size as in WeeklyActivity
 

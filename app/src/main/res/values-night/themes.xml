@@ -12,6 +12,7 @@
         <item name="colorBackgroundFloating">@color/dark_deletebutton</item>
         <item name="android:windowBackground">@color/darkwindow_background</item>
         <item name="android:textColorHint">@color/dark_textHintcolor</item>
+        <item name="colorOnPrimarySurface">@color/barChart_dark</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/dark_secondary</item>
         <item name="colorSecondaryVariant">@color/dark_secondaryVariant</item>

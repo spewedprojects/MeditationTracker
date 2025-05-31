@@ -15,8 +15,11 @@
 | 1.0 | Debug app |
 
 
-    37. 2.17.g
+    38. 2.17.h
      > Current version
+
+    37. 2.17.g
+     > Fixed: Now Monday starts the week in monthly summaries. It was sunday before.
 
     36. 2.17.f
      > Fixed database leaks using "db.close();"

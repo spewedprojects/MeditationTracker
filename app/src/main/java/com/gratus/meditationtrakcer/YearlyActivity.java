@@ -24,6 +24,7 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.renderer.BarChartRenderer;
 import com.github.mikephil.charting.utils.ViewPortHandler;
+import android.util.TypedValue;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -59,11 +60,15 @@ public class YearlyActivity extends BaseActivity {
         ArrayList<BarEntry> yearlyEntries = dbHelper.getYearlyMeditationDataForDateRange(selectedYearStartDate);
         float totalHours = dbHelper.getTotalYearlyMeditationHoursForDateRange(selectedYearStartDate, getNextYearStartDate(selectedYearStartDate));
 
+        TypedValue tv = new TypedValue();
+        getTheme().resolveAttribute(com.google.android.material.R.attr.colorOnPrimarySurface, tv, true);
+        int barColor = tv.data;
+
         // Update chart and total hours
-        BarDataSet yearlyDataSet = new BarDataSet(yearlyEntries, "Yearly Progress");
-        yearlyDataSet.setColor(Color.parseColor("#26A69A")); // Consistent color
+        BarDataSet yearlyDataSet = new BarDataSet(yearlyEntries, "");
+        yearlyDataSet.setColor(barColor); // Consistent color
         yearlyDataSet.setValueTextColor(Color.parseColor("#969696"));
-        yearlyDataSet.setValueTextSize(12f); // Consistent text size
+        yearlyDataSet.setValueTextSize(14f); // Consistent text size
 
         BarData yearlyData = new BarData(yearlyDataSet);
         yearlyData.setBarWidth(0.8f); // Consistent bar width

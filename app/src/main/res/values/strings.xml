@@ -22,6 +22,6 @@
     <string name="total_hours">Total hours: </string>
     <string name="goals_title">Set a New Goal</string>
     <string name="goals_desc">Create a new meditation goal</string>
-    <string name="current_version_details">▶ Fixed: Now Monday starts the week.\n▶ NEXT: Home screen widget.</string>
+    <string name="current_version_details">▶ Bar charts now devoid of any color; goes will with the overall theme.\n▶ NEXT: Home screen widget.</string>
     <string name="v1.16.c">v1.16.c:\n- NOICE!\n  - Next indent.\n    ▶ Bullet point</string>
 </resources>

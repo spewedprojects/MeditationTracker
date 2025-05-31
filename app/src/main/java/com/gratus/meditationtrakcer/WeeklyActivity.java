@@ -23,12 +23,13 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.renderer.BarChartRenderer;
 import com.github.mikephil.charting.utils.ViewPortHandler;
+import android.util.TypedValue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
 
-//import com.gratus.meditationtrakcer.utils.RoundedBarChartRenderer;
+import com.gratus.meditationtrakcer.utils.RoundedBarChartRenderer;
 
 
 public class WeeklyActivity extends BaseActivity {
@@ -62,9 +63,13 @@ public class WeeklyActivity extends BaseActivity {
         ArrayList<BarEntry> weeklyEntries = dbHelper.getWeeklyMeditationDataForDateRange(selectedWeekStartDate);
         float totalHours = dbHelper.getTotalWeeklyMeditationHoursForDateRange(selectedWeekStartDate, getNextWeekStartDate(selectedWeekStartDate));
 
+        TypedValue tv = new TypedValue();
+        getTheme().resolveAttribute(com.google.android.material.R.attr.colorOnPrimarySurface, tv, true);
+        int barColor = tv.data;
+
         // Update chart and total hours
-        BarDataSet weeklyDataSet = new BarDataSet(weeklyEntries, "Weekly Progress");
-        weeklyDataSet.setColor(Color.parseColor("#9CCC65")); // Same color as in onCreate
+        BarDataSet weeklyDataSet = new BarDataSet(weeklyEntries, "");
+        weeklyDataSet.setColor(barColor); // <= uses theme
         weeklyDataSet.setValueTextColor(Color.parseColor("#969696"));
         weeklyDataSet.setValueTextSize(14f); // Same text size as in onCreate
 

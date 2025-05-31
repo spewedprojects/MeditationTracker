@@ -12,6 +12,7 @@
         <item name="colorBackgroundFloating">@color/light_deletebutton</item>
         <item name="android:windowBackground">@color/lightwindow_background</item>
         <item name="android:textColorHint">@color/light_textHintcolor</item>
+        <item name="colorOnPrimarySurface">@color/barChart_light</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/light_secondary</item>
         <item name="colorSecondaryVariant">@color/light_secondaryVariant</item>
