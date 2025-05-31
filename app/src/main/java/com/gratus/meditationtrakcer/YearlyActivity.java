@@ -74,6 +74,15 @@ public class YearlyActivity extends BaseActivity {
         yearlyData.setBarWidth(0.8f); // Consistent bar width
 
         BarChart yearlyBarChart = findViewById(R.id.yearlyBarChart);
+        // 1) Assign the custom RoundedBarChartRenderer BEFORE invalidating
+        yearlyBarChart.setRenderer(
+                new RoundedBarChartRenderer(
+                        yearlyBarChart,
+                        yearlyBarChart.getAnimator(),
+                        yearlyBarChart.getViewPortHandler()
+                )
+        );
+
         yearlyBarChart.setData(yearlyData);
 
         // Configure X-Axis

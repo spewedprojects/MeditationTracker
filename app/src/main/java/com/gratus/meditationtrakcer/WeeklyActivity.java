@@ -78,6 +78,16 @@ public class WeeklyActivity extends BaseActivity {
         weeklyData.setBarWidth(0.8f); // Same bar width as in onCreate
 
         BarChart weeklyBarChart = findViewById(R.id.weeklyBarChart);
+
+        // 1) Assign the custom RoundedBarChartRenderer BEFORE invalidating
+        weeklyBarChart.setRenderer(
+                new RoundedBarChartRenderer(
+                        weeklyBarChart,
+                        weeklyBarChart.getAnimator(),
+                        weeklyBarChart.getViewPortHandler()
+                )
+        );
+
         weeklyBarChart.setData(weeklyData);
 
         // Configure X-Axis

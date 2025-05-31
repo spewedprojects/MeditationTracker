@@ -75,6 +75,14 @@ public class MonthlyActivity extends BaseActivity {
         monthlyData.setBarWidth(0.8f); // Same bar width as in WeeklyActivity
 
         BarChart monthlyBarChart = findViewById(R.id.monthlyBarChart);
+        // 1) Assign the custom RoundedBarChartRenderer BEFORE invalidating
+        monthlyBarChart.setRenderer(
+                new RoundedBarChartRenderer(
+                        monthlyBarChart,
+                        monthlyBarChart.getAnimator(),
+                        monthlyBarChart.getViewPortHandler()
+                )
+        );
         monthlyBarChart.setData(monthlyData);
 
         // Configure X-Axis
