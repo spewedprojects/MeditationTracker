@@ -65,6 +65,7 @@ public class WeeklyActivity extends BaseActivity {
 
         TypedValue tv = new TypedValue();
         getTheme().resolveAttribute(com.google.android.material.R.attr.colorOnPrimarySurface, tv, true);
+        // Use "com.google.android.material.R.attr..." to extract from the material components library rather than making your own resource. //
         int barColor = tv.data;
 
         // Update chart and total hours
