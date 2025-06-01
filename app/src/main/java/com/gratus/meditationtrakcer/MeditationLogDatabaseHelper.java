@@ -284,9 +284,10 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
 
         // Populate the BarEntry list
         for (int i = 0; i < 5; i++) {
-            entries.add(new BarEntry(i, weekTotals[i]));
+            if (weekTotals[i] > 0f) {          // skip zeros
+                entries.add(new BarEntry(i, weekTotals[i]));
+            }
         }
-
         return entries;
     }
 
@@ -331,7 +332,9 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
         db.close();
 
         for (int i = 0; i < 12; i++) {
-            entries.add(new BarEntry(i, monthTotals[i]));
+            if (monthTotals[i] > 0f) {          // skip zeros
+                entries.add(new BarEntry(i, monthTotals[i]));
+            }
         }
         return entries;
     }
