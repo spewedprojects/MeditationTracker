@@ -19,6 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import java.text.SimpleDateFormat;
@@ -316,15 +317,21 @@ public class MainActivity extends BaseActivity {
         SharedPreferences sp = getSharedPreferences("timer_prefs", MODE_PRIVATE);
         long stored = sp.getLong("timer_start", -1);
         if (stored != -1) {
-            secondsElapsed = (int)((System.currentTimeMillis() - stored)/1000);
+            // Re-compute elapsed for immediate display
+            secondsElapsed = (int) ((System.currentTimeMillis() - stored) / 1000);
+
+            // 🔶 If the service isn’t running any more, start it again
+            if (!TimerService.isTimerRunning) {
+                Intent revive = new Intent(this, TimerService.class);
+                ContextCompat.startForegroundService(this, revive);
+            }
             isTimerRunning = true;
+        } else {
+            isTimerRunning = false;
         }
 
-        if (isTimerRunning) {
-            recordButton.setText("Stop"); // Update button to "Stop"
-        } else {
-            recordButton.setText("Start"); // Update button to "Start"
-        }
+        recordButton.setText(isTimerRunning ? "Stop" : "Start");
+        updateTimerDisplay();
 
         // Register the broadcast receiver for timer updates
         LocalBroadcastManager.getInstance(this).registerReceiver(timerUpdateReceiver, new IntentFilter("TIMER_UPDATED"));

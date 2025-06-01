@@ -72,7 +72,7 @@ public class MonthlyActivity extends BaseActivity {
         monthlyDataSet.setValueTextSize(14f); // Same text size as in WeeklyActivity
 
         BarData monthlyData = new BarData(monthlyDataSet);
-        monthlyData.setBarWidth(0.8f); // Same bar width as in WeeklyActivity
+        monthlyData.setBarWidth(0.45f); // Same bar width as in WeeklyActivity
 
         BarChart monthlyBarChart = findViewById(R.id.monthlyBarChart);
         // 1) Assign the custom RoundedBarChartRenderer BEFORE invalidating
@@ -187,12 +187,12 @@ public class MonthlyActivity extends BaseActivity {
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        Intent intent = new Intent(MonthlyActivity.this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-        finish();
-    }
+//    @Override
+//    public void onBackPressed() {
+//        super.onBackPressed();
+//        Intent intent = new Intent(MonthlyActivity.this, MainActivity.class);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+//        startActivity(intent);
+//        finish();
+//    }
 }

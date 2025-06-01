@@ -71,8 +71,16 @@ public class TimerService extends Service {
      */
     private void startTimer() {
         if (!isTimerRunning) {
-            startTime = System.currentTimeMillis(); // Record the start time
-            prefs.edit().putLong(KEY_START_TIME, startTime).apply(); // ⬅️ save
+            // If we have a stored stamp, pick it up – otherwise start new
+            if (prefs.contains(KEY_START_TIME)) {
+                startTime = prefs.getLong(KEY_START_TIME, System.currentTimeMillis());
+            } else {
+                startTime = System.currentTimeMillis();
+                prefs.edit().putLong(KEY_START_TIME, startTime).apply();
+            }
+
+            // Rebuild secondsElapsed so notification & UI show the right figure
+            secondsElapsed = (int) ((System.currentTimeMillis() - startTime) / 1000);
             isTimerRunning = true;
             handler.postDelayed(timerRunnable, 1000);
         }

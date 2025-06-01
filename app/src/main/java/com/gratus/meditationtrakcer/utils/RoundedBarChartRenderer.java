@@ -1,18 +1,19 @@
 package com.gratus.meditationtrakcer.utils;
 
 import android.graphics.Canvas;
-import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.RectF;
 import android.util.TypedValue;
-
-import androidx.core.graphics.ColorUtils;
 
 import com.github.mikephil.charting.animation.ChartAnimator;
 import com.github.mikephil.charting.buffer.BarBuffer;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.renderer.BarChartRenderer;
+import com.github.mikephil.charting.utils.Transformer;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 
 /**
@@ -26,8 +27,6 @@ public class RoundedBarChartRenderer extends BarChartRenderer {
 
     // 12 dp in pixels, computed once in the constructor
     private final float radiusPx;
-    private final Paint translucentPaint = new Paint();
-
 
     public RoundedBarChartRenderer(
             BarChart chart,
@@ -35,17 +34,12 @@ public class RoundedBarChartRenderer extends BarChartRenderer {
             ViewPortHandler viewPortHandler) {
         super(chart, animator, viewPortHandler);
 
-        // Convert 6 dp → pixels, using the chart’s DisplayMetrics
+        // Convert 12 dp → pixels, using the chart’s DisplayMetrics
         radiusPx = TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,
-                6f,
+                5f,
                 chart.getResources().getDisplayMetrics()
         );
-        translucentPaint.setAlpha(180); // 70% opacity
-        translucentPaint.setStyle(Paint.Style.FILL);
-        translucentPaint.setAntiAlias(true);
-        translucentPaint.setDither(true);
-        translucentPaint.setFilterBitmap(true);
     }
 
     @Override
@@ -89,12 +83,7 @@ public class RoundedBarChartRenderer extends BarChartRenderer {
                 .pointValuesToPixel(buffer.buffer);
 
         // 5) Draw each bar from the float[]: [left, top, right, bottom] for every bar
-        int themeColor = dataSet.getColor();
-        // Apply 70% opacity
-        int baseColor = ColorUtils.setAlphaComponent(dataSet.getColor(), 180);
-        // Apply to translucentPaint
-        translucentPaint.setColor(dataSet.getColor());
-
+        mRenderPaint.setColor(dataSet.getColor());
 
         for (int j = 0; j < buffer.buffer.length; j += 4) {
             float left   = buffer.buffer[j];
@@ -110,7 +99,7 @@ public class RoundedBarChartRenderer extends BarChartRenderer {
             RectF barRect = new RectF(left, top, right, bottom);
 
             // 6a) Draw a fully‐rounded rectangle (radiusPx on all corners)
-            c.drawRoundRect(barRect, radiusPx, radiusPx, translucentPaint);
+            //___c.drawRoundRect(barRect, radiusPx, radiusPx, mRenderPaint);
 
             // 6b) Overwrite the bottom‐half of that same rectangle,
             //      effectively squaring off the bottom corners.
@@ -125,13 +114,49 @@ public class RoundedBarChartRenderer extends BarChartRenderer {
             //    │              │      so that bottom corners are square.
             //    └──────────────┘
             //
-            c.drawRect(
-                    left,
-                    top + radiusPx,
-                    right,
-                    bottom,
-                    translucentPaint
-            );
+            //___c.drawRect(left,top + radiusPx, right, bottom, mRenderPaint);
+            Path barPath = new Path();
+            barPath.addRoundRect(barRect,
+                    new float[]{radiusPx, radiusPx, radiusPx, radiusPx, 0f, 0f, 0f, 0f}, // top corners rounded
+                    Path.Direction.CW);
+            c.drawPath(barPath, mRenderPaint);
+
         }
     }
+
+    @Override
+    public void drawHighlighted(Canvas c, Highlight[] indices) {
+        BarData barData = mChart.getBarData();
+
+        for (Highlight high : indices) {
+            IBarDataSet set = barData.getDataSetByIndex(high.getDataSetIndex());
+
+            if (set == null || !set.isHighlightEnabled())
+                continue;
+
+            BarEntry entry = set.getEntryForXValue(high.getX(), high.getY());
+            if (!isInBoundsX(entry, set)) continue;
+
+            Transformer trans = mChart.getTransformer(set.getAxisDependency());
+            mHighlightPaint.setColor(set.getHighLightColor());  // or custom theme color
+            mHighlightPaint.setAlpha(100);  // semi-transparent
+
+            final float barWidthHalf = barData.getBarWidth() / 2f;
+            final float x = entry.getX();
+
+            mBarRect.set(x - barWidthHalf, 0f, x + barWidthHalf, entry.getY());
+            trans.rectToPixelPhase(mBarRect, mAnimator.getPhaseY());
+
+            // Round top highlight only
+            Path roundedHighlight = new Path();
+            roundedHighlight.addRoundRect(
+                    mBarRect,
+                    new float[]{radiusPx, radiusPx, radiusPx, radiusPx, 0f, 0f, 0f, 0f},
+                    Path.Direction.CW
+            );
+
+            c.drawPath(roundedHighlight, mHighlightPaint);
+        }
+    }
+
 }

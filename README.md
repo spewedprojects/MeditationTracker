@@ -6,17 +6,17 @@ Or alternatively, you can find it in Releases section also.
 
 ***
 
-# (v2.17.i)
+# (v2.17.j)
 **Current known issues:**
 - App screens not scrollable on tiny screens.
 - ~Monthly summary graphs show incorrect week division; likely consistency issues with Week start day (Sunday or Monday)~
-- Weekly summary somewhere still considering Sunday to Monday as one week.
+- ~Weekly summary somewhere still considering Sunday to Monday as one week.~
 
 
 __Resolved long standing issues:__
 - Progress bar does not consider the end date in the date range.
 - Huge space below each goal card.
-
+- Timer would stop after device went to deep-sleep.
 
 ***
 #### **Future updates:**
@@ -28,4 +28,3 @@ __Resolved long standing issues:__
 - **Adding a homescreen widget to remind of meditation progress, specifically, most current goal progress.**
 - ~Changes to method of adding goals (Daily duration, total hours, Start date, end date will be automatically determined)~ __DONE!!__
 - Twice "back" to exit the app
-- A home screen widget - the same card that appears on main screen of the app.

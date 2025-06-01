@@ -1,18 +1,11 @@
 ***Version History and changes:***
 
-<style>
-  table {
-    border-collapse: collapse;
-    width: auto; /* ✅ Auto-size columns */
-  }
-</style>
-
-| Version | Changes |
-|---------|---------|
-| 2.13.1   | The app entirely supports dark mode. |
-| 2.12.1  | Theming overhaul. Partial app supports dark mode. |
-| 2.12   | Now exports and imports in *.db + *.json files. Changed goals date format to yyyy-mm-dd. |
-| 1.0 | Debug app |
+| __Version__ | __Changes__                                                                              |
+|-------------|------------------------------------------------------------------------------------------|
+| 2.13.1      | The app entirely supports dark mode.                                                     |
+| 2.12.1      | Theming overhaul. Partial app supports dark mode.                                        |
+| 2.12        | Now exports and imports in *.db + *.json files. Changed goals date format to yyyy-mm-dd. |
+| 1.0         | Debug app                                                                                |
 
 
     39. 2.17.i

@@ -7,6 +7,8 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.util.DisplayMetrics;
@@ -52,7 +54,8 @@ public class BaseActivity extends AppCompatActivity {
 
     private static final String PREFS_NAME = "AppThemeSettings";
     private static final String THEME_KEY = "SelectedTheme";
-
+    private boolean doubleBackToExitPressedOnce = false;
+    private final Handler backPressHandler = new Handler(Looper.getMainLooper());
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -243,10 +246,10 @@ public class BaseActivity extends AppCompatActivity {
         Button menuButton = findViewById(menuButtonId);
         menuButton.setOnClickListener(v -> {
             // Toggle the drawer when the menu button is clicked
-            if (drawerLayout.isDrawerOpen(Gravity.START)) {
-                drawerLayout.closeDrawer(Gravity.START);
+            if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                drawerLayout.closeDrawer(GravityCompat.START);
             } else {
-                drawerLayout.openDrawer(Gravity.START);
+                drawerLayout.openDrawer(GravityCompat.START);
             }
         });
     }
@@ -258,7 +261,7 @@ public class BaseActivity extends AppCompatActivity {
         // Example: set up a listener on the close button inside the drawer.
         View closeMenu = findViewById(R.id.close_menu);
         if (closeMenu != null) {
-            closeMenu.setOnClickListener(v -> drawerLayout.closeDrawer(Gravity.START));
+            closeMenu.setOnClickListener(v -> drawerLayout.closeDrawer(GravityCompat.START));
         }
 
         // Set up other drawer buttons to navigate to your activities.
@@ -280,14 +283,25 @@ public class BaseActivity extends AppCompatActivity {
      * Navigation helper that starts the given activity.
      */
     private void navigateTo(Class<?> activityClass) {
-        Intent intent = new Intent(this, activityClass);
-        // Clear the activity stack if needed
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-        // Close the drawer after navigation
-        if (drawerLayout.isDrawerOpen(Gravity.START)) {
-            drawerLayout.closeDrawer(Gravity.START);
+        // Already there?  Nothing to do
+        if (getClass() == activityClass) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+            return;
         }
+
+        // Bring an existing instance forward (if any) or create a new one
+        Intent intent = new Intent(this, activityClass);
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivity(intent);
+
+        // If we *weren’t* on MainActivity, kill the screen we just left.
+        // This collapses any    Main → Child-A → Child-B   chain to just
+        //                       Main → Child-B
+        if (!(this instanceof MainActivity)) {
+            finish();
+        }
+
+        drawerLayout.closeDrawer(GravityCompat.START);
     }
 
     private void exportData() {
@@ -456,4 +470,26 @@ public class BaseActivity extends AppCompatActivity {
         }
         return null;
     }
+
+    // BaseActivity.java
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout != null &&
+                drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+            return;
+        }
+
+        if (doubleBackToExitPressedOnce || !(this instanceof MainActivity)) {
+            //       ^^^^^^^^^^^^^^^^^^^^ ── pressed twice in Main, OR
+            //                                 we're on a child screen ➜ just finish
+            super.onBackPressed();
+            return;
+        }
+
+        doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Press BACK again to exit", Toast.LENGTH_SHORT).show();
+        backPressHandler.postDelayed(() -> doubleBackToExitPressedOnce = false, 2000);
+    }
+
 }
