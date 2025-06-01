@@ -6,12 +6,11 @@ Or alternatively, you can find it in Releases section also.
 
 ***
 
-# (v2.17.j)
+# (v3.0.a)
 **Current known issues:**
 - App screens not scrollable on tiny screens.
 - ~Monthly summary graphs show incorrect week division; likely consistency issues with Week start day (Sunday or Monday)~
 - ~Weekly summary somewhere still considering Sunday to Monday as one week.~
-
 
 __Resolved long standing issues:__
 - Progress bar does not consider the end date in the date range.
