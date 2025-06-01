@@ -7,6 +7,9 @@
 | 2.12        | Now exports and imports in *.db + *.json files. Changed goals date format to yyyy-mm-dd. |
 | 1.0         | Debug app                                                                                |
 
+    40. 2.17.j
+     > Weekly page reflects current week on opening; showed next week.
+     > Timerservice will run no matter what - and won't ever stop (bug). Using sharedprefs to store time.
 
     39. 2.17.i
      > Bar charts now have 7dp rounded corners.
