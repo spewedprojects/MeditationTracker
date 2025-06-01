@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
 
+import com.gratus.meditationtrakcer.utils.HideZeroValueFormatter;
 import com.gratus.meditationtrakcer.utils.RoundedBarChartRenderer;
 
 
@@ -71,10 +72,9 @@ public class WeeklyActivity extends BaseActivity {
         // Update chart and total hours
         BarDataSet weeklyDataSet = new BarDataSet(weeklyEntries, "");
         weeklyDataSet.setColor(barColor); // <= uses theme
-        // Use colorOnPrimary with 70% opacity
-        // weeklyDataSet.setColor(ColorUtils.setAlphaComponent(barColor, 180)); // ~70% alpha
         weeklyDataSet.setValueTextColor(Color.parseColor("#969696"));
         weeklyDataSet.setValueTextSize(14f); // Same text size as in onCreate
+        weeklyDataSet.setValueFormatter(new HideZeroValueFormatter());
 
         BarData weeklyData = new BarData(weeklyDataSet);
         weeklyData.setBarWidth(0.5f); // Same bar width as in onCreate

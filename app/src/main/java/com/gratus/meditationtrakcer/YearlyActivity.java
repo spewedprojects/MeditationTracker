@@ -29,6 +29,7 @@ import android.util.TypedValue;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import com.gratus.meditationtrakcer.utils.HideZeroValueFormatter;
 import com.gratus.meditationtrakcer.utils.RoundedBarChartRenderer;
 
 public class YearlyActivity extends BaseActivity {
@@ -69,6 +70,7 @@ public class YearlyActivity extends BaseActivity {
         yearlyDataSet.setColor(barColor); // Consistent color
         yearlyDataSet.setValueTextColor(Color.parseColor("#969696"));
         yearlyDataSet.setValueTextSize(14f); // Consistent text size
+        yearlyDataSet.setValueFormatter(new HideZeroValueFormatter());
 
         BarData yearlyData = new BarData(yearlyDataSet);
         yearlyData.setBarWidth(0.8f); // Consistent bar width
