@@ -6,9 +6,9 @@ Or alternatively, you can find it in Releases section also.
 
 ***
 
-# (v3.0.a)
+# (v3.0.b)
 **Current known issues:**
-- App screens not scrollable on tiny screens.
+- ~App screens not scrollable on tiny screens.~ __DONE!!__
 - ~Monthly summary graphs show incorrect week division; likely consistency issues with Week start day (Sunday or Monday)~
 - ~Weekly summary somewhere still considering Sunday to Monday as one week.~
 

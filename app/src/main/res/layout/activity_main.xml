@@ -20,6 +20,7 @@
         app:layout_constraintTop_toTopOf="parent">
     </com.google.android.material.appbar.MaterialToolbar> <!-- Toolbar for the sake adding title and the menubutton, no function -->
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/toolbar2_const"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimaryVariant"
@@ -29,472 +30,484 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
-
-        <!-- Menu button on toolbar next to title -->
-        <Button
-            android:id="@+id/menubutton"
-            android:layout_width="58dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="2dp"
-            android:background="#00FFFFFF"
-            android:textColor="#00FFFFFF"
-            android:textColorHighlight="#00FFFFFF"
-            android:textColorHint="#00FFFFFF"
-            android:textColorLink="#00FFFFFF"
-            android:visibility="visible"
-            app:cornerRadius="8dp"
-            app:icon="@drawable/arrow_menu_open"
-            app:iconGravity="textStart"
-            app:iconPadding="4dp"
-            app:iconSize="23dp"
-            app:iconTint="?attr/colorAccent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/toolbar_title"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <!-- Centered title on actionbar -->
-        <TextView
-            android:id="@+id/toolbar_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|center_horizontal"
-            android:fontFamily="@font/kumbh_sans_bold"
-            android:foregroundGravity="center"
-            android:gravity="center"
-            android:text="@string/app_name"
-            android:textColor="?attr/colorOnPrimary"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.5" />
-
+            <!-- Menu button on toolbar next to title -->
+            <Button
+                android:id="@+id/menubutton"
+                android:layout_width="58dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:background="#00FFFFFF"
+                android:textColor="#00FFFFFF"
+                android:textColorHighlight="#00FFFFFF"
+                android:textColorHint="#00FFFFFF"
+                android:textColorLink="#00FFFFFF"
+                android:visibility="visible"
+                app:cornerRadius="8dp"
+                app:icon="@drawable/arrow_menu_open"
+                app:iconGravity="textStart"
+                app:iconPadding="4dp"
+                app:iconSize="23dp"
+                app:iconTint="?attr/colorAccent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/toolbar_title"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+            <!-- Centered title on actionbar -->
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|center_horizontal"
+                android:fontFamily="@font/kumbh_sans_bold"
+                android:foregroundGravity="center"
+                android:gravity="center"
+                android:text="@string/app_name"
+                android:textColor="?attr/colorOnPrimary"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5" />
     </androidx.constraintlayout.widget.ConstraintLayout> <!-- Constrained layout for menubutton and Title -->
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView0"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:layout_marginBottom="24dp"
-        app:barrierMargin="16dp"
-        app:cardCornerRadius="12dp"
-        app:cardBackgroundColor="?attr/colorPrimaryVariant"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:paddingBottom="70dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar2"
-        app:layout_constraintVertical_bias="0.01">
+        app:layout_constraintTop_toBottomOf="@id/toolbar2_const"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/date_display"
-                android:layout_width="wrap_content"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView0"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="22dp"
-                android:layout_marginBottom="8dp"
-                android:clickable="false"
-                android:cursorVisible="false"
-                android:filterTouchesWhenObscured="false"
-                android:focusable="false"
-                android:focusableInTouchMode="true"
-                android:fontFamily="@font/kumbh_sans"
-                android:textStyle="bold"
-                android:inputType="date"
-                android:longClickable="false"
-                android:text="Monday, January 13, 2025"
-                android:textColor="?attr/colorAccent"
-                android:textSize="18sp"
-                android:letterSpacing="0.04"
-                app:layout_constraintBottom_toTopOf="@id/today_total"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.19999999"
-                tools:ignore="TextViewEdits" /> <!-- android:ems="10" removing this removed the touchsize too small and one another warning-->
-
-            <TextView
-                android:id="@+id/today_total"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:filterTouchesWhenObscured="false"
-                android:focusableInTouchMode="true"
-                android:fontFamily="@font/kumbh_sans_bold"
-                android:text="Today's Total: 0h 0m 0s"
-                android:textColor="?attr/colorOnPrimary"
-                android:textSize="24sp"
-                app:layout_constraintBottom_toTopOf="@id/week_total"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/date_display"
-                app:layout_constraintVertical_bias="0.65"
-                tools:ignore="TextViewEdits" /> <!-- Today's total time -->
-
-            <TextView
-                android:id="@+id/week_total"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:layout_margin="16dp"
                 android:layout_marginBottom="24dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:filterTouchesWhenObscured="false"
-                android:focusableInTouchMode="true"
-                android:fontFamily="@font/kumbh_sans_semibold"
-                android:text="This Week: 0.00hrs"
-                android:textColor="?attr/colorOnPrimary"
-                android:textSize="20sp"
+                app:barrierMargin="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardBackgroundColor="?attr/colorPrimaryVariant"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/today_total"
-                app:layout_constraintVertical_bias="0.65"
-                tools:ignore="TextViewEdits" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.01">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView> <!-- For cardview Date and Total-->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="24dp"
-        app:barrierMargin="16dp"
-        app:cardBackgroundColor="?attr/colorPrimaryVariant"
-        app:cardCornerRadius="12dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintCircleRadius="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView0"
-        app:layout_constraintVertical_bias="0">
+                    <TextView
+                        android:id="@+id/date_display"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="22dp"
+                        android:layout_marginBottom="8dp"
+                        android:clickable="false"
+                        android:cursorVisible="false"
+                        android:filterTouchesWhenObscured="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="true"
+                        android:fontFamily="@font/kumbh_sans"
+                        android:textStyle="bold"
+                        android:inputType="date"
+                        android:longClickable="false"
+                        android:text="Monday, January 13, 2025"
+                        android:textColor="?attr/colorAccent"
+                        android:textSize="18sp"
+                        android:letterSpacing="0.04"
+                        app:layout_constraintBottom_toTopOf="@id/today_total"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.19999999"
+                        tools:ignore="TextViewEdits" /> <!-- android:ems="10" removing this removed the touchsize too small and one another warning-->
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/today_total"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:filterTouchesWhenObscured="false"
+                        android:focusableInTouchMode="true"
+                        android:fontFamily="@font/kumbh_sans_bold"
+                        android:text="Today's Total: 0h 0m 0s"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:textSize="24sp"
+                        app:layout_constraintBottom_toTopOf="@id/week_total"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/date_display"
+                        app:layout_constraintVertical_bias="0.65"
+                        tools:ignore="TextViewEdits" /> <!-- Today's total time -->
 
-            <TextView
-                android:id="@+id/timer_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="28dp"
-                android:layout_marginTop="21dp"
-                android:layout_marginBottom="8dp"
-                android:fontFamily="@font/kumbh_sans_semibold"
-                android:gravity="center"
-                android:text="@string/timer_card_title"
-                android:textColor="?attr/colorOnPrimary"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/timer_display"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" /> <!-- Timer title -->
+                    <TextView
+                        android:id="@+id/week_total"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginBottom="24dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:filterTouchesWhenObscured="false"
+                        android:focusableInTouchMode="true"
+                        android:fontFamily="@font/kumbh_sans_semibold"
+                        android:text="This Week: 0.00hrs"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/today_total"
+                        app:layout_constraintVertical_bias="0.65"
+                        tools:ignore="TextViewEdits" />
 
-            <TextView
-                android:id="@+id/timer_display"
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView> <!-- For cardview Date and Total-->
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
-                android:layout_marginBottom="4dp"
-                android:fontFamily="@font/kumbh_sans_semibold"
-                android:gravity="center"
-                android:text="00:00:00"
-                android:textColor="?attr/colorOnPrimary"
-                android:textSize="60sp"
-                android:letterSpacing="0.06"
-                app:layout_constraintBottom_toTopOf="@id/record"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/timer_title"
-                app:layout_constraintVertical_bias="0" /> <!-- Timer display -->
-
-            <Button
-                android:id="@+id/record"
-                android:layout_width="130dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="16dp"
-                android:backgroundTint="?attr/colorOnPrimary"
-                android:fontFamily="@font/kumbh_sans_light"
-                android:gravity="center"
-                android:includeFontPadding="false"
-                android:text="@string/record"
-                android:textAllCaps="false"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:textColor="?attr/colorPrimary"
-                app:cornerRadius="8dp"
+                android:layout_margin="16dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="24dp"
+                app:barrierMargin="16dp"
+                app:cardBackgroundColor="?attr/colorPrimaryVariant"
+                app:cardCornerRadius="12dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintCircleRadius="8dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/timer_display"
-                app:layout_constraintVertical_bias="0.866" /> <!-- Record button -->
+                app:layout_constraintTop_toBottomOf="@+id/cardView0"
+                app:layout_constraintVertical_bias="0">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView> <!-- For cardview Timer -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:layout_marginTop="30dp"
-        app:barrierMargin="16dp"
-        app:cardCornerRadius="12dp"
-        app:cardBackgroundColor="?attr/colorPrimaryVariant"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintCircleRadius="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView1"
-        app:layout_constraintVertical_bias="0">
+                    <TextView
+                        android:id="@+id/timer_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="28dp"
+                        android:layout_marginTop="21dp"
+                        android:layout_marginBottom="8dp"
+                        android:fontFamily="@font/kumbh_sans_semibold"
+                        android:gravity="center"
+                        android:text="@string/timer_card_title"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toTopOf="@+id/timer_display"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" /> <!-- Timer title -->
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/timer_display"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginBottom="4dp"
+                        android:fontFamily="@font/kumbh_sans_semibold"
+                        android:gravity="center"
+                        android:text="00:00:00"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:textSize="60sp"
+                        android:letterSpacing="0.06"
+                        app:layout_constraintBottom_toTopOf="@id/record"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/timer_title"
+                        app:layout_constraintVertical_bias="0" /> <!-- Timer display -->
 
-            <TextView
-                android:id="@+id/manualentry_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="28dp"
-                android:layout_marginTop="21dp"
-                android:layout_marginBottom="0dp"
-                android:fontFamily="@font/kumbh_sans_semibold"
-                android:gravity="center"
-                android:text="@string/manual_card_title"
-                android:textColor="?attr/colorOnPrimary"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/manual_minutes"/> <!-- Title for manual entry  -->
+                    <Button
+                        android:id="@+id/record"
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="16dp"
+                        android:backgroundTint="?attr/colorOnPrimary"
+                        android:fontFamily="@font/kumbh_sans_light"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:text="@string/record"
+                        android:textAllCaps="false"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:textColor="?attr/colorPrimary"
+                        app:cornerRadius="8dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/timer_display"
+                        app:layout_constraintVertical_bias="0.866" /> <!-- Record button -->
 
-            <EditText
-                android:id="@+id/manual_hours"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:fontFamily="@font/kumbh_sans"
-                android:padding="10dp"
-                android:textSize="19sp"
-                android:letterSpacing="0.05"
-                android:hint="HH"
-                android:inputType="number"
-                app:layout_constraintBottom_toTopOf="@id/add_entry"
-                app:layout_constraintEnd_toStartOf="@+id/manual_minutes"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/manualentry_title"
-                app:layout_constraintHorizontal_bias="0.8"
-                app:layout_constraintVertical_bias="0"/> <!-- hrs -->
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView> <!-- For cardview Timer -->
 
-            <EditText
-                android:id="@+id/manual_minutes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:fontFamily="@font/kumbh_sans"
-                android:hint="MM"
-                android:inputType="number"
-                android:textSize="19sp"
-                android:letterSpacing="0.05"
-                android:padding="10dp"
-                app:layout_constraintBottom_toTopOf="@id/add_entry"
-                app:layout_constraintTop_toBottomOf="@id/manualentry_title"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintVertical_bias="0"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent" /> <!-- mm -->
-
-            <EditText
-                android:id="@+id/manual_seconds"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:fontFamily="@font/kumbh_sans"
-                android:textSize="19sp"
-                android:letterSpacing="0.05"
-                android:padding="10dp"
-                android:hint="SS"
-                android:inputType="number"
-                app:layout_constraintBottom_toTopOf="@id/add_entry"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.2"
-                app:layout_constraintVertical_bias="0"
-                app:layout_constraintStart_toEndOf="@id/manual_minutes"
-                app:layout_constraintTop_toBottomOf="@id/manualentry_title" /> <!-- ss -->
-
-            <Button
-                android:id="@+id/add_entry"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="18dp"
-                android:fontFamily="@font/kumbh_sans_light"
-                android:gravity="center"
-                android:backgroundTint="?attr/colorOnPrimary"
-                android:includeFontPadding="false"
-                android:text="@string/add_entry"
-                android:textAllCaps="false"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:textColor="?attr/colorPrimary"
-                app:cornerRadius="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/manual_minutes"
-                app:layout_constraintVertical_bias="0.866" /> <!-- Add manually button -->
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView> <!-- For cardview Manual Entry-->
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView_goals_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="19dp"
-        android:layout_marginRight="50dp"
-        android:layout_marginBottom="16dp"
-        android:visibility="visible"
-        app:cardBackgroundColor="?attr/colorPrimaryVariant"
-        app:cardCornerRadius="12dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardView2"
-        app:layout_constraintVertical_bias="0"
-        app:layout_constraintHorizontal_bias="0.5">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <!-- Add manually button -->
-
-            <Button
-                android:id="@+id/goto_goals"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:iconTint="@color/black"
-                android:includeFontPadding="false"
-                android:background="#00000000"
-                app:cornerRadius="8dp"
-                app:icon="@drawable/baseline_arrow_forward"
-                app:iconGravity="end"
-                app:iconTint="?attr/colorAccent"
-                app:layout_constraintBottom_toTopOf="@id/goal_progress_percentage2"
-                app:layout_constraintHorizontal_bias="0.95"
-                app:layout_constraintLeft_toRightOf="@id/goal_title_home"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.3" />
-
-            <TextView
-                android:id="@+id/goal_title_home"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:filterTouchesWhenObscured="false"
-                android:focusableInTouchMode="true"
-                android:fontFamily="@font/kumbh_sans_semibold"
-                android:text="Goal title"
-                android:textColor="?attr/colorOnPrimary"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toTopOf="@id/goal_duration_home"
-                app:layout_constraintHorizontal_bias="0"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0"
-                tools:ignore="TextViewEdits" /> <!-- Target duration x hours in x days -->
-
-            <TextView
-                android:id="@+id/goal_duration_home"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="6dp"
-                android:filterTouchesWhenObscured="false"
-                android:focusableInTouchMode="true"
-                android:fontFamily="@font/kumbh_sans"
-                android:text="Target: 0 hours | 0 days"
-                android:textColor="?attr/colorAccent"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toTopOf="@id/goal_progress_bar2"
-                app:layout_constraintHorizontal_bias="0"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/goal_title_home"
-                app:layout_constraintVertical_bias="0.0"
-                tools:ignore="TextViewEdits" /> <!-- Goals summary description -->
-
-            <ProgressBar
-                android:id="@+id/goal_progress_bar2"
-                style="@android:style/Widget.ProgressBar.Horizontal"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="55dp"
+                android:layout_margin="16dp"
+                android:layout_marginTop="30dp"
+                app:barrierMargin="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardBackgroundColor="?attr/colorPrimaryVariant"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintCircleRadius="8dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardView1"
+                app:layout_constraintVertical_bias="0">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/manualentry_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="28dp"
+                        android:layout_marginTop="21dp"
+                        android:layout_marginBottom="0dp"
+                        android:fontFamily="@font/kumbh_sans_semibold"
+                        android:gravity="center"
+                        android:text="@string/manual_card_title"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toTopOf="@id/manual_minutes"/> <!-- Title for manual entry  -->
+
+                    <EditText
+                        android:id="@+id/manual_hours"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:fontFamily="@font/kumbh_sans"
+                        android:padding="10dp"
+                        android:textSize="19sp"
+                        android:letterSpacing="0.05"
+                        android:hint="HH"
+                        android:inputType="number"
+                        app:layout_constraintBottom_toTopOf="@id/add_entry"
+                        app:layout_constraintEnd_toStartOf="@+id/manual_minutes"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/manualentry_title"
+                        app:layout_constraintHorizontal_bias="0.8"
+                        app:layout_constraintVertical_bias="0"/> <!-- hrs -->
+
+                    <EditText
+                        android:id="@+id/manual_minutes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:fontFamily="@font/kumbh_sans"
+                        android:hint="MM"
+                        android:inputType="number"
+                        android:textSize="19sp"
+                        android:letterSpacing="0.05"
+                        android:padding="10dp"
+                        app:layout_constraintBottom_toTopOf="@id/add_entry"
+                        app:layout_constraintTop_toBottomOf="@id/manualentry_title"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintVertical_bias="0"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent" /> <!-- mm -->
+
+                    <EditText
+                        android:id="@+id/manual_seconds"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:fontFamily="@font/kumbh_sans"
+                        android:textSize="19sp"
+                        android:letterSpacing="0.05"
+                        android:padding="10dp"
+                        android:hint="SS"
+                        android:inputType="number"
+                        app:layout_constraintBottom_toTopOf="@id/add_entry"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.2"
+                        app:layout_constraintVertical_bias="0"
+                        app:layout_constraintStart_toEndOf="@id/manual_minutes"
+                        app:layout_constraintTop_toBottomOf="@id/manualentry_title" /> <!-- ss -->
+
+                    <Button
+                        android:id="@+id/add_entry"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="18dp"
+                        android:fontFamily="@font/kumbh_sans_light"
+                        android:gravity="center"
+                        android:backgroundTint="?attr/colorOnPrimary"
+                        android:includeFontPadding="false"
+                        android:text="@string/add_entry"
+                        android:textAllCaps="false"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:textColor="?attr/colorPrimary"
+                        app:cornerRadius="8dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/manual_minutes"
+                        app:layout_constraintVertical_bias="0.866" /> <!-- Add manually button -->
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView> <!-- For cardview Manual Entry-->
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView_goals_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="19dp"
+                android:layout_marginRight="50dp"
                 android:layout_marginBottom="16dp"
-                android:max="100"
-                android:progress="0"
-                android:progressDrawable="@drawable/progress_bar_style"
+                android:visibility="visible"
+                app:cardBackgroundColor="?attr/colorPrimaryVariant"
+                app:cardCornerRadius="12dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/goal_duration_home" /> <!-- Goal progress bar -->
+                app:layout_constraintTop_toBottomOf="@id/cardView2"
+                app:layout_constraintVertical_bias="0"
+                app:layout_constraintHorizontal_bias="0.5">
 
-            <TextView
-                android:id="@+id/goal_progress_percentage2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="18dp"
-                android:layout_marginEnd="15dp"
-                android:filterTouchesWhenObscured="false"
-                android:focusableInTouchMode="true"
-                android:fontFamily="@font/kumbh_sans_semibold"
-                android:text="100%"
-                android:textColor="?attr/colorOnPrimary"
-                android:textSize="13sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintHorizontal_bias="0"
-                app:layout_constraintLeft_toRightOf="@+id/goal_progress_bar2"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@id/goal_duration_home"
-                app:layout_constraintVertical_bias="0.5"
-                tools:ignore="TextViewEdits" /> <!-- Goal completion progressbar -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
+                    <!-- Add manually button -->
+
+                    <ImageButton
+                        android:id="@+id/goto_goals"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="#00000000"
+                        android:padding="16dp"
+                        android:src="@drawable/baseline_arrow_forward"
+                        app:iconGravity="end"
+                        android:contentDescription="Go to goals screen"
+                        android:clickable="true"
+                        app:layout_constraintBottom_toTopOf="@id/goal_progress_percentage2"
+                        app:layout_constraintHorizontal_bias="0.9"
+                        app:layout_constraintLeft_toRightOf="@id/goal_title_home"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.3" />
+
+                    <TextView
+                        android:id="@+id/goal_title_home"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:filterTouchesWhenObscured="false"
+                        android:focusableInTouchMode="true"
+                        android:fontFamily="@font/kumbh_sans_semibold"
+                        android:text="Goal title"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toTopOf="@id/goal_duration_home"
+                        app:layout_constraintHorizontal_bias="0"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0"
+                        tools:ignore="TextViewEdits" /> <!-- Target duration x hours in x days -->
+
+                    <TextView
+                        android:id="@+id/goal_duration_home"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginTop="6dp"
+                        android:filterTouchesWhenObscured="false"
+                        android:focusableInTouchMode="true"
+                        android:fontFamily="@font/kumbh_sans"
+                        android:text="Target: 0 hours | 0 days"
+                        android:textColor="?attr/colorAccent"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toTopOf="@id/goal_progress_bar2"
+                        app:layout_constraintHorizontal_bias="0"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toLeftOf="@id/goto_goals"
+                        app:layout_constraintTop_toBottomOf="@+id/goal_title_home"
+                        app:layout_constraintVertical_bias="0.0"
+                        tools:ignore="TextViewEdits" /> <!-- Goals summary description -->
+
+                    <ProgressBar
+                        android:id="@+id/goal_progress_bar2"
+                        style="@android:style/Widget.ProgressBar.Horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="55dp"
+                        android:layout_marginBottom="16dp"
+                        android:max="100"
+                        android:progress="0"
+                        android:progressDrawable="@drawable/progress_bar_style"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/goal_duration_home" /> <!-- Goal progress bar -->
+
+                    <TextView
+                        android:id="@+id/goal_progress_percentage2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="18dp"
+                        android:layout_marginEnd="15dp"
+                        android:filterTouchesWhenObscured="false"
+                        android:focusableInTouchMode="true"
+                        android:fontFamily="@font/kumbh_sans_semibold"
+                        android:text="100%"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:textSize="13sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintHorizontal_bias="0"
+                        app:layout_constraintLeft_toRightOf="@+id/goal_progress_bar2"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/goal_duration_home"
+                        app:layout_constraintVertical_bias="0.5"
+                        tools:ignore="TextViewEdits" /> <!-- Goal completion progressbar -->
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView> <!-- For cardview Goals -->
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

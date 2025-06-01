@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,6 +31,7 @@ public class MainActivity extends BaseActivity {
 
     private TextView dateDisplay, timerDisplay, todayTotalDisplay, weekTotalDisplay;
     private Button recordButton, addEntryButton, moreMenuButton;
+    private ImageButton gotoGoalsButton;
     private EditText manualHours, manualMinutes, manualSeconds;
     private boolean isTimerRunning = false;
     private int secondsElapsed = 0;
@@ -82,7 +84,7 @@ public class MainActivity extends BaseActivity {
         // Menu button functionality
         //moreMenuButton.setOnClickListener(v -> openMenu());
 
-        Button gotoGoalsButton = findViewById(R.id.goto_goals);
+        ImageButton gotoGoalsButton = findViewById(R.id.goto_goals);
         gotoGoalsButton.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, GoalsActivity.class);
             startActivity(intent);
