@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.icu.util.Calendar;
@@ -107,7 +108,7 @@ public class MainActivity extends BaseActivity {
     private void startTimer() {
         if (!TimerService.isTimerRunning) {
             Intent serviceIntent = new Intent(this, TimerService.class);
-            startService(serviceIntent);
+            startForegroundService(serviceIntent); // Start the service in the foreground. It was startService before.
             isTimerRunning = true;
             recordButton.setText("Stop");
         } else {
@@ -148,17 +149,7 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    // Timer logic
-//    private final Runnable timerRunnable = new Runnable() {
-//        @Override
-//        public void run() {
-//            if (isTimerRunning) {
-//                secondsElapsed++;
-//                updateTimerDisplay();
-//                handler.postDelayed(this, 1000);
-//            }
-//        }
-//    };
+    // Timer logic exists in TimerService (runnable)
 
     // Update timer display
     private void updateTimerDisplay() {
@@ -315,18 +306,19 @@ public class MainActivity extends BaseActivity {
         db.close();
     }
 
-    // Open MenuActivity without animation
-//    private void openMenu() {
-//        Intent intent = new Intent(MainActivity.this, MenuActivity.class);
-//        startActivity(intent);
-//    } // Commenting this out, yes, it is old method. main activity already extends base activity that includes this functionality.
-
     @Override
     protected void onResume() {
         super.onResume();
-
         // Sync the timer state with TimerService
         isTimerRunning = TimerService.isTimerRunning;
+
+        // ✅ Load saved total from shared preferences
+        SharedPreferences sp = getSharedPreferences("timer_prefs", MODE_PRIVATE);
+        long stored = sp.getLong("timer_start", -1);
+        if (stored != -1) {
+            secondsElapsed = (int)((System.currentTimeMillis() - stored)/1000);
+            isTimerRunning = true;
+        }
 
         if (isTimerRunning) {
             recordButton.setText("Stop"); // Update button to "Stop"
@@ -349,8 +341,8 @@ public class MainActivity extends BaseActivity {
         LocalBroadcastManager.getInstance(this).unregisterReceiver(timerUpdateReceiver);
     }
 
-//    @Override
-//    protected void onDestroy() {
-//        super.onDestroy();
-//    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }

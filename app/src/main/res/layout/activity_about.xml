@@ -10,12 +10,6 @@
     android:fitsSystemWindows="true"
     tools:context=".AboutActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="&#xA;        android:padding=&quot;12dp&quot;" />
-
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar2"
         android:layout_width="0dp"

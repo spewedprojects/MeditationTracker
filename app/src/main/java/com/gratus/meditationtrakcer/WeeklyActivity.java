@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.ColorUtils;
 
 // WeeklyActivity.java - Bar Chart Integration
 import com.github.mikephil.charting.animation.ChartAnimator;
@@ -57,7 +58,6 @@ public class WeeklyActivity extends BaseActivity {
         setupNavigationButtons();
     }
 
-
     private void updateWeeklySummary() {
         MeditationLogDatabaseHelper dbHelper = new MeditationLogDatabaseHelper(this);
         ArrayList<BarEntry> weeklyEntries = dbHelper.getWeeklyMeditationDataForDateRange(selectedWeekStartDate);
@@ -71,11 +71,13 @@ public class WeeklyActivity extends BaseActivity {
         // Update chart and total hours
         BarDataSet weeklyDataSet = new BarDataSet(weeklyEntries, "");
         weeklyDataSet.setColor(barColor); // <= uses theme
+        // Use colorOnPrimary with 70% opacity
+        // weeklyDataSet.setColor(ColorUtils.setAlphaComponent(barColor, 180)); // ~70% alpha
         weeklyDataSet.setValueTextColor(Color.parseColor("#969696"));
         weeklyDataSet.setValueTextSize(14f); // Same text size as in onCreate
 
         BarData weeklyData = new BarData(weeklyDataSet);
-        weeklyData.setBarWidth(0.8f); // Same bar width as in onCreate
+        weeklyData.setBarWidth(0.5f); // Same bar width as in onCreate
 
         BarChart weeklyBarChart = findViewById(R.id.weeklyBarChart);
 
@@ -127,7 +129,6 @@ public class WeeklyActivity extends BaseActivity {
         dateRangeTextView.setText(getDateRange(selectedWeekStartDate));
     }
 
-
     private String getWeekNumber(String startDate) {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
@@ -161,7 +162,6 @@ public class WeeklyActivity extends BaseActivity {
         }
     }
 
-
     private void setupNavigationButtons() {
         Button prevWeekButton = findViewById(R.id.previous_weekButton);
         Button nextWeekButton = findViewById(R.id.next_weekButton);
@@ -179,6 +179,7 @@ public class WeeklyActivity extends BaseActivity {
 
     private String getMondayOfCurrentWeek() {
         Calendar calendar = Calendar.getInstance();
+        calendar.setFirstDayOfWeek(Calendar.MONDAY);
         calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         return sdf.format(calendar.getTime());

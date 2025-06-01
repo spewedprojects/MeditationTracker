@@ -19,7 +19,7 @@ public class AboutActivity extends BaseActivity {
 
         ImageView icon = findViewById(R.id.github_icon);
         icon.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.github.com/spewedprojects"));
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.github.com/spewedprojects/MeditationTracker"));
             v.getContext().startActivity(intent);
         });
     }

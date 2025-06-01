@@ -15,6 +15,10 @@
 | 1.0 | Debug app |
 
 
+    39. 2.17.i
+     > Bar charts now have 7dp rounded corners.
+     > Revived the RoundedBarChartRenderer Utility.
+
     38. 2.17.h
      > Bar charts now devoid of any color; goes will with the overall theme.
 

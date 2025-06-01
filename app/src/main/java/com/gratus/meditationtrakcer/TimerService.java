@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import android.content.SharedPreferences;     // ⬅️ new
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
@@ -29,11 +30,14 @@ public class TimerService extends Service {
     // Tracks the total elapsed time in seconds
     private int secondsElapsed = 0;
     private long startTime = 0;
-
+    private static final String SP_NAME = "timer_prefs";
+    private static final String KEY_START_TIME = "timer_start";
+    private SharedPreferences prefs;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        prefs = getSharedPreferences(SP_NAME, MODE_PRIVATE);     // ⬅️ new
         // Create the notification channel for the service
         createNotificationChannel();
 
@@ -68,6 +72,7 @@ public class TimerService extends Service {
     private void startTimer() {
         if (!isTimerRunning) {
             startTime = System.currentTimeMillis(); // Record the start time
+            prefs.edit().putLong(KEY_START_TIME, startTime).apply(); // ⬅️ save
             isTimerRunning = true;
             handler.postDelayed(timerRunnable, 1000);
         }
@@ -82,6 +87,7 @@ public class TimerService extends Service {
             secondsElapsed += (int) ((endTime - startTime) / 1000); // Calculate total elapsed time
             isTimerRunning = false;
             handler.removeCallbacks(timerRunnable);
+            prefs.edit().remove(KEY_START_TIME).apply();   // ⬅️ wipe
         }
     }
 
@@ -159,7 +165,7 @@ public class TimerService extends Service {
             NotificationChannel channel = new NotificationChannel(
                     CHANNEL_ID,
                     "Meditation Timer Channel", // Channel name
-                    NotificationManager.IMPORTANCE_LOW // Low priority (no sound or vibration)
+                    NotificationManager.IMPORTANCE_HIGH // Low priority (no sound or vibration)
             );
             NotificationManager manager = getSystemService(NotificationManager.class);
             if (manager != null) {
