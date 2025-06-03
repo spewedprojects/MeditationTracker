@@ -6,11 +6,11 @@ Or alternatively, you can find it in Releases section also.
 
 ***
 
-# (v3.0.d)
+# (v3.0.e)
 **Current known issues:**
-- ~App screens not scrollable on tiny screens.~ __DONE!!__
-- ~Monthly summary graphs show incorrect week division; likely consistency issues with Week start day (Sunday or Monday)~
-- ~Weekly summary somewhere still considering Sunday to Monday as one week.~
+- ~~App screens not scrollable on tiny screens.~~ __DONE!!__
+- ~~Monthly summary graphs show incorrect week division; likely consistency issues with Week start day (Sunday or Monday)~~
+- ~~Weekly summary somewhere still considering Sunday to Monday as one week.~~
 
 __Resolved long standing issues:__
 - Progress bar does not consider the end date in the date range.
@@ -19,11 +19,11 @@ __Resolved long standing issues:__
 
 ***
 #### **Future updates:**
-- ~Making menu more intuitive - swipe gestures (using navigation drawer)~ __DONE!!__
-- ~Adding theme switcher.~ __DONE!!__
+- ~~Making menu more intuitive - swipe gestures (using navigation drawer)~~ __DONE!!__
+- ~~Adding theme switcher.~~ __DONE!!__
+- ~~Changes to method of adding goals (Daily duration, total hours, Start date, end date will be automatically determined)~~ __DONE!!__
+- ~~Twice "back" to exit the app~~ **DONE!!**
 - Making the navbar/status bar look immersive.
 - Overlay on existing graphs, showing time of mediation in a day.
   - Monthly graphs will show week wise avg.
 - **Adding a homescreen widget to remind of meditation progress, specifically, most current goal progress.**
-- ~Changes to method of adding goals (Daily duration, total hours, Start date, end date will be automatically determined)~ __DONE!!__
-- Twice "back" to exit the app

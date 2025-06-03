@@ -3,6 +3,7 @@ package com.gratus.meditationtrakcer;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent; // ⬅️ new; used for tap on notification to launch app main screen
 import android.app.Service;
 import android.content.Intent;
 import android.os.Build;
@@ -128,14 +129,30 @@ public class TimerService extends Service {
         @Override
         public void run() {
             if (isTimerRunning) {
-                secondsElapsed++; // Increment the elapsed time
-                //Log.d("TimerService", "Timer running: secondsElapsed = " + secondsElapsed);
+                long now = System.currentTimeMillis();
+                // Rebuild the elapsed time from the persisted start-stamp
+                long startTime = prefs.getLong(KEY_START_TIME, now);
+                secondsElapsed = (int) ((now - startTime) / 1000);
+                Log.d("TimerService", "Timer running: secondsElapsed = " + secondsElapsed);
                 updateNotification("Elapsed Time: " + formatTime(secondsElapsed)); // Update the notification
                 sendTimeUpdate(); // Send the update to MainActivity
                 handler.postDelayed(this, 1000); // Schedule the next update in 1 second
             }
         }
     };
+
+    /** PendingIntent that re-opens MainActivity when the notification is tapped */
+    private PendingIntent buildContentIntent() {
+        Intent launch = new Intent(this, MainActivity.class)
+                .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
+        int flags = PendingIntent.FLAG_UPDATE_CURRENT;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            flags |= PendingIntent.FLAG_IMMUTABLE;   // required on API 23+
+        }
+
+        return PendingIntent.getActivity(this, 0, launch, flags);
+    }
 
     /**
      * Updates the foreground service notification with the latest timer value.
@@ -162,6 +179,7 @@ public class TimerService extends Service {
                 .setContentText(contentText) // Notification content
                 .setSmallIcon(R.drawable.mtapp_icon2) // Icon to display
                 .setOngoing(true) // Prevent the user from swiping it away
+                .setContentIntent(buildContentIntent())   // ⬅️ key line
                 .build();
     }
 
