@@ -28,6 +28,6 @@
     <color name="lightwindow_background">#f2f2f2</color>
     <color name="darkwindow_background">#131313</color>
     <color name="transparent">#00000000</color>
-    <color name="barChart_light">#E5B25C</color> <!-- Dark gray - #232323 -->
-    <color name="barChart_dark">#BC9353</color> <!-- Light gray - #DBDBDB -->
+    <color name="barChart_light">#555555</color> <!-- Dark gray - #E5B25C -->
+    <color name="barChart_dark">#BDBDBD</color> <!-- Light gray - #BC9353 -->
 </resources>

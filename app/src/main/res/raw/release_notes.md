@@ -7,6 +7,22 @@
 | 2.12        | Now exports and imports in *.db + *.json files. Changed goals date format to yyyy-mm-dd. |
 | 1.0         | Debug app                                                                                |
 
+    45. 3.0.e
+     > TimerService fixed - secondsElapsed is reconstructed on every tick
+     > Tap notification to open the app - added.
+    
+    44. 3.0.d
+     > Upgraded gradle version to latest.
+     > 0 hrs data days/weeks/months do not show up.
+
+
+    43. 3.0.c  
+     > Bar charts do no display excess 0s.
+     > All screens are now scrollable.
+     > Although, at the cost of lovely goals screen scroll.
+
+    42. 3.0.b
+
     41. 3.0.a
      > Timerservice overhaul.
      > Back pressing overhaul.

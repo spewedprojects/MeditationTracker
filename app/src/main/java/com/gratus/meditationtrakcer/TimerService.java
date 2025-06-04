@@ -191,7 +191,7 @@ public class TimerService extends Service {
             NotificationChannel channel = new NotificationChannel(
                     CHANNEL_ID,
                     "Meditation Timer Channel", // Channel name
-                    NotificationManager.IMPORTANCE_HIGH // Low priority (no sound or vibration)
+                    NotificationManager.IMPORTANCE_LOW // Low priority (no sound or vibration)
             );
             NotificationManager manager = getSystemService(NotificationManager.class);
             if (manager != null) {
