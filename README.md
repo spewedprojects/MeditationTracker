@@ -25,5 +25,11 @@ __Resolved long standing issues:__
 - ~~Twice "back" to exit the app~~ **DONE!!**
 - Making the navbar/status bar look immersive.
 - Overlay on existing graphs, showing time of mediation in a day.
+  - A toggle to show/hide this.
   - Monthly graphs will show week wise avg.
 - **Adding a homescreen widget to remind of meditation progress, specifically, most current goal progress.**
+- All summary screens in a single screen, grouped buttons to change between then.
+  - Tapping on month should open month picker to access any month of choosing.
+  - Tapping on year should open year picker to access any year of choosing.
+  - Tapping the month in year graph should lead me to the month graph of that month.
+  - Tapping the week in month graph should lead me to the week graph of that week.
