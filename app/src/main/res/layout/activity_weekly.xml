@@ -125,7 +125,7 @@
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/week_nav"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/weeklyBarChart"
@@ -134,8 +134,8 @@
                             app:layout_constraintHorizontal_bias="0.5">
                             <Button
                                 android:id="@+id/previous_weekButton"
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
+                                android:layout_width="60dp"
+                                android:layout_height="46dp"
                                 android:layout_marginTop="4dp"
                                 android:layout_marginBottom="16dp"
                                 android:layout_marginEnd="55dp"
@@ -156,8 +156,8 @@
 
                             <Button
                                 android:id="@+id/next_weekButton"
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
+                                android:layout_width="60dp"
+                                android:layout_height="46dp"
                                 android:layout_marginTop="4dp"
                                 android:layout_marginBottom="16dp"
                                 android:layout_marginEnd="16dp"
@@ -245,8 +245,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:layout_marginTop="3dp"
-                        android:layout_marginBottom="3dp"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginBottom="6dp"
                         android:filterTouchesWhenObscured="false"
                         android:focusableInTouchMode="true"
                         android:fontFamily="@font/kumbh_sans"

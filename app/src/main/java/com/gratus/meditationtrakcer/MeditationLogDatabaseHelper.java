@@ -215,7 +215,9 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
         db.close();
 
         for (int i = 0; i < 7; i++) {
-            entries.add(new BarEntry(i, dayTotals[i]));
+            if (dayTotals[i] > 0f) {          // skip zeros
+                entries.add(new BarEntry(i, dayTotals[i]));
+            }
         }
         return entries;
     }

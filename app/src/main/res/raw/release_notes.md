@@ -7,6 +7,10 @@
 | 2.12        | Now exports and imports in *.db + *.json files. Changed goals date format to yyyy-mm-dd. |
 | 1.0         | Debug app                                                                                |
 
+    46. 3.0.f
+     > Alignemnt fixed
+     > Bar colors changed.
+    
     45. 3.0.e
      > TimerService fixed - secondsElapsed is reconstructed on every tick
      > Tap notification to open the app - added.
