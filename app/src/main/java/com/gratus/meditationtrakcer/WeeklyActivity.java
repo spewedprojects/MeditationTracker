@@ -26,6 +26,9 @@ import com.github.mikephil.charting.renderer.BarChartRenderer;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 import android.util.TypedValue;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
@@ -94,12 +97,33 @@ public class WeeklyActivity extends BaseActivity {
 
         // Configure X-Axis
         ArrayList<String> weekLabels = new ArrayList<>();
-        weekLabels.add("Mon"); weekLabels.add("Tue"); weekLabels.add("Wed"); weekLabels.add("Thu"); weekLabels.add("Fri"); weekLabels.add("Sat"); weekLabels.add("Sun");
+        //weekLabels.add("Mon"); weekLabels.add("Tue"); weekLabels.add("Wed"); weekLabels.add("Thu"); weekLabels.add("Fri"); weekLabels.add("Sat"); weekLabels.add("Sun");
+        // ------ START OF CHANGES -------
+        try {
+            // Parse the selectedWeekStartDate string into a LocalDate object
+            java.time.format.DateTimeFormatter inputFormatter = java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.getDefault());
+            LocalDate currentWeekStart = LocalDate.parse(selectedWeekStartDate, inputFormatter);
+
+            // Define the desired output format for the labels (dd-E)
+            java.time.format.DateTimeFormatter outputFormatter = java.time.format.DateTimeFormatter.ofPattern("dd-E", Locale.getDefault());
+
+            // Iterate through the 7 days of the week, starting from Monday
+            LocalDate mondayOfWeek = currentWeekStart.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+            for (int i = 0; i < 7; i++) {
+                LocalDate day = mondayOfWeek.plusDays(i);
+                weekLabels.add(day.format(outputFormatter));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Fallback to generic labels in case of error
+            weekLabels.addAll(Arrays.asList("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"));
+        }
+        // ----- END OF CHANGES -----
 
         XAxis xAxis = weeklyBarChart.getXAxis();
         xAxis.setValueFormatter(new IndexAxisValueFormatter(weekLabels));
         xAxis.setTextColor(Color.parseColor("#969696"));
-        xAxis.setTextSize(13f); // Same text size as in WeeklyActivity
+        xAxis.setTextSize(12f); // Same text size as in WeeklyActivity
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
         xAxis.setGranularity(1f); // Same granularity as in onCreate
