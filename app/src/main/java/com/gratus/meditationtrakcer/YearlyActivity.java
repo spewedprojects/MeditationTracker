@@ -174,13 +174,4 @@ public class YearlyActivity extends BaseActivity {
             return "Year"; // Default fallback in case of errors
         }
     }
-
-//    @Override
-//    public void onBackPressed() {
-//        super.onBackPressed();
-//        Intent intent = new Intent(YearlyActivity.this, MainActivity.class);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-//        startActivity(intent);
-//        finish();
-//    }
 }

@@ -337,15 +337,6 @@ public class GoalsActivity extends BaseActivity {
         return isDarkMode;
     }
 
-//    @Override
-//    public void onBackPressed() {
-//        super.onBackPressed();
-//        Intent intent = new Intent(GoalsActivity.this, MainActivity.class);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-//        startActivity(intent);
-//        finish();
-//    }
-
     // ──────────────────────────────────────────────────────────
     //  Visibility toggle
     // ──────────────────────────────────────────────────────────
@@ -356,7 +347,7 @@ public class GoalsActivity extends BaseActivity {
         for (View v : methodBViews) v.setVisibility(mode == GoalInputMode.B ? View.VISIBLE : View.INVISIBLE);
     }
 
-    // 60 % dim for inactive button
+    // 70 % dim for inactive button
     private void highlightActiveButton() {
         btnMethodA.setAlpha(currentMode == GoalInputMode.A ? 1f : 0.3f);
         btnMethodB.setAlpha(currentMode == GoalInputMode.B ? 1f : 0.3f);

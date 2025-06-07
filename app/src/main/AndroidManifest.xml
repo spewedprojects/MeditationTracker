@@ -29,6 +29,15 @@
         </activity> <!-- Main activity -->
 
         <activity
+            android:name=".SummaryActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity> <!-- Weekly activity -->
+
+        <activity
             android:name=".WeeklyActivity"
             android:exported="true">
             <intent-filter>

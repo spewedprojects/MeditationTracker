@@ -7,6 +7,16 @@
 | 2.12        | Now exports and imports in *.db + *.json files. Changed goals date format to yyyy-mm-dd. |
 | 1.0         | Debug app                                                                                |
 
+
+    49. 3.0.h
+     > Weekly screens now show date in dd-E format - making it easier to decipher which date, on which day.
+
+    48. 3.0.g
+     > Alignment changes to graphs screens.
+     > 0 displays no week days now. 
+     > Prev/next button spacing adjusted. 
+     > Changed graphs color.
+
     46. 3.0.f
      > Alignemnt fixed
      > Bar colors changed.

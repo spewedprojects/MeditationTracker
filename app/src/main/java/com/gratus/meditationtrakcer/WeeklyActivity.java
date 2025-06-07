@@ -225,12 +225,4 @@ public class WeeklyActivity extends BaseActivity {
         return getAdjustedWeekStartDate(startDate, 7);
     }
 
-//    @Override
-//    public void onBackPressed() {
-//        super.onBackPressed();
-//        Intent intent = new Intent(WeeklyActivity.this, MainActivity.class);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-//        startActivity(intent);
-//        finish();
-//    }
 }

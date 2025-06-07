@@ -6,7 +6,7 @@ Or alternatively, you can find it in Releases section also.
 
 ***
 
-# (v3.0.g)
+# (v3.1.a) 07/06/2025
 **Current known issues:**
 - ~~App screens not scrollable on tiny screens.~~ __DONE!!__
 - ~~Monthly summary graphs show incorrect week division; likely consistency issues with Week start day (Sunday or Monday)~~
@@ -28,8 +28,9 @@ __Resolved long standing issues:__
   - A toggle to show/hide this.
   - Monthly graphs will show week wise avg.
 - **Adding a homescreen widget to remind of meditation progress, specifically, most current goal progress.**
-- All summary screens in a single screen, grouped buttons to change between then.
-  - Tapping on month should open month picker to access any month of choosing.
-  - Tapping on year should open year picker to access any year of choosing.
-  - Tapping the month in year graph should lead me to the month graph of that month.
-  - Tapping the week in month graph should lead me to the week graph of that week.
+- All summary screens in a single screen, grouped buttons to change between them:
+    - Grouped buttons to change between them. <- __DONE!!__ (07/06/25)
+    - Tapping on month label should open month picker to access any month of choosing.
+    - Tapping on year label should open year picker to access any year of choosing.
+    - Tapping the month in year graph should lead me to the month graph of that month.
+    - Tapping the week in month graph should lead me to the week graph of that week.

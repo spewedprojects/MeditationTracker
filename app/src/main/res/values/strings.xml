@@ -7,10 +7,11 @@
     <string name="navigation_drawer_close">Close Navigation Drawer</string>
     <string name="menu_title">Menu</string>
     <string name="menu_home">Home</string>
+    <string name="menu_summary">Summaries</string>
     <string name="menu_weekly">Weekly Summary</string>
     <string name="menu_monthly">Monthly Overview</string>
     <string name="menu_yearly">Yearly Analysis</string>
-    <string name="menu_custgoals">Custom Goals</string>">
+    <string name="menu_custgoals">Set Goals</string>">
     <string name="menu_export">Export Data</string>
     <string name="close_menu">Close menu</string>
     <string name="blank_spaces">blank</string>
@@ -22,6 +23,6 @@
     <string name="total_hours">Total hours: </string>
     <string name="goals_title">Set a New Goal</string>
     <string name="goals_desc">Create a new meditation goal</string>
-    <string name="current_version_details">▶ Alignment changes to graphs screens\n▶ NEXT: Major graphs screen overhaul coming up.\n▶ NEXT: Home screen widget.</string>
+    <string name="current_version_details">▶ Graph screens majorly overhauled.\n▶ Now all graphs in one screen.\n▶ NEXT: Home screen widget.</string>
     <string name="v1.16.c">v1.16.c:\n- NOICE!\n  - Next indent.\n    ▶ Bullet point</string>
 </resources>

@@ -267,6 +267,7 @@ public class BaseActivity extends AppCompatActivity {
         // Set up other drawer buttons to navigate to your activities.
         // For example:
         findViewById(R.id.menu_home).setOnClickListener(v -> navigateTo(MainActivity.class));
+        findViewById(R.id.menu_summary).setOnClickListener(v -> navigateTo(SummaryActivity.class));
         findViewById(R.id.menu_weekly).setOnClickListener(v -> navigateTo(WeeklyActivity.class));
         findViewById(R.id.menu_monthly).setOnClickListener(v -> navigateTo(MonthlyActivity.class));
         findViewById(R.id.menu_yearly).setOnClickListener(v -> navigateTo(YearlyActivity.class));
