@@ -6,7 +6,7 @@ Or alternatively, you can find it in Releases section also.
 
 ***
 
-# (v3.1.a) 07/06/2025
+# (v3.1.b) 07/06/2025
 **Current known issues:**
 - ~~App screens not scrollable on tiny screens.~~ __DONE!!__
 - ~~Monthly summary graphs show incorrect week division; likely consistency issues with Week start day (Sunday or Monday)~~
