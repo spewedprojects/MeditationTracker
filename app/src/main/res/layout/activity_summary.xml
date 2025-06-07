@@ -100,7 +100,8 @@
             style="@style/method_WMY_Group_ButtonStyle"
             android:text="Week"
             app:shapeAppearanceOverlay="@style/ExportButtonCorners"
-            android:insetRight="1dp"/>
+            android:insetRight="1dp"
+            android:padding="10dp"/>
         <!-- Month Button -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/M_Button"
@@ -108,14 +109,16 @@
             android:text="Month"
             app:shapeAppearanceOverlay="@style/MiddleButtonCorners"
             android:insetLeft="1dp"
-            android:insetRight="1dp"/>
+            android:insetRight="1dp"
+            android:padding="10dp"/>
         <!-- Year Button -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/Y_Button"
             style="@style/method_WMY_Group_ButtonStyle"
             android:text="Year"
             app:shapeAppearanceOverlay="@style/ImportButtonCorners"
-            android:insetLeft="1dp"/>
+            android:insetLeft="1dp"
+            android:padding="10dp"/>
 
     </com.google.android.material.button.MaterialButtonToggleGroup> <!-- Method change button group -->
 
@@ -265,7 +268,7 @@
                                 app:layout_constraintLeft_toRightOf="@id/previous_weekButton"
                                 app:layout_constraintRight_toLeftOf="@id/next_weekButton"
                                 app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintVertical_bias="0.8"
+                                app:layout_constraintVertical_bias="0.88"
                                 app:layout_constraintHorizontal_bias="0.5"
                                 tools:ignore="TextViewEdits" /> <!-- Week Date display -->
                         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -463,7 +466,7 @@
                                 app:layout_constraintLeft_toRightOf="@id/previous_monthButton"
                                 app:layout_constraintRight_toLeftOf="@id/next_monthButton"
                                 app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintVertical_bias="0.8"
+                                app:layout_constraintVertical_bias="0.88"
                                 app:layout_constraintHorizontal_bias="0.5"
                                 tools:ignore="TextViewEdits" /> <!-- Week Date display -->
                         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -639,7 +642,7 @@
                                 app:layout_constraintLeft_toRightOf="@id/previous_yearButton"
                                 app:layout_constraintRight_toLeftOf="@id/next_yearButton"
                                 app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintVertical_bias="0.5"
+                                app:layout_constraintVertical_bias="0.55"
                                 tools:ignore="TextViewEdits" /> <!-- Week # display -->
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
