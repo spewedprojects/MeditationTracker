@@ -1,27 +1,36 @@
 ***Version History and changes:***
 
-| __Version__ | __Changes__                                                                              |
-|-------------|------------------------------------------------------------------------------------------|
-| 2.13.1      | The app entirely supports dark mode.                                                     |
-| 2.12.1      | Theming overhaul. Partial app supports dark mode.                                        |
-| 2.12        | Now exports and imports in *.db + *.json files. Changed goals date format to yyyy-mm-dd. |
-| 1.0         | Debug app                                                                                |
+| __Version__ | __Date__ | __Changes__                                                                              |
+|-------------|----------|------------------------------------------------------------------------------------------|
+| 2.13.1      |          | The app entirely supports dark mode.                                                     |
+| 2.12.1      |          | Theming overhaul. Partial app supports dark mode.                                        |
+| 2.12        |          | Now exports and imports in *.db + *.json files. Changed goals date format to yyyy-mm-dd. |
+| 1.0         |          | Debug app                                                                                |
 
 
-    49. 3.0.h
+    51. 3.1.b (07/06/2025)
+     > Minor font size and button height changes.
+
+    50. 3.1.a (07/06/2025)
+     > Summary screen overhauled:
+        > Graph screens majorly overhauled.
+        > Now all graphs in one screen.
+        > Swipe-able between WMY cards, also via buttons
+
+    49. 3.0.h (05/06/2025)
      > Weekly screens now show date in dd-E format - making it easier to decipher which date, on which day.
 
-    48. 3.0.g
+    48. 3.0.g (05/06/2025)
      > Alignment changes to graphs screens.
      > 0 displays no week days now. 
      > Prev/next button spacing adjusted. 
      > Changed graphs color.
 
-    46. 3.0.f
+    46. 3.0.f (04/06/2025)
      > Alignemnt fixed
      > Bar colors changed.
     
-    45. 3.0.e
+    45. 3.0.e (01/06/2025)
      > TimerService fixed - secondsElapsed is reconstructed on every tick
      > Tap notification to open the app - added.
     

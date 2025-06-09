@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
@@ -588,21 +589,28 @@ public class SummaryActivity extends BaseActivity {
 
         // Use post() to ensure the fromCard has been measured and has a width.
         fromCard.post(() -> {
-            // A. Prepare cards for animation
+            // === START OF CHANGES ===
+
+            // A. Get the margin values in pixels to create a gap between cards.
+            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) fromCard.getLayoutParams();
+            // The total gap is the end margin of the outgoing card + the start margin of the incoming one.
+            int gap = params.getMarginEnd() + params.getMarginStart();
+
+            // B. Prepare cards for animation
             int width = fromCard.getWidth();
             toCard.setVisibility(View.VISIBLE);
 
-            // Set the starting positions of the two cards.
-            // The 'from' card starts in the center (translationX = 0).
-            // The 'to' card starts just off-screen.
+            // Set the starting positions, accounting for the width AND the gap.
             fromCard.setTranslationX(0);
-            toCard.setTranslationX(isNext ? width : -width);
+            toCard.setTranslationX(isNext ? (width + gap) : -(width + gap));
 
-            // B. Animate the 'from' card moving off-screen
+            // C. Animate the 'from' card moving off-screen, including the gap distance.
             fromCard.animate()
-                    .translationX(isNext ? -width : width)
+                    .translationX(isNext ? -(width + gap) : (width + gap))
                     .setDuration(450)
                     .start();
+
+            // === END OF CHANGES ===
 
             // C. Animate the 'to' card moving into the center
             toCard.animate()
