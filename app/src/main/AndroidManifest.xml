@@ -38,33 +38,6 @@
         </activity> <!-- Weekly activity -->
 
         <activity
-            android:name=".WeeklyActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity> <!-- Weekly activity -->
-
-        <activity
-            android:name=".MonthlyActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity> <!-- Monthly activity -->
-
-        <activity
-            android:name=".YearlyActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity> <!-- Yearly activity -->
-
-        <activity
             android:name=".GoalsActivity"
             android:exported="true">
             <intent-filter>

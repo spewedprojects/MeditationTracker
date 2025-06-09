@@ -105,71 +105,7 @@
         app:layout_constraintTop_toBottomOf="@id/menu_home"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintVertical_bias="0" /> <!-- Weekly Button -->
-
-    <!-- Weekly Button -->
-    <Button
-        android:id="@+id/menu_weekly"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="@android:color/transparent"
-        android:fontFamily="@font/kumbh_sans_medium"
-        android:text="@string/menu_weekly"
-        android:textColor="?attr/colorAccent"
-        android:textSize="16sp"
-        android:textAllCaps="false"
-        android:letterSpacing="0.02"
-        android:background="#00FFFFFF"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/menu_summary"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintVertical_bias="0"
-        android:visibility="gone"/> <!-- Weekly Button -->
-
-    <!-- Monthly Button -->
-    <Button
-        android:id="@+id/menu_monthly"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:fontFamily="@font/kumbh_sans_medium"
-        android:text="@string/menu_monthly"
-        android:textColor="?attr/colorAccent"
-        android:textSize="16sp"
-        android:textAllCaps="false"
-        android:letterSpacing="0.02"
-        android:background="#00FFFFFF"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/menu_weekly"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintVertical_bias="0"
-        android:visibility="gone"/> <!-- Monthly Button -->
-
-    <!-- Yearly Button -->
-    <Button
-        android:id="@+id/menu_yearly"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:fontFamily="@font/kumbh_sans_medium"
-        android:text="@string/menu_yearly"
-        android:textColor="?attr/colorAccent"
-        android:textSize="16sp"
-        android:textAllCaps="false"
-        android:letterSpacing="0.02"
-        android:background="#00FFFFFF"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/menu_monthly"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintVertical_bias="0"
-        android:visibility="gone"/> <!-- Yearly Button -->
+        app:layout_constraintVertical_bias="0" /> <!-- Summary Button -->
 
     <!-- Custom Goals Button -->
     <Button
@@ -187,7 +123,7 @@
         android:letterSpacing="0.02"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/menu_yearly"
+        app:layout_constraintTop_toBottomOf="@id/menu_summary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintVertical_bias="0"/> <!-- Custom Goals Button -->

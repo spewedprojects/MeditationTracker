@@ -1,21 +1,24 @@
-***Version History and changes:***
+## **Version History and changes:**
 
 | __Version__ | __Date__ | __Changes__                                                                              |
 |-------------|----------|------------------------------------------------------------------------------------------|
+|             |          |                                                                                          |
 | 2.13.1      |          | The app entirely supports dark mode.                                                     |
 | 2.12.1      |          | Theming overhaul. Partial app supports dark mode.                                        |
 | 2.12        |          | Now exports and imports in *.db + *.json files. Changed goals date format to yyyy-mm-dd. |
 | 1.0         |          | Debug app                                                                                |
 
+    51. 3.1.c (07/06/2025)
+     > Graph screens scrolling looks more polished.
 
     51. 3.1.b (07/06/2025)
      > Minor font size and button height changes.
 
     50. 3.1.a (07/06/2025)
      > Summary screen overhauled:
-        > Graph screens majorly overhauled.
-        > Now all graphs in one screen.
-        > Swipe-able between WMY cards, also via buttons
+       > Now all graphs in one screen.
+       > Graph screens majorly overhauled.
+       > Swipe-able between WMY cards, also via buttons
 
     49. 3.0.h (05/06/2025)
      > Weekly screens now show date in dd-E format - making it easier to decipher which date, on which day.
@@ -82,23 +85,23 @@
      > New, switchable, method to add goals.
 
     32. 2.16.e
-     a. The app is now 100% optimized for dark mode.
-     b. Timer now works in background.
-     c. Progress bar works as intended.
-     d. Goal Cards now have proper spacing.
-     e. Theme switcher works flawlessly.
+     > The app is now 100% optimized for dark mode.
+     > Timer now works in background.
+     > Progress bar works as intended.
+     > Goal Cards now have proper spacing.
+     > Theme switcher works flawlessly.
 
     31. 2.13.2
 
     30. 2.13.1
-     a. The app entirely supports dark mode.
+     > The app entirely supports dark mode.
 
     29. 2.12.1
-     a. Theming overhaul. Partial app supports dark mode.
+     > Theming overhaul. Partial app supports dark mode.
 
     28. 2.12
-     a. Now exports and imports in *.db + *.json files
-     b. Changed goals date format to yyyy-mm-dd
+     > Now exports and imports in *.db + *.json files
+     > Changed goals date format to yyyy-mm-dd
 
     27. 2.11.9.7
     26. 2.11.9.6
@@ -107,75 +110,75 @@
     23. 2.11.9.1
 
     22. 2.11.9 (24/01)
-     a. Sorted out Progress bar issue; displays and refreshes correctly in all places.
+     > Sorted out Progress bar issue; displays and refreshes correctly in all places.
 
     21. 2.11.6.3 (23/01)
-     a. Changes to about screen.
+     > Changes to about screen.
 
     20. 2.11.6.2 (23/01)
-     a. Parsing error while adding goals rectified. Adding goals now adds with timestamps
+     > Parsing error while adding goals rectified. Adding goals now adds with timestamps
 
     19. 2.11.6.1 (23/01)
-     a. Changed how date looked in duration of goalcard.
-     b. Changed the about app image.
-     c. Export now exports with timestamps.
+     > Changed how date looked in duration of goalcard.
+     > Changed the about app image.
+     > Export now exports with timestamps.
 
     18. 2.11.5 (22/01)
-     a. Export data now works.
+     > Export data now works.
 
     17. 2.11.4 (22/01)
-     a. Menu and delete button works now.
-     b. Export issues due to permissions.
-     c. Introduced Goal card visibility on home screen and a button to go to goals screen directly.
+     > Menu and delete button works now.
+     > Export issues due to permissions.
+     > Introduced Goal card visibility on home screen and a button to go to goals screen directly.
 
     16. 2.11.3 (22/01)
-     a. Scroll works with some issues; implemented recyclerview. Discarded inflategoalCards and nestedscrollview
-    b. Issues:
+     > Scroll works with some issues; implemented recyclerview. Discarded inflategoalCards and nestedscrollview
+     > Issues:
      i. Menu doesn't work in goal screen
      ii. Delete button doesn't work
 
     15. 2.11
-     a. Monthly display of weekly hours works perfectly, Implemented calendar and timestamps in the meditation database.
+     > Monthly display of weekly hours works perfectly, Implemented calendar and timestamps in the meditation database.
 
     14. 2.10.8
     13. 2.10.7
 
     12. 2.10.6
-     a. Goal cards issue solved. Took help from blackbox.ai.
-      i. Issue lied with how goal container was being refreshed in loadGoals() and the layout of, not just scroll view, but also goal item.
+     > Goal cards issue solved. Took help from blackbox.ai.
+       > Issue lied with how goal container was being refreshed in loadGoals() and the layout of, not just scroll view, but also goal item.
 
     11. 2.10.2
-     a. Rectified the error of meditation time in week 4 of January not being displayed correctly in the graph view.
+     > Rectified the error of meditation time in week 4 of January not being displayed correctly in the graph view.
 
     10. 2.10
-     a. Added a functionality to switch buttons in summary screens.
+     > Added a functionality to switch buttons in summary screens.
 
     9. 2.09.6
-     a. Rectified inability to refresh UI after deleting a goal.
+     > Rectified inability to refresh UI after deleting a goal.
 
     8. 2.09.5
-     a. Added a "session ID" table in meditation logs, earlier date itself was ID, meaning multiple sessions from a single day would look like one single session.
-     b. This can be used for future functionality within the app for something like frequency of the meditation sessions per day, etc.
+     > Added a "session ID" table in meditation logs, earlier date itself was ID, meaning multiple sessions from a single day would look like one single session.
+     > This can be used for future functionality within the app for something like frequency of the meditation sessions per day, etc.
 
     7. 2.09.1
-     a. Data now exports to the Documents directory in storage.
+     > Data now exports to the Documents directory in storage.
 
     6. 2.09
-     ○ Added a button to import old meditation data
-     ○ Added the functionality
+     > Added a button to import old meditation data
+     > Added the functionality
 
     5. 2.08
-     ○ Added functional graphs to respective pages
+     > Added functional graphs to respective pages
 
     4. 2.07
-     ○ Added graphview to respective pages
+     > Added graphview to respective pages
 
     3. 2.06
-     ○ Minor aesthetic improvements
+     > Minor aesthetic improvements
 
     2. 2.05
-     ○ Added database functionality to store goals and logs
+     > Added database functionality to store goals and logs
 
     1. 1.0
-     ○ Debug app
-     ○ Timer works
+     > Debug app
+     > Timer works

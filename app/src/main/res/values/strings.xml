@@ -23,6 +23,6 @@
     <string name="total_hours">Total hours: </string>
     <string name="goals_title">Set a New Goal</string>
     <string name="goals_desc">Create a new meditation goal</string>
-    <string name="current_version_details">▶ Graph screens scrolling looks more polished.\n▶ NEXT: Home screen widget.</string>
+    <string name="current_version_details">▶ Removed leftovers from old separate activity files and classes.\n▶ NEXT: Home screen widget.</string>
     <string name="v1.16.c">v1.16.c:\n- NOICE!\n  - Next indent.\n    ▶ Bullet point</string>
 </resources>
