@@ -581,6 +581,47 @@ public class SummaryActivity extends BaseActivity {
         }
     }
 
+    // This is the new method that does all the work. It prepares the cards, runs the simultaneous animations, and cleans up afterward.
+    private void animateCardSwipe(CardView fromCard, CardView toCard, int toId, boolean isNext) {
+        // Update button highlighting immediately for better responsiveness
+        refreshButtonTransparency(toId);
+
+        // Use post() to ensure the fromCard has been measured and has a width.
+        fromCard.post(() -> {
+            // A. Prepare cards for animation
+            int width = fromCard.getWidth();
+            toCard.setVisibility(View.VISIBLE);
+
+            // Set the starting positions of the two cards.
+            // The 'from' card starts in the center (translationX = 0).
+            // The 'to' card starts just off-screen.
+            fromCard.setTranslationX(0);
+            toCard.setTranslationX(isNext ? width : -width);
+
+            // B. Animate the 'from' card moving off-screen
+            fromCard.animate()
+                    .translationX(isNext ? -width : width)
+                    .setDuration(450)
+                    .start();
+
+            // C. Animate the 'to' card moving into the center
+            toCard.animate()
+                    .translationX(0)
+                    .setDuration(450)
+                    .withEndAction(() -> {
+                        // D. Cleanup after animation completes
+                        fromCard.setVisibility(View.GONE);
+                        fromCard.setTranslationX(0); // Reset position for next time
+                        toCard.setTranslationX(0);   // Reset position for next time
+
+                        // E. Officially update the toggle group's state.
+                        // This triggers the listener to save the preference.
+                        viewGroup.check(toId);
+                    })
+                    .start();
+        });
+    }
+
     private void slideAnim(boolean left) {
         View card = weekCard .getVisibility()==View.VISIBLE ? weekCard
                 : monthCard.getVisibility()==View.VISIBLE ? monthCard
@@ -598,18 +639,56 @@ public class SummaryActivity extends BaseActivity {
         });
     }
     private void gotoNext() {                          // W → M → Y → W
-        int id = viewGroup.getCheckedButtonId();
-        if      (id == R.id.W_Button) viewGroup.check(R.id.M_Button);
-        else if (id == R.id.M_Button) viewGroup.check(R.id.Y_Button);
-        else                          viewGroup.check(R.id.W_Button);
-        slideAnim(true);
+        // 1. Identify which cards are 'from' and 'to'
+        int fromId = viewGroup.getCheckedButtonId();
+        int toId;
+        CardView fromCard, toCard;
+
+        if (fromId == R.id.W_Button) {
+            toId = R.id.M_Button;
+            fromCard = weekCard;
+            toCard = monthCard;
+            maybeLoadMonth(); // 2. Pre-load data for the incoming card
+        } else if (fromId == R.id.M_Button) {
+            toId = R.id.Y_Button;
+            fromCard = monthCard;
+            toCard = yearCard;
+            maybeLoadYear();
+        } else { // fromId is R.id.Y_Button
+            toId = R.id.W_Button;
+            fromCard = yearCard;
+            toCard = weekCard;
+            maybeLoadWeek();
+        }
+
+        // 3. Perform the animation
+        animateCardSwipe(fromCard, toCard, toId, true); // true means isNext (swiping left)
     }
     private void gotoPrev() {                          // reverse
-        int id = viewGroup.getCheckedButtonId();
-        if      (id == R.id.Y_Button) viewGroup.check(R.id.M_Button);
-        else if (id == R.id.M_Button) viewGroup.check(R.id.W_Button);
-        else                          viewGroup.check(R.id.Y_Button);
-        slideAnim(false);
+        // 1. Identify which cards are 'from' and 'to'
+        int fromId = viewGroup.getCheckedButtonId();
+        int toId;
+        CardView fromCard, toCard;
+
+        if (fromId == R.id.Y_Button) {
+            toId = R.id.M_Button;
+            fromCard = yearCard;
+            toCard = monthCard;
+            maybeLoadMonth();
+        } else if (fromId == R.id.M_Button) {
+            toId = R.id.W_Button;
+            fromCard = monthCard;
+            toCard = weekCard;
+            maybeLoadWeek();
+        } else { // fromId is R.id.W_Button
+            toId = R.id.Y_Button;
+            fromCard = weekCard;
+            toCard = yearCard;
+            maybeLoadYear();
+        }
+
+        // 3. Perform the animation
+        animateCardSwipe(fromCard, toCard, toId, false); // false means isPrev (swiping right)
     }
 
 }
