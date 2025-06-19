@@ -34,3 +34,9 @@ __Resolved long standing issues:__
     - Tapping on year label should open year picker to access any year of choosing.
     - Tapping the month in year graph should lead me to the month graph of that month.
     - Tapping the week in month graph should lead me to the week graph of that week.
+- Streak feature implementation:
+  - A new card on main screen showing streak days
+  - Long pressing for >5secs will open a days picker to set a streak duration, And later on possibly also add a summary from past data, probably a one-liner.
+  - A tiny progress bar at the bottom of streak days
+  - When no streak goal is currently active or a streak is broken, simply display no. of contiguous days meditated, the progress bar disappears and the stroke color of the card becomes transparent; To indicated no streak is active.
+  - The streak data will be kept in a new table inside meditation logs database - id, start date, end date, target streak days, longest streak

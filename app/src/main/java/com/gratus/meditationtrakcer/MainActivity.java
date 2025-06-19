@@ -20,6 +20,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
@@ -57,6 +58,20 @@ public class MainActivity extends BaseActivity {
         manualMinutes = findViewById(R.id.manual_minutes);
         manualSeconds = findViewById(R.id.manual_seconds);
         moreMenuButton = findViewById(R.id.menubutton);
+
+        CardView streakCard = findViewById(R.id.cardView3_streak);
+
+        streakCard.setOnLongClickListener(v -> {
+            StreakDialogFragment dialog = StreakDialogFragment.newInstance((days, startDate) -> {
+                Log.d("STREAK", "Days: " + days + ", Start Date: " + startDate);
+                // TODO: streakManager.startNewStreak(days, startDate);
+                // TODO: refreshStreakUI();
+            });
+            dialog.show(getSupportFragmentManager(), "streak_dialog");
+            return true;
+        });
+
+
         displayShortestAndLatestGoal();  // New method call
 
         // Display today's date
@@ -103,7 +118,7 @@ public class MainActivity extends BaseActivity {
 
     // Update date in date_display
     private void updateDateDisplay() {
-        String currentDate = new SimpleDateFormat("EEEE, MMMM d, yyyy", Locale.getDefault()).format(new Date());
+        String currentDate = new SimpleDateFormat("E, MMMM d, yyy", Locale.getDefault()).format(new Date());
         dateDisplay.setText(currentDate);
     }
 
@@ -167,7 +182,7 @@ public class MainActivity extends BaseActivity {
         int hours = totalSecondsLogged / 3600;
         int minutes = (totalSecondsLogged % 3600) / 60;
         int seconds = totalSecondsLogged % 60;
-        todayTotalDisplay.setText(String.format(Locale.getDefault(), "Today's Total: %dh %dm %ds", hours, minutes, seconds));
+        todayTotalDisplay.setText(String.format(Locale.getDefault(), "Today: %dh %dm %ds", hours, minutes, seconds));
     }
 
     private void updateWeekTotal() {
