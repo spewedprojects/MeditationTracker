@@ -24,6 +24,8 @@ import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import com.google.android.material.card.MaterialCardView;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -59,13 +61,14 @@ public class MainActivity extends BaseActivity {
         manualSeconds = findViewById(R.id.manual_seconds);
         moreMenuButton = findViewById(R.id.menubutton);
 
-        CardView streakCard = findViewById(R.id.cardView3_streak);
+        MaterialCardView streakCard = findViewById(R.id.cardView3_streak);
 
         streakCard.setOnLongClickListener(v -> {
             StreakDialogFragment dialog = StreakDialogFragment.newInstance((days, startDate) -> {
                 Log.d("STREAK", "Days: " + days + ", Start Date: " + startDate);
-                // TODO: streakManager.startNewStreak(days, startDate);
-                // TODO: refreshStreakUI();
+                StreakManager streakManager = new StreakManager(MainActivity.this);
+                streakManager.setNewStreak(startDate, days);
+                refreshStreakUI(); // Updates card & progress bar
             });
             dialog.show(getSupportFragmentManager(), "streak_dialog");
             return true;
@@ -115,6 +118,32 @@ public class MainActivity extends BaseActivity {
             }
         }
     };
+
+    private void refreshStreakUI() {
+        TextView streakText = findViewById(R.id.streak);
+        ProgressBar streakProgress = findViewById(R.id.streak_progress_bar);
+        MaterialCardView streakCard = findViewById(R.id.cardView3_streak);
+
+        StreakManager streakManager = new StreakManager(this);
+
+        if (streakManager.isStreakActive()) {
+            String today = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Calendar.getInstance().getTime());
+            int progress = streakManager.getCurrentStreakProgress(today);
+            int total = Integer.parseInt(streakManager.getStartAndEndDate()[1].split("-")[2]) -
+                    Integer.parseInt(streakManager.getStartAndEndDate()[0].split("-")[2]) + 1;
+
+            int percentage = Math.min((progress * 100) / total, 100);
+            streakText.setText(String.valueOf(progress));
+            streakProgress.setProgress(percentage);
+            streakProgress.setVisibility(View.VISIBLE);
+            streakCard.setStrokeColor(getColor(R.color.success_green));
+        } else {
+            // Streak inactive or broken
+            streakText.setText("0");
+            streakProgress.setVisibility(View.INVISIBLE);
+            streakCard.setStrokeColor(getColor(android.R.color.transparent));
+        }
+    }
 
     // Update date in date_display
     private void updateDateDisplay() {
@@ -357,6 +386,7 @@ public class MainActivity extends BaseActivity {
         updateWeekTotal(); // Refresh week's total when returning to main screen.
         updateTimerDisplay(); // Refresh timer display when returning to main screen.
         displayShortestAndLatestGoal(); // Refresh shortest and latest goal when returning to main screen.
+        refreshStreakUI();
     }
 
     @Override

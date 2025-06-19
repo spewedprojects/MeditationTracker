@@ -3,6 +3,7 @@ package com.gratus.meditationtrakcer;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.graphics.RenderEffect;
 import android.graphics.Shader;
 import android.os.Build;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +22,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.WindowCompat;
 import androidx.fragment.app.DialogFragment;
 
 import java.text.SimpleDateFormat;
@@ -102,16 +105,27 @@ public class StreakDialogFragment extends DialogFragment {
     public void onStart() {
         super.onStart();
         Dialog dialog = getDialog();
-        if (dialog != null && dialog.getWindow() != null) {
-            dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-            dialog.getWindow().setDimAmount(0.32f);
-            // Remove the default dim background
-            //dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        if (dialog != null) {
+            Window window = dialog.getWindow();
+            if (window != null) {
+                // --- NEW: Enable edge-to-edge display ---
+                WindowCompat.setDecorFitsSystemWindows(window, false);
 
-            // Apply blur to the activity's content view
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                applyBlur();
+                // Set window to full screen
+                window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                // Keep the window background transparent
+                window.setBackgroundDrawableResource(android.R.color.transparent);
+                // Clear default dim
+                window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+
+                // --- NEW: Set system bar colors to transparent ---
+                window.setStatusBarColor(Color.TRANSPARENT);
+                window.setNavigationBarColor(Color.TRANSPARENT);
+
+                // Apply blur if supported
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    applyBlur();
+                }
             }
         }
     }
@@ -129,7 +143,7 @@ public class StreakDialogFragment extends DialogFragment {
     private void applyBlur() {
         blurredView = requireActivity().getWindow().getDecorView().findViewById(android.R.id.content);
         if (blurredView != null) {
-            RenderEffect blur = RenderEffect.createBlurEffect(12f, 12f, Shader.TileMode.CLAMP);
+            RenderEffect blur = RenderEffect.createBlurEffect(3f, 3f, Shader.TileMode.DECAL);
             blurredView.setRenderEffect(blur);
         }
     }

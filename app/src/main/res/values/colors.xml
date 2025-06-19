@@ -30,4 +30,7 @@
     <color name="transparent">#00000000</color>
     <color name="barChart_light">#3C3C3C</color> <!-- Dark gray - #E5B25C -->
     <color name="barChart_dark">#CDCDCD</color> <!-- Light gray - #BC9353 -->
+    <color name="dialog_bg_light">#32FFFFFF</color>
+    <color name="dialog_bg_dark">#32000000</color>
+    <color name="success_green">#388E3C</color>
 </resources>

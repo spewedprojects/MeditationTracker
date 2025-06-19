@@ -11,6 +11,7 @@
         <item name="colorButtonNormal">@color/dark_switchbutton</item>
         <item name="colorBackgroundFloating">@color/dark_deletebutton</item>
         <item name="android:windowBackground">@color/darkwindow_background</item>
+        <item name="colorSurfaceDim">@color/dialog_bg_dark</item>
         <item name="android:textColorHint">@color/dark_textHintcolor</item>
         <item name="colorOnPrimarySurface">@color/barChart_dark</item>
         <!-- Secondary brand color. -->

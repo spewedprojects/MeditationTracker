@@ -37,7 +37,7 @@ import java.util.Locale;
 public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "meditation_logs.db";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 5;
 
     public static final String TABLE_LOGS = "logs";
     public static final String COLUMN_ID = "session_id";
@@ -57,11 +57,17 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(TABLE_CREATE);
+        db.execSQL("CREATE TABLE IF NOT EXISTS streak_log (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "start_date TEXT, " +
+                "end_date TEXT, " +
+                "target_days INTEGER, " +
+                "longest_streak INTEGER DEFAULT 0)");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if (oldVersion < 3) {
+        if (oldVersion < 5) {
             // Step 1: Create a new table with the updated schema
             db.execSQL("CREATE TABLE logs_new (" +
                     "session_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -77,6 +83,13 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
 
             // Step 4: Rename the new table to the original name
             db.execSQL("ALTER TABLE logs_new RENAME TO " + TABLE_LOGS);
+
+            db.execSQL("CREATE TABLE IF NOT EXISTS streak_log (" +
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    "start_date TEXT, " +
+                    "end_date TEXT, " +
+                    "target_days INTEGER, " +
+                    "longest_streak INTEGER DEFAULT 0)");
         }
     }
 

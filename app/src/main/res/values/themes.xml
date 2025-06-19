@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- Base application theme. -->
     <style name="AppTheme_Auto" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Primary brand color. -->
@@ -11,6 +11,7 @@
         <item name="colorButtonNormal">@color/light_switchbutton</item>
         <item name="colorBackgroundFloating">@color/light_deletebutton</item>
         <item name="android:windowBackground">@color/lightwindow_background</item>
+        <item name="colorSurfaceDim">@color/dialog_bg_light</item>
         <item name="android:textColorHint">@color/light_textHintcolor</item>
         <item name="colorOnPrimarySurface">@color/barChart_light</item>
         <!-- Secondary brand color. -->
