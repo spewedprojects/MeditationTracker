@@ -80,7 +80,6 @@
         android:text="@string/current_version_details"
         android:textColor="?attr/colorOnPrimary"
         android:textSize="15sp"
-        android:textStyle="normal"
         app:layout_constraintTop_toBottomOf="@id/current_version"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintVertical_bias="0"

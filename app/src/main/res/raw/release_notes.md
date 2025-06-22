@@ -1,4 +1,4 @@
-## **Version History and changes:**
+### **Version History and changes:**
 
 | __Version__ | __Date__ | __Changes__                                                                              |
 |-------------|----------|------------------------------------------------------------------------------------------|
@@ -7,6 +7,18 @@
 | 2.12.1      |          | Theming overhaul. Partial app supports dark mode.                                        |
 | 2.12        |          | Now exports and imports in *.db + *.json files. Changed goals date format to yyyy-mm-dd. |
 | 1.0         |          | Debug app                                                                                |
+
+    54. 4.0.a (19/06/2025)
+     > Implemented streak functionality - BROKEN.
+     > The table creation inside meditationlogs.db mdessed up other fucntions.
+
+    53. 3.2.a (19/06/2025)
+     > Streak feature implemented. UI only.
+     > Details about it in the readme on Github.
+     > Enabled minification and shrink resources.
+
+    52. 3.1.d (07/06/2025)
+     > Removed leftovers from old separate activity files and classes.
 
     51. 3.1.c (07/06/2025)
      > Graph screens scrolling looks more polished.
@@ -134,8 +146,8 @@
     16. 2.11.3 (22/01)
      > Scroll works with some issues; implemented recyclerview. Discarded inflategoalCards and nestedscrollview
      > Issues:
-     i. Menu doesn't work in goal screen
-     ii. Delete button doesn't work
+       > Menu doesn't work in goal screen
+       > Delete button doesn't work
 
     15. 2.11
      > Monthly display of weekly hours works perfectly, Implemented calendar and timestamps in the meditation database.
