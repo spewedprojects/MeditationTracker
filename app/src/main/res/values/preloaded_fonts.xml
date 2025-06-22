@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="preloaded_fonts" translatable="false">
-        <item>@font/kumbh_sans_bold</item>
-        <item>@font/kumbh_sans_light</item>
+        <item>@font/atkinsonhyperlegiblenext_bold</item>
+        <item>@font/atkinsonhyperlegiblenext_medium</item>
+        <item>@font/atkinsonhyperlegiblenext_semibold</item>
+        <item>@font/atkinsonhyperlegiblenext_light</item>
+        <item>@font/atkinsonhyperlegiblenext_regular</item>
+        <item>@font/atkinsonhyperlegiblenext_extrabold</item>
+        <item>@font/atkinsonhyperlegiblenext_extralight</item>
     </array>
 </resources>

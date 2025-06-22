@@ -10,17 +10,8 @@
     android:fitsSystemWindows="true"
     tools:context=".ReleaseNotesActivity">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbar2"
-        android:layout_width="0dp"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/light_primary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </com.google.android.material.appbar.MaterialToolbar> <!-- Toolbar for the sake adding title and the menubutton, no function -->
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/toolbar2"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimaryVariant"
@@ -30,53 +21,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
-
-        <!-- Menu button on toolbar next to title -->
-        <Button
-            android:id="@+id/menubutton"
-            android:layout_width="58dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="2dp"
-            android:background="#00FFFFFF"
-            android:textColor="#00FFFFFF"
-            android:textColorHighlight="#00FFFFFF"
-            android:textColorHint="#00FFFFFF"
-            android:textColorLink="#00FFFFFF"
-            android:visibility="visible"
-            app:cornerRadius="8dp"
-            app:icon="@drawable/arrow_menu_open"
-            app:iconGravity="textStart"
-            app:iconPadding="4dp"
-            app:iconSize="23dp"
-            app:iconTint="?attr/colorAccent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/toolbar_title"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <!-- Centered title on actionbar -->
-        <TextView
-            android:id="@+id/toolbar_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|center_horizontal"
-            android:fontFamily="@font/kumbh_sans_bold"
-            android:foregroundGravity="center"
-            android:gravity="center"
-            android:text="@string/app_name"
-            android:textColor="?attr/colorOnPrimary"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.5" />
+        <include
+            layout="@layout/actiontoolbar"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout> <!-- Constrained layout for menubutton and Title -->
-
     <TextView
         android:id="@+id/release_notes"
         android:layout_width="wrap_content"
@@ -85,7 +33,7 @@
         android:layout_marginTop="16dp"
         android:filterTouchesWhenObscured="false"
         android:focusableInTouchMode="true"
-        android:fontFamily="@font/kumbh_sans_bold"
+        android:fontFamily="@font/atkinsonhyperlegiblenext_bold"
         android:text="Release Notes:"
         android:textColor="?attr/colorOnPrimary"
         android:textSize="23sp"
@@ -106,10 +54,10 @@
         android:layout_marginEnd="16dp"
         android:filterTouchesWhenObscured="false"
         android:focusableInTouchMode="true"
-        android:fontFamily="@font/kumbh_sans_bold"
+        android:fontFamily="@font/atkinsonhyperlegiblenext_semibold"
         android:text="@string/app_version"
         android:textColor="?attr/colorOnPrimary"
-        android:textSize="15sp"
+        android:textSize="15.5sp"
         app:layout_constraintTop_toBottomOf="@id/release_notes"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintVertical_bias="0"
@@ -127,7 +75,8 @@
         android:layout_marginEnd="16dp"
         android:filterTouchesWhenObscured="false"
         android:focusableInTouchMode="true"
-        android:fontFamily="@font/kumbh_sans"
+        android:fontFamily="@font/atkinsonhyperlegiblenext_regular"
+        android:letterSpacing="0.01"
         android:text="@string/current_version_details"
         android:textColor="?attr/colorOnPrimary"
         android:textSize="15sp"

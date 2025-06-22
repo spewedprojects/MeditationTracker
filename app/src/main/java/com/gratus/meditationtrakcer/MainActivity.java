@@ -66,9 +66,9 @@ public class MainActivity extends BaseActivity {
         streakCard.setOnLongClickListener(v -> {
             StreakDialogFragment dialog = StreakDialogFragment.newInstance((days, startDate) -> {
                 Log.d("STREAK", "Days: " + days + ", Start Date: " + startDate);
-                StreakManager streakManager = new StreakManager(MainActivity.this);
-                streakManager.setNewStreak(startDate, days);
-                refreshStreakUI(); // Updates card & progress bar
+                // TODO: streakManager.startNewStreak(days, startDate);
+                // TODO: refreshStreakUI();
+                //refreshStreakUI(); // Updates card & progress bar
             });
             dialog.show(getSupportFragmentManager(), "streak_dialog");
             return true;
@@ -102,7 +102,7 @@ public class MainActivity extends BaseActivity {
         // Menu button functionality
         //moreMenuButton.setOnClickListener(v -> openMenu());
 
-        ImageButton gotoGoalsButton = findViewById(R.id.goto_goals);
+        gotoGoalsButton = findViewById(R.id.goto_goals);
         gotoGoalsButton.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, GoalsActivity.class);
             startActivity(intent);
@@ -119,6 +119,7 @@ public class MainActivity extends BaseActivity {
         }
     };
 
+    /*
     private void refreshStreakUI() {
         TextView streakText = findViewById(R.id.streak);
         ProgressBar streakProgress = findViewById(R.id.streak_progress_bar);
@@ -144,6 +145,7 @@ public class MainActivity extends BaseActivity {
             streakCard.setStrokeColor(getColor(android.R.color.transparent));
         }
     }
+    */
 
     // Update date in date_display
     private void updateDateDisplay() {
@@ -386,7 +388,7 @@ public class MainActivity extends BaseActivity {
         updateWeekTotal(); // Refresh week's total when returning to main screen.
         updateTimerDisplay(); // Refresh timer display when returning to main screen.
         displayShortestAndLatestGoal(); // Refresh shortest and latest goal when returning to main screen.
-        refreshStreakUI();
+        //refreshStreakUI();
     }
 
     @Override
