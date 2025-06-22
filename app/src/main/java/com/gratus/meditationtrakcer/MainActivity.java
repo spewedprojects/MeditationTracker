@@ -41,7 +41,6 @@ public class MainActivity extends BaseActivity {
     private int totalSecondsLogged = 0;
     private Handler handler = new Handler();
     private StreakManager streakManager; // Add this
-    //private StreakDatabaseHelper streakDbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,7 +152,7 @@ public class MainActivity extends BaseActivity {
             // No active streak, show general contiguous days
             int contiguousDays = streakManager.getContiguousMeditationDays();
             streakText.setText(String.valueOf(contiguousDays));
-            streakProgress.setVisibility(View.INVISIBLE);
+            streakProgress.setVisibility(View.GONE);
             streakCard.setStrokeColor(ContextCompat.getColor(this, android.R.color.transparent));
         }
     }
@@ -175,7 +174,6 @@ public class MainActivity extends BaseActivity {
             Log.d("MainActivity", "Timer is already running. Ignoring start request.");
         }
     }
-
 
     // Stop the timer and reset the timer display
     private void stopTimer() {
@@ -204,6 +202,9 @@ public class MainActivity extends BaseActivity {
             secondsElapsed = 0; // Reset elapsed time
             updateTimerDisplay();
             displayShortestAndLatestGoal(); // Refresh goal card
+
+            streakManager.updateActiveStreakProgress();
+            refreshStreakUI();
         } else {
             Log.d("MainActivity", "Timer is not running. Ignoring stop request.");
         }
@@ -278,6 +279,9 @@ public class MainActivity extends BaseActivity {
 
         // 🟢 Refresh Goal Card
         displayShortestAndLatestGoal(); // Refresh the goal card
+
+        streakManager.updateActiveStreakProgress();
+        refreshStreakUI();
     }
 
     // Parse input from EditText
@@ -411,6 +415,8 @@ public class MainActivity extends BaseActivity {
         // When the app is paused, check and update the longest streak using the manager.
         // Also update the progress when the app is paused.
         streakManager.updateActiveStreakProgress();
+        refreshStreakUI();
+        updateDateDisplay();
         LocalBroadcastManager.getInstance(this).unregisterReceiver(timerUpdateReceiver);
     }
 

@@ -8,10 +8,14 @@
 | 2.12        |          | Now exports and imports in *.db + *.json files. Changed goals date format to yyyy-mm-dd. |
 | 1.0         |          | Debug app                                                                                |
 
-    56. 5.0.b (19/06/2025)
+    57. 5.1.a (22/06/2025)
+     > Added `Streak.java` and `StreakDatabaseHelper.java` for storing and managing streak data.
+     > Minor UI adjustments in `activity_main.xml`.
+
+    56. 5.0.b (22/06/2025)
      > Fixed crash due to toolbar/constraint issue.
 
-    55. 5.0.a (19/06/2025)
+    55. 5.0.a (22/06/2025)
      > Font style is now "Atkinson Hyperlegible Next" because I like the way ZERO looks in it.
      > Made a separate actionbar layout resource file and included it in all the screens - reducing redundancies.
      > Removed the leftover layout files of separate summary screens.
