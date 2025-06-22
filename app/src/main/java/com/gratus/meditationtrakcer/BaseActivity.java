@@ -193,7 +193,7 @@ public class BaseActivity extends AppCompatActivity {
         // Inflate the base layout which includes the DrawerLayout
         DrawerLayout fullView = (DrawerLayout) getLayoutInflater().inflate(R.layout.activity_base, null);
 
-        setDrawerLeftEdgeSize(drawerLayout, 0.20f); // sets edge swipe area to 20% of screen width
+        setDrawerLeftEdgeSize(drawerLayout, 0.15f); // sets edge swipe area to 20% of screen width
 
         // Find the container into which we will inflate the child layout
         // (child layouts like activity_main.xml, etc.)
@@ -212,7 +212,6 @@ public class BaseActivity extends AppCompatActivity {
         // Initialize theme buttons
         setupThemeButtons();
     }
-
 
     // Disable all activity transition animations
     @Override
@@ -243,7 +242,7 @@ public class BaseActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
-        Button menuButton = findViewById(menuButtonId);
+        ImageButton menuButton = findViewById(menuButtonId);
         menuButton.setOnClickListener(v -> {
             // Toggle the drawer when the menu button is clicked
             if (drawerLayout.isDrawerOpen(GravityCompat.START)) {

@@ -33,8 +33,8 @@ import java.util.Locale;
 public class MainActivity extends BaseActivity {
 
     private TextView dateDisplay, timerDisplay, todayTotalDisplay, weekTotalDisplay;
-    private Button recordButton, addEntryButton, moreMenuButton;
-    private ImageButton gotoGoalsButton;
+    private Button recordButton, addEntryButton;
+    private ImageButton gotoGoalsButton, moreMenuButton;
     private EditText manualHours, manualMinutes, manualSeconds;
     private boolean isTimerRunning = false;
     private int secondsElapsed = 0;
@@ -59,7 +59,7 @@ public class MainActivity extends BaseActivity {
         manualHours = findViewById(R.id.manual_hours);
         manualMinutes = findViewById(R.id.manual_minutes);
         manualSeconds = findViewById(R.id.manual_seconds);
-        moreMenuButton = findViewById(R.id.menubutton);
+        //moreMenuButton = findViewById(R.id.menubutton);
 
         MaterialCardView streakCard = findViewById(R.id.cardView3_streak);
 
