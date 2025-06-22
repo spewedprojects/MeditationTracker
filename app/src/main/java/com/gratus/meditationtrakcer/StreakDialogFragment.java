@@ -58,7 +58,7 @@ public class StreakDialogFragment extends DialogFragment {
         EditText inputStartDate = dialogView.findViewById(R.id.streak_start_date);
         Button addStreak = dialogView.findViewById(R.id.add_streak);
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         inputStartDate.setText("");
 
         inputStartDate.setOnClickListener(v -> {
@@ -89,9 +89,11 @@ public class StreakDialogFragment extends DialogFragment {
         addStreak.setOnClickListener(v -> {
             String dayStr = inputDays.getText().toString().trim();
             String startDateStr = inputStartDate.getText().toString().trim();
-            if (!dayStr.isEmpty()) {
+            if (!dayStr.isEmpty() && !startDateStr.isEmpty()) { // Ensure date is not empty
                 int days = Integer.parseInt(dayStr);
-                if (listener != null) listener.onStreakInputConfirmed(days, startDateStr);
+                if (listener != null) {
+                    listener.onStreakInputConfirmed(days, startDateStr);
+                }
                 dismiss();
             }
         });

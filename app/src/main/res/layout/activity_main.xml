@@ -172,7 +172,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="22dp"
                             android:layout_marginBottom="8dp"
-                            android:layout_marginHorizontal="22dp"
+                            android:layout_marginHorizontal="24dp"
                             android:clickable="false"
                             android:cursorVisible="false"
                             android:filterTouchesWhenObscured="false"
@@ -198,19 +198,19 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="10dp"
-                            android:layout_marginBottom="8dp"
+                            android:layout_marginBottom="4dp"
                             android:filterTouchesWhenObscured="false"
                             android:focusableInTouchMode="true"
                             android:fontFamily="@font/atkinsonhyperlegiblenext_semibold"
                             android:text="21"
                             android:textColor="?attr/colorOnPrimary"
-                            android:textSize="48sp"
+                            android:textSize="54sp"
                             android:layout_marginVertical="0dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintBottom_toTopOf="@id/streak_progress_bar"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.55"
+                            app:layout_constraintTop_toBottomOf="@id/streak_title"
+                            app:layout_constraintVertical_bias="0.45"
                             tools:ignore="TextViewEdits" /> <!-- Streak duratio -->
 
                         <!--TextView
@@ -251,8 +251,9 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/streak"
-                            android:visibility="visible"/> <!-- Streak progress bar -->
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.95"
+                            android:visibility="gone"/> <!-- Streak progress bar -->
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView> <!-- For cardview Date and Total-->

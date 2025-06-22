@@ -6,7 +6,7 @@ Or alternatively, you can find it in Releases section also.
 
 ***
 
-# (v3.1.d) 09/06/2025
+# (v5.1.a) 22/06/2025
 **Current known issues:**
 - ~~App screens not scrollable on tiny screens.~~ __DONE!!__
 - ~~Monthly summary graphs show incorrect week division; likely consistency issues with Week start day (Sunday or Monday)~~
@@ -34,7 +34,7 @@ __Resolved long standing issues:__
     - Tapping on year label should open year picker to access any year of choosing.
     - Tapping the month in year graph should lead me to the month graph of that month.
     - Tapping the week in month graph should lead me to the week graph of that week.
-- Streak feature implementation:
+- Streak feature implementation: (19/06/2025)
   - A new card on main screen showing streak days
   - Long pressing for >5secs will open a days picker to set a streak duration, And later on possibly also add a summary from past data, probably a one-liner.
   - A tiny progress bar at the bottom of streak days

@@ -311,6 +311,7 @@ public class BaseActivity extends AppCompatActivity {
             // Export .db files
             exportFile("meditation_logs_" + timestamp + ".db", "application/octet-stream", false);
             exportFile("goals_" + timestamp + ".db", "application/octet-stream", false);
+            exportFile("streaks_" + timestamp + ".db", "application/octet-stream", false);
 
             Toast.makeText(this, "Export completed successfully!", Toast.LENGTH_LONG).show();
         } catch (Exception e) {
@@ -349,7 +350,17 @@ public class BaseActivity extends AppCompatActivity {
             exportDataAsJson(outputStream);
         } else {
             // Export database file
-            String dbName = fileName.contains("meditation_logs") ? "meditation_logs.db" : "goals.db";
+            String dbName;
+            if (fileName.contains("meditation_logs")) {
+                dbName = "meditation_logs.db";
+            } else if (fileName.contains("goals")) { // Assuming you meant to check for "goals"
+                dbName = "goals.db";
+            } else if (fileName.contains("streaks")) { // Assuming you meant to check for "streaks"
+                dbName = "streaks.db";
+            } else {
+                // Handle the case where none of the conditions are met (optional but good practice)
+                dbName = "default.db"; // Or throw an exception, or assign null
+            }
             exportDatabase(dbName, outputStream);
         }
 
@@ -409,6 +420,8 @@ public class BaseActivity extends AppCompatActivity {
                     importDatabase(fileUri, "meditation_logs.db");
                 } else if (fileName.contains("goals")) {
                     importDatabase(fileUri, "goals.db");
+                } else if (fileName.contains("streaks")) {
+                    importDatabase(fileUri, "streaks.db");
                 } else {
                     throw new IllegalArgumentException("Unsupported .db file");
                 }

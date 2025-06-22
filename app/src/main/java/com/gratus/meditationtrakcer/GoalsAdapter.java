@@ -33,8 +33,6 @@ public class GoalsAdapter extends RecyclerView.Adapter<GoalsAdapter.GoalViewHold
         return new GoalViewHolder(view);
     }
 
-
-
     @Override
     public int getItemCount() {
         return goals.size();

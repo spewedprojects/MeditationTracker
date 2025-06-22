@@ -1,123 +1,119 @@
 package com.gratus.meditationtrakcer;
 
-import android.content.ContentValues;
 import android.content.Context;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Locale;
-
 public class StreakManager {
-    private final MeditationLogDatabaseHelper dbHelper;
+
+    private Context context;
+    private StreakDatabaseHelper streakDbHelper;
+    private MeditationLogDatabaseHelper logDbHelper;
 
     public StreakManager(Context context) {
-        dbHelper = new MeditationLogDatabaseHelper(context);
+        this.context = context;
+        this.streakDbHelper = new StreakDatabaseHelper(context);
+        this.logDbHelper = new MeditationLogDatabaseHelper(context);
     }
 
-    // Start or overwrite streak
-    public void setNewStreak(String startDate, int targetDays) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+    public Streak getActiveStreak() {
+        return streakDbHelper.getActiveStreak();
+    }
 
-        // Delete existing
-        db.delete("streak_log", null, null);
-
-        // Calculate end date
-        Calendar calendar = Calendar.getInstance();
+    public void startNewStreak(String startDateStr, int targetDays) {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-            calendar.setTime(sdf.parse(startDate));
-            calendar.add(Calendar.DATE, targetDays - 1);
-            String endDate = sdf.format(calendar.getTime());
+            Date startDate = sdf.parse(startDateStr);
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(startDate);
+            cal.add(Calendar.DATE, targetDays - 1);
+            String endDateStr = sdf.format(cal.getTime());
 
-            ContentValues values = new ContentValues();
-            values.put("start_date", startDate);
-            values.put("end_date", endDate);
-            values.put("target_days", targetDays);
-            values.put("longest_streak", getLongestStreak()); // preserved
-
-            db.insert("streak_log", null, values);
+            streakDbHelper.addStreak(startDateStr, endDateStr, targetDays);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        db.close();
     }
 
-    public boolean isStreakActive() {
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM streak_log", null);
-        boolean active = false;
-        if (cursor.moveToFirst()) {
-            String endDate = cursor.getString(cursor.getColumnIndexOrThrow("end_date"));
-            active = compareToday(endDate) <= 0; // today <= end date
+    // THIS IS THE NEW CORE LOGIC METHOD
+    /**
+     * Finds the active streak, calculates its current progress, and updates the database.
+     */
+    public void updateActiveStreakProgress() {
+        Streak activeStreak = getActiveStreak();
+        if (activeStreak != null) {
+            // Calculate the contiguous days meditated since the streak started
+            int contiguousDays = calculateContiguousDays(activeStreak.getStartDate());
+
+            // Save this progress to the database for that specific streak
+            streakDbHelper.updateAchievedDays(activeStreak.getId(), contiguousDays);
         }
-        cursor.close();
-        db.close();
-        return active;
     }
 
-    public int getCurrentStreakProgress(String todayDate) {
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        int days = 0;
-        Cursor cursor = db.rawQuery("SELECT start_date FROM streak_log", null);
-        if (cursor.moveToFirst()) {
-            String startDate = cursor.getString(cursor.getColumnIndexOrThrow("start_date"));
+    public int getContiguousMeditationDays() {
+        // Calculate from today backwards
+        return calculateContiguousDays(null);
+    }
+
+    private int calculateContiguousDays(String fromDateStr) {
+        HashSet<String> meditationDates = getMeditationDates();
+        if (meditationDates.isEmpty()) {
+            return 0;
+        }
+
+        int contiguousDays = 0;
+        Calendar cal = Calendar.getInstance();
+
+        // If a start date is provided, start counting from there
+        if(fromDateStr != null) {
             try {
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-                long diff = sdf.parse(todayDate).getTime() - sdf.parse(startDate).getTime();
-                days = (int) (diff / (1000 * 60 * 60 * 24)) + 1;
-            } catch (Exception e) {
-                e.printStackTrace();
+                cal.setTime(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(fromDateStr));
+            } catch (Exception e) { /* a format of dd-MM-yyyy may be passed */
+                try {
+                    cal.setTime(new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(fromDateStr));
+                } catch (Exception ex) { return 0; }
             }
         }
-        cursor.close();
-        db.close();
-        return days;
-    }
 
-    public void resetStreak() {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        db.delete("streak_log", null, null);
-        db.close();
-    }
-
-    public int getLongestStreak() {
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT longest_streak FROM streak_log ORDER BY id DESC LIMIT 1", null);
-        int longest = 0;
-        if (cursor.moveToFirst()) {
-            longest = cursor.getInt(cursor.getColumnIndexOrThrow("longest_streak"));
+        // Loop from the starting day until today
+        Calendar todayCal = Calendar.getInstance();
+        while(cal.before(todayCal) || cal.equals(todayCal)){
+            String dateToCheck = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(cal.getTime());
+            if(meditationDates.contains(dateToCheck)) {
+                contiguousDays++;
+            } else {
+                // For an active streak goal, a single missed day breaks the chain from the start
+                if (fromDateStr != null) return contiguousDays;
+                    // If just calculating general contiguous days, any break means we are done
+                else return contiguousDays;
+            }
+            cal.add(Calendar.DATE, 1);
         }
-        cursor.close();
-        db.close();
-        return longest;
+
+        return contiguousDays;
     }
 
-    public String[] getStartAndEndDate() {
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT start_date, end_date FROM streak_log", null);
-        String[] dates = new String[2];
-        if (cursor.moveToFirst()) {
-            dates[0] = cursor.getString(cursor.getColumnIndexOrThrow("start_date"));
-            dates[1] = cursor.getString(cursor.getColumnIndexOrThrow("end_date"));
+
+    private HashSet<String> getMeditationDates() {
+        HashSet<String> dates = new HashSet<>();
+        SQLiteDatabase db = logDbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery(
+                "SELECT DISTINCT date(" + MeditationLogDatabaseHelper.COLUMN_DATE + ") as day FROM " + MeditationLogDatabaseHelper.TABLE_LOGS,
+                null
+        );
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                dates.add(cursor.getString(cursor.getColumnIndexOrThrow("day")));
+            } while (cursor.moveToNext());
+            cursor.close();
         }
-        cursor.close();
         db.close();
         return dates;
-    }
-
-    private int compareToday(String dateStr) {
-        try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-            Calendar today = Calendar.getInstance();
-            Calendar date = Calendar.getInstance();
-            date.setTime(sdf.parse(dateStr));
-            return today.getTime().compareTo(date.getTime());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 1;
-        }
     }
 }
