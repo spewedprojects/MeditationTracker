@@ -8,6 +8,9 @@
 | 2.12        |          | Now exports and imports in *.db + *.json files. Changed goals date format to yyyy-mm-dd. |
 | 1.0         |          | Debug app                                                                                |
 
+    58. 5.1.b (23/06/2025)
+     > Database and streak functionality in place and works.
+
     57. 5.1.a (22/06/2025)
      > Added `Streak.java` and `StreakDatabaseHelper.java` for storing and managing streak data.
      > Minor UI adjustments in `activity_main.xml`.

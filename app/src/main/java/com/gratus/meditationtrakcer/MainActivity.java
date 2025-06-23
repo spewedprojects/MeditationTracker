@@ -88,8 +88,6 @@ public class MainActivity extends BaseActivity {
         // ✅ Load saved total from database
         MeditationLogDatabaseHelper dbHelper = new MeditationLogDatabaseHelper(this);
         totalSecondsLogged = dbHelper.getTodayLoggedSeconds();
-        updateTodayTotal();
-        updateWeekTotal();
         dbHelper.close();
 
         // Record button functionality
@@ -103,6 +101,9 @@ public class MainActivity extends BaseActivity {
 
         // Add manual entry functionality
         addEntryButton.setOnClickListener(v -> addManualEntry());
+
+        updateTodayTotal();
+        updateWeekTotal();
 
         // Menu button functionality
         //moreMenuButton.setOnClickListener(v -> openMenu());
@@ -125,7 +126,6 @@ public class MainActivity extends BaseActivity {
             }
         }
     };
-
 
     private void refreshStreakUI() {
         TextView streakText = findViewById(R.id.streak);
@@ -403,6 +403,9 @@ public class MainActivity extends BaseActivity {
         updateWeekTotal(); // Refresh week's total when returning to main screen.
         updateTimerDisplay(); // Refresh timer display when returning to main screen.
         displayShortestAndLatestGoal(); // Refresh shortest and latest goal when returning to main screen.
+        manualHours.clearFocus();
+        manualMinutes.clearFocus();
+        manualSeconds.clearFocus();
         // Update the streak progress in the database when the app becomes active
         streakManager.updateActiveStreakProgress();
         // Refresh the streak card UI
@@ -417,6 +420,11 @@ public class MainActivity extends BaseActivity {
         streakManager.updateActiveStreakProgress();
         refreshStreakUI();
         updateDateDisplay();
+        updateTodayTotal(); // Refresh today's total when returning to main screen.
+        updateWeekTotal(); // Refresh week's total when returning to main screen.
+        manualHours.clearFocus();
+        manualMinutes.clearFocus();
+        manualSeconds.clearFocus();
         LocalBroadcastManager.getInstance(this).unregisterReceiver(timerUpdateReceiver);
     }
 

@@ -69,34 +69,51 @@ public class StreakManager {
 
         int contiguousDays = 0;
         Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
-        // If a start date is provided, start counting from there
-        if(fromDateStr != null) {
+        if (fromDateStr != null) {
+            // --- FORWARD-COUNTING LOGIC (For an active streak goal) ---
+            // This part remains the same, counting from a start date forwards.
             try {
-                cal.setTime(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(fromDateStr));
-            } catch (Exception e) { /* a format of dd-MM-yyyy may be passed */
+                cal.setTime(sdf.parse(fromDateStr));
+            } catch (Exception e) {
                 try {
                     cal.setTime(new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(fromDateStr));
-                } catch (Exception ex) { return 0; }
+                } catch (Exception ex) {
+                    return 0;
+                }
             }
-        }
 
-        // Loop from the starting day until today
-        Calendar todayCal = Calendar.getInstance();
-        while(cal.before(todayCal) || cal.equals(todayCal)){
-            String dateToCheck = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(cal.getTime());
-            if(meditationDates.contains(dateToCheck)) {
-                contiguousDays++;
-            } else {
-                // For an active streak goal, a single missed day breaks the chain from the start
-                if (fromDateStr != null) return contiguousDays;
-                    // If just calculating general contiguous days, any break means we are done
-                else return contiguousDays;
+            Calendar todayCal = Calendar.getInstance();
+            while (cal.before(todayCal) || cal.equals(todayCal)) {
+                String dateToCheck = sdf.format(cal.getTime());
+                if (meditationDates.contains(dateToCheck)) {
+                    contiguousDays++;
+                } else {
+                    // A single missed day breaks the chain for the active goal.
+                    return contiguousDays;
+                }
+                cal.add(Calendar.DATE, 1);
             }
-            cal.add(Calendar.DATE, 1);
-        }
+            return contiguousDays;
 
-        return contiguousDays;
+        } else {
+            // --- NEW BACKWARD-COUNTING LOGIC (For general streak display) ---
+            // This loop starts from today and goes back in time.
+            while (true) {
+                String dateToCheck = sdf.format(cal.getTime());
+                if (meditationDates.contains(dateToCheck)) {
+                    contiguousDays++;
+                    // Move to the previous day to continue checking.
+                    cal.add(Calendar.DATE, -1);
+                } else {
+                    // The first day without a meditation log is found, so the streak is broken.
+                    // Stop counting and exit the loop.
+                    break;
+                }
+            }
+            return contiguousDays;
+        }
     }
 
 
