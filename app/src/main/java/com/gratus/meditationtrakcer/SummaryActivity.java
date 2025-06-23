@@ -3,6 +3,7 @@ package com.gratus.meditationtrakcer;
 
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.os.Bundle;
@@ -64,6 +65,8 @@ public class SummaryActivity extends BaseActivity {
     private MaterialButton btnWeekly, btnMonthly, btnYearly;
     private CardView weekCard, monthCard, yearCard;   // promote to fields
 
+    private Typeface myCustomFont; //  <-- Add this
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,6 +101,8 @@ public class SummaryActivity extends BaseActivity {
         btnWeekly   = findViewById(R.id.W_Button);
         btnMonthly  = findViewById(R.id.M_Button);
         btnYearly   = findViewById(R.id.Y_Button);
+        // Load the custom font
+        myCustomFont = getResources().getFont(R.font.atkinsonhyperlegiblenext_regular); // <-- Add this
 
         viewGroup.setSingleSelection(true);
 
@@ -219,6 +224,7 @@ public class SummaryActivity extends BaseActivity {
         weeklyDataSet.setColor(barColor); // <= uses theme
         weeklyDataSet.setValueTextColor(Color.parseColor("#969696"));
         weeklyDataSet.setValueTextSize(14f); // Same text size as in onCreate
+        weeklyDataSet.setValueTypeface(myCustomFont);
         weeklyDataSet.setValueFormatter(new HideZeroValueFormatter());
 
         BarData weeklyData = new BarData(weeklyDataSet);
@@ -266,6 +272,7 @@ public class SummaryActivity extends BaseActivity {
         xAxis.setValueFormatter(new IndexAxisValueFormatter(weekLabels));
         xAxis.setTextColor(Color.parseColor("#969696"));
         xAxis.setTextSize(12f); // Same text size as in WeeklyActivity
+        xAxis.setTypeface(myCustomFont);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
         xAxis.setGranularity(1f); // Same granularity as in onCreate
@@ -274,6 +281,7 @@ public class SummaryActivity extends BaseActivity {
         YAxis leftAxis = weeklyBarChart.getAxisLeft();
         leftAxis.setDrawGridLines(false);
         leftAxis.setTextColor(Color.parseColor("#969696"));
+        leftAxis.setTypeface(myCustomFont);
         leftAxis.setTextSize(13f);
         leftAxis.setAxisMinimum(0f); // Same axis minimum as in onCreate
         weeklyBarChart.getAxisRight().setEnabled(false);
@@ -360,6 +368,7 @@ public class SummaryActivity extends BaseActivity {
         monthlyDataSet.setColor(barColor); // Same color as in WeeklyActivity
         monthlyDataSet.setValueTextColor(Color.parseColor("#969696"));
         monthlyDataSet.setValueTextSize(14f); // Same text size as in WeeklyActivity
+        monthlyDataSet.setValueTypeface(myCustomFont);
         monthlyDataSet.setValueFormatter(new HideZeroValueFormatter());
 
         BarData monthlyData = new BarData(monthlyDataSet);
@@ -385,6 +394,7 @@ public class SummaryActivity extends BaseActivity {
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTextColor(Color.parseColor("#969696"));
         xAxis.setTextSize(13f); // Same text size as in WeeklyActivity
+        xAxis.setTypeface(myCustomFont);
         xAxis.setDrawGridLines(false);
         xAxis.setGranularity(1f); // Same granularity as in WeeklyActivity
 
@@ -394,6 +404,7 @@ public class SummaryActivity extends BaseActivity {
         leftAxis.setAxisMinimum(0f); // Same axis minimum as in WeeklyActivity
         leftAxis.setTextColor(Color.parseColor("#969696"));
         leftAxis.setTextSize(13f);
+        leftAxis.setTypeface(myCustomFont);
         monthlyBarChart.getAxisRight().setEnabled(false);
 
         // Removed Description Label
@@ -465,6 +476,7 @@ public class SummaryActivity extends BaseActivity {
         yearlyDataSet.setColor(barColor); // Consistent color
         yearlyDataSet.setValueTextColor(Color.parseColor("#969696"));
         yearlyDataSet.setValueTextSize(14f); // Consistent text size
+        yearlyDataSet.setValueTypeface(myCustomFont);
         yearlyDataSet.setValueFormatter(new HideZeroValueFormatter());
 
         BarData yearlyData = new BarData(yearlyDataSet);
@@ -491,6 +503,7 @@ public class SummaryActivity extends BaseActivity {
         xAxis.setValueFormatter(new IndexAxisValueFormatter(yearLabels));
         xAxis.setTextColor(Color.parseColor("#969696"));
         xAxis.setTextSize(13f); // Same text size as in WeeklyActivity
+        xAxis.setTypeface(myCustomFont);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
         xAxis.setGranularity(1f); // Same granularity
@@ -500,6 +513,7 @@ public class SummaryActivity extends BaseActivity {
         leftAxis.setDrawGridLines(false);
         leftAxis.setTextColor(Color.parseColor("#969696"));
         leftAxis.setTextSize(13f);
+        leftAxis.setTypeface(myCustomFont);
         leftAxis.setAxisMinimum(0f); // Same axis minimum
         yearlyBarChart.getAxisRight().setEnabled(false);
 

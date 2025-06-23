@@ -172,7 +172,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="22dp"
                             android:layout_marginBottom="8dp"
-                            android:layout_marginHorizontal="24dp"
+                            android:layout_marginHorizontal="22dp"
                             android:clickable="false"
                             android:cursorVisible="false"
                             android:filterTouchesWhenObscured="false"
@@ -197,12 +197,12 @@
                             android:id="@+id/streak"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="10dp"
+                            android:layout_marginHorizontal="24dp"
                             android:layout_marginBottom="4dp"
                             android:filterTouchesWhenObscured="false"
                             android:focusableInTouchMode="true"
-                            android:fontFamily="@font/atkinsonhyperlegiblenext_semibold"
-                            android:text="21"
+                            android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
+                            android:text="111"
                             android:textColor="?attr/colorOnPrimary"
                             android:textSize="54sp"
                             android:layout_marginVertical="0dp"
@@ -210,10 +210,10 @@
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/streak_title"
-                            app:layout_constraintVertical_bias="0.45"
+                            app:layout_constraintVertical_bias="0.41"
                             tools:ignore="TextViewEdits" /> <!-- Streak duratio -->
 
-                        <!--TextView
+                        <TextView
                             android:id="@+id/streak_days"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -226,17 +226,19 @@
                             android:textStyle="bold"
                             android:inputType="date"
                             android:longClickable="false"
-                            android:text="days"
+                            android:text="d"
                             android:textColor="?attr/colorAccent"
-                            android:textSize="10sp"
-                            android:letterSpacing="0.04"
-                            app:layout_constraintBottom_toTopOf="@id/streak_days"
+                            android:textSize="9sp"
+                            android:letterSpacing="0.0"
+                            android:alpha="0.7"
+                            app:layout_constraintBottom_toTopOf="@id/streak_progress_bar"
                             app:layout_constraintLeft_toRightOf="@id/streak"
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/streak_title"
-                            app:layout_constraintVertical_bias="1"
+                            app:layout_constraintVertical_bias="0.73"
+                            app:layout_constraintHorizontal_bias="0"
                             tools:ignore="TextViewEdits"
-                            android:visibility="gone"/-->
+                            android:visibility="visible"/>
 
                         <ProgressBar
                             android:id="@+id/streak_progress_bar"
@@ -252,8 +254,8 @@
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.95"
-                            android:visibility="gone"/> <!-- Streak progress bar -->
+                            app:layout_constraintVertical_bias="0.92"
+                            android:visibility="visible"/> <!-- Streak progress bar -->
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView> <!-- For cardview Date and Total-->
@@ -324,7 +326,7 @@
                         android:layout_width="130dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:layout_marginBottom="16dp"
+                        android:layout_marginBottom="18dp"
                         android:backgroundTint="?attr/colorOnPrimary"
                         android:fontFamily="@font/atkinsonhyperlegiblenext_regular"
                         android:gravity="center"
