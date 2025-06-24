@@ -8,6 +8,13 @@
 | 2.12        |          | Now exports and imports in *.db + *.json files. Changed goals date format to yyyy-mm-dd. |
 | 1.0         |          | Debug app                                                                                |
 
+    60. 5.1.d (23/06/2025)
+     > Refactored streak calculation in `StreakManager` to count backwards from today.
+     > Updated `MainActivity` to refresh UI elements and clear focus.
+
+    59. 5.1.c (23/06/2025)
+     > Minor text layout adjustments and applied the new font to SummaryActivity charts.
+
     58. 5.1.b (23/06/2025)
      > Database and streak functionality in place and works.
 

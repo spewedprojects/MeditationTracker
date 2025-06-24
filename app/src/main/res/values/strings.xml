@@ -23,6 +23,6 @@
     <string name="total_hours">Total hours: </string>
     <string name="goals_title">Set a New Goal</string>
     <string name="goals_desc">Create a new meditation goal</string>
-    <string name="current_version_details">▶ Refactored streak calculation in `StreakManager` to count backwards from today.\n▶ Updated `MainActivity` to refresh UI elements and clear focus.\n▶ NEXT: Home screen widget.</string>
+    <string name="current_version_details">▶ Programmatically added the "d" unit next to streak days, scaled to 25% size and 100 alpha.\n▶ NEXT: Home screen widget.</string>
     <string name="v1.16.c">v1.16.c:\n- NOICE!\n  - Next indent.\n    ▶ Bullet point</string>
 </resources>

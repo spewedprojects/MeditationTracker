@@ -10,6 +10,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -22,6 +26,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.ColorUtils;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.android.material.card.MaterialCardView;
@@ -32,7 +37,7 @@ import java.util.Locale;
 
 public class MainActivity extends BaseActivity {
 
-    private TextView dateDisplay, timerDisplay, todayTotalDisplay, weekTotalDisplay;
+    private TextView dateDisplay, timerDisplay, todayTotalDisplay, weekTotalDisplay, streakText;
     private Button recordButton, addEntryButton;
     private ImageButton gotoGoalsButton, moreMenuButton;
     private EditText manualHours, manualMinutes, manualSeconds;
@@ -127,6 +132,41 @@ public class MainActivity extends BaseActivity {
         }
     };
 
+    private SpannableString createStyledStreakText(int days) {
+        streakText = findViewById(R.id.streak);
+        String numberPart = String.valueOf(days);
+        String unitPart = "d";
+        String fullText = numberPart + unitPart;
+
+        SpannableString styledText = new SpannableString(fullText);
+
+        // --- Define the styles for the "d" character ---
+
+        // 1. Set a smaller font size (e.g., 25% of the original size, try 16% next)
+        float relativeSize = 0.25f;
+        styledText.setSpan(
+                new RelativeSizeSpan(relativeSize),
+                numberPart.length(), // Start index of "d"
+                fullText.length(),   // End index of "d"
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        );
+
+        // 2. Set transparency (alpha)
+        // We'll get the original text color and apply a new alpha value to it.
+        int originalColor = streakText.getCurrentTextColor(); // Use the TextView's current color
+        int alpha = 100; // Set alpha value (0-255, where 0 is transparent, 255 is opaque)
+        int translucentColor = ColorUtils.setAlphaComponent(originalColor, alpha);
+
+        styledText.setSpan(
+                new ForegroundColorSpan(translucentColor),
+                numberPart.length(), // Start index of "d"
+                fullText.length(),   // End index of "d"
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        );
+
+        return styledText;
+    }
+
     private void refreshStreakUI() {
         TextView streakText = findViewById(R.id.streak);
         ProgressBar streakProgress = findViewById(R.id.streak_progress_bar);
@@ -143,7 +183,7 @@ public class MainActivity extends BaseActivity {
 
             int percentage = (targetDays > 0) ? (progressDays * 100 / targetDays) : 0;
 
-            streakText.setText(String.valueOf(progressDays));
+            streakText.setText(createStyledStreakText(progressDays));
             streakProgress.setProgress(Math.min(percentage, 100));
             streakProgress.setVisibility(View.VISIBLE);
             streakCard.setStrokeColor(ContextCompat.getColor(this, R.color.success_green));
@@ -151,7 +191,7 @@ public class MainActivity extends BaseActivity {
         } else {
             // No active streak, show general contiguous days
             int contiguousDays = streakManager.getContiguousMeditationDays();
-            streakText.setText(String.valueOf(contiguousDays));
+            streakText.setText(createStyledStreakText(contiguousDays));
             streakProgress.setVisibility(View.GONE);
             streakCard.setStrokeColor(ContextCompat.getColor(this, android.R.color.transparent));
         }
