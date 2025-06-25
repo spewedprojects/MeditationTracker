@@ -84,6 +84,12 @@ public class MainActivity extends BaseActivity {
             return true;
         });
 
+        // Long-pressing week total takes you to Summary activity
+        weekTotalDisplay.setOnLongClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), SummaryActivity.class);
+            v.getContext().startActivity(intent);
+            return true; // Important: Consume the long click event
+        });
 
         displayShortestAndLatestGoal();  // New method call
 
