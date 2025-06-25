@@ -23,6 +23,6 @@
     <string name="total_hours">Total hours: </string>
     <string name="goals_title">Set a New Goal</string>
     <string name="goals_desc">Create a new meditation goal</string>
-    <string name="current_version_details">▶ Programmatically added the "d" unit next to streak days, scaled to 25% size and 100 alpha.\n▶ NEXT: Home screen widget.</string>
+    <string name="current_version_details">▶ Refined streak logic: Streak now continues from yesterday if no meditation today, instead of resetting to 0.\n▶ Clicks no longer to pass on to the screen beneath.\n▶ NEXT: Home screen widget.</string>
     <string name="v1.16.c">v1.16.c:\n- NOICE!\n  - Next indent.\n    ▶ Bullet point</string>
 </resources>

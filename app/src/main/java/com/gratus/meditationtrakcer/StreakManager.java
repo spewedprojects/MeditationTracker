@@ -98,8 +98,18 @@ public class StreakManager {
             return contiguousDays;
 
         } else {
-            // --- NEW BACKWARD-COUNTING LOGIC (For general streak display) ---
-            // This loop starts from today and goes back in time.
+            // --- REVISED BACKWARD-COUNTING LOGIC ---
+
+            // First, check if a log exists for today.
+            String todayStr = sdf.format(cal.getTime());
+            boolean meditatedToday = meditationDates.contains(todayStr);
+
+            // If the user has NOT meditated today, start the count from yesterday.
+            if (!meditatedToday) {
+                cal.add(Calendar.DATE, -1);
+            }
+
+            // Now, start the backward-counting loop from the correct day (either today or yesterday).
             while (true) {
                 String dateToCheck = sdf.format(cal.getTime());
                 if (meditationDates.contains(dateToCheck)) {

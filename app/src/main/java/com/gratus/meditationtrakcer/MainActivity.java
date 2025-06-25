@@ -143,7 +143,7 @@ public class MainActivity extends BaseActivity {
         // --- Define the styles for the "d" character ---
 
         // 1. Set a smaller font size (e.g., 25% of the original size, try 16% next)
-        float relativeSize = 0.25f;
+        float relativeSize = 0.18f;
         styledText.setSpan(
                 new RelativeSizeSpan(relativeSize),
                 numberPart.length(), // Start index of "d"
