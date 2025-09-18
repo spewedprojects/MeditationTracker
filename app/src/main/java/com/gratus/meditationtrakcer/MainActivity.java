@@ -27,7 +27,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+//import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.android.material.card.MaterialCardView;
 
@@ -443,7 +443,8 @@ public class MainActivity extends BaseActivity {
         updateTimerDisplay();
 
         // Register the broadcast receiver for timer updates
-        LocalBroadcastManager.getInstance(this).registerReceiver(timerUpdateReceiver, new IntentFilter("TIMER_UPDATED"));
+        //LocalBroadcastManager.getInstance(this).registerReceiver(timerUpdateReceiver, new IntentFilter("TIMER_UPDATED"));
+        ContextCompat.registerReceiver(this, timerUpdateReceiver, new IntentFilter("TIMER_UPDATED"), ContextCompat.RECEIVER_NOT_EXPORTED);
         updateDateDisplay();  // Refresh date display when returning ot main screen.
         updateTodayTotal(); // Refresh today's total when returning to main screen.
         updateWeekTotal(); // Refresh week's total when returning to main screen.
@@ -471,7 +472,8 @@ public class MainActivity extends BaseActivity {
         manualHours.clearFocus();
         manualMinutes.clearFocus();
         manualSeconds.clearFocus();
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(timerUpdateReceiver);
+        //LocalBroadcastManager.getInstance(this).unregisterReceiver(timerUpdateReceiver);
+        unregisterReceiver(timerUpdateReceiver);
     }
 
     @Override

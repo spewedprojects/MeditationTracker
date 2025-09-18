@@ -10,7 +10,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+//import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import android.content.SharedPreferences;     // ⬅️ new
 
 import androidx.annotation.Nullable;
@@ -49,7 +49,9 @@ public class TimerService extends Service {
     private void sendTimeUpdate() {
         Intent intent = new Intent("TIMER_UPDATED");
         intent.putExtra("secondsElapsed", secondsElapsed); // Send elapsed time
-        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+        // LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+        intent.setPackage(getPackageName()); // This is the key change to keep the broadcast local
+        sendBroadcast(intent);
     }
 
     @Override

@@ -8,7 +8,15 @@
 | 2.12        |          | Now exports and imports in *.db + *.json files. Changed goals date format to yyyy-mm-dd. |
 | 1.0         |          | Debug app                                                                                |
 
-61. **_5.1.e (24/06/2025)_**
+62. **_5.1.f (25/06/2025)_**    
+    > - Refined streak logic: Streak now continues from yesterday if no meditation today, instead of resetting to 0.
+    > - Adjusted "d" unit size next to streak days to 18% (was 25%).
+    > - Minor UI tweaks in About screen layout.
+    > - Updated version name and code.
+    > - Added clickable attribute to menu drawer; prevents clicks to pass on to the screen beneath.
+    > - Week total display is now long-clickable and navigates to the Summary activity (version code - 52)
+
+    61. 5.1.e (24/06/2025)
     > Programmatically added the "d" unit next to streak days, scaled to 25% size and 100 alpha.
 
     60. 5.1.d (23/06/2025)

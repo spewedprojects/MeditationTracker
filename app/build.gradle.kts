@@ -4,14 +4,14 @@ plugins {
 
 android {
     namespace = "com.gratus.meditationtrakcer"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.gratus.meditationtrakcer"
         minSdk = 31
         targetSdk = 35
-        versionCode = 52
-        versionName = "5.1.f" // Format: Major (4), Minor (0), Patch (a)
+        versionCode = 53
+        versionName = "5.2.a" // Format: Major (4), Minor (0), Patch (a)
 
         // Pass versionName to the app as a resource
         resValue(
