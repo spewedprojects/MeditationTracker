@@ -33,11 +33,17 @@ import android.util.TypedValue;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Locale;
 
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.ChartTouchListener;
+import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.gratus.meditationtrakcer.utils.HideZeroValueFormatter;
@@ -159,7 +165,6 @@ public class SummaryActivity extends BaseActivity {
         NestedScrollView scroll = findViewById(R.id.main_scroll); // give the NSV an id
         gestureDetector = new GestureDetector(this, new SwipeListener());
         scroll.setOnTouchListener((v,e) -> gestureDetector.onTouchEvent(e));
-
     }
 
     // put near your other helpers
@@ -175,7 +180,6 @@ public class SummaryActivity extends BaseActivity {
         else maybeLoadYear();
         refreshButtonTransparency(id);        // <<< add here
     }
-
 
     /** 100 % opaque for the checked button, 30 % opaque (≈ 70 % transparent)
      *  for the others.  */
@@ -217,8 +221,41 @@ public class SummaryActivity extends BaseActivity {
         });
     }
 
-    // ----- WEEKLY VIEW -----
+    // ── HELPER CLASS FOR LONG PRESS ─────────────────────────────
+    // This abstract class handles the gesture detection logic
+    // and exposes a simple onDrillDown method for the Activity to use.
+    abstract class DrillDownListener implements OnChartGestureListener {
+        private final BarChart chart;
 
+        public DrillDownListener(BarChart chart) {
+            this.chart = chart;
+        }
+
+        // We will implement this in the anonymous classes above
+        public abstract void onDrillDown(float xIndex);
+
+        @Override
+        public void onChartLongPressed(MotionEvent me) {
+            // Get the Highlight at the touch point
+            Highlight h = chart.getHighlightByTouchPoint(me.getX(), me.getY());
+
+            if (h != null) {
+                // Perform the drill down using the X index of the bar
+                onDrillDown(h.getX());
+            }
+        }
+
+        @Override public void onChartGestureStart(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {}
+        @Override public void onChartGestureEnd(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {}
+        @Override public void onChartDoubleTapped(MotionEvent me) {}
+        @Override public void onChartSingleTapped(MotionEvent me) {}
+        @Override public void onChartFling(MotionEvent me1, MotionEvent me2, float velocityX, float velocityY) {}
+        @Override public void onChartScale(MotionEvent me, float scaleX, float scaleY) {}
+        @Override public void onChartTranslate(MotionEvent me, float dX, float dY) {}
+    }
+
+
+    // ----- WEEKLY VIEW -----
     private void updateWeeklySummary() {
         MeditationLogDatabaseHelper dbHelper = new MeditationLogDatabaseHelper(this);
         ArrayList<BarEntry> weeklyEntries = dbHelper.getWeeklyMeditationDataForDateRange(selectedWeekStartDate);
@@ -364,6 +401,9 @@ public class SummaryActivity extends BaseActivity {
     private String getNextWeekStartDate(String startDate) {
         return getAdjustedWeekStartDate(startDate, 7);
     }
+
+
+    // ----- MONTHLY VIEW -----
     private void updateMonthlySummary() {
         MeditationLogDatabaseHelper dbHelper = new MeditationLogDatabaseHelper(this);
         ArrayList<BarEntry> monthlyEntries = dbHelper.getMonthlyMeditationDataForDateRange(selectedMonthStartDate);
@@ -396,8 +436,27 @@ public class SummaryActivity extends BaseActivity {
         monthlyBarChart.setData(monthlyData);
 
         // Configure X-Axis
+        // --- 1. CHANGED: Dynamic Week # Labels based on year ---
         ArrayList<String> monthLabels = new ArrayList<>();
-        for (int i = 1; i <= 5; i++) monthLabels.add("Week " + i);
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.getDefault());
+            LocalDate monthStart = LocalDate.parse(selectedMonthStartDate, formatter);
+
+            // Standard week fields (ISO or Locale based, usually ISO implies Week starts Monday)
+            WeekFields weekFields = WeekFields.of(Locale.getDefault());
+
+            // We iterate 5 times because the chart logic expects 5 bars typically
+            for (int i = 0; i < 5; i++) {
+                // Calculate the date for the start of the i-th week in this month
+                LocalDate weekDate = monthStart.plusWeeks(i);
+                int weekNum = weekDate.get(weekFields.weekOfWeekBasedYear());
+                monthLabels.add("Week " + "#" + weekNum);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Fallback
+            for (int i = 1; i <= 5; i++) monthLabels.add("Week " + i);
+        }
 
         XAxis xAxis = monthlyBarChart.getXAxis();
         xAxis.setValueFormatter(new IndexAxisValueFormatter(monthLabels));
@@ -420,6 +479,32 @@ public class SummaryActivity extends BaseActivity {
         // Removed Description Label
         monthlyBarChart.getDescription().setEnabled(false);
 
+        // --- 2. ADDED: Drill-down Listener (Month -> Week) ---
+        monthlyBarChart.setOnChartGestureListener(new DrillDownListener(monthlyBarChart) {
+            @Override
+            public void onDrillDown(float xIndex) {
+                try {
+                    // xIndex corresponds to the bar index (0, 1, 2, 3, 4)
+                    int weekOffset = (int) xIndex;
+
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.getDefault());
+                    LocalDate monthStart = LocalDate.parse(selectedMonthStartDate, formatter);
+
+                    // Calculate start date of the specific week tapped
+                    // Ensure we align to the Monday of that specific week
+                    LocalDate targetWeekDate = monthStart.plusWeeks(weekOffset)
+                            .with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+
+                    selectedWeekStartDate = targetWeekDate.format(formatter);
+
+                    // Switch tab to Week
+                    viewGroup.check(R.id.W_Button);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
         // Refresh chart
         monthlyBarChart.invalidate();
 
@@ -433,9 +518,6 @@ public class SummaryActivity extends BaseActivity {
         TextView yearLabelTextView = findViewById(R.id.displayed_monthYear);
         yearLabelTextView.setText(getYear(selectedMonthStartDate)); // Set the year
     }
-
-
-    // ----- MONTHLY VIEW -----
     private String getFirstDayOfCurrentMonth() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.DAY_OF_MONTH, 1);
@@ -529,6 +611,31 @@ public class SummaryActivity extends BaseActivity {
 
         // Removed Description Label
         yearlyBarChart.getDescription().setEnabled(false);
+
+        // --- 2. ADDED: Drill-down Listener (Year -> Month) ---
+        yearlyBarChart.setOnChartGestureListener(new DrillDownListener(yearlyBarChart) {
+            @Override
+            public void onDrillDown(float xIndex) {
+                try {
+                    // xIndex corresponds to Month index (0=Jan, 1=Feb ...)
+                    int monthIndex = (int) xIndex;
+                    if (monthIndex < 0 || monthIndex > 11) return;
+
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.getDefault());
+                    LocalDate yearStart = LocalDate.parse(selectedYearStartDate, formatter);
+
+                    // Calculate start date of the specific month tapped
+                    LocalDate targetMonthDate = yearStart.withMonth(monthIndex + 1).withDayOfMonth(1);
+
+                    selectedMonthStartDate = targetMonthDate.format(formatter);
+
+                    // Switch tab to Month
+                    viewGroup.check(R.id.M_Button);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
         // Refresh chart
         yearlyBarChart.invalidate();
@@ -654,23 +761,8 @@ public class SummaryActivity extends BaseActivity {
         });
     }
 
-    private void slideAnim(boolean left) {
-        View card = weekCard .getVisibility()==View.VISIBLE ? weekCard
-                : monthCard.getVisibility()==View.VISIBLE ? monthCard
-                : yearCard;
-        // run the animation only after the card has been laid out
-        card.post(() -> {
-            int w = card.getWidth();
-            // start off‐screen
-            card.setTranslationX(left ?  w : -w);
-            // slide back into place
-            card.animate()
-                    .translationX(0)
-                    .setDuration(450)
-                    .start();
-        });
-    }
-    private void gotoNext() {                          // W → M → Y → W
+    private void gotoNext() {
+        // W → M → Y → W
         // 1. Identify which cards are 'from' and 'to'
         int fromId = viewGroup.getCheckedButtonId();
         int toId;
@@ -696,7 +788,8 @@ public class SummaryActivity extends BaseActivity {
         // 3. Perform the animation
         animateCardSwipe(fromCard, toCard, toId, true); // true means isNext (swiping left)
     }
-    private void gotoPrev() {                          // reverse
+    private void gotoPrev() {
+        // reverse
         // 1. Identify which cards are 'from' and 'to'
         int fromId = viewGroup.getCheckedButtonId();
         int toId;

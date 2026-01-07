@@ -83,7 +83,7 @@ public class MainActivity extends BaseActivity {
 
         MaterialCardView streakCard = findViewById(R.id.cardView3_streak);
 
-        // UPDATE THIS LISTENER
+        // Streak dialog toggle
         streakCard.setOnLongClickListener(v -> {
             StreakDialogFragment dialog = StreakDialogFragment.newInstance((days, startDate) -> {
                 // This is the callback from the dialog
@@ -95,8 +95,14 @@ public class MainActivity extends BaseActivity {
             return true;
         });
 
-        // Long-pressing week total takes you to Summary activity
+        // --- UPDATED LISTENER FOR WEEK VIEW ---
+        // Long-pressing week total takes you to Summary activity, specifically WEEK view
         weekTotalDisplay.setOnLongClickListener(v -> {
+            // Force "Week" view preference before launching.
+            // This ensures SummaryActivity opens in "W" mode regardless of previous state.
+            SharedPreferences sp = getSharedPreferences("summary_prefs", MODE_PRIVATE);
+            sp.edit().putString("last_view", "W").apply();
+
             Intent intent = new Intent(v.getContext(), SummaryActivity.class);
             v.getContext().startActivity(intent);
             return true; // Important: Consume the long click event

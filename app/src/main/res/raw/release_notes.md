@@ -8,7 +8,11 @@
 | 2.12        |          | Now exports and imports in *.db + *.json files. Changed goals date format to yyyy-mm-dd. |
 | 1.0         |          | Debug app                                                                                |
 
-64. _**6.1.b (18/09/2025)**_
+65. _**6.1.c (07/01/26)**_
+    > - Applied window insets listeners to handle system bar padding programmatically.
+    > - Applied EdgetoEdge to go along with transparent actionbar.
+
+    64. 6.1.b (07/01/2026)
     > - Cosmetic changes to Streak dialog.
     > - No solid actionbar.
     > - Release notes now have cardview for current version.
