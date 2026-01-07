@@ -16,6 +16,8 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
@@ -26,7 +28,10 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import androidx.core.graphics.Insets;
 import androidx.core.view.GravityCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.customview.widget.ViewDragHelper;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.annotation.LayoutRes;
@@ -201,7 +206,13 @@ public class BaseActivity extends AppCompatActivity {
         // Inflate the child layout into the container
         getLayoutInflater().inflate(layoutResID, activityContainer, true);
         // Set the full view as the content view
+        EdgeToEdge.enable(this);
         super.setContentView(fullView);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.menu_drawer), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
 
         // Get the DrawerLayout so we can open/close it later
         drawerLayout = fullView.findViewById(R.id.drawer_layout);

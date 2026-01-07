@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/menu_drawer"
     android:background="?attr/colorPrimaryVariant"
-    android:fitsSystemWindows="true"
     android:clickable="true"
     tools:context=".BaseActivity">
 
@@ -13,7 +13,6 @@
         android:id="@+id/menu_head"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

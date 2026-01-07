@@ -8,7 +8,13 @@
 | 2.12        |          | Now exports and imports in *.db + *.json files. Changed goals date format to yyyy-mm-dd. |
 | 1.0         |          | Debug app                                                                                |
 
-63. _**6.1.a (18/09/2025)**_
+64. _**6.1.b (18/09/2025)**_
+    > - Cosmetic changes to Streak dialog.
+    > - No solid actionbar.
+    > - Release notes now have cardview for current version.
+    > - Colors are now stored in night and not-night instead of Dark/Light prefixes.
+
+    63. 6.1.a (18/09/2025)
     > - Upgraded Gradle wrapper to 8.13 and updated various AndroidX and Material dependencies.
     > - Made About screen scrollable for better usability on smaller displays.
     > - Replaced deprecated `LocalBroadcastManager` with `ContextCompat.registerReceiver` for timer updates.

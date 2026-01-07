@@ -23,6 +23,6 @@
     <string name="total_hours">Total hours: </string>
     <string name="goals_title">Set a New Goal</string>
     <string name="goals_desc">Create a new meditation goal</string>
-    <string name="current_version_details">• Cosmetic changes to Streak dialog.\n• No solid actionbar.\n• Release notes now have cardview for current version.\n• Colors are now stored in night and not-night instead of Dark/Light prefixes.\n• NEXT: Home screen widget.</string>
+    <string name="current_version_details">• Applied window insets listeners to handle system bar padding programmatically.\n• Applied EdgetoEdge to go along with transparent actionbar.\n• NEXT: Home screen widget.</string>
     <string name="v1.16.c">v1.16.c:\n- NOICE!\n  - Next indent.\n    ▶ Bullet point</string>
 </resources>

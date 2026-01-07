@@ -5,9 +5,6 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorSurface"
-    app:circularflow_defaultRadius="10dp"
-    android:fitsSystemWindows="true"
     tools:context=".ReleaseNotesActivity">
 
     <com.google.android.material.appbar.MaterialToolbar
@@ -30,6 +27,7 @@
         android:id="@+id/lastest_release"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:layout_marginHorizontal="16dp"
         app:layout_constraintTop_toBottomOf="@id/toolbar2"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -54,7 +52,7 @@
             android:filterTouchesWhenObscured="false"
             android:focusableInTouchMode="true"
             android:fontFamily="@font/atkinsonhyperlegiblenext_bold"
-            android:text="Release Notes:"
+            android:text="Release Notes"
             android:textColor="?attr/colorOnPrimary"
             android:textSize="23sp"
             tools:ignore="TextViewEdits" /> <!-- Release notes page title -->
@@ -81,7 +79,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="12dp"
+            android:layout_marginBottom="16dp"
             android:filterTouchesWhenObscured="false"
             android:focusableInTouchMode="true"
             android:fontFamily="@font/atkinsonhyperlegiblenext_regular"
@@ -98,7 +96,7 @@
         android:id="@+id/RN_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginHorizontal="16dp"
+        android:layout_marginHorizontal="15dp"
         app:layout_constraintTop_toBottomOf="@id/lastest_release"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
