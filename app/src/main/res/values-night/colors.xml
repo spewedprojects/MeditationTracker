@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="secondary">#004D40</color>
+    <color name="secondaryVariant">#00897B</color>
+    <color name="primary">#222121</color>
+    <color name="primaryVariant">#131313</color>
+    <color name="switchbutton">#393939</color>
+    <color name="deletebutton">#C62828</color>
+    <color name="textHintcolor">#99FFFFFF</color>
+    <color name="onPrimary2">#99FFFFFF</color>
+    <color name="window_background">#131313</color>
+    <color name="barChart_color">#26A69A</color>
+    <color name="barChart">#CDCDCD</color> <!-- Light gray - #BC9353 -->
+    <color name="dialog_bg">#32000000</color>
+    <color name="success_green">#388E3C</color>
+    <color name="success_green_bg">#10388E3C</color>
+    <color name="transparent">#00000000</color>
+</resources>

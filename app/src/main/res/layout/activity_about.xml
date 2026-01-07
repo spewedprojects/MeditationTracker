@@ -14,7 +14,7 @@
         android:id="@+id/toolbar2"
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/light_primary"
+        android:background="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -48,7 +48,7 @@
             android:scaleX="1.05"
             android:scaleY="1.05"
             android:visibility="visible"
-            android:backgroundTint="@color/light_onPrimary2"
+            android:backgroundTint="@color/onPrimary2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

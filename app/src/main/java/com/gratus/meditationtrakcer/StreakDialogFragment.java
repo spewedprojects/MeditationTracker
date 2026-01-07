@@ -77,8 +77,8 @@ public class StreakDialogFragment extends DialogFragment {
                 Button positiveButton = datePickerDialog.getButton(DialogInterface.BUTTON_POSITIVE);
                 Button negativeButton = datePickerDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
                 boolean isDarkMode = isDarkMode();
-                int positiveColor = isDarkMode ? ContextCompat.getColor(requireContext(), R.color.light_primaryVariant) : ContextCompat.getColor(requireContext(), R.color.dark_primary);
-                int negativeColor = isDarkMode ? ContextCompat.getColor(requireContext(), R.color.light_primaryVariant) : ContextCompat.getColor(requireContext(), R.color.dark_primary);
+                int positiveColor = isDarkMode ? ContextCompat.getColor(requireContext(), R.color.primaryVariant) : ContextCompat.getColor(requireContext(), R.color.primary);
+                int negativeColor = isDarkMode ? ContextCompat.getColor(requireContext(), R.color.primaryVariant) : ContextCompat.getColor(requireContext(), R.color.primary);
                 positiveButton.setTextColor(positiveColor);
                 negativeButton.setTextColor(negativeColor);
             });
@@ -145,7 +145,7 @@ public class StreakDialogFragment extends DialogFragment {
     private void applyBlur() {
         blurredView = requireActivity().getWindow().getDecorView().findViewById(android.R.id.content);
         if (blurredView != null) {
-            RenderEffect blur = RenderEffect.createBlurEffect(3f, 3f, Shader.TileMode.DECAL);
+            RenderEffect blur = RenderEffect.createBlurEffect(12f, 12f, Shader.TileMode.DECAL);
             blurredView.setRenderEffect(blur);
         }
     }

@@ -283,8 +283,8 @@ public class GoalsActivity extends BaseActivity {
             boolean isDarkMode = isDarkMode();
 
             // Apply colors based on the theme
-            int positiveColor = isDarkMode ? ContextCompat.getColor(this, R.color.light_primaryVariant) : ContextCompat.getColor(this, R.color.dark_primary);
-            int negativeColor = isDarkMode ? ContextCompat.getColor(this, R.color.light_primaryVariant) : ContextCompat.getColor(this, R.color.dark_primary);
+            int positiveColor = isDarkMode ? ContextCompat.getColor(this, R.color.primaryVariant) : ContextCompat.getColor(this, R.color.primary);
+            int negativeColor = isDarkMode ? ContextCompat.getColor(this, R.color.primaryVariant) : ContextCompat.getColor(this, R.color.primary);
 
             positiveButton.setTextColor(positiveColor);
             negativeButton.setTextColor(negativeColor);
@@ -316,7 +316,7 @@ public class GoalsActivity extends BaseActivity {
         dialog.setOnShowListener(d -> {
             boolean dark = isDarkMode();
             int colour   = ContextCompat.getColor(this,
-                    dark ? R.color.light_primaryVariant : R.color.dark_primary);
+                    dark ? R.color.primaryVariant : R.color.primary);
             dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(colour);
             dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(colour);
         });

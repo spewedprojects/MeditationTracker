@@ -8,7 +8,12 @@
 | 2.12        |          | Now exports and imports in *.db + *.json files. Changed goals date format to yyyy-mm-dd. |
 | 1.0         |          | Debug app                                                                                |
 
-62. **_5.1.f (25/06/2025)_**    
+63. _**6.1.a (18/09/2025)**_
+    > - Upgraded Gradle wrapper to 8.13 and updated various AndroidX and Material dependencies.
+    > - Made About screen scrollable for better usability on smaller displays.
+    > - Replaced deprecated `LocalBroadcastManager` with `ContextCompat.registerReceiver` for timer updates.
+
+    62. 5.1.f (25/06/2025)    
     > - Refined streak logic: Streak now continues from yesterday if no meditation today, instead of resetting to 0.
     > - Adjusted "d" unit size next to streak days to 18% (was 25%).
     > - Minor UI tweaks in About screen layout.
@@ -186,10 +191,10 @@
     > - Introduced Goal card visibility on home screen and a button to go to goals screen directly.
 
     16. 2.11.3 (22/01)
-    > - Scroll works with some issues; implemented recyclerview. Discarded inflategoalCards and nestedscrollview
+    > Scroll works with some issues; implemented recyclerview. Discarded inflategoalCards and nestedscrollview
     > - Issues:
-    > - Menu doesn't work in goal screen
-    > - Delete button doesn't work
+    >   - Menu doesn't work in goal screen
+    >   - Delete button doesn't work
 
     15. 2.11
     > Monthly display of weekly hours works perfectly, Implemented calendar and timestamps in the meditation database.
@@ -208,10 +213,10 @@
     > Rectified the error of meditation time in week 4 of January not being displayed correctly in the graph view.
 
     10. 2.10
-    > - Added a functionality to switch buttons in summary screens.
+    > Added a functionality to switch buttons in summary screens.
 
     9. 2.09.6
-    > - Rectified inability to refresh UI after deleting a goal.
+    > Rectified inability to refresh UI after deleting a goal.
 
     8. 2.09.5
     > - Added a "session ID" table in meditation logs, earlier date itself was ID, meaning multiple sessions from a single day would look like one single session.

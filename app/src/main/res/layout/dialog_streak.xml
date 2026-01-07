@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/db_streakconst"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:background="?attr/colorSurfaceDim"
     android:clickable="true"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/dialogbox_streak"
-        android:layout_width="250dp"
+        android:layout_width="290dp"
         android:layout_height="wrap_content"
         android:layout_marginVertical="48dp"
-        android:layout_marginHorizontal="48dp"
-        app:cardCornerRadius="18dp"
-        app:strokeWidth="2dp"
-        app:strokeColor="@color/transparent"
+        android:layout_marginHorizontal="58dp"
+        app:cardCornerRadius="12dp"
+        app:strokeWidth="0dp"
+        app:strokeColor="@color/success_green"
         app:cardElevation="16dp"
         app:cardBackgroundColor="?attr/colorPrimaryVariant"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -27,91 +27,99 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/streakDialog_title"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="28dp"
-                android:layout_marginTop="21dp"
-                android:layout_marginBottom="0dp"
-                android:fontFamily="@font/atkinsonhyperlegiblenext_semibold"
-                android:letterSpacing="0.01"
+                android:orientation="vertical"
                 android:gravity="center"
-                android:text="Streak Input:"
-                android:textColor="?attr/colorOnPrimary"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintVertical_bias="0"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/streak_days_input"/>
-
-            <EditText
-                android:id="@+id/streak_days_input"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginHorizontal="28dp"
-                android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
-                android:textSize="15sp"
-                android:letterSpacing="0.05"
-                android:padding="10dp"
-                android:hint="Number of days"
-                android:inputType="number"
-                android:gravity="center"
-                app:layout_constraintBottom_toTopOf="@id/streak_start_date"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintVertical_bias="0"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/streakDialog_title" />
-
-            <EditText
-                android:id="@+id/streak_start_date"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="28dp"
-                android:layout_marginVertical="8dp"
-                android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
-                android:textSize="15sp"
-                android:hint="Start date"
-                android:gravity="center"
-                android:inputType="date"
-                android:focusable="false"
-                android:clickable="true"
-                app:layout_constraintBottom_toBottomOf="@id/add_streak"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/streak_days_input"
-                app:layout_constraintHorizontal_bias="0.5"
-                android:visibility="visible"/> <!-- Start date input -->
-
-            <Button
-                android:id="@+id/add_streak"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="38dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="22dp"
-                android:backgroundTint="?attr/colorOnPrimary"
-                android:fontFamily="@font/atkinsonhyperlegiblenext_regular"
-                android:text="Add Streak goal"
-                android:textStyle="bold"
-                android:textColor="?attr/colorPrimary"
-                android:textSize="15.5sp"
-                android:textAllCaps="false"
-                app:cornerRadius="10dp"
-                android:clickable="true"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/streak_start_date"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintVertical_bias="0" /> <!-- Add goal button -->
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent">
 
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/streak_24dp_e3e3e3"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="21dp"
+                    android:scaleY="0.9"
+                    android:scaleX="0.9"
+                    android:scaleType="center"
+                    android:background="@drawable/round_button_bg2"/>
+
+                <TextView
+                    android:id="@+id/streakDialog_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="28dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="0dp"
+                    android:fontFamily="@font/atkinsonhyperlegiblenext_semibold"
+                    android:letterSpacing="0.01"
+                    android:gravity="center"
+                    android:text="Streak Goal"
+                    android:textColor="?attr/colorOnPrimary"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:fontFamily="@font/atkinsonhyperlegiblenext_variable"
+                    android:text="Make sure to put an achievable goal. Start small, finish big!"/>
+
+                <EditText
+                    android:id="@+id/streak_days_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginHorizontal="28dp"
+                    android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
+                    android:textSize="15sp"
+                    android:letterSpacing="0.05"
+                    android:padding="10dp"
+                    android:hint="Number of days"
+                    android:inputType="number"
+                    android:gravity="center" />
+
+                <EditText
+                    android:id="@+id/streak_start_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="28dp"
+                    android:layout_marginTop="0dp"
+                    android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
+                    android:textSize="15sp"
+                    android:hint="Start date"
+                    android:gravity="center"
+                    android:inputType="date"
+                    android:focusable="false"
+                    android:clickable="true"
+                    android:visibility="visible" />
+
+                <Button
+                    android:id="@+id/add_streak"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="38dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="20dp"
+                    android:backgroundTint="?attr/colorOnPrimary"
+                    android:fontFamily="@font/atkinsonhyperlegiblenext_regular"
+                    android:text="Add Streak goal"
+                    android:textStyle="bold"
+                    android:textColor="?attr/colorPrimary"
+                    android:textSize="15.5sp"
+                    android:textAllCaps="false"
+                    app:cornerRadius="10dp"
+                    android:clickable="true" /> <!-- Add goal button -->
+
+            </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 
