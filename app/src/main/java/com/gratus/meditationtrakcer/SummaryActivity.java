@@ -497,6 +497,9 @@ public class SummaryActivity extends BaseActivity {
 
                     selectedWeekStartDate = targetWeekDate.format(formatter);
 
+                    // FIX: Force reload of Week view so it updates to the new date
+                    weekLoaded = false;
+
                     // Switch tab to Week
                     viewGroup.check(R.id.W_Button);
                 } catch (Exception e) {
@@ -628,6 +631,9 @@ public class SummaryActivity extends BaseActivity {
                     LocalDate targetMonthDate = yearStart.withMonth(monthIndex + 1).withDayOfMonth(1);
 
                     selectedMonthStartDate = targetMonthDate.format(formatter);
+
+                    // FIX: Force reload of Month view so it updates to the new date
+                    monthLoaded = false;
 
                     // Switch tab to Month
                     viewGroup.check(R.id.M_Button);

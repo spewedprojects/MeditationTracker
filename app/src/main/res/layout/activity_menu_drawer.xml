@@ -28,7 +28,7 @@
             android:layout_marginTop="8dp"
             android:gravity="center"
             android:textColor="?attr/colorPrimaryVariant"
-            android:background="#00FFFFFF"
+            android:background="@android:color/transparent"
             app:cornerRadius="10dp"
             app:icon="@drawable/arrow_menu_close"
             app:iconGravity="end"
@@ -65,109 +65,104 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout> <!-- Constrained layout for menubutton and Title -->
 
-    <!-- Home Button -->
-    <Button
-        android:id="@+id/menu_home"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/menu_items"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginTop="2dp"
-        android:backgroundTint="@android:color/transparent"
-        android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
-        android:text="@string/menu_home"
-        android:textColor="?attr/colorAccent"
-        android:textSize="16.5sp"
-        android:textAllCaps="false"
-        android:letterSpacing="0.03"
-        android:background="#00FFFFFF"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:orientation="vertical"
+        android:gravity="start"
         app:layout_constraintTop_toBottomOf="@id/menu_head"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintVertical_bias="0" />
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+        <!-- Home Button -->
+        <Button
+            android:id="@+id/menu_home"
+            android:layout_width="match_parent"
+            android:textAlignment="viewStart"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
+            android:text="@string/menu_home"
+            android:textColor="?attr/colorAccent"
+            android:textSize="16.5sp"
+            android:textAllCaps="false"
+            android:letterSpacing="0.03"
+            android:background="@android:color/transparent"/>
 
-    <!-- Summary Button -->
-    <Button
-        android:id="@+id/menu_summary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="@android:color/transparent"
-        android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
-        android:text="@string/menu_summary"
-        android:textColor="?attr/colorAccent"
-        android:textSize="16sp"
-        android:textAllCaps="false"
-        android:letterSpacing="0.03"
-        android:background="#00FFFFFF"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/menu_home"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintVertical_bias="0" /> <!-- Summary Button -->
+        <!-- Summary Button -->
+        <Button
+            android:id="@+id/menu_summary"
+            android:layout_width="match_parent"
+            android:textAlignment="viewStart"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
+            android:text="@string/menu_summary"
+            android:textColor="?attr/colorAccent"
+            android:textSize="16sp"
+            android:textAllCaps="false"
+            android:letterSpacing="0.03"
+            android:background="@android:color/transparent" /> <!-- Summary Button -->
 
-    <!-- Custom Goals Button -->
-    <Button
-        android:id="@+id/menu_goals"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
-        android:background="#00FFFFFF"
-        android:text="@string/menu_custgoals"
-        android:textColor="?attr/colorAccent"
-        android:textAllCaps="false"
-        android:elevation="0dp"
-        android:textSize="16sp"
-        android:letterSpacing="0.03"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/menu_summary"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintVertical_bias="0"/> <!-- Custom Goals Button -->
+        <!-- Reports Button -->
+        <Button
+            android:id="@+id/menu_reports"
+            android:layout_width="match_parent"
+            android:textAlignment="viewStart"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
+            android:text="Reports"
+            android:textColor="?attr/colorAccent"
+            android:textSize="16sp"
+            android:textAllCaps="false"
+            android:letterSpacing="0.03"
+            android:background="@android:color/transparent"
+            android:visibility="gone"/> <!-- Reports Button -->
 
-    <!-- About app button -->
-    <Button
-        android:id="@+id/menu_about"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:background="#00FFFFFF"
-        android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
-        android:text="About app"
-        android:textAllCaps="false"
-        android:textColor="?attr/colorAccent"
-        android:textSize="16sp"
-        android:letterSpacing="0.03"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/menu_goals"
-        app:layout_constraintVertical_bias="0" /> <!-- About app button -->
+        <!-- Custom Goals Button -->
+        <Button
+            android:id="@+id/menu_goals"
+            android:layout_width="match_parent"
+            android:textAlignment="viewStart"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
+            android:background="@android:color/transparent"
+            android:text="@string/menu_custgoals"
+            android:textColor="?attr/colorAccent"
+            android:textAllCaps="false"
+            android:elevation="0dp"
+            android:textSize="16sp"
+            android:letterSpacing="0.03"/> <!-- Custom Goals Button -->
 
-    <!-- Release notes button -->
-    <Button
-        android:id="@+id/menu_releasenotes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:background="#00FFFFFF"
-        android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
-        android:textAllCaps="false"
-        android:text="Release notes"
-        android:textColor="?attr/colorAccent"
-        android:textSize="16sp"
-        android:letterSpacing="0.03"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/menu_about"
-        app:layout_constraintVertical_bias="0" /> <!-- Release notes button -->
+        <!-- About app button -->
+        <Button
+            android:id="@+id/menu_about"
+            android:layout_width="match_parent"
+            android:textAlignment="viewStart"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
+            android:text="About app"
+            android:textAllCaps="false"
+            android:textColor="?attr/colorAccent"
+            android:textSize="16sp"
+            android:letterSpacing="0.03" /> <!-- About app button -->
+
+        <!-- Release notes button -->
+        <Button
+            android:id="@+id/menu_releasenotes"
+            android:layout_width="match_parent"
+            android:textAlignment="viewStart"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
+            android:textAllCaps="false"
+            android:text="Release notes"
+            android:textColor="?attr/colorAccent"
+            android:textSize="16sp"
+            android:letterSpacing="0.03" /> <!-- Release notes button -->
+    </LinearLayout>
 
     <!-- Export / Import Toggle Group -->
     <com.google.android.material.button.MaterialButtonToggleGroup
@@ -179,7 +174,7 @@
         android:layout_marginEnd="16dp"
         app:shapeAppearance="@style/ExportImportGroupShape"
         app:singleSelection="false"
-        app:layout_constraintTop_toBottomOf="@id/menu_releasenotes"
+        app:layout_constraintTop_toBottomOf="@id/menu_items"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
