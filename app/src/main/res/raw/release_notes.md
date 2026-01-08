@@ -8,7 +8,17 @@
 | 2.12        |          | Now exports and imports in *.db + *.json files. Changed goals date format to yyyy-mm-dd. |
 | 1.0         |          | Debug app                                                                                |
 
-65. _**6.1.c (07/01/26)**_
+67. _**6.1.e (08/01/2026)**_
+    > - Fixed drill-down by making `monthLoad` and `weekLoad` to false. Now drills to the correct month and week.
+    > - Reports screen initiated (button hidden).
+    > - Using `LinearLayout` in menu for vertical items - simplifying.
+    
+    66. 6.1.d (08/01/2026)
+    > - Implemented drill-down functionality in `SummaryActivity`; long-pressing on Yearly or Monthly chart bars now navigates to the specific Month or Week view respectively.
+    > - Monthly view to display dynamic week numbers (e.g., "Week #42").
+    > - Long pressing (This week) on main screen will open weekview specifically, not just Summary screen.
+
+    65. 6.1.c (07/01/26)
     > - Applied window insets listeners to handle system bar padding programmatically.
     > - Applied EdgetoEdge to go along with transparent actionbar.
 

@@ -96,6 +96,44 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    // ✅ NEW METHOD: Log a session with a specific start timestamp (Used for Timer)
+    public void logSessionWithTimestamp(long startTimeMillis, int durationSeconds) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        // Convert the start time millis to the database string format
+        String timestampString = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date(startTimeMillis));
+
+        db.execSQL("INSERT OR IGNORE INTO " + TABLE_LOGS +
+                        " (" + COLUMN_DATE + ", " + COLUMN_TOTAL_SECONDS + ") VALUES (?, 0)",
+                new String[]{timestampString});
+
+        db.execSQL("UPDATE " + TABLE_LOGS +
+                " SET " + COLUMN_TOTAL_SECONDS + " = " + COLUMN_TOTAL_SECONDS + " + ?" +
+                " WHERE " + COLUMN_DATE + " = ?", new String[]{String.valueOf(durationSeconds), timestampString});
+
+        db.close();
+    }
+
+    // ✅ NEW METHOD: Log a manual entry for a specific past date (Backdated)
+    public void logBackdatedSession(long dateInMillis, int durationSeconds) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // Use the provided date, but set a fixed time (e.g., 12:00:00) or current time to ensure format consistency
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        String timestampString = sdf.format(new Date(dateInMillis));
+
+        // We use the same logic as daily logs: Insert a row if it doesn't exist for this exact timestamp, then update it.
+        // Since we are generating a unique timestamp based on selection, this acts as adding a new session.
+        db.execSQL("INSERT OR IGNORE INTO " + TABLE_LOGS +
+                        " (" + COLUMN_DATE + ", " + COLUMN_TOTAL_SECONDS + ") VALUES (?, 0)",
+                new String[]{timestampString});
+
+        db.execSQL("UPDATE " + TABLE_LOGS +
+                " SET " + COLUMN_TOTAL_SECONDS + " = " + COLUMN_TOTAL_SECONDS + " + ?" +
+                " WHERE " + COLUMN_DATE + " = ?", new String[]{String.valueOf(durationSeconds), timestampString});
+
+        db.close();
+    }
+
     // Used in Main activity for goal item
     public double getLoggedHours(String startDateTime, String endDateTime) {
         Log.d("MeditationLogHelper", "getLoggedHours called with Start: " + startDateTime + ", End: " + endDateTime);

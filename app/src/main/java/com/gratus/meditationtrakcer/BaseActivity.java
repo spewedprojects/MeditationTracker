@@ -278,6 +278,7 @@ public class BaseActivity extends AppCompatActivity {
         // For example:
         findViewById(R.id.menu_home).setOnClickListener(v -> navigateTo(MainActivity.class));
         findViewById(R.id.menu_summary).setOnClickListener(v -> navigateTo(SummaryActivity.class));
+        //findViewById(R.id.menu_reports).setOnClickListener(v -> navigateTo(ReportActivity.class));
         findViewById(R.id.menu_goals).setOnClickListener(v -> navigateTo(GoalsActivity.class));
         findViewById(R.id.menu_about).setOnClickListener(v -> navigateTo(AboutActivity.class));
         findViewById(R.id.menu_releasenotes).setOnClickListener(v -> navigateTo(ReleaseNotesActivity.class));

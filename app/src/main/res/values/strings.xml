@@ -23,6 +23,6 @@
     <string name="total_hours">Total hours: </string>
     <string name="goals_title">Set a New Goal</string>
     <string name="goals_desc">Create a new meditation goal</string>
-    <string name="current_version_details">• Implemented drill-down functionality in `SummaryActivity`; long-pressing on Yearly or Monthly chart bars now navigates to the specific Month or Week view respectively.\n• Monthly view to display dynamic week numbers (e.g., "Week #42").\n• Long pressing (This week) on main screen will open weekview specifically, not just Summary screen.\n• NEXT: Home screen widget.</string>
+    <string name="current_version_details">• Added back-dated entry feature, via long click on (Add manually) opens a dialog box with blur bg.\n• Refined streakmanager to resurrect streak in case of contiguous day due to back entry.\n Added a `status` column to the streaks table to distinguish between active and inactive/failed goals (db ver. 2).\n• NEXT: Home screen widget.</string>
     <string name="v1.16.c">v1.16.c:\n- NOICE!\n  - Next indent.\n    ▶ Bullet point</string>
 </resources>

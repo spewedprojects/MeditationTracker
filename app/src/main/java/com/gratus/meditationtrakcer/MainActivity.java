@@ -40,7 +40,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements BackdatedDialogFragment.BackdatedEntryListener {
 
     private TextView dateDisplay, timerDisplay, todayTotalDisplay, weekTotalDisplay, streakText;
     private Button recordButton, addEntryButton;
@@ -50,7 +50,7 @@ public class MainActivity extends BaseActivity {
     private int secondsElapsed = 0;
     private int totalSecondsLogged = 0;
     private Handler handler = new Handler();
-    private StreakManager streakManager; // Add this
+    private StreakManager streakManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +92,14 @@ public class MainActivity extends BaseActivity {
                 refreshStreakUI();
             });
             dialog.show(getSupportFragmentManager(), "streak_dialog");
+            return true;
+        });
+
+        // Back dated entry dialog long click
+        addEntryButton.setOnLongClickListener(v -> {
+            BackdatedDialogFragment dialog = BackdatedDialogFragment.newInstance();
+            // Show the dialog
+            dialog.show(getSupportFragmentManager(), "backdated_dialog");
             return true;
         });
 
@@ -241,6 +249,11 @@ public class MainActivity extends BaseActivity {
     // Stop the timer and reset the timer display
     private void stopTimer() {
         if (TimerService.isTimerRunning) {
+            // 1. Capture the start time from preferences BEFORE stopping the service (which wipes the pref)
+            SharedPreferences sp = getSharedPreferences("timer_prefs", MODE_PRIVATE);
+            // Fallback: if pref is missing for some reason, calculate approximate start time from elapsed
+            long startTimeMillis = sp.getLong("timer_start", System.currentTimeMillis() - (secondsElapsed * 1000L));
+
             Intent serviceIntent = new Intent(this, TimerService.class);
             serviceIntent.setAction("STOP_TIMER");
             startService(serviceIntent);
@@ -250,9 +263,10 @@ public class MainActivity extends BaseActivity {
             // Add elapsed time to today's total
             totalSecondsLogged += secondsElapsed;
 
-            // Update the database
+            // 2. Update the database using the captured START TIME
             MeditationLogDatabaseHelper logDbHelper = new MeditationLogDatabaseHelper(this);
-            logDbHelper.updateDailyLog(secondsElapsed);
+            // Use the new method to log with the start timestamp
+            logDbHelper.logSessionWithTimestamp(startTimeMillis, secondsElapsed);
             logDbHelper.close();
 
             GoalsDatabaseHelper goalsDbHelper = new GoalsDatabaseHelper(this);
@@ -491,6 +505,47 @@ public class MainActivity extends BaseActivity {
         manualSeconds.clearFocus();
         //LocalBroadcastManager.getInstance(this).unregisterReceiver(timerUpdateReceiver);
         unregisterReceiver(timerUpdateReceiver);
+    }
+
+    @Override
+    public void onBackdatedEntryAdded(long dateInMillis, int durationSeconds) {
+        // 1. Save to Database
+        MeditationLogDatabaseHelper dbHelper = new MeditationLogDatabaseHelper(this);
+        dbHelper.logBackdatedSession(dateInMillis, durationSeconds);
+        dbHelper.close();
+
+        // 2. Update Goals (Goals calculate progress based on DB logs, so simple update check is fine)
+        GoalsDatabaseHelper goalsDbHelper = new GoalsDatabaseHelper(this);
+        // We pass the seconds to trigger any internal progress listeners or simple accumulation
+        goalsDbHelper.updateGoalsProgress(durationSeconds);
+        goalsDbHelper.close();
+
+        // 3. Update UI Elements
+        // Check if the backdated entry was actually for "Today"
+        Calendar selectedDate = Calendar.getInstance();
+        selectedDate.setTimeInMillis(dateInMillis);
+        Calendar today = Calendar.getInstance();
+
+        boolean isToday = selectedDate.get(Calendar.YEAR) == today.get(Calendar.YEAR) &&
+                selectedDate.get(Calendar.DAY_OF_YEAR) == today.get(Calendar.DAY_OF_YEAR);
+
+        if (isToday) {
+            totalSecondsLogged += durationSeconds; // Update the local variable for today's total
+            updateTodayTotal();
+        }
+
+        // Always update week total (as the entry might be from earlier this week)
+        updateWeekTotal();
+
+        // 4. Force Streak Recalculation
+        // A backdated entry might fill a gap in the streak, so we must refresh the manager
+        streakManager.updateActiveStreakProgress();
+        refreshStreakUI();
+
+        // 5. Refresh Goal Card
+        displayShortestAndLatestGoal();
+
+        android.widget.Toast.makeText(this, "Backdated entry added", android.widget.Toast.LENGTH_SHORT).show();
     }
 
     @Override

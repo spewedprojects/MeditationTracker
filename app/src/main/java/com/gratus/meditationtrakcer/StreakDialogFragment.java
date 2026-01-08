@@ -114,7 +114,7 @@ public class StreakDialogFragment extends DialogFragment {
                 WindowCompat.setDecorFitsSystemWindows(window, false);
 
                 // Set window to full screen
-                window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                window.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 // Keep the window background transparent
                 window.setBackgroundDrawableResource(android.R.color.transparent);
                 // Clear default dim

@@ -41,18 +41,45 @@ public class StreakManager {
         }
     }
 
-    // THIS IS THE NEW CORE LOGIC METHOD
+    // THIS IS THE NEW CORE LOGIC METHOD - (08/01/2026)
     /**
-     * Finds the active streak, calculates its current progress, and updates the database.
+     * Finds the relevant streak (Active OR Failed), calculates progress,
+     * and updates the status based on whether the gap is filled.
      */
     public void updateActiveStreakProgress() {
-        Streak activeStreak = getActiveStreak();
-        if (activeStreak != null) {
-            // Calculate the contiguous days meditated since the streak started
-            int contiguousDays = calculateContiguousDays(activeStreak.getStartDate());
+        // CHANGED: Use getPotentialStreak() instead of getActiveStreak(). - (08/01/2026)
+        // This allows us to find a "Failed" streak that might now be fixed by the backdated entry.
+        Streak currentStreak = streakDbHelper.getPotentialStreak();
 
-            // Save this progress to the database for that specific streak
-            streakDbHelper.updateAchievedDays(activeStreak.getId(), contiguousDays);
+        if (currentStreak != null) {
+
+            // 1. Calculate contiguous days from the streak's start date
+            // The backdated entry will now be included in this calculation
+            int contiguousDays = calculateContiguousDays(currentStreak.getStartDate());
+
+            // 2. Check for Success/Failure
+            long daysElapsed = getDaysElapsed(currentStreak.getStartDate());
+
+            // Logic:
+            // If contiguousDays matches elapsed days (perfect streak)
+            // OR contiguousDays matches elapsed days - 1 (we just haven't meditated *today* yet)
+            if (contiguousDays >= (daysElapsed - 1)) {
+
+                // THE STREAK IS SAFE (or RESTORED)!
+
+                // 1. Save the new progress
+                streakDbHelper.updateAchievedDays(currentStreak.getId(), contiguousDays);
+
+                // 2. FORCE RE-ACTIVATION
+                // If it was previously marked "Inactive" (0) because of a missing day,
+                // this will flip it back to "Active" (1) now that the gap is filled.
+                streakDbHelper.markStreakActive(currentStreak.getId());
+
+            } else {
+                // STREAK IS BROKEN
+                // Even with the new entry, the gap is too large (missed more than just today).
+                streakDbHelper.markStreakInactive(currentStreak.getId());
+            }
         }
     }
 
@@ -72,25 +99,24 @@ public class StreakManager {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
         if (fromDateStr != null) {
-            // --- FORWARD-COUNTING LOGIC (For an active streak goal) ---
-            // This part remains the same, counting from a start date forwards.
+            // --- FORWARD-COUNTING LOGIC (For Active Goal) ---
             try {
                 cal.setTime(sdf.parse(fromDateStr));
             } catch (Exception e) {
-                try {
-                    cal.setTime(new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(fromDateStr));
-                } catch (Exception ex) {
-                    return 0;
-                }
+                return 0;
             }
 
+            // Normalize time to avoid issues
             Calendar todayCal = Calendar.getInstance();
-            while (cal.before(todayCal) || cal.equals(todayCal)) {
+            resetTime(todayCal);
+            resetTime(cal);
+
+            while (!cal.after(todayCal)) {
                 String dateToCheck = sdf.format(cal.getTime());
                 if (meditationDates.contains(dateToCheck)) {
                     contiguousDays++;
                 } else {
-                    // A single missed day breaks the chain for the active goal.
+                    // Break detected. Return what we have so far.
                     return contiguousDays;
                 }
                 cal.add(Calendar.DATE, 1);
@@ -126,6 +152,30 @@ public class StreakManager {
         }
     }
 
+    // Helper to calculate days between start date and today (inclusive)
+    private long getDaysElapsed(String startDateStr) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            Date startDate = sdf.parse(startDateStr);
+            Date today = new Date();
+
+            // Normalize dates to ignore time
+            Calendar startCal = Calendar.getInstance(); startCal.setTime(startDate); resetTime(startCal);
+            Calendar todayCal = Calendar.getInstance(); todayCal.setTime(today); resetTime(todayCal);
+
+            long diff = todayCal.getTimeInMillis() - startCal.getTimeInMillis();
+            return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) + 1; // +1 to include start day
+        } catch (Exception e) {
+            return 1;
+        }
+    }
+
+    private void resetTime(Calendar cal) {
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+    }
 
     private HashSet<String> getMeditationDates() {
         HashSet<String> dates = new HashSet<>();

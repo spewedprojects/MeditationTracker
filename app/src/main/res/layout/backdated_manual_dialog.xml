@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/backdated_entry"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:clickable="true"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/dialogbox_backmanual"
+        android:layout_width="310dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="48dp"
+        android:layout_marginHorizontal="58dp"
+        app:cardCornerRadius="12dp"
+        app:strokeWidth="0dp"
+        app:strokeColor="@color/success_green"
+        app:cardElevation="16dp"
+        app:cardBackgroundColor="?attr/colorPrimaryVariant"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="18dp"
+                        android:fontFamily="@font/atkinsonhyperlegiblenext_variable"
+                        android:gravity="center"
+                        android:text="Be honest with yourself!" />
+
+                    <CalendarView
+                        android:id="@+id/backdate_picker"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/manual_hours_B"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:fontFamily="@font/atkinsonhyperlegiblenext_regular"
+                            android:gravity="center"
+                            android:hint="hh"
+                            android:inputType="number"
+                            android:letterSpacing="0.05"
+                            android:padding="10dp"
+                            android:textSize="19sp" /> <!-- hrs -->
+
+                        <EditText
+                            android:id="@+id/manual_minutes_B"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="8dp"
+                            android:fontFamily="@font/atkinsonhyperlegiblenext_regular"
+                            android:gravity="center"
+                            android:hint="mm"
+                            android:inputType="number"
+                            android:letterSpacing="0.05"
+                            android:padding="10dp"
+                            android:textSize="19sp" /> <!-- mm -->
+
+                        <EditText
+                            android:id="@+id/manual_seconds_B"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/atkinsonhyperlegiblenext_regular"
+                            android:gravity="center"
+                            android:hint="ss"
+                            android:inputType="number"
+                            android:letterSpacing="0.05"
+                            android:padding="10dp"
+                            android:textSize="19sp" /> <!-- ss -->
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/add_entry_B"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="38dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="18dp"
+                        android:fontFamily="@font/atkinsonhyperlegiblenext_regular"
+                        android:gravity="center"
+                        android:backgroundTint="?attr/colorOnPrimary"
+                        android:includeFontPadding="false"
+                        android:text="@string/add_entry"
+                        android:textAllCaps="false"
+                        android:textSize="15.5sp"
+                        android:letterSpacing="0.1"
+                        android:textStyle="bold"
+                        android:textColor="?attr/colorPrimary"
+                        app:cornerRadius="8dp"/> <!-- Add goal button -->
+
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

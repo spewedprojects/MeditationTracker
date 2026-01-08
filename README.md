@@ -6,9 +6,9 @@ Or alternatively, you can find it in Releases section also.
 
 ***
 
-# (v6.1.d) 08/01/2026
+# (v7.1.a) 08/01/2026
 **Current known issues:**
-- Streak Goal (when enabled) doesn't reset to 0 when the the chain is broken; only displays the no. of days contiguously recorded. 
+- ~~Streak Goal (when enabled) doesn't reset to 0 when the the chain is broken; only displays the no. of days contiguously recorded.~~ __DONE!! 08/01/2026__
 - ~~App screens not scrollable on tiny screens.~~ __DONE!!__
 - ~~Monthly summary graphs show incorrect week division; likely consistency issues with Week start day (Sunday or Monday)~~
 - ~~Weekly summary somewhere still considering Sunday to Monday as one week.~~
@@ -20,15 +20,16 @@ __Resolved long standing issues:__
 
 ***
 ### **Future updates:**
+
+- Overlay on existing graphs, showing time of mediation in a day.
+  - A toggle to show/hide this.
+  - Monthly graphs will show week wise avg.
+- **Adding a homescreen widget to remind of meditation progress, specifically, most current goal progress and streak.**
 - ~~Making menu more intuitive - swipe gestures (using navigation drawer)~~ __DONE!!__
 - ~~Adding theme switcher.~~ __DONE!!__
 - ~~Changes to method of adding goals (Daily duration, total hours, Start date, end date will be automatically determined)~~ __DONE!!__
 - ~~Twice "back" to exit the app~~ **DONE!!**
 - ~~Making the navbar/status bar look immersive.~~ <- __DONE!!__ (07/01/26)
-- Overlay on existing graphs, showing time of mediation in a day.
-  - A toggle to show/hide this.
-  - Monthly graphs will show week wise avg.
-- **Adding a homescreen widget to remind of meditation progress, specifically, most current goal progress.**
 - ~~__All summary screens in a single screen, grouped buttons to change between them:__~~
     > - ~~Grouped buttons to change between them.~~ <- __DONE!!__ (07/06/25)
     > - ~~Tapping on month label should open month picker to access any month of choosing.~~ <- __DONE!!__ (08/01/26)
@@ -41,5 +42,5 @@ __Resolved long standing issues:__
   > - ~~A tiny progress bar at the bottom of streak days~~
   > - ~~When no streak goal is currently active or a streak is broken, simply display no. of contiguous days meditated, the progress bar disappears and the stroke color of the card becomes transparent; To indicated no streak is active.~~
   > - ~~The streak data will be kept in a new table inside meditation logs database - id, start date, end date, target streak days, longest streak~~
-- Backdated entries
-  - Long tapping "Add Manually" button will open up a date and time picker along with the same input fields to input duration.
+- ~~Backdated entries~~ __DONE!!__ -> (08/01/26)
+  > ~~Long tapping "Add Manually" button will open up a date and time picker along with the same input fields to input duration.~~
