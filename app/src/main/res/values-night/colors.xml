@@ -17,4 +17,5 @@
     <color name="transparent">#00000000</color>
 
     <color name="big_button_bg">#10FFFFFF</color>
+    <color name="mid_button_bg">#15FFFFFF</color>
 </resources>

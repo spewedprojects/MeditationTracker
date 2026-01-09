@@ -80,8 +80,8 @@
         <Button
             android:id="@+id/menu_home"
             android:layout_width="match_parent"
-            android:textAlignment="viewStart"
             android:layout_height="wrap_content"
+            android:gravity="start"
             android:layout_marginTop="2dp"
             android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
             android:text="@string/menu_home"
@@ -95,7 +95,7 @@
         <Button
             android:id="@+id/menu_summary"
             android:layout_width="match_parent"
-            android:textAlignment="viewStart"
+            android:gravity="start"
             android:layout_height="wrap_content"
             android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
             android:text="@string/menu_summary"
@@ -109,7 +109,7 @@
         <Button
             android:id="@+id/menu_reports"
             android:layout_width="match_parent"
-            android:textAlignment="viewStart"
+            android:gravity="start"
             android:layout_height="wrap_content"
             android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
             android:text="Reports"
@@ -118,13 +118,13 @@
             android:textAllCaps="false"
             android:letterSpacing="0.03"
             android:background="@android:color/transparent"
-            android:visibility="gone"/> <!-- Reports Button -->
+            android:visibility="visible"/> <!-- Reports Button -->
 
         <!-- Custom Goals Button -->
         <Button
             android:id="@+id/menu_goals"
             android:layout_width="match_parent"
-            android:textAlignment="viewStart"
+            android:gravity="start"
             android:layout_height="wrap_content"
             android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
             android:background="@android:color/transparent"
@@ -139,7 +139,7 @@
         <Button
             android:id="@+id/menu_about"
             android:layout_width="match_parent"
-            android:textAlignment="viewStart"
+            android:gravity="start"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
@@ -153,7 +153,7 @@
         <Button
             android:id="@+id/menu_releasenotes"
             android:layout_width="match_parent"
-            android:textAlignment="viewStart"
+            android:gravity="start"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:fontFamily="@font/atkinsonhyperlegiblenext_medium"

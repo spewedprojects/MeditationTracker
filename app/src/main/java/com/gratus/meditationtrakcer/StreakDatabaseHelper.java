@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -41,12 +42,19 @@ public class StreakDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(TABLE_STREAKS_CREATE);
     }
 
+    // ✅ UPDATED: Safe Upgrade Method
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // For a real-world app, you would use ALTER TABLE here to preserve data.
-        // For development, dropping and recreating is simpler.
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_STREAKS);
-        onCreate(db);
+        if (oldVersion < 2) {
+            // If upgrading from version 1 to 2, we just want to add the new 'status' column.
+            // We do NOT want to drop the table.
+            try {
+                // Add COLUMN_STATUS if it doesn't exist
+                db.execSQL("ALTER TABLE " + TABLE_STREAKS + " ADD COLUMN " + COLUMN_STATUS + " INTEGER DEFAULT 1");
+            } catch (Exception e) {
+                Log.e("StreakDB", "Error updating DB: " + e.getMessage());
+            }
+        }
     }
 
     public void addStreak(String startDate, String endDate, int targetDays) {

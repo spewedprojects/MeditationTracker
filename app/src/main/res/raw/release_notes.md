@@ -1,4 +1,4 @@
-### **Version History and changes:**
+## **Version History and changes:**
 
 | __Version__ | __Date__ | __Changes__                                                                              |
 |-------------|----------|------------------------------------------------------------------------------------------|
@@ -8,7 +8,12 @@
 | 2.12        |          | Now exports and imports in *.db + *.json files. Changed goals date format to yyyy-mm-dd. |
 | 1.0         |          | Debug app                                                                                |
 
-68. _**7.1.a (08/01/2026)**_
+69. ### **_7.2.b (09/01/2026)_**
+    > - _The lovely goals card scroll is back - much more usable on small screens._
+    > - __HUGE!__ Implemented a collapsible "Set a New Goal" card using a button which animates as changes occur.
+    > - Using LinearLayout wherever possible.
+
+    68. 7.1.a (08/01/2026)
     > - Added back-dated entry feature, via long click on (Add manually) opens a dialog box with blur bg.
     > - Refined streakmanager to resurrect streak in case of contiguous day due to back entry.
     > - Added a `status` column to the streaks table to distinguish between active and inactive/failed goals (db ver. 2).

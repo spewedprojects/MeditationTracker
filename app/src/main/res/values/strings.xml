@@ -23,6 +23,6 @@
     <string name="total_hours">Total hours: </string>
     <string name="goals_title">Set a New Goal</string>
     <string name="goals_desc">Create a new meditation goal</string>
-    <string name="current_version_details">• The lovely goals card scroll is back - much more usable on small screens.\n• Implemented a collapsible "Set a New Goal" card using a button which animates as changes occur.\n• Using LinearLayout wherever possible.\n• NEXT:\n › Home screen widget.\n › Generation of Reports</string>
+    <string name="current_version_details">• Correctly handling streak database upgrade.\n• WIP - Reports screen.\n• NEXT:\n › Home screen widget.\n › Generation of Reports</string>
     <string name="v1.16.c">v1.16.c:\n- NOICE!\n  - Next indent.\n   • bullet 1 ▶ Bullet 2 › bullet 3</string>
 </resources>

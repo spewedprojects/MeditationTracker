@@ -14,9 +14,11 @@
         android:icon="@mipmap/app_icon"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/app_icon_round"
-        android:supportsRtl="true"
+        android:supportsRtl="false"
         android:theme="@style/AppTheme_Auto"
-        tools:targetApi="31">
+        android:appCategory="productivity"
+        android:restoreAnyVersion="true"
+        android:logo="@drawable/mtapp_icon2">
 
         <activity
             android:name=".MainActivity"
@@ -36,6 +38,15 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity> <!-- Summary activity -->
+
+        <activity
+            android:name=".ReportsActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity> <!-- Reports activity -->
 
         <activity
             android:name=".GoalsActivity"

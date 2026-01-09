@@ -135,6 +135,8 @@ public class BackdatedDialogFragment extends DialogFragment {
         }
     }
 
+
+// use this if there is no blurview
 //    @Override
 //    public void onStart() {
 //        super.onStart();
