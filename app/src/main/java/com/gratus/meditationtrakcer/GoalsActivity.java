@@ -8,13 +8,17 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
+import android.transition.AutoTransition;
+import android.transition.TransitionManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
@@ -48,6 +52,12 @@ import java.util.Date;
 import java.util.Locale;
 
 public class GoalsActivity extends BaseActivity {
+
+    // UI Components for Collapse/Expand
+    private ImageButton collapseExpandButton;
+    private ViewGroup expandableContainer;
+    private ViewGroup cardConstraintLayout; // The parent container for animation
+    private boolean isExpanded = true;
 
     private EditText goalDescription, targetHours, startDateInput, endDateInput;
     private Button addGoalButton;
@@ -97,6 +107,14 @@ public class GoalsActivity extends BaseActivity {
         durationPerDayInput = findViewById(R.id.daily_duration_input);
         numDaysInput        = findViewById(R.id.totaldays_input);
         bStartDateInput     = findViewById(R.id.B_startdate_input);
+
+        // 1. Initialize the new Views
+        collapseExpandButton = findViewById(R.id.col_exp_button);
+        expandableContainer = findViewById(R.id.goals_expandable_container);
+        cardConstraintLayout = findViewById(R.id.card_constraint_layout); // ID we added to the CL inside CardView
+
+        // 2. Set the Listener
+        collapseExpandButton.setOnClickListener(v -> toggleCardVisibility());
 
         // Build view lists for quick show / hide
         methodAViews = Arrays.asList(
@@ -159,6 +177,26 @@ public class GoalsActivity extends BaseActivity {
             resetInputFields();
             loadGoals(); // Refresh goals
         });
+    }
+
+    private void toggleCardVisibility() {
+        // Prepare the smooth transition (AutoTransition handles layout changes automatically)
+        TransitionManager.beginDelayedTransition(cardConstraintLayout, new AutoTransition());
+
+        if (isExpanded) {
+            // COLLAPSE
+            expandableContainer.setVisibility(View.GONE);
+            // Rotate 180 (Arrow points down to indicate "click to open")
+            collapseExpandButton.animate().rotation(180f).setDuration(300).start();
+        } else {
+            // EXPAND
+            expandableContainer.setVisibility(View.VISIBLE);
+            // Rotate back to 0 (Arrow points up)
+            collapseExpandButton.animate().rotation(0f).setDuration(300).start();
+        }
+
+        // Toggle state
+        isExpanded = !isExpanded;
     }
 
     public void deleteGoal(int goalId) {

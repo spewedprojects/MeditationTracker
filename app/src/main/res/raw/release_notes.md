@@ -8,7 +8,12 @@
 | 2.12        |          | Now exports and imports in *.db + *.json files. Changed goals date format to yyyy-mm-dd. |
 | 1.0         |          | Debug app                                                                                |
 
-67. _**6.1.e (08/01/2026)**_
+68. _**7.1.a (08/01/2026)**_
+    > - Added back-dated entry feature, via long click on (Add manually) opens a dialog box with blur bg.
+    > - Refined streakmanager to resurrect streak in case of contiguous day due to back entry.
+    > - Added a `status` column to the streaks table to distinguish between active and inactive/failed goals (db ver. 2).
+
+    67. 6.1.e (08/01/2026)
     > - Fixed drill-down by making `monthLoad` and `weekLoad` to false. Now drills to the correct month and week.
     > - Reports screen initiated (button hidden).
     > - Using `LinearLayout` in menu for vertical items - simplifying.
@@ -18,7 +23,7 @@
     > - Monthly view to display dynamic week numbers (e.g., "Week #42").
     > - Long pressing (This week) on main screen will open weekview specifically, not just Summary screen.
 
-    65. 6.1.c (07/01/26)
+    65. 6.1.c (07/01/2026)
     > - Applied window insets listeners to handle system bar padding programmatically.
     > - Applied EdgetoEdge to go along with transparent actionbar.
 

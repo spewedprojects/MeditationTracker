@@ -27,15 +27,6 @@ public class Goal {
     public String getEndDate() { return endDate; }
     public int getProgressPercent() { return progressPercent; }
 
-    // Setters
-    public void setLoggedHours(double loggedHours) {
-        this.loggedHours = loggedHours;
-    }
-
-    public void setProgressPercent(int progressPercent) {
-        this.progressPercent = progressPercent;
-    }
-
     @Override
     public String toString() {
         return "Goal{" +

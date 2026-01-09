@@ -6,8 +6,9 @@ Or alternatively, you can find it in Releases section also.
 
 ***
 
-# (v7.1.a) 08/01/2026
+# (v7.2.a) 09/01/2026
 **Current known issues:**
+- **NONE (...of which I noticed).**
 - ~~Streak Goal (when enabled) doesn't reset to 0 when the the chain is broken; only displays the no. of days contiguously recorded.~~ __DONE!! 08/01/2026__
 - ~~App screens not scrollable on tiny screens.~~ __DONE!!__
 - ~~Monthly summary graphs show incorrect week division; likely consistency issues with Week start day (Sunday or Monday)~~
