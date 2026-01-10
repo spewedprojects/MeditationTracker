@@ -1,17 +1,17 @@
-package com.gratus.meditationtrakcer;
+package com.gratus.meditationtrakcer.adapters;
 
-import android.text.Html;
-import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.gratus.meditationtrakcer.R;
+
 import java.util.List;
 
 import io.noties.markwon.Markwon;
-import io.noties.markwon.ext.tables.TablePlugin; // 📌 Import Table Plugin
 
 public class ReleaseNotesAdapter extends RecyclerView.Adapter<ReleaseNotesAdapter.ViewHolder> {
     private List<String> releaseNotes;

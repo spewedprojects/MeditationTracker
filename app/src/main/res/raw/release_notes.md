@@ -8,7 +8,11 @@
 | 2.12        |          | Now exports and imports in *.db + *.json files. Changed goals date format to yyyy-mm-dd. |
 | 1.0         |          | Debug app                                                                                |
 
-69. ### **_7.2.b (09/01/2026)_**
+70. **_7.3.a (10/01/2026)_**
+    > - Correctly handling streak database upgrade.
+    > - WIP - Reports screen.
+
+    69. 7.2.b (09/01/2026)
     > - _The lovely goals card scroll is back - much more usable on small screens._
     > - __HUGE!__ Implemented a collapsible "Set a New Goal" card using a button which animates as changes occur.
     > - Using LinearLayout wherever possible.

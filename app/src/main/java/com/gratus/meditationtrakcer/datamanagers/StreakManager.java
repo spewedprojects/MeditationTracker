@@ -1,4 +1,4 @@
-package com.gratus.meditationtrakcer;
+package com.gratus.meditationtrakcer.datamanagers;
 
 import android.content.Context;
 import java.text.SimpleDateFormat;
@@ -9,6 +9,10 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import com.gratus.meditationtrakcer.datamodels.Streak;
+import com.gratus.meditationtrakcer.databasehelpers.MeditationLogDatabaseHelper;
+import com.gratus.meditationtrakcer.databasehelpers.StreakDatabaseHelper;
 
 public class StreakManager {
 

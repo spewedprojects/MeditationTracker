@@ -75,7 +75,7 @@
             </intent-filter>
         </activity> <!-- About activity -->
 
-        <service android:name=".TimerService" android:foregroundServiceType="dataSync" />
+        <service android:name=".datamanagers.TimerService" android:foregroundServiceType="dataSync" />
 
 
     </application>

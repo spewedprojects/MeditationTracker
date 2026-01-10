@@ -1,4 +1,4 @@
-package com.gratus.meditationtrakcer;
+package com.gratus.meditationtrakcer.datamanagers;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -15,6 +15,9 @@ import android.content.SharedPreferences;     // ⬅️ new
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
+
+import com.gratus.meditationtrakcer.MainActivity;
+import com.gratus.meditationtrakcer.R;
 
 import java.util.Locale;
 

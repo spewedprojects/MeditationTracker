@@ -38,7 +38,6 @@ import java.time.temporal.TemporalAdjusters;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.Locale;
 
 import com.github.mikephil.charting.highlight.Highlight;
@@ -46,6 +45,7 @@ import com.github.mikephil.charting.listener.ChartTouchListener;
 import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.button.MaterialButtonToggleGroup;
+import com.gratus.meditationtrakcer.databasehelpers.MeditationLogDatabaseHelper;
 import com.gratus.meditationtrakcer.utils.HideZeroValueFormatter;
 import com.gratus.meditationtrakcer.utils.RoundedBarChartRenderer;
 

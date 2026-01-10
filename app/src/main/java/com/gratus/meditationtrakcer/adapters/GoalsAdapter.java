@@ -1,4 +1,4 @@
-package com.gratus.meditationtrakcer;
+package com.gratus.meditationtrakcer.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,10 +11,11 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import com.gratus.meditationtrakcer.datamodels.Goal;
+import com.gratus.meditationtrakcer.GoalsActivity;
+import com.gratus.meditationtrakcer.R;
+
 import java.util.List;
-import java.util.Locale;
 
 public class GoalsAdapter extends RecyclerView.Adapter<GoalsAdapter.GoalViewHolder> {
     private List<Goal> goals;

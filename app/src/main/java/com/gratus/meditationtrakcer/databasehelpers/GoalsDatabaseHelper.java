@@ -1,4 +1,4 @@
-package com.gratus.meditationtrakcer;
+package com.gratus.meditationtrakcer.databasehelpers;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -9,9 +9,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;

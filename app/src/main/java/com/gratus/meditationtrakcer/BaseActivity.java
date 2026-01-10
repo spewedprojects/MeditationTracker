@@ -12,18 +12,15 @@ import android.os.Looper;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.util.DisplayMetrics;
-import android.view.Gravity;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
+
 import android.os.Build;
-import android.graphics.Color;  // Added missing import
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -35,6 +32,9 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.customview.widget.ViewDragHelper;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.annotation.LayoutRes;
+
+import com.gratus.meditationtrakcer.databasehelpers.GoalsDatabaseHelper;
+import com.gratus.meditationtrakcer.databasehelpers.MeditationLogDatabaseHelper;
 
 import org.jetbrains.annotations.Nullable;
 import org.json.JSONArray;

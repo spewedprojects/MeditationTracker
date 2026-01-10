@@ -1,4 +1,4 @@
-package com.gratus.meditationtrakcer;
+package com.gratus.meditationtrakcer.dialogfragments;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -15,7 +15,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.DatePicker;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -114,7 +113,7 @@ public class StreakDialogFragment extends DialogFragment {
                 WindowCompat.setDecorFitsSystemWindows(window, false);
 
                 // Set window to full screen
-                window.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 // Keep the window background transparent
                 window.setBackgroundDrawableResource(android.R.color.transparent);
                 // Clear default dim

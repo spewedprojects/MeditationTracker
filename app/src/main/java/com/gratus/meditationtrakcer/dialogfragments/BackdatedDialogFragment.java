@@ -1,4 +1,4 @@
-package com.gratus.meditationtrakcer;
+package com.gratus.meditationtrakcer.dialogfragments;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -26,6 +26,8 @@ import androidx.annotation.RequiresApi;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.WindowCompat;
 import androidx.fragment.app.DialogFragment;
+
+import com.gratus.meditationtrakcer.R;
 
 import java.util.Calendar;
 
@@ -57,7 +59,7 @@ public class BackdatedDialogFragment extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.backdated_manual_dialog, container, false);
+        View view = inflater.inflate(R.layout.dialog_backdated_manual, container, false);
         Typeface customFont = ResourcesCompat.getFont(requireContext(), R.font.atkinsonhyperlegiblenext_regular);
 
         // Make the dialog background transparent so your CardView radius shows correctly
@@ -160,7 +162,7 @@ public class BackdatedDialogFragment extends DialogFragment {
                 WindowCompat.setDecorFitsSystemWindows(window, false);
 
                 // Set window to full screen
-                window.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 // Keep the window background transparent
                 window.setBackgroundDrawableResource(android.R.color.transparent);
                 // Clear default dim

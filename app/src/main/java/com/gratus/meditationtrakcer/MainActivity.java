@@ -24,9 +24,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
 import androidx.core.graphics.Insets;
@@ -35,6 +32,13 @@ import androidx.core.view.WindowInsetsCompat;
 //import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.android.material.card.MaterialCardView;
+import com.gratus.meditationtrakcer.databasehelpers.GoalsDatabaseHelper;
+import com.gratus.meditationtrakcer.databasehelpers.MeditationLogDatabaseHelper;
+import com.gratus.meditationtrakcer.datamanagers.StreakManager;
+import com.gratus.meditationtrakcer.datamanagers.TimerService;
+import com.gratus.meditationtrakcer.datamodels.Streak;
+import com.gratus.meditationtrakcer.dialogfragments.BackdatedDialogFragment;
+import com.gratus.meditationtrakcer.dialogfragments.StreakDialogFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
