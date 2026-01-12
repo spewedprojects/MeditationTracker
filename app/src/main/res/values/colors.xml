@@ -12,6 +12,7 @@
     <color name="secondary">#B2DFDB</color>
     <color name="secondaryVariant">#26A69A</color>
     <color name="primary">#FFFFFF</color>
+    <color name="inverseprimary">#222121</color>
     <color name="primaryVariant">#f2f2f2</color>
     <color name="switchbutton">#EEEEEE</color>
     <color name="deletebutton">#EF5350</color>

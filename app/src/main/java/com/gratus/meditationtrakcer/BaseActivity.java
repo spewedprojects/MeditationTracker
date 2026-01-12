@@ -162,7 +162,7 @@ public class BaseActivity extends AppCompatActivity {
         applyTheme();
 
         // Restart the activity to reflect the theme change
-        recreate();
+        //recreate();
     }
 
     public void setDrawerLeftEdgeSize(DrawerLayout drawerLayout, float displayWidthPercentage) {

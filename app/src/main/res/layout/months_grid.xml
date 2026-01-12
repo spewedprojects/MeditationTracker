@@ -13,7 +13,7 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/month_jan"
         android:layout_width="0dp"
-        android:layout_height="64dp"
+        android:layout_height="70dp"
         android:layout_columnWeight="1"
         android:layout_margin="8dp"
         android:gravity="center"
@@ -33,7 +33,7 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/month_feb"
         android:layout_width="0dp"
-        android:layout_height="64dp"
+        android:layout_height="70dp"
         android:layout_columnWeight="1"
         android:layout_margin="8dp"
         android:gravity="center"
@@ -53,7 +53,7 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/month_mar"
         android:layout_width="0dp"
-        android:layout_height="64dp"
+        android:layout_height="70dp"
         android:layout_columnWeight="1"
         android:layout_margin="8dp"
         android:gravity="center"
@@ -73,7 +73,7 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/month_apr"
         android:layout_width="0dp"
-        android:layout_height="64dp"
+        android:layout_height="70dp"
         android:layout_columnWeight="1"
         android:layout_margin="8dp"
         android:gravity="center"
@@ -93,7 +93,7 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/month_may"
         android:layout_width="0dp"
-        android:layout_height="64dp"
+        android:layout_height="70dp"
         android:layout_columnWeight="1"
         android:layout_margin="8dp"
         android:gravity="center"
@@ -113,7 +113,7 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/month_jun"
         android:layout_width="0dp"
-        android:layout_height="64dp"
+        android:layout_height="70dp"
         android:layout_columnWeight="1"
         android:layout_margin="8dp"
         android:gravity="center"
@@ -133,7 +133,7 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/month_jul"
         android:layout_width="0dp"
-        android:layout_height="64dp"
+        android:layout_height="70dp"
         android:layout_columnWeight="1"
         android:layout_margin="8dp"
         android:gravity="center"
@@ -153,7 +153,7 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/month_aug"
         android:layout_width="0dp"
-        android:layout_height="64dp"
+        android:layout_height="70dp"
         android:layout_columnWeight="1"
         android:layout_margin="8dp"
         android:gravity="center"
@@ -173,7 +173,7 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/month_sep"
         android:layout_width="0dp"
-        android:layout_height="64dp"
+        android:layout_height="70dp"
         android:layout_columnWeight="1"
         android:layout_margin="8dp"
         android:gravity="center"
@@ -193,7 +193,7 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/month_oct"
         android:layout_width="0dp"
-        android:layout_height="64dp"
+        android:layout_height="70dp"
         android:layout_columnWeight="1"
         android:layout_margin="8dp"
         android:gravity="center"
@@ -213,7 +213,7 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/month_nov"
         android:layout_width="0dp"
-        android:layout_height="64dp"
+        android:layout_height="70dp"
         android:layout_columnWeight="1"
         android:layout_margin="8dp"
         android:gravity="center"
@@ -233,7 +233,7 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/month_dec"
         android:layout_width="0dp"
-        android:layout_height="64dp"
+        android:layout_height="70dp"
         android:layout_columnWeight="1"
         android:layout_margin="8dp"
         android:gravity="center"

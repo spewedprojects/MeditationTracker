@@ -2,7 +2,6 @@ package com.gratus.meditationtrakcer;
 
 
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
@@ -22,14 +21,7 @@ import androidx.core.widget.NestedScrollView;
 
 // WeeklyActivity.java - Bar Chart Integration
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
-
-import android.util.TypedValue;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -46,8 +38,7 @@ import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.gratus.meditationtrakcer.databasehelpers.MeditationLogDatabaseHelper;
-import com.gratus.meditationtrakcer.utils.HideZeroValueFormatter;
-import com.gratus.meditationtrakcer.utils.RoundedBarChartRenderer;
+import com.gratus.meditationtrakcer.utils.MeditationChartManager;
 
 
 public class SummaryActivity extends BaseActivity {
@@ -181,12 +172,12 @@ public class SummaryActivity extends BaseActivity {
         refreshButtonTransparency(id);        // <<< add here
     }
 
-    /** 100 % opaque for the checked button, 30 % opaque (≈ 70 % transparent)
+    /** 100 % opaque for the checked button, 20 % opaque (≈ 70 % transparent)
      *  for the others.  */
     private void refreshButtonTransparency(int checkedId) {
-        btnWeekly .setAlpha(checkedId == R.id.W_Button ? 1f : 0.3f);
-        btnMonthly.setAlpha(checkedId == R.id.M_Button ? 1f : 0.3f);
-        btnYearly .setAlpha(checkedId == R.id.Y_Button ? 1f : 0.3f);
+        btnWeekly .setAlpha(checkedId == R.id.W_Button ? 1f : 0.2f);
+        btnMonthly.setAlpha(checkedId == R.id.M_Button ? 1f : 0.2f);
+        btnYearly .setAlpha(checkedId == R.id.Y_Button ? 1f : 0.2f);
     }
 
     private void setupNavigationButtons() {
@@ -221,9 +212,9 @@ public class SummaryActivity extends BaseActivity {
         });
     }
 
-    // ── HELPER CLASS FOR LONG PRESS ─────────────────────────────
-    // This abstract class handles the gesture detection logic
-    // and exposes a simple onDrillDown method for the Activity to use.
+    /** ── HELPER CLASS FOR LONG PRESS ─────────────────────────────
+    This abstract class handles the gesture detection logic
+    and exposes a simple onDrillDown method for the Activity to use.**/
     abstract class DrillDownListener implements OnChartGestureListener {
         private final BarChart chart;
 
@@ -261,93 +252,36 @@ public class SummaryActivity extends BaseActivity {
         ArrayList<BarEntry> weeklyEntries = dbHelper.getWeeklyMeditationDataForDateRange(selectedWeekStartDate);
         float totalHours = dbHelper.getTotalWeeklyMeditationHoursForDateRange(selectedWeekStartDate, getNextWeekStartDate(selectedWeekStartDate));
 
-        TypedValue tv = new TypedValue();
-        getTheme().resolveAttribute(com.google.android.material.R.attr.colorOnPrimarySurface, tv, true);
-        // Use "com.google.android.material.R.attr..." to extract from the material components library rather than making your own resource. //
-        int barColor = tv.data;
-
-        // Update chart and total hours
-        BarDataSet weeklyDataSet = new BarDataSet(weeklyEntries, "");
-        weeklyDataSet.setColor(barColor); // <= uses theme
-        weeklyDataSet.setValueTextColor(Color.parseColor("#969696"));
-        weeklyDataSet.setValueTextSize(14f); // Same text size as in onCreate
-        weeklyDataSet.setValueTypeface(myCustomFont);
-        weeklyDataSet.setValueFormatter(new HideZeroValueFormatter());
-
-        BarData weeklyData = new BarData(weeklyDataSet);
-        weeklyData.setBarWidth(0.5f); // Same bar width as in onCreate
-
-        BarChart weeklyBarChart = findViewById(R.id.weeklyBarChart);
-
-        // 1) Assign the custom RoundedBarChartRenderer BEFORE invalidating
-        weeklyBarChart.setRenderer(
-                new RoundedBarChartRenderer(
-                        weeklyBarChart,
-                        weeklyBarChart.getAnimator(),
-                        weeklyBarChart.getViewPortHandler()
-                )
-        );
-
-        weeklyBarChart.setData(weeklyData);
-
-        // Configure X-Axis
+        // Generate Labels (Logic remains here as it's specific to the view)
         ArrayList<String> weekLabels = new ArrayList<>();
-        //weekLabels.add("Mon"); weekLabels.add("Tue"); weekLabels.add("Wed"); weekLabels.add("Thu"); weekLabels.add("Fri"); weekLabels.add("Sat"); weekLabels.add("Sun");
-        // ------ START OF CHANGES -------
         try {
-            // Parse the selectedWeekStartDate string into a LocalDate object
             java.time.format.DateTimeFormatter inputFormatter = java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.getDefault());
             LocalDate currentWeekStart = LocalDate.parse(selectedWeekStartDate, inputFormatter);
-
-            // Define the desired output format for the labels (dd-E)
             java.time.format.DateTimeFormatter outputFormatter = java.time.format.DateTimeFormatter.ofPattern("dd-E", Locale.getDefault());
 
-            // Iterate through the 7 days of the week, starting from Monday
             LocalDate mondayOfWeek = currentWeekStart.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
             for (int i = 0; i < 7; i++) {
-                LocalDate day = mondayOfWeek.plusDays(i);
-                weekLabels.add(day.format(outputFormatter));
+                weekLabels.add(mondayOfWeek.plusDays(i).format(outputFormatter));
             }
         } catch (Exception e) {
             e.printStackTrace();
-            // Fallback to generic labels in case of error
             weekLabels.addAll(Arrays.asList("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"));
         }
-        // ----- END OF CHANGES -----
 
-        XAxis xAxis = weeklyBarChart.getXAxis();
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(weekLabels));
-        xAxis.setTextColor(Color.parseColor("#969696"));
-        xAxis.setTextSize(12f); // Same text size as in WeeklyActivity
-        xAxis.setTypeface(myCustomFont);
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setDrawGridLines(false);
-        xAxis.setGranularity(1f); // Same granularity as in onCreate
+        // --- NEW CODE: Use the Manager ---
+        BarChart weeklyBarChart = findViewById(R.id.weeklyBarChart);
+        MeditationChartManager chartManager = new MeditationChartManager(this, weeklyBarChart, myCustomFont);
 
-        // Configure Y-Axis
-        YAxis leftAxis = weeklyBarChart.getAxisLeft();
-        leftAxis.setDrawGridLines(false);
-        leftAxis.setTextColor(Color.parseColor("#969696"));
-        leftAxis.setTypeface(myCustomFont);
-        leftAxis.setTextSize(13f);
-        leftAxis.setAxisMinimum(0f); // Same axis minimum as in onCreate
-        weeklyBarChart.getAxisRight().setEnabled(false);
+        // Setup Chart (Pass data, labels, and specific bar width 0.5f)
+        chartManager.displayChart(weeklyEntries, weekLabels, 0.5f);
+        // --------------------------------
 
-        // Removed Description Label
-        weeklyBarChart.getDescription().setEnabled(false);
-
-        // Refresh chart
-        weeklyBarChart.invalidate();
-
-        // Update total hours
+        // Update Text Views
         TextView weekTotalTextView = findViewById(R.id.week_total);
         weekTotalTextView.setText(String.format("Total: %.2f hours", totalHours));
 
-        // Update week label and date range
-        TextView weekLabelTextView = findViewById(R.id.displayed_week);
-        TextView dateRangeTextView = findViewById(R.id.displayed_weekDates);
-        weekLabelTextView.setText(getWeekNumber(selectedWeekStartDate));
-        dateRangeTextView.setText(getDateRange(selectedWeekStartDate));
+        ((TextView) findViewById(R.id.displayed_week)).setText(getWeekNumber(selectedWeekStartDate));
+        ((TextView) findViewById(R.id.displayed_weekDates)).setText(getDateRange(selectedWeekStartDate));
     }
     private String getWeekNumber(String startDate) {
         try {
@@ -409,80 +343,33 @@ public class SummaryActivity extends BaseActivity {
         ArrayList<BarEntry> monthlyEntries = dbHelper.getMonthlyMeditationDataForDateRange(selectedMonthStartDate);
         float totalHours = dbHelper.getTotalMonthlyMeditationHoursForDateRange(selectedMonthStartDate, getNextMonthStartDate(selectedMonthStartDate));
 
-        TypedValue tv = new TypedValue();
-        getTheme().resolveAttribute(com.google.android.material.R.attr.colorOnPrimarySurface, tv, true);
-        int barColor = tv.data;
-
-        // Update chart and total hours
-        BarDataSet monthlyDataSet = new BarDataSet(monthlyEntries, "");
-        monthlyDataSet.setColor(barColor); // Same color as in WeeklyActivity
-        monthlyDataSet.setValueTextColor(Color.parseColor("#969696"));
-        monthlyDataSet.setValueTextSize(14f); // Same text size as in WeeklyActivity
-        monthlyDataSet.setValueTypeface(myCustomFont);
-        monthlyDataSet.setValueFormatter(new HideZeroValueFormatter());
-
-        BarData monthlyData = new BarData(monthlyDataSet);
-        monthlyData.setBarWidth(0.45f); // Same bar width as in WeeklyActivity
-
-        BarChart monthlyBarChart = findViewById(R.id.monthlyBarChart);
-        // 1) Assign the custom RoundedBarChartRenderer BEFORE invalidating
-        monthlyBarChart.setRenderer(
-                new RoundedBarChartRenderer(
-                        monthlyBarChart,
-                        monthlyBarChart.getAnimator(),
-                        monthlyBarChart.getViewPortHandler()
-                )
-        );
-        monthlyBarChart.setData(monthlyData);
-
-        // Configure X-Axis
-        // --- 1. CHANGED: Dynamic Week # Labels based on year ---
+        // Generate Labels
         ArrayList<String> monthLabels = new ArrayList<>();
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.getDefault());
             LocalDate monthStart = LocalDate.parse(selectedMonthStartDate, formatter);
-
-            // Standard week fields (ISO or Locale based, usually ISO implies Week starts Monday)
             WeekFields weekFields = WeekFields.of(Locale.getDefault());
-
-            // We iterate 5 times because the chart logic expects 5 bars typically
             for (int i = 0; i < 5; i++) {
-                // Calculate the date for the start of the i-th week in this month
-                LocalDate weekDate = monthStart.plusWeeks(i);
-                int weekNum = weekDate.get(weekFields.weekOfWeekBasedYear());
-                monthLabels.add("Week " + "#" + weekNum);
+                int weekNum = monthStart.plusWeeks(i).get(weekFields.weekOfWeekBasedYear());
+                monthLabels.add("Week #" + weekNum);
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            // Fallback
             for (int i = 1; i <= 5; i++) monthLabels.add("Week " + i);
         }
 
-        XAxis xAxis = monthlyBarChart.getXAxis();
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(monthLabels));
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setTextColor(Color.parseColor("#969696"));
-        xAxis.setTextSize(13f); // Same text size as in WeeklyActivity
-        xAxis.setTypeface(myCustomFont);
-        xAxis.setDrawGridLines(false);
-        xAxis.setGranularity(1f); // Same granularity as in WeeklyActivity
+        // --- NEW CODE: Use the Manager ---
+        BarChart monthlyBarChart = findViewById(R.id.monthlyBarChart);
+        MeditationChartManager chartManager = new MeditationChartManager(this, monthlyBarChart, myCustomFont);
 
-        // Configure Y-Axis
-        YAxis leftAxis = monthlyBarChart.getAxisLeft();
-        leftAxis.setDrawGridLines(false);
-        leftAxis.setAxisMinimum(0f); // Same axis minimum as in WeeklyActivity
-        leftAxis.setTextColor(Color.parseColor("#969696"));
-        leftAxis.setTextSize(13f);
-        leftAxis.setTypeface(myCustomFont);
-        monthlyBarChart.getAxisRight().setEnabled(false);
+        // Setup Chart (Width 0.45f)
+        chartManager.displayChart(monthlyEntries, monthLabels, 0.45f);
 
-        // Removed Description Label
-        monthlyBarChart.getDescription().setEnabled(false);
-
-        // --- 2. ADDED: Drill-down Listener (Month -> Week) ---
-        monthlyBarChart.setOnChartGestureListener(new DrillDownListener(monthlyBarChart) {
-            @Override
-            public void onDrillDown(float xIndex) {
+            // Attach Drill Down Listener
+            chartManager.setDrillDownListener(new DrillDownListener(monthlyBarChart) {
+                @Override
+                public void onDrillDown(float xIndex) {
+                // ... (Existing Drill Down Logic) ...
+                // e.g. Calculate target week, set selectedWeekStartDate, check(R.id.W_Button)
                 try {
                     // xIndex corresponds to the bar index (0, 1, 2, 3, 4)
                     int weekOffset = (int) xIndex;
@@ -507,26 +394,20 @@ public class SummaryActivity extends BaseActivity {
                 }
             }
         });
+        // --------------------------------
 
-        // Refresh chart
-        monthlyBarChart.invalidate();
-
-        // Update total hours
-        TextView monthTotalTextView = findViewById(R.id.month_total);
-        monthTotalTextView.setText(String.format("Total: %.2f hours", totalHours));
-
-        // Update displayed month and year
-        TextView monthLabelTextView = findViewById(R.id.displayed_month);
-        monthLabelTextView.setText(getMonthYear(selectedMonthStartDate));
-        TextView yearLabelTextView = findViewById(R.id.displayed_monthYear);
-        yearLabelTextView.setText(getYear(selectedMonthStartDate)); // Set the year
+        ((TextView) findViewById(R.id.month_total)).setText(String.format("Total: %.2f hours", totalHours));
+        ((TextView) findViewById(R.id.displayed_month)).setText(getMonthYear(selectedMonthStartDate));
+        ((TextView) findViewById(R.id.displayed_monthYear)).setText(getYear(selectedMonthStartDate));
     }
+
     private String getFirstDayOfCurrentMonth() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         return sdf.format(calendar.getTime());
     }
+
     private String getAdjustedMonthStartDate(String currentStartDate, int monthsOffset) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         Calendar calendar = Calendar.getInstance();
@@ -539,6 +420,7 @@ public class SummaryActivity extends BaseActivity {
         }
         return sdf.format(calendar.getTime());
     }
+
     private String getNextMonthStartDate(String startDate) {
         return getAdjustedMonthStartDate(startDate, 1);
     }
@@ -562,63 +444,22 @@ public class SummaryActivity extends BaseActivity {
         ArrayList<BarEntry> yearlyEntries = dbHelper.getYearlyMeditationDataForDateRange(selectedYearStartDate);
         float totalHours = dbHelper.getTotalYearlyMeditationHoursForDateRange(selectedYearStartDate, getNextYearStartDate(selectedYearStartDate));
 
-        TypedValue tv = new TypedValue();
-        getTheme().resolveAttribute(com.google.android.material.R.attr.colorOnPrimarySurface, tv, true);
-        int barColor = tv.data;
+        // Generate Labels
+        ArrayList<String> yearLabels = new ArrayList<>(Arrays.asList("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"));
 
-        // Update chart and total hours
-        BarDataSet yearlyDataSet = new BarDataSet(yearlyEntries, "");
-        yearlyDataSet.setColor(barColor); // Consistent color
-        yearlyDataSet.setValueTextColor(Color.parseColor("#969696"));
-        yearlyDataSet.setValueTextSize(14f); // Consistent text size
-        yearlyDataSet.setValueTypeface(myCustomFont);
-        yearlyDataSet.setValueFormatter(new HideZeroValueFormatter());
-
-        BarData yearlyData = new BarData(yearlyDataSet);
-        yearlyData.setBarWidth(0.8f); // Consistent bar width
-
+        // --- NEW CODE: Use the Manager ---
         BarChart yearlyBarChart = findViewById(R.id.yearlyBarChart);
-        // 1) Assign the custom RoundedBarChartRenderer BEFORE invalidating
-        yearlyBarChart.setRenderer(
-                new RoundedBarChartRenderer(
-                        yearlyBarChart,
-                        yearlyBarChart.getAnimator(),
-                        yearlyBarChart.getViewPortHandler()
-                )
-        );
+        MeditationChartManager chartManager = new MeditationChartManager(this, yearlyBarChart, myCustomFont);
 
-        yearlyBarChart.setData(yearlyData);
+        // Setup Chart (Width 0.8f)
+        chartManager.displayChart(yearlyEntries, yearLabels, 0.8f);
 
-        // Configure X-Axis
-        ArrayList<String> yearLabels = new ArrayList<>();
-        String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
-        for (String month : months) yearLabels.add(month);
-
-        XAxis xAxis = yearlyBarChart.getXAxis();
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(yearLabels));
-        xAxis.setTextColor(Color.parseColor("#969696"));
-        xAxis.setTextSize(13f); // Same text size as in WeeklyActivity
-        xAxis.setTypeface(myCustomFont);
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setDrawGridLines(false);
-        xAxis.setGranularity(1f); // Same granularity
-
-        // Configure Y-Axis
-        YAxis leftAxis = yearlyBarChart.getAxisLeft();
-        leftAxis.setDrawGridLines(false);
-        leftAxis.setTextColor(Color.parseColor("#969696"));
-        leftAxis.setTextSize(13f);
-        leftAxis.setTypeface(myCustomFont);
-        leftAxis.setAxisMinimum(0f); // Same axis minimum
-        yearlyBarChart.getAxisRight().setEnabled(false);
-
-        // Removed Description Label
-        yearlyBarChart.getDescription().setEnabled(false);
-
-        // --- 2. ADDED: Drill-down Listener (Year -> Month) ---
-        yearlyBarChart.setOnChartGestureListener(new DrillDownListener(yearlyBarChart) {
+        // Attach Drill Down Listener
+        chartManager.setDrillDownListener(new DrillDownListener(yearlyBarChart) {
             @Override
             public void onDrillDown(float xIndex) {
+                // ... (Existing Drill Down Logic) ...
+                // e.g. Calculate target month, set selectedMonthStartDate, check(R.id.M_Button)
                 try {
                     // xIndex corresponds to Month index (0=Jan, 1=Feb ...)
                     int monthIndex = (int) xIndex;
@@ -642,18 +483,12 @@ public class SummaryActivity extends BaseActivity {
                 }
             }
         });
+        // --------------------------------
 
-        // Refresh chart
-        yearlyBarChart.invalidate();
-
-        // Update total hours
-        TextView yearTotalTextView = findViewById(R.id.year_total);
-        yearTotalTextView.setText(String.format("Total: %.2f hours", totalHours));
-
-        // Update displayed year
-        TextView yearLabelTextView = findViewById(R.id.displayed_year);
-        yearLabelTextView.setText(getYear(selectedYearStartDate)); // Display only the year
+        ((TextView) findViewById(R.id.year_total)).setText(String.format("Total: %.2f hours", totalHours));
+        ((TextView) findViewById(R.id.displayed_year)).setText(getYear(selectedYearStartDate));
     }
+
     private String getFirstDayOfCurrentYear() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.DAY_OF_YEAR, 1);

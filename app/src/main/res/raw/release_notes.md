@@ -1,14 +1,11 @@
 ## **Version History and changes:**
 
-| __Version__ | __Date__ | __Changes__                                                                              |
-|-------------|----------|------------------------------------------------------------------------------------------|
-|             |          |                                                                                          |
-| 2.13.1      |          | The app entirely supports dark mode.                                                     |
-| 2.12.1      |          | Theming overhaul. Partial app supports dark mode.                                        |
-| 2.12        |          | Now exports and imports in *.db + *.json files. Changed goals date format to yyyy-mm-dd. |
-| 1.0         |          | Debug app                                                                                |
+71. **_7.3.b (10/01/2026)_**
+    > - Organized classes into new packages.
+    > - Updated dialog fragment windows to `MATCH_PARENT` width, touching the edges of the screen.
+    >   - Since hte sides will touch the edges, the dialog boxes will not prematurely shrink and will also retain the elevation shadow.
 
-70. **_7.3.a (10/01/2026)_**
+    70. 7.3.a (10/01/2026)
     > - Correctly handling streak database upgrade.
     > - WIP - Reports screen.
 

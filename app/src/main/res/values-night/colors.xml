@@ -3,6 +3,7 @@
     <color name="secondary">#004D40</color>
     <color name="secondaryVariant">#00897B</color>
     <color name="primary">#222121</color>
+    <color name="inverseprimary">#FFFFFF</color>
     <color name="primaryVariant">#131313</color>
     <color name="switchbutton">#393939</color>
     <color name="deletebutton">#C62828</color>
