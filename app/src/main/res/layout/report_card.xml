@@ -1,289 +1,596 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:background="@drawable/bg_bottomsheet_roundedall"
+    android:padding="18dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:id="@+id/tvReportHeader"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:orientation="vertical"
+        android:layout_marginStart="8dp"
+        app:layout_constraintEnd_toStartOf="@id/ivMeditationIcon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias="0">
 
-        <!-- ========================= -->
-        <!-- SECTION 1: SNAPSHOT HEADER -->
-        <!-- ========================= -->
-
-        <LinearLayout
-            android:id="@+id/summaryRow"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="4"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <!-- Reusable Stat Card -->
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                app:cardElevation="2dp"
-                app:cardCornerRadius="12dp"
-                android:layout_margin="4dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="12dp">
-
-                    <TextView
-                        android:text="Total Hours"
-                        android:textSize="12sp"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"/>
-
-                    <TextView
-                        android:id="@+id/totalHours"
-                        android:text="124.5"
-                        android:textSize="22sp"
-                        android:textStyle="bold"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"/>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Duplicate card structure for: -->
-            <!-- Total Sessions -->
-            <!-- Avg Duration -->
-            <!-- Weighted Avg Duration -->
-
-        </LinearLayout>
-
-        <!-- =============================== -->
-        <!-- SECTION 2: CONSISTENCY & STREAKS -->
-        <!-- =============================== -->
-
+        <!-- Title -->
         <TextView
-            android:id="@+id/consistencyTitle"
+            android:id="@+id/tvReportTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Consistency"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:layout_marginTop="24dp"
-            app:layout_constraintTop_toBottomOf="@id/summaryRow"
-            app:layout_constraintStart_toStartOf="parent"/>
-
-        <!-- Heatmap -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/heatmapView"
-            android:layout_width="0dp"
-            android:layout_height="120dp"
-            android:layout_marginTop="12dp"
-            app:layout_constraintTop_toBottomOf="@id/consistencyTitle"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/streakStats"
-            app:layout_constraintWidth_percent="0.65"/>
-
-        <!-- Streak Stats -->
-        <LinearLayout
-            android:id="@+id/streakStats"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginStart="12dp"
-            app:layout_constraintTop_toTopOf="@id/heatmapView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintWidth_percent="0.35">
-
-            <TextView
-                android:text="Top 3 Streaks"
-                android:textStyle="bold"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"/>
-
-            <TextView
-                android:id="@+id/streak1"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"/>
-            <TextView
-                android:id="@+id/streak2"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"/>
-            <TextView
-                android:id="@+id/streak3"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"/>
-
-            <View
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"/>
-
-            <TextView
-                android:text="Inactive Weeks"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"/>
-
-            <TextView
-                android:id="@+id/inactiveWeeks"
-                android:textStyle="bold"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"/>
-        </LinearLayout>
-
-        <!-- ================================= -->
-        <!-- SECTION 3: PEAKS & EXTREMES -->
-        <!-- ================================= -->
+            android:text="Meditation Report"
+            android:textSize="30dp"
+            android:letterSpacing="0.04"
+            android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
+            android:textColor="@color/inverseprimary"
+            android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/peaksTitle"
+            android:id="@+id/tvReportYearMonth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Peaks &amp; Highlights"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:layout_marginTop="24dp"
-            app:layout_constraintTop_toBottomOf="@id/heatmapView"
-            app:layout_constraintStart_toStartOf="parent"/>
+            android:text="For Year/Month 2025"
+            android:textSize="14dp"
+            android:textColor="@color/inverseprimary"
+            android:letterSpacing="0.04"
+            android:fontFamily="@font/atkinsonhyperlegiblenext_medium"/>
+    </LinearLayout>
 
+    <ImageView
+        android:id="@+id/ivMeditationIcon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/mtapp_icon2"
+        android:layout_margin="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/inverseprimary" />
+
+    <!-- Dashed Divider -->
+    <View
+        android:id="@+id/dividerTop"
+        android:layout_width="0dp"
+        android:layout_height="4dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/dashed_line"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvReportHeader"
+        app:layout_constraintVertical_bias="0" />
+
+    <!-- ===== METRIC ROW 1 ===== -->
+    <LinearLayout
+        android:id="@+id/rowTopMetrics"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        app:layout_constraintBottom_toTopOf="@id/dividerMid1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dividerTop"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintVertical_chainStyle="packed">
+
+        <!-- Total Hours -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="12dp"
-            app:layout_constraintTop_toBottomOf="@id/peaksTitle"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
 
-            <!-- Top 5 Sessions -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:text="Top 5 Longest Sessions"
-                    android:textStyle="bold"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"/>
-
-                <TextView
-                    android:id="@+id/topSession1"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"/>
-                <TextView
-                    android:id="@+id/topSession2"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"/>
-                <TextView
-                    android:id="@+id/topSession3"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"/>
-                <TextView
-                    android:id="@+id/topSession4"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"/>
-                <TextView
-                    android:id="@+id/topSession5"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"/>
-            </LinearLayout>
-
-            <!-- Best Month -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight="1"
+            <TextView
+                android:id="@+id/tvTotalHoursLabel"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginStart="12dp">
+                android:gravity="center"
+                android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
+                android:textColor="@color/inverseprimary"
+                android:alpha="0.7"
+                android:text="Total hrs\nMeditated"
+                android:textSize="14dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
                 <TextView
-                    android:text="Most Active Month"
-                    android:textStyle="bold"
+                    android:id="@+id/tvTotalHoursValue"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"/>
+                    android:text="48"
+                    android:textSize="36dp"
+                    android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
+                    android:textColor="@color/inverseprimary" />
 
                 <TextView
-                    android:id="@+id/bestMonth"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
+                    android:id="@+id/tvTotalHoursUnit"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"/>
+                    android:text="hrs"
+                    android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
+                    android:textColor="@color/inverseprimary"/>
             </LinearLayout>
         </LinearLayout>
 
-        <!-- ================================= -->
-        <!-- SECTION 4: RHYTHM & PREFERENCES -->
-        <!-- ================================= -->
-
-        <TextView
-            android:id="@+id/rhythmTitle"
-            android:layout_width="wrap_content"
+        <!-- Consistency -->
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Meditation Rhythm"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:layout_marginTop="24dp"
-            app:layout_constraintTop_toBottomOf="@id/peaksTitle"
-            app:layout_constraintStart_toStartOf="parent"/>
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvConsistencyLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
+                android:textColor="@color/inverseprimary"
+                android:alpha="0.7"
+                android:text="Consistency\nScore"
+                android:textSize="14dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvConsistencyValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="45"
+                    android:textSize="36dp"
+                    android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
+                    android:textColor="@color/inverseprimary"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="%"
+                    android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
+                    android:textColor="@color/inverseprimary"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Best Streak -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvBestStreakLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
+                android:textColor="@color/inverseprimary"
+                android:alpha="0.7"
+                android:text="Best\nstreak"
+                android:textSize="14dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvBestStreakValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="21"
+                    android:textSize="36dp"
+                    android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
+                    android:textColor="@color/inverseprimary"/>
+
+                <TextView
+                    android:id="@+id/tvBestStreakUnit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="days"
+                    android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
+                    android:textColor="@color/inverseprimary"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Divider -->
+    <View
+        android:id="@+id/dividerMid1"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginVertical="12dp"
+        android:background="#DDDDDD"
+        app:layout_constraintBottom_toTopOf="@id/rowMidMetrics"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rowTopMetrics"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <!-- ===== METRIC ROW 2 ===== -->
+    <LinearLayout
+        android:id="@+id/rowMidMetrics"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="16dp"
+        android:weightSum="3"
+        app:layout_constraintBottom_toTopOf="@id/dividerMid2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dividerMid1"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintVertical_chainStyle="packed">
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="12dp"
-            app:layout_constraintTop_toBottomOf="@id/rhythmTitle"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/morningAvg"
+                android:id="@+id/tvDaysNotMeditatedLabel"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_width="wrap_content"/>
+                android:gravity="center"
+                android:text="Days not\nMeditated"
+                android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
+                android:textColor="@color/inverseprimary"
+                android:alpha="0.7"/>
+
             <TextView
-                android:id="@+id/eveningAvg"
+                android:id="@+id/tvDaysNotMeditatedValue"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_width="wrap_content"/>
-            <TextView
-                android:id="@+id/otherTimeAvg"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"/>
+                android:text="185"
+                android:textSize="32dp"
+                android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
+                android:textColor="@color/inverseprimary"/>
         </LinearLayout>
 
-        <!-- ================================= -->
-        <!-- SECTION 5: DIAGNOSTICS (COLLAPSIBLE) -->
-        <!-- ================================= -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvWeeksNotMeditatedLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Weeks not\nMeditated"
+                android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
+                android:textColor="@color/inverseprimary"
+                android:alpha="0.7"/>
+
+            <TextView
+                android:id="@+id/tvWeeksNotMeditatedValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="15"
+                android:textSize="32dp"
+                android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
+                android:textColor="@color/inverseprimary"/>
+        </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/diagnosticsSection"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvStreakStabilityLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Streak\nStability"
+                android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
+                android:textColor="@color/inverseprimary"
+                android:alpha="0.7"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvStreakStabilityValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="5"
+                    android:textSize="32dp"
+                    android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
+                    android:textColor="@color/inverseprimary"/>
+
+                <TextView
+                    android:id="@+id/tvStreakStabilityUnit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="days"
+                    android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
+                    android:textColor="@color/inverseprimary"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Divider -->
+    <View
+        android:id="@+id/dividerMid2"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginVertical="12dp"
+        android:background="#DDDDDD"
+        app:layout_constraintBottom_toTopOf="id/rowLowerMetrics"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rowMidMetrics"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <!-- ===== METRIC ROW 3 ===== -->
+    <LinearLayout
+        android:id="@+id/rowLowerMetrics"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        android:weightSum="3"
+        app:layout_constraintBottom_toTopOf="@id/rowMonthStats"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dividerMid2"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintVertical_chainStyle="packed">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvTotalSessionsLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Total\nsessions"
+                android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
+                android:textColor="@color/inverseprimary"
+                android:alpha="0.7"/>
+
+            <TextView
+                android:id="@+id/tvTotalSessionsValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="121"
+                android:textSize="32dp"
+                android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
+                android:textColor="@color/inverseprimary" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvAvgGapLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Avg. session\nGap"
+                android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
+                android:textColor="@color/inverseprimary"
+                android:alpha="0.7"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvAvgGapValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4"
+                    android:textSize="32dp"
+                    android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
+                    android:textColor="@color/inverseprimary" />
+
+                <TextView
+                    android:id="@+id/tvAvgGapUnit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="days"
+                    android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
+                    android:textColor="@color/inverseprimary" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvAvgSessionLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Avg.\nSession length"
+                android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
+                android:textColor="@color/inverseprimary"
+                android:alpha="0.7"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvAvgSessionValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="15"
+                    android:textSize="32dp"
+                    android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
+                    android:textColor="@color/inverseprimary" />
+
+                <TextView
+                    android:id="@+id/tvAvgSessionUnit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="mins"
+                    android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
+                    android:textColor="@color/inverseprimary" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Most / Least Active -->
+    <LinearLayout
+        android:id="@+id/rowMonthStats"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        app:layout_constraintBottom_toTopOf="@id/rowCharts"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rowLowerMetrics"
+        app:layout_constraintVertical_bias="0">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvMostActiveLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Most active Month"
+                android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
+                android:textColor="@color/inverseprimary"
+                android:alpha="0.85"/>
+
+            <TextView
+                android:id="@+id/tvMostActiveValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="May – 9hrs"
+                android:textSize="26dp"
+                android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
+                android:textColor="@color/inverseprimary"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvLeastActiveLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Least active Month"
+                android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
+                android:textColor="@color/inverseprimary"
+                android:alpha="0.85" />
+
+            <TextView
+                android:id="@+id/tvLeastActiveValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Apr – 0.9hrs"
+                android:textSize="26dp"
+                android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
+                android:textColor="@color/inverseprimary" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Preferred Times & Session Frequency placeholders -->
+    <LinearLayout
+        android:id="@+id/rowCharts"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="24dp"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1">
+
+        <!-- Preferred times chart -->
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="24dp"
-            app:layout_constraintTop_toBottomOf="@id/rhythmTitle"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            android:layout_weight="1"
+            android:gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Preferred Times"
+                android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
+                android:textColor="@color/inverseprimary"/>
 
-            <TextView
-                android:text="Diagnostics"
-                android:textStyle="bold"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"/>
-
-            <TextView
-                android:id="@+id/multiSessionDays"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"/>
-            <TextView
-                android:id="@+id/sessionsPerWeek"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"/>
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/chartPreferredTimes"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"/>
         </LinearLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+        <!-- Session frequency chart -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Session Frequency"
+                android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
+                android:textColor="@color/inverseprimary"/>
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/chartSessionFrequency"
+                android:layout_width="match_parent"
+                android:layout_height="200dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

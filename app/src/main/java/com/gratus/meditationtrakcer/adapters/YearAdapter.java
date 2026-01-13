@@ -54,7 +54,7 @@ public class YearAdapter extends RecyclerView.Adapter<YearAdapter.YearVH> {
         int minHeight = 200; // px
         if (!isHorizontal && parentHeight < minHeight) {
             // Use the fixed card height you defined in XML (240dp converted to approx px)
-            parentHeight = (int) (240 * parent.getResources().getDisplayMetrics().density);
+            parentHeight = (int) (280 * parent.getResources().getDisplayMetrics().density);
         }
 
         // 2. Calculate Item Size (1/3 of the parent)
@@ -62,14 +62,14 @@ public class YearAdapter extends RecyclerView.Adapter<YearAdapter.YearVH> {
         if (isHorizontal) {
             itemSize = parentWidth / 3;
             // Horizontal: Width is dynamic, Height is fixed/wrap
-            tv.setLayoutParams(new ViewGroup.LayoutParams(itemSize, ViewGroup.LayoutParams.MATCH_PARENT));
+            tv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
             tv.setPadding(0, 0, 0, 0);
-            tv.setTextSize(33);
+            tv.setTextSize(45);
         } else {
             itemSize = parentHeight / 3;
             // Vertical: Width is match parent, Height is dynamic
             tv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, itemSize));
-            tv.setTextSize(50);
+            tv.setTextSize(60);
         }
 
         return new YearVH(tv);

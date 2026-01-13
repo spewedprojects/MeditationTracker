@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        motion:constraintSetStart="@+id/start"
+        motion:constraintSetEnd="@+id/end"
+        motion:duration="420"
+        motion:motionInterpolator="easeInOut">
+
+        <!-- Optional keyframe to smooth size/scale changes -->
+    </Transition>
+
+    <!-- START: base layout (buttons large, vertical, divider at bottom) -->
+    <ConstraintSet android:id="@+id/start">
+        <Constraint android:id="@id/toolbar2_constG">
+            <Layout
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                motion:layout_constraintTop_toTopOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent"/>
+        </Constraint>
+
+        <Constraint android:id="@id/txt_initiateHint">
+            <Layout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                motion:layout_constraintTop_toBottomOf="@id/toolbar2_constG"
+                motion:layout_constraintBottom_toBottomOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintVertical_bias="0.25"/>
+            <CustomAttribute
+                motion:attributeName="alpha"
+                motion:customFloatValue="1"/>
+        </Constraint>
+
+        <Constraint android:id="@id/btn_reportMonth">
+            <Layout
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                motion:layout_constraintTop_toBottomOf="@id/txt_initiateHint"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="25dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                motion:layout_constraintVertical_bias="0"/>
+        </Constraint>
+
+        <Constraint android:id="@id/btn_reportYear">
+            <Layout
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                motion:layout_constraintTop_toBottomOf="@id/btn_reportMonth"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="25dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                motion:layout_constraintVertical_bias="0"/>
+        </Constraint>
+
+        <Constraint android:id="@id/divider_report">
+            <Layout
+                android:layout_width="match_parent"
+                android:layout_height="1.5dp"
+                motion:layout_constraintTop_toBottomOf="@id/btn_reportYear"
+                motion:layout_constraintBottom_toBottomOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintVertical_bias="1"
+                android:layout_marginTop="18dp" />
+            <CustomAttribute
+                motion:attributeName="alpha"
+                motion:customFloatValue="0.2"/>
+        </Constraint>
+
+        <Constraint android:id="@id/rv_reports_list">
+            <Layout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                motion:layout_constraintTop_toBottomOf="@id/divider_report"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent"/>
+        </Constraint>
+    </ConstraintSet>
+
+    <!-- END: report state (buttons small, horizontal at top, divider moved up) -->
+    <ConstraintSet android:id="@+id/end">
+        <Constraint android:id="@id/toolbar2_constG">
+            <Layout
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                motion:layout_constraintTop_toTopOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent"/>
+        </Constraint>
+
+        <Constraint android:id="@id/txt_initiateHint">
+            <Layout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                motion:layout_constraintTop_toBottomOf="@id/toolbar2_constG"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintBottom_toBottomOf="parent"
+                motion:layout_constraintVertical_bias="0.0"/>
+            <CustomAttribute
+                motion:attributeName="alpha"
+                motion:customFloatValue="1"/>
+        </Constraint>
+
+        <Constraint android:id="@id/btn_reportMonth">
+            <Layout
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                motion:layout_constraintTop_toBottomOf="@id/txt_initiateHint"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintEnd_toStartOf="@id/btn_reportYear"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginTop="12dp"
+                motion:layout_constraintHorizontal_chainStyle="packed"/>
+            <CustomAttribute
+                motion:attributeName="elevation"
+                motion:customDimension="4dp"/>
+        </Constraint>
+
+        <Constraint android:id="@id/btn_reportYear">
+            <Layout
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                motion:layout_constraintTop_toBottomOf="@id/txt_initiateHint"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintStart_toEndOf="@id/btn_reportMonth"
+                motion:layout_constraintHorizontal_chainStyle="packed"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="0dp"/>
+            <CustomAttribute
+                motion:attributeName="elevation"
+                motion:customDimension="4dp"/>
+        </Constraint>
+
+        <!-- Divider moved up directly under the buttons -->
+        <Constraint android:id="@id/divider_report">
+            <Layout
+                android:layout_width="match_parent"
+                android:layout_height="1.5dp"
+                motion:layout_constraintTop_toBottomOf="@id/btn_reportMonth"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintBottom_toBottomOf="parent"
+                motion:layout_constraintVertical_bias="0"
+                android:layout_marginTop="16dp"/>
+            <CustomAttribute
+                motion:attributeName="alpha"
+                motion:customFloatValue="0.2"/>
+        </Constraint>
+
+        <Constraint android:id="@id/rv_reports_list">
+            <Layout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                motion:layout_constraintTop_toBottomOf="@id/divider_report"
+                motion:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="0dp"/>
+        </Constraint>
+    </ConstraintSet>
+
+</MotionScene>

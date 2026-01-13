@@ -26,10 +26,10 @@
         android:id="@+id/WMY_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="10dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="6dp"
+        android:layout_marginBottom="0dp"
         app:shapeAppearance="@style/method_WMY_GroupShape"
         app:singleSelection="true"
         app:layout_constraintTop_toBottomOf="@id/toolbar2_constW"
@@ -66,12 +66,22 @@
 
     </com.google.android.material.button.MaterialButtonToggleGroup> <!-- Method change button group -->
 
+    <View
+        android:layout_width="0dp"
+        android:layout_height="16dp"
+        android:background="@drawable/lineargradient_bg"
+        app:layout_constraintTop_toBottomOf="@id/WMY_group"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:elevation="4dp"
+        android:importantForAccessibility="no"/>
+
     <androidx.core.widget.NestedScrollView
         android:id="@+id/main_scroll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="0dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="0dp"
         app:layout_constraintTop_toBottomOf="@id/WMY_group"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -97,7 +107,7 @@
                     android:id="@+id/cardView_week"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="0dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginBottom="6dp"
@@ -303,7 +313,7 @@
                     android:id="@+id/cardView_month"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="0dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginBottom="6dp"
@@ -522,7 +532,7 @@
                     android:id="@+id/cardView_year"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="0dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginBottom="6dp"
