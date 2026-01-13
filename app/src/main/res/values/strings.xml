@@ -24,10 +24,11 @@
     <string name="goals_title">Set a New Goal</string>
     <string name="goals_desc">Create a new meditation goal</string>
     <string name="current_version_details">
-        • HUGE ONE!!! Reports are ready!
-        \n › ReportJsonHelper, MeditationReportData, ReportGenerator, ReportDetailDialogFragment - files that made it happen.
-        \n › Button Ready to use in Summary activity.
-        \n• NEXT:\n › Home screen widget.
-        \n › Some additions like collapse state save and main screen polishing.</string>
+        • Added `avgSessionGap` and yearly activity extremes.
+        \n• Refined `streakStability` calculation to represent average streak length.
+        \n• Implemented state persistence for the goal card using SharedPreferences.
+        \nNEXT:
+        \n › Home screen widget.
+        \n › Addition of extreme activities for monthly reports.</string>
     <string name="v1.16.c">v1.16.c:\n- NOICE!\n  - Next indent.\n   • bullet 1 ▶ Bullet 2 › bullet 3</string>
 </resources>

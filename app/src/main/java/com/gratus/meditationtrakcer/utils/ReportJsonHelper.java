@@ -39,20 +39,28 @@ public class ReportJsonHelper {
                 JSONObject obj = new JSONObject();
                 obj.put("id", d.reportId);
                 obj.put("title", d.title);
-
-                // ✅ FIXED: Using isYearly
                 obj.put("isYearly", d.isYearly);
 
-                obj.put("totalHours", d.totalHours);
+                // --- Metrics ---
+                obj.put("totalHours", (double) d.totalHours); // Cast to double for JSON safety
                 obj.put("consistency", d.consistencyScore);
                 obj.put("bestStreak", d.bestStreak);
                 obj.put("avgSession", d.avgSessionLength);
                 obj.put("daysWithout", d.daysNotMeditated);
                 obj.put("weeksWithout", d.weeksNotMeditated);
-                obj.put("streakStability", (double)d.streakStability);
+                obj.put("streakStability", (double) d.streakStability);
                 obj.put("totalSessions", d.totalSessions);
 
-                // Maps
+                // ✅ NEW FIELDS ADDED HERE
+                obj.put("avgSessionGap", (double) d.avgSessionGap);
+
+                // Handle N/A values (JSON doesn't like nulls)
+                obj.put("mostActiveMonthLabel", d.mostActiveMonthLabel != null ? d.mostActiveMonthLabel : JSONObject.NULL);
+                obj.put("mostActiveMonthValue", (double) d.mostActiveMonthValue);
+                obj.put("leastActiveMonthLabel", d.leastActiveMonthLabel != null ? d.leastActiveMonthLabel : JSONObject.NULL);
+                obj.put("leastActiveMonthValue", (double) d.leastActiveMonthValue);
+
+                // --- Maps ---
                 JSONObject timeMap = new JSONObject(d.preferredTimes);
                 obj.put("preferredTimes", timeMap);
 
@@ -89,8 +97,6 @@ public class ReportJsonHelper {
                 MeditationReportData d = new MeditationReportData();
                 d.reportId = obj.optString("id");
                 d.title = obj.optString("title");
-
-                // ✅ FIXED: Using isYearly
                 d.isYearly = obj.optBoolean("isYearly");
 
                 d.totalHours = (float) obj.optDouble("totalHours");
@@ -102,7 +108,20 @@ public class ReportJsonHelper {
                 d.streakStability = (float) obj.optDouble("streakStability");
                 d.totalSessions = obj.optInt("totalSessions");
 
-                // Maps
+                // ✅ NEW FIELDS LOADED HERE
+                d.avgSessionGap = (float) obj.optDouble("avgSessionGap", 0.0);
+
+                if (!obj.isNull("mostActiveMonthLabel")) {
+                    d.mostActiveMonthLabel = obj.optString("mostActiveMonthLabel");
+                }
+                d.mostActiveMonthValue = (float) obj.optDouble("mostActiveMonthValue");
+
+                if (!obj.isNull("leastActiveMonthLabel")) {
+                    d.leastActiveMonthLabel = obj.optString("leastActiveMonthLabel");
+                }
+                d.leastActiveMonthValue = (float) obj.optDouble("leastActiveMonthValue");
+
+                // --- Maps ---
                 JSONObject timeObj = obj.optJSONObject("preferredTimes");
                 if(timeObj != null) {
                     Iterator<String> keys = timeObj.keys();

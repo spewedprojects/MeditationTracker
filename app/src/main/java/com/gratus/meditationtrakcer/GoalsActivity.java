@@ -3,6 +3,7 @@ package com.gratus.meditationtrakcer;
 import android.app.DatePickerDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -52,6 +53,10 @@ public class GoalsActivity extends BaseActivity {
     private ImageButton collapseExpandButton;
     private ViewGroup expandableContainer;
     private ViewGroup cardConstraintLayout; // The parent container for animation
+
+    // inside GoalsActivity class
+    private static final String PREFS_NAME = "goals_Prefs";
+    private static final String KEY_GOALS_EXPANDED = "goals_card_expanded";
     private boolean isExpanded = true;
 
     private EditText goalDescription, targetHours, startDateInput, endDateInput;
@@ -107,6 +112,21 @@ public class GoalsActivity extends BaseActivity {
         collapseExpandButton = findViewById(R.id.col_exp_button);
         expandableContainer = findViewById(R.id.goals_expandable_container);
         cardConstraintLayout = findViewById(R.id.card_constraint_layout); // ID we added to the CL inside CardView
+
+        // --- NEW CODE STARTS HERE --- (13/01/2026)
+        // Restore state from SharedPreferences
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        isExpanded = prefs.getBoolean(KEY_GOALS_EXPANDED, true); // Default to true (expanded) if no key exists
+
+        // Apply the initial state immediately (no animation)
+        if (isExpanded) {
+            expandableContainer.setVisibility(View.VISIBLE);
+            collapseExpandButton.setRotation(0f);
+        } else {
+            expandableContainer.setVisibility(View.GONE);
+            collapseExpandButton.setRotation(180f);
+        }
+        // --- NEW CODE ENDS HERE ---
 
         // 2. Set the Listener
         collapseExpandButton.setOnClickListener(v -> toggleCardVisibility());
@@ -192,6 +212,11 @@ public class GoalsActivity extends BaseActivity {
 
         // Toggle state
         isExpanded = !isExpanded;
+
+        // --- NEW CODE: Save the new state --- (13/01/2026)
+        SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
+        editor.putBoolean(KEY_GOALS_EXPANDED, isExpanded);
+        editor.apply();
     }
 
     public void deleteGoal(int goalId) {

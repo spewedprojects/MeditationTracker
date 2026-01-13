@@ -4,14 +4,17 @@ import android.content.Context;
 import com.gratus.meditationtrakcer.databasehelpers.MeditationLogDatabaseHelper;
 import com.gratus.meditationtrakcer.models.MeditationReportData;
 
+import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -23,10 +26,7 @@ public class ReportGenerator {
 
         data.reportId = (isYearly ? "Y_" : "M_") + startDate.split("-")[0] + (isYearly ? "" : "_" + startDate.split("-")[1]);
         data.title = title;
-
-        // ✅ FIXED: Now correctly references the field in MeditationReportData
         data.isYearly = isYearly;
-
         data.generatedTimestamp = System.currentTimeMillis();
 
         // 1. Fetch Raw Data
@@ -42,8 +42,8 @@ public class ReportGenerator {
         data.totalHours = totalSeconds / 3600f;
         data.avgSessionLength = (data.totalSessions > 0) ? (int) ((totalSeconds / 60) / data.totalSessions) : 0;
 
-        // 3. Complex Calculations
-        processDates(data, sessions, startDate, endDate);
+        // 3. Complex Calculations (Streaks, Gaps, Monthly Activity)
+        processDatesAndActivity(data, sessions, startDate, endDate);
 
         // 4. Charts Data
         processCharts(data, sessions);
@@ -51,24 +51,36 @@ public class ReportGenerator {
         return data;
     }
 
-    // ... (Rest of the class methods processDates and processCharts remain exactly the same as before) ...
-
-    private static void processDates(MeditationReportData data, ArrayList<MeditationLogDatabaseHelper.SessionData> sessions, String startStr, String endStr) {
+    private static void processDatesAndActivity(MeditationReportData data, ArrayList<MeditationLogDatabaseHelper.SessionData> sessions, String startStr, String endStr) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         Set<String> uniqueDateStrings = new HashSet<>();
         List<Long> uniqueDayTimestamps = new ArrayList<>();
 
-        // Get Unique Active Days
+        // --- Prepare Monthly Aggregation (For Yearly Reports) ---
+        // Map: Month Index (0-11) -> Total Hours
+        Map<Integer, Float> monthlyHours = new HashMap<>();
+        Calendar cal = Calendar.getInstance();
+
+        // --- Get Unique Active Days & Aggregate Monthly Data ---
         for (MeditationLogDatabaseHelper.SessionData s : sessions) {
+            // Unique Days
             String d = sdf.format(new Date(s.timestamp));
             if (!uniqueDateStrings.contains(d)) {
                 uniqueDateStrings.add(d);
                 try { uniqueDayTimestamps.add(sdf.parse(d).getTime()); } catch (Exception e) {}
             }
+
+            // Monthly Aggregation (Only if Yearly)
+            if (data.isYearly) {
+                cal.setTimeInMillis(s.timestamp);
+                int month = cal.get(Calendar.MONTH);
+                float hours = s.durationSeconds / 3600f;
+                monthlyHours.put(month, monthlyHours.getOrDefault(month, 0f) + hours);
+            }
         }
         Collections.sort(uniqueDayTimestamps);
 
-        // A. Consistency
+        // --- A. Consistency ---
         long diffInMillies = 0;
         try {
             Date s = sdf.parse(startStr);
@@ -82,9 +94,14 @@ public class ReportGenerator {
         data.consistencyScore = (totalDaysInRange > 0) ? (int) (((float) activeDays / totalDaysInRange) * 100) : 0;
         data.daysNotMeditated = totalDaysInRange - activeDays;
 
-        // B. Streaks & Stability
+        // --- B. Streaks & Stability (UPDATED LOGIC) ---
         int currentStreak = 0;
         int maxStreak = 0;
+
+        // Variables for Streak Stability (Avg Streak Length)
+        List<Integer> streakLengths = new ArrayList<>();
+
+        // Variables for Avg Session Gap
         long totalGapDays = 0;
         int gapCount = 0;
 
@@ -99,23 +116,40 @@ public class ReportGenerator {
             long diffDays = TimeUnit.DAYS.convert(curr - prev, TimeUnit.MILLISECONDS);
 
             if (diffDays == 1) {
+                // Consecutive day -> Extend streak
                 currentStreak++;
             } else {
+                // Break detected
+                // 1. Record the finished streak length
+                streakLengths.add(currentStreak);
                 maxStreak = Math.max(maxStreak, currentStreak);
                 currentStreak = 1;
 
+                // 2. Calculate Gap
+                // Example: Mon(active) -> Wed(active). diffDays=2. Gap=1 (Tue).
                 long gap = diffDays - 1;
                 totalGapDays += gap;
                 gapCount++;
             }
         }
+        // Capture the final streak
+        streakLengths.add(currentStreak);
         maxStreak = Math.max(maxStreak, currentStreak);
         data.bestStreak = maxStreak;
-        data.streakStability = (gapCount > 0) ? (float) totalGapDays / gapCount : 0;
-        data.avgSessionGap = (data.totalSessions > 1) ? (float) totalGapDays / (data.totalSessions -1) : 0;
 
-        // C. Weeks Not Meditated
-        Calendar cal = Calendar.getInstance();
+        // Metric 1: Streak Stability = Average Streak Length
+        if (!streakLengths.isEmpty()) {
+            int sumStreaks = 0;
+            for (int len : streakLengths) sumStreaks += len;
+            data.streakStability = (float) sumStreaks / streakLengths.size();
+        } else {
+            data.streakStability = 0;
+        }
+
+        // Metric 2: Avg Session Gap = Average gap between active days
+        data.avgSessionGap = (gapCount > 0) ? (float) totalGapDays / gapCount : 0;
+
+        // --- C. Weeks Not Meditated ---
         try {
             cal.setTime(sdf.parse(startStr));
             cal.setFirstDayOfWeek(Calendar.MONDAY);
@@ -143,6 +177,36 @@ public class ReportGenerator {
             data.weeksNotMeditated = zeroWeeks;
 
         } catch (Exception e) { e.printStackTrace(); }
+
+        // --- D. Yearly Activity Extremes (NEW LOGIC) ---
+        if (data.isYearly && !monthlyHours.isEmpty()) {
+            int maxMonth = -1;
+            float maxVal = -1f;
+            int minMonth = -1;
+            float minVal = Float.MAX_VALUE;
+
+            for (Map.Entry<Integer, Float> entry : monthlyHours.entrySet()) {
+                if (entry.getValue() > maxVal) {
+                    maxVal = entry.getValue();
+                    maxMonth = entry.getKey();
+                }
+                if (entry.getValue() < minVal) {
+                    minVal = entry.getValue();
+                    minMonth = entry.getKey();
+                }
+            }
+
+            String[] shortMonths = new DateFormatSymbols(Locale.getDefault()).getShortMonths();
+
+            if (maxMonth != -1) {
+                data.mostActiveMonthLabel = shortMonths[maxMonth];
+                data.mostActiveMonthValue = maxVal;
+            }
+            if (minMonth != -1) {
+                data.leastActiveMonthLabel = shortMonths[minMonth];
+                data.leastActiveMonthValue = minVal;
+            }
+        }
     }
 
     private static void processCharts(MeditationReportData data, ArrayList<MeditationLogDatabaseHelper.SessionData> sessions) {

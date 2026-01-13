@@ -1,18 +1,25 @@
-## **Version History and changes:**
+### **Version history and changes:**
+Latest release [here](https://github.com/spewedprojects/MeditationTracker/releases/tag/v9.1.a).
 
-72. 8.1.a (13/01/2026)
+73. **[9.0.a (13/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v9.0.a)**
+    > - ### HUGE ONE!!! Reports are ready!
+    >   - ReportJsonHelper, MeditationReportData, ReportGenerator, ReportDetailDialogFragment - files that made it happen.
+    >   - Button Ready to use in Summary activity
+    > - Next will be adding a persistent goal collapse state.
+
+    72. [8.1.a (12/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v8.1.a)
     > - Extracted chart configuration logic into a new `MeditationChartManager` class to reduce boilerplate in `SummaryActivity`
     > - Dialogs completely ready, visually. Using new classes to inject year and handle the carousel.
     > - The prev./next buttons now without any BG, looks better this way. Text size increased and font thickened.
     > - Added a background to about screen
     > - WIP - Reports screen; dialogs visible, no function yet.
 
-    71. 7.3.b (10/01/2026)
+    71. [7.3.b (10/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v7.3.b)
     > - Organized classes into new packages.
     > - Updated dialog fragment windows to `MATCH_PARENT` width, touching the edges of the screen.
     >   - Since hte sides will touch the edges, the dialog boxes will not prematurely shrink and will also retain the elevation shadow.
 
-    70. 7.3.a (10/01/2026)
+    70. [7.3.a (10/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v7.3.a)
     > - Correctly handling streak database upgrade.
     > - WIP - Reports screen.
 
