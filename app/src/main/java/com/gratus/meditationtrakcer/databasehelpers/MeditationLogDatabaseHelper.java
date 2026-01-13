@@ -206,6 +206,86 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
         return totalSeconds;
     }
 
+    // Fetch raw timestamps for detailed processing (13/01/20206)
+    public ArrayList<Long> getSessionTimestampsForRange(String startDate, String endDate) {
+        ArrayList<Long> timestamps = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // adjust dates to cover full days
+        String start = startDate.split(" ")[0] + " 00:00:00";
+        String end = endDate.split(" ")[0] + " 23:59:59";
+
+        Cursor cursor = db.rawQuery(
+                "SELECT date FROM logs WHERE datetime(date) >= datetime(?) AND datetime(date) <= datetime(?) ORDER BY date ASC",
+                new String[]{start, end});
+
+        if (cursor.moveToFirst()) {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+            do {
+                try {
+                    String dateStr = cursor.getString(0);
+                    // Handle potentially legacy dates without time
+                    if(dateStr.length() == 10) dateStr += " 00:00:00";
+                    Date d = sdf.parse(dateStr);
+                    if(d != null) timestamps.add(d.getTime());
+                } catch (Exception e) { e.printStackTrace(); }
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return timestamps;
+    }
+
+    // 1. Add a simple container for raw data extraction (13/01/20206)
+    public static class SessionData {
+        public long timestamp;
+        public int durationSeconds;
+
+        public SessionData(long timestamp, int durationSeconds) {
+            this.timestamp = timestamp;
+            this.durationSeconds = durationSeconds;
+        }
+    }
+
+    // 2. Add this method to fetch raw data for the Generator (13/01/20206)
+    public ArrayList<SessionData> getSessionDataForRange(String startDate, String endDate) {
+        ArrayList<SessionData> dataList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // Adjust dates to cover full days (Start 00:00:00 to End 23:59:59)
+        String start = startDate.split(" ")[0] + " 00:00:00";
+        String end = endDate.split(" ")[0] + " 23:59:59";
+
+        String query = "SELECT date, total_seconds FROM logs WHERE datetime(date) >= datetime(?) AND datetime(date) <= datetime(?) ORDER BY date ASC";
+        Cursor cursor = db.rawQuery(query, new String[]{start, end});
+
+        if (cursor.moveToFirst()) {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+            int colDate = cursor.getColumnIndex("date");
+            int colSec = cursor.getColumnIndex("total_seconds");
+
+            do {
+                try {
+                    String dateStr = cursor.getString(colDate);
+                    // Handle legacy dates lacking time
+                    if (dateStr.length() == 10) dateStr += " 00:00:00";
+
+                    Date d = sdf.parse(dateStr);
+                    int seconds = cursor.getInt(colSec);
+
+                    if (d != null) {
+                        dataList.add(new SessionData(d.getTime(), seconds));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return dataList;
+    }
+
     // MeditationLogDatabaseHelper.java  (just below other helpers)
     public double getHoursForCurrentWeek() {
         LocalDate today      = LocalDate.now();

@@ -10,8 +10,8 @@ android {
         applicationId = "com.gratus.meditationtrakcer"
         minSdk = 31
         targetSdk = 36
-        versionCode = 63
-        versionName = "8.2.a" // Format: Major (4), Minor (0), Patch (a)
+        versionCode = 64
+        versionName = "9.0.a" // Format: Major (4), Minor (0), Patch (a)
 
         // Pass versionName to the app as a resource
         resValue(

@@ -24,12 +24,10 @@
     <string name="goals_title">Set a New Goal</string>
     <string name="goals_desc">Create a new meditation goal</string>
     <string name="current_version_details">
-        • Extracted chart configuration logic into a new `MeditationChartManager` class to reduce boilerplate in `SummaryActivity`
-        \n• Dialogs completely ready, visually. Using new classes to inject year and handle the carousel.
-        \n• The prev./next buttons now without any BG, looks better this way. Text size increased and font thickened.
-        \n• Added a background to about screen
-        \n• WIP - Reports screen; dialogs visible, no function yet.
+        • HUGE ONE!!! Reports are ready!
+        \n › ReportJsonHelper, MeditationReportData, ReportGenerator, ReportDetailDialogFragment - files that made it happen.
+        \n › Button Ready to use in Summary activity.
         \n• NEXT:\n › Home screen widget.
-        \n › Generation of Reports</string>
+        \n › Some additions like collapse state save and main screen polishing.</string>
     <string name="v1.16.c">v1.16.c:\n- NOICE!\n  - Next indent.\n   • bullet 1 ▶ Bullet 2 › bullet 3</string>
 </resources>

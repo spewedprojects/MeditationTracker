@@ -77,7 +77,6 @@
 
         <service android:name=".datamanagers.TimerService" android:foregroundServiceType="dataSync" />
 
-
     </application>
 
 </manifest>

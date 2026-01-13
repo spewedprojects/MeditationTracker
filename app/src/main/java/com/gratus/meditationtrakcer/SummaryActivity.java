@@ -38,6 +38,7 @@ import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.gratus.meditationtrakcer.databasehelpers.MeditationLogDatabaseHelper;
+import com.gratus.meditationtrakcer.models.MeditationReportData;
 import com.gratus.meditationtrakcer.utils.MeditationChartManager;
 
 
@@ -152,6 +153,14 @@ public class SummaryActivity extends BaseActivity {
         // 5) hook prev / next buttons (see helper below) ………………………………………
         setupNavigationButtons();
 
+        findViewById(R.id.month_reports_button).setOnClickListener(v -> {
+            generateAndOpenMonthReport();
+        });
+
+        findViewById(R.id.year_reports_button).setOnClickListener(v -> {
+            generateAndOpenYearReport();
+        });
+
         // 6) enable swipe across the whole NestedScrollView ………………………………
         NestedScrollView scroll = findViewById(R.id.main_scroll); // give the NSV an id
         gestureDetector = new GestureDetector(this, new SwipeListener());
@@ -210,6 +219,70 @@ public class SummaryActivity extends BaseActivity {
             selectedYearStartDate = getAdjustedYearStartDate(selectedYearStartDate, 1);
             updateYearlySummary();
         });
+    }
+
+    // (13/01/26) - For reports
+    private void generateAndOpenMonthReport() {
+        // 1. Determine dates based on currently selected month
+        // selectedMonthStartDate is already formatted "yyyy-MM-dd"
+        // We need the end date of that month
+
+        String startDate = selectedMonthStartDate;
+        String endDate = getNextMonthStartDate(startDate);
+        // Note: getNextMonthStartDate returns 1st of next month.
+        // ReportGenerator expects inclusive end date usually, but SQL queries handle <= datetime properly.
+        // Actually, let's be precise. We need the actual last day.
+
+        Calendar cal = Calendar.getInstance();
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            cal.setTime(sdf.parse(startDate));
+            String title = new SimpleDateFormat("MMMM yyyy", Locale.getDefault()).format(cal.getTime());
+
+            int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+            String preciseEndDate = String.format(Locale.getDefault(), "%04d-%02d-%02d",
+                    cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, lastDay);
+
+            // 2. Generate
+            MeditationReportData data = com.gratus.meditationtrakcer.utils.ReportGenerator.generateReport(
+                    this, startDate, preciseEndDate, false, title
+            );
+
+            // 3. Save (so it appears in history)
+            com.gratus.meditationtrakcer.utils.ReportJsonHelper.saveReport(this, data);
+
+            // NEW: Open Dialog directly
+            com.gratus.meditationtrakcer.dialogfragments.ReportDetailDialogFragment
+                    .newInstance(data.reportId)
+                    .show(getSupportFragmentManager(), "month_report_dialog");
+
+        } catch (Exception e) { e.printStackTrace(); }
+    }
+
+    // (13/01/26) - For reports
+    private void generateAndOpenYearReport() {
+        String startDate = selectedYearStartDate; // "yyyy-01-01"
+
+        try {
+            // Get just the year for title
+            String yearStr = startDate.split("-")[0];
+            String title = "Year " + yearStr;
+            String endDate = yearStr + "-12-31";
+
+            // Generate
+            MeditationReportData data = com.gratus.meditationtrakcer.utils.ReportGenerator.generateReport(
+                    this, startDate, endDate, true, title
+            );
+
+            // Save
+            com.gratus.meditationtrakcer.utils.ReportJsonHelper.saveReport(this, data);
+
+            // NEW: Open Dialog directly
+            com.gratus.meditationtrakcer.dialogfragments.ReportDetailDialogFragment
+                    .newInstance(data.reportId)
+                    .show(getSupportFragmentManager(), "year_report_dialog");
+
+        } catch (Exception e) { e.printStackTrace(); }
     }
 
     /** ── HELPER CLASS FOR LONG PRESS ─────────────────────────────

@@ -1,6 +1,13 @@
 ## **Version History and changes:**
 
-71. **_7.3.b (10/01/2026)_**
+72. 8.1.a (13/01/2026)
+    > - Extracted chart configuration logic into a new `MeditationChartManager` class to reduce boilerplate in `SummaryActivity`
+    > - Dialogs completely ready, visually. Using new classes to inject year and handle the carousel.
+    > - The prev./next buttons now without any BG, looks better this way. Text size increased and font thickened.
+    > - Added a background to about screen
+    > - WIP - Reports screen; dialogs visible, no function yet.
+
+    71. 7.3.b (10/01/2026)
     > - Organized classes into new packages.
     > - Updated dialog fragment windows to `MATCH_PARENT` width, touching the edges of the screen.
     >   - Since hte sides will touch the edges, the dialog boxes will not prematurely shrink and will also retain the elevation shadow.
