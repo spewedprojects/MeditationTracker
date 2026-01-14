@@ -1,7 +1,12 @@
 ### **Version history and changes:**
-Latest release [here](https://github.com/spewedprojects/MeditationTracker/releases/tag/v9.1.a).
+Latest release [here](https://github.com/spewedprojects/MeditationTracker/releases/tag/v10.0.0).
 
-73. **[9.0.a (13/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v9.0.a)**
+74. **_[9.1.a (13/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v9.1.a)_**
+    > - Added `avgSessionGap` and yearly activity extremes.
+    > - Refined `streakStability` calculation to represent average streak length.
+    > - Implemented state persistence for the goal card using SharedPreferences.
+
+73. [9.0.a (13/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v9.0.a)
     > - ### HUGE ONE!!! Reports are ready!
     >   - ReportJsonHelper, MeditationReportData, ReportGenerator, ReportDetailDialogFragment - files that made it happen.
     >   - Button Ready to use in Summary activity

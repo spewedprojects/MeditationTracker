@@ -105,7 +105,7 @@
             <Layout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
                 motion:layout_constraintTop_toBottomOf="@id/toolbar2_constG"
                 motion:layout_constraintStart_toStartOf="parent"
                 motion:layout_constraintEnd_toEndOf="parent"
@@ -118,13 +118,13 @@
 
         <Constraint android:id="@id/btn_reportMonth">
             <Layout
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
                 motion:layout_constraintTop_toBottomOf="@id/txt_initiateHint"
                 motion:layout_constraintStart_toStartOf="parent"
                 motion:layout_constraintEnd_toStartOf="@id/btn_reportYear"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="24dp"
+                android:layout_marginEnd="28dp"
                 android:layout_marginTop="16dp"
                 motion:layout_constraintHorizontal_chainStyle="packed"/>
             <CustomAttribute
@@ -134,15 +134,15 @@
 
         <Constraint android:id="@id/btn_reportYear">
             <Layout
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
                 motion:layout_constraintTop_toBottomOf="@id/txt_initiateHint"
                 motion:layout_constraintEnd_toEndOf="parent"
                 motion:layout_constraintStart_toEndOf="@id/btn_reportMonth"
                 motion:layout_constraintHorizontal_chainStyle="packed"
                 android:layout_marginEnd="16dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginStart="24dp"/>
+                android:layout_marginStart="28dp"/>
             <CustomAttribute
                 motion:attributeName="elevation"
                 motion:customDimension="4dp"/>

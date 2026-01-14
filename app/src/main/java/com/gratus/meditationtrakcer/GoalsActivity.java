@@ -46,6 +46,7 @@ import java.util.List;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 public class GoalsActivity extends BaseActivity {
 
@@ -317,7 +318,72 @@ public class GoalsActivity extends BaseActivity {
             String formattedStartDate = formatDate(startDateTime);
             String formattedEndDate = formatDate(endDateTime);
 
-            goals.add(new Goal(goalId, description, targetHours, loggedHours, formattedStartDate, formattedEndDate, progressPercent));
+            // --- CALCULATE DAILY TARGET STRING --- (14/01/26)
+            String dailyTargetStr = "";
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+                Date sDate = sdf.parse(startDateTime);
+                Date eDate = sdf.parse(endDateTime);
+
+                long diff = eDate.getTime() - sDate.getTime();
+                long days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) + 1;
+                if (days < 1) days = 1;
+
+                double totalMinutesNeeded = targetHours * 60.0;
+                double dailyMinutes = totalMinutesNeeded / days;
+
+                int h = (int) (dailyMinutes / 60);
+                int m = (int) Math.round(dailyMinutes % 60);
+
+                if (h > 0) {
+                    if (m > 0) dailyTargetStr = h + "h " + m + "m/d";
+                    else dailyTargetStr = h + "h/d";
+                } else {
+                    dailyTargetStr = m + "m/d";
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                dailyTargetStr = "- m/d";
+            }
+
+            // --- FORMAT DATE RANGE STRING --- (14/01/26)
+            String dateRangeStr = "";
+            try {
+                SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+                Date sDate = parser.parse(startDateTime);
+                Date eDate = parser.parse(endDateTime);
+
+                Calendar sCal = Calendar.getInstance(); sCal.setTime(sDate);
+                Calendar eCal = Calendar.getInstance(); eCal.setTime(eDate);
+
+                if (sCal.get(Calendar.YEAR) != eCal.get(Calendar.YEAR)) {
+                    // Different Years: "MMM dd, yy - MMM dd, yy"
+                    SimpleDateFormat fmt = new SimpleDateFormat("MMM dd, yy", Locale.getDefault());
+                    dateRangeStr = fmt.format(sDate) + " - " + fmt.format(eDate);
+                } else {
+                    // Same Year
+                    if (sCal.get(Calendar.MONTH) != eCal.get(Calendar.MONTH)) {
+                        // Different Months: "MMM d-MMM d, yy"
+                        SimpleDateFormat fmtM = new SimpleDateFormat("MMM d", Locale.getDefault());
+                        SimpleDateFormat fmtY = new SimpleDateFormat("yy", Locale.getDefault());
+                        dateRangeStr = fmtM.format(sDate) + "-" + fmtM.format(eDate) + ", " + fmtY.format(eDate);
+                    } else {
+                        // Same Month: "MMM d–d, yy"
+                        SimpleDateFormat fmtM = new SimpleDateFormat("MMM d", Locale.getDefault());
+                        SimpleDateFormat fmtD = new SimpleDateFormat("d", Locale.getDefault());
+                        SimpleDateFormat fmtY = new SimpleDateFormat("yy", Locale.getDefault());
+                        dateRangeStr = fmtM.format(sDate) + "–" + fmtD.format(eDate) + ", " + fmtY.format(eDate);
+                    }
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                // Fallback
+                dateRangeStr = formattedStartDate + " - " + formattedEndDate;
+            }
+
+            goals.add(new Goal(goalId, description, targetHours, loggedHours, formattedStartDate, formattedEndDate, progressPercent, dailyTargetStr, dateRangeStr));
         }
         cursor.close();
         db.close();
@@ -351,8 +417,8 @@ public class GoalsActivity extends BaseActivity {
             boolean isDarkMode = isDarkMode();
 
             // Apply colors based on the theme
-            int positiveColor = isDarkMode ? ContextCompat.getColor(this, R.color.primaryVariant) : ContextCompat.getColor(this, R.color.primary);
-            int negativeColor = isDarkMode ? ContextCompat.getColor(this, R.color.primaryVariant) : ContextCompat.getColor(this, R.color.primary);
+            int positiveColor = isDarkMode ? ContextCompat.getColor(this, R.color.inverseprimary) : ContextCompat.getColor(this, R.color.inverseprimary);
+            int negativeColor = isDarkMode ? ContextCompat.getColor(this, R.color.inverseprimary) : ContextCompat.getColor(this, R.color.inverseprimary);
 
             positiveButton.setTextColor(positiveColor);
             negativeButton.setTextColor(negativeColor);
@@ -384,7 +450,7 @@ public class GoalsActivity extends BaseActivity {
         dialog.setOnShowListener(d -> {
             boolean dark = isDarkMode();
             int colour   = ContextCompat.getColor(this,
-                    dark ? R.color.primaryVariant : R.color.primary);
+                    dark ? R.color.inverseprimary : R.color.inverseprimary);
             dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(colour);
             dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(colour);
         });

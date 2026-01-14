@@ -86,7 +86,7 @@ public class ReportsAdapter extends RecyclerView.Adapter<ReportsAdapter.ReportVi
             avgSession = itemView.findViewById(R.id.tv_avg_session_value);
             consistency = itemView.findViewById(R.id.tv_consistency_value);
             daysWithout = itemView.findViewById(R.id.tv_days_without_value);
-            btnDelete = itemView.findViewById(R.id.delete_goal_button);
+            btnDelete = itemView.findViewById(R.id.delete_report_button);
         }
     }
 }

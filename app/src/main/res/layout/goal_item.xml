@@ -61,6 +61,8 @@
                 android:text="Target: 0 hours | 0 days"
                 android:textColor="?attr/colorAccent"
                 android:textSize="14sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.04"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -106,7 +108,7 @@
                 tools:ignore="TextViewEdits" /> <!-- Goal completion progressbar -->
 
             <Button
-                android:id="@+id/delete_goal_button"
+                android:id="@+id/delete_report_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"

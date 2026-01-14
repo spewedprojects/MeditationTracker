@@ -50,7 +50,7 @@ public class GoalsAdapter extends RecyclerView.Adapter<GoalsAdapter.GoalViewHold
             durationView = itemView.findViewById(R.id.goal_duration);
             progressBar = itemView.findViewById(R.id.goal_progress_bar);
             percentageView = itemView.findViewById(R.id.goal_progress_percentage);
-            deleteButton = itemView.findViewById(R.id.delete_goal_button); // Initialize deleteButton
+            deleteButton = itemView.findViewById(R.id.delete_report_button); // Initialize deleteButton
         }
 
         public void bind(Goal goal) {
@@ -73,12 +73,13 @@ public class GoalsAdapter extends RecyclerView.Adapter<GoalsAdapter.GoalViewHold
         // Format dates
         String startDate = goal.getStartDate(); // Already formatted
         String endDate = goal.getEndDate(); // Already formatted
+        //String dateRange = goal.getDateRange(); // New field
+
 
         Log.d("GoalsAdapter", "Start Date: " + goal.getStartDate() + ", End Date: " + goal.getEndDate());
 
         holder.goalTitle.setText(goal.getDescription());
-        holder.durationView.setText("Target: " + goal.getTargetHours() + " hours | " +
-                startDate + " - " + endDate);
+        holder.durationView.setText("Target: " + goal.getDailyTarget() + " | " + + goal.getTargetHours() + "h | " + goal.getDateRange());
         holder.progressBar.setProgress(goal.getProgressPercent());
         holder.percentageView.setText(goal.getProgressPercent() + "% completed");
 

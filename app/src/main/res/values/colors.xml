@@ -26,6 +26,8 @@
     <color name="success_green_bg">#10388E3C</color>
     <color name="transparent">#00000000</color>
 
+    <color name="minicard_textColor">#C7000000</color>
+
     <color name="big_button_bg">#05000000</color>
     <color name="mid_button_bg">#12000000</color>
 </resources>

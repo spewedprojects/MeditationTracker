@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
@@ -43,6 +44,7 @@ import com.gratus.meditationtrakcer.dialogfragments.StreakDialogFragment;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends BaseActivity implements BackdatedDialogFragment.BackdatedEntryListener {
 
@@ -434,8 +436,35 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
             String formattedStartDate = formatDate(startDateTime);
             String formattedEndDate = formatDate(endDateTime);
 
+            // --- CALCULATE DAILY TARGET STRING ---
+            String dailyTargetStr = "";
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+                Date sDate = sdf.parse(startDateTime);
+                Date eDate = sdf.parse(endDateTime);
+
+                long diff = eDate.getTime() - sDate.getTime();
+                long days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) + 1;
+                if (days < 1) days = 1;
+
+                double totalMinutesNeeded = targetHours * 60.0;
+                double dailyMinutes = totalMinutesNeeded / days;
+
+                int h = (int) (dailyMinutes / 60);
+                int m = (int) Math.round(dailyMinutes % 60);
+
+                if (h > 0) {
+                    if (m > 0) dailyTargetStr = h + "h " + m + "m/d";
+                    else dailyTargetStr = h + "h/d";
+                } else {
+                    dailyTargetStr = m + "m/d";
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             goalTitle.setText(description);
-            goalDuration.setText("Target: " + targetHours + " hours | " + formattedStartDate + " - " + formattedEndDate);
+            goalDuration.setText(Html.fromHtml("<b>T:</b> " + dailyTargetStr + " | " + targetHours + "h | " + formattedStartDate + " - " + formattedEndDate));
             goalProgressBar.setProgress(progressPercentage);
             goalProgressPercentage.setText(progressPercentage + "%");
 

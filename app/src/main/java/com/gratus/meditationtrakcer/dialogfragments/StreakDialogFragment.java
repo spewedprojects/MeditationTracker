@@ -76,8 +76,8 @@ public class StreakDialogFragment extends DialogFragment {
                 Button positiveButton = datePickerDialog.getButton(DialogInterface.BUTTON_POSITIVE);
                 Button negativeButton = datePickerDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
                 boolean isDarkMode = isDarkMode();
-                int positiveColor = isDarkMode ? ContextCompat.getColor(requireContext(), R.color.primaryVariant) : ContextCompat.getColor(requireContext(), R.color.primary);
-                int negativeColor = isDarkMode ? ContextCompat.getColor(requireContext(), R.color.primaryVariant) : ContextCompat.getColor(requireContext(), R.color.primary);
+                int positiveColor = isDarkMode ? ContextCompat.getColor(requireContext(), R.color.inverseprimary) : ContextCompat.getColor(requireContext(), R.color.inverseprimary);
+                int negativeColor = isDarkMode ? ContextCompat.getColor(requireContext(), R.color.inverseprimary) : ContextCompat.getColor(requireContext(), R.color.inverseprimary);
                 positiveButton.setTextColor(positiveColor);
                 negativeButton.setTextColor(negativeColor);
             });

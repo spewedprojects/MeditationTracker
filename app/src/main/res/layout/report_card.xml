@@ -22,7 +22,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="20dp">
@@ -58,7 +61,7 @@
                     android:letterSpacing="0.04"
                     android:text="For Year/Month 2025"
                     android:textColor="@color/inverseprimary"
-                    android:textSize="14dp" />
+                    android:textSize="15dp" />
             </LinearLayout>
 
             <ImageView
@@ -116,7 +119,7 @@
                         android:gravity="center"
                         android:text="Total hrs\nMeditated"
                         android:textColor="@color/inverseprimary"
-                        android:textSize="14dp" />
+                        android:textSize="15dp" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -138,7 +141,8 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                             android:text="hrs"
-                            android:textColor="@color/inverseprimary" />
+                            android:textColor="@color/inverseprimary"
+                            android:textSize="14.5dp"/>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -159,7 +163,7 @@
                         android:gravity="center"
                         android:text="Consistency\nScore"
                         android:textColor="@color/inverseprimary"
-                        android:textSize="14dp" />
+                        android:textSize="15dp" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -180,7 +184,8 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                             android:text="%"
-                            android:textColor="@color/inverseprimary" />
+                            android:textColor="@color/inverseprimary"
+                            android:textSize="14.5dp"/>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -201,7 +206,7 @@
                         android:gravity="center"
                         android:text="Best\nstreak"
                         android:textColor="@color/inverseprimary"
-                        android:textSize="14dp" />
+                        android:textSize="15dp" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -223,7 +228,8 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                             android:text="days"
-                            android:textColor="@color/inverseprimary" />
+                            android:textColor="@color/inverseprimary"
+                            android:textSize="14.5dp"/>
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -272,7 +278,8 @@
                         android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                         android:gravity="center"
                         android:text="Days not\nMeditated"
-                        android:textColor="@color/inverseprimary" />
+                        android:textColor="@color/inverseprimary"
+                        android:textSize="15dp" />
 
                     <TextView
                         android:id="@+id/tvDaysNotMeditatedValue"
@@ -299,7 +306,8 @@
                         android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                         android:gravity="center"
                         android:text="Weeks not\nMeditated"
-                        android:textColor="@color/inverseprimary" />
+                        android:textColor="@color/inverseprimary"
+                        android:textSize="15dp"/>
 
                     <TextView
                         android:id="@+id/tvWeeksNotMeditatedValue"
@@ -326,7 +334,8 @@
                         android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                         android:gravity="center"
                         android:text="Streak\nStability"
-                        android:textColor="@color/inverseprimary" />
+                        android:textColor="@color/inverseprimary"
+                        android:textSize="15dp"/>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -348,7 +357,8 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                             android:text="days"
-                            android:textColor="@color/inverseprimary" />
+                            android:textColor="@color/inverseprimary"
+                            android:textSize="14.5dp"/>
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -396,7 +406,8 @@
                         android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                         android:gravity="center"
                         android:text="Total\nsessions"
-                        android:textColor="@color/inverseprimary" />
+                        android:textColor="@color/inverseprimary"
+                        android:textSize="15dp"/>
 
                     <TextView
                         android:id="@+id/tvTotalSessionsValue"
@@ -423,7 +434,8 @@
                         android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                         android:gravity="center"
                         android:text="Avg. session\nGap"
-                        android:textColor="@color/inverseprimary" />
+                        android:textColor="@color/inverseprimary"
+                        android:textSize="15dp"/>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -445,7 +457,8 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                             android:text="days"
-                            android:textColor="@color/inverseprimary" />
+                            android:textColor="@color/inverseprimary"
+                            android:textSize="14.5dp"/>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -464,7 +477,8 @@
                         android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                         android:gravity="center"
                         android:text="Avg.\nSession length"
-                        android:textColor="@color/inverseprimary" />
+                        android:textColor="@color/inverseprimary"
+                        android:textSize="15dp" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -486,7 +500,8 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                             android:text="mins"
-                            android:textColor="@color/inverseprimary" />
+                            android:textColor="@color/inverseprimary"
+                            android:textSize="14.5dp"/>
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -519,7 +534,8 @@
                         android:alpha="0.85"
                         android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                         android:text="Most active Month"
-                        android:textColor="@color/inverseprimary" />
+                        android:textColor="@color/inverseprimary"
+                        android:textSize="15dp"/>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -557,7 +573,8 @@
                         android:alpha="0.85"
                         android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                         android:text="Least active Month"
-                        android:textColor="@color/inverseprimary" />
+                        android:textColor="@color/inverseprimary"
+                        android:textSize="15dp"/>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -641,6 +658,7 @@
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
     </com.google.android.material.card.MaterialCardView>
 
 
