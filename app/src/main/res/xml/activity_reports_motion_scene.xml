@@ -77,7 +77,7 @@
                 android:layout_marginTop="18dp" />
             <CustomAttribute
                 motion:attributeName="alpha"
-                motion:customFloatValue="0.2"/>
+                motion:customFloatValue="0.0"/>
         </Constraint>
 
         <Constraint android:id="@id/rv_reports_list">

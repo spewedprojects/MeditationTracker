@@ -1,12 +1,18 @@
 ### **Version history and changes:**
-Latest release [here](https://github.com/spewedprojects/MeditationTracker/releases/tag/v10.0.0).
+Latest release [here](https://github.com/spewedprojects/MeditationTracker/releases/tag/v10.0.a).
 
-74. **_[9.1.a (13/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v9.1.a)_**
+75. **_[10.0.0 (14/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v10.0.0)_**
+    > - Goal cards now show target per day, instead of just the entire target. Made some Changes to how date range was being displayed and refactored teh corresponding files. 
+    > - Refined mini report card layout and wrapped full report card contents inside a nestedscrollview.
+    > - Font and size changes to release notes view. 
+    > - Main screen polishing with gradient while scrolling below static cards.
+
+74. [9.1.a (13/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v9.1.a)
     > - Added `avgSessionGap` and yearly activity extremes.
     > - Refined `streakStability` calculation to represent average streak length.
     > - Implemented state persistence for the goal card using SharedPreferences.
 
-73. [9.0.a (13/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v9.0.a)
+    73. [9.0.a (13/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v9.0.a)
     > - ### HUGE ONE!!! Reports are ready!
     >   - ReportJsonHelper, MeditationReportData, ReportGenerator, ReportDetailDialogFragment - files that made it happen.
     >   - Button Ready to use in Summary activity

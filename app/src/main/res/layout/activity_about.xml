@@ -71,7 +71,7 @@
         android:gravity="center"
         android:text="A simple meditation tracking app to log your hours, monitor the regularity of your practice, and set goals."
         android:textColor="?attr/colorOnPrimary"
-        android:textSize="21sp"
+        android:textSize="21dp"
         app:layout_constraintBottom_toTopOf="@id/github_icon"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintLeft_toLeftOf="parent"

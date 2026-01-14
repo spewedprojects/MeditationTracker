@@ -66,8 +66,13 @@
             android:layout_height="match_parent"
             android:layout_margin="8dp">
 
-            <include
-                layout="@layout/months_grid"/>
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <include
+                    layout="@layout/months_grid"/>
+            </androidx.core.widget.NestedScrollView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

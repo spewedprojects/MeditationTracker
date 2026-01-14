@@ -24,10 +24,9 @@
     <string name="goals_title">Set a New Goal</string>
     <string name="goals_desc">Create a new meditation goal</string>
     <string name="current_version_details">
-        • Goal cards now show target per day, instead of just the entire target. Made some Changes to how date range was being displayed and refactored teh corresponding files.
-        \n• Refined mini report card layout and wrapped full report card contents inside a nestedscrollview.
+        • Redesigned `minireport_card.xml` to use horizontal rows with weighted columns, thereby refining alignment.
+        \n• Removed padding for the Week/Month/Year toggle buttons in `activity_summary.xml`.
         \n• Font and size changes to release notes view.
-        \n• Main screen polishing with gradient while scrolling below static cards.
         \n
         \nNEXT:
         \n › Home screen widget.
