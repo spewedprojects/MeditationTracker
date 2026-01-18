@@ -24,12 +24,12 @@
     <string name="goals_title">Set a New Goal</string>
     <string name="goals_desc">Create a new meditation goal</string>
     <string name="current_version_details">
-        • Redesigned `minireport_card.xml` to use horizontal rows with weighted columns, thereby refining alignment.
-        \n• Removed padding for the Week/Month/Year toggle buttons in `activity_summary.xml`.
-        \n• Font and size changes to release notes view.
+        • Migrated report persistence from a single JSON file to individual files per report in a dedicated `reports/` directory.
+        \n• Wrapped menu items in a `NestedScrollView` to support smaller screens.
+        \n• Removed `textIsSelectable` and `focusableInTouchMode` for a cleaner interaction model.
         \n
         \nNEXT:
-        \n › Home screen widget.
+        \n › Home screen widget (this will take time to implement).
     </string>
     <string name="v1.16.c">v1.16.c:\n- NOICE!\n  - Next indent.\n   • bullet 1 ▶ Bullet 2 › bullet 3</string>
 </resources>

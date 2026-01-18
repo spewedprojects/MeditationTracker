@@ -17,19 +17,17 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:filterTouchesWhenObscured="false"
-        android:focusableInTouchMode="true"
         android:fontFamily="@font/atkinsonhyperlegiblenext_regular"
         android:letterSpacing="0.01"
         android:textColor="?attr/colorAccent"
         android:textSize="13sp"
         android:linksClickable="true"
-        android:textColorLink="@color/deletebutton"
+        android:textColorLink="@color/barChart_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        tools:ignore="TextViewEdits"
-        android:textIsSelectable="true"/> <!-- Inflated release notes view -->
+        tools:ignore="TextViewEdits" /> <!-- Inflated release notes view -->
 </LinearLayout>

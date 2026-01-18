@@ -92,9 +92,9 @@ public class BaseActivity extends AppCompatActivity {
      * Set up the theme toggle buttons.
      */
     private void setupThemeButtons() {
-        ImageButton lightButton = findViewById(R.id.imageButton_light);
-        ImageButton darkButton = findViewById(R.id.imageButton_dark);
-        Button autoButton = findViewById(R.id.Button_auto);
+        ImageButton lightButton = findViewById(R.id.btn_light);
+        ImageButton darkButton = findViewById(R.id.btn_dark);
+        Button autoButton = findViewById(R.id.btn_auto);
 
         if (lightButton != null && darkButton != null && autoButton != null) {
             // Get the current theme from SharedPreferences

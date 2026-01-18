@@ -2,7 +2,6 @@ package com.gratus.meditationtrakcer.utils;
 
 import android.content.Context;
 import com.gratus.meditationtrakcer.models.MeditationReportData;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.File;
@@ -10,95 +9,109 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
 public class ReportJsonHelper {
-    private static final String FILENAME = "saved_reports.json";
 
-    public static void saveReport(Context context, MeditationReportData newReport) {
-        List<MeditationReportData> existing = loadReports(context);
+    // Use a dedicated directory for reports
+    private static final String REPORT_DIR = "reports";
 
-        // Remove if exists (to overwrite)
-        existing.removeIf(r -> r.reportId.equals(newReport.reportId));
-        existing.add(0, newReport); // Add to top
-
-        saveList(context, existing);
+    // Helper to get (and create if needed) the reports directory
+    private static File getReportDir(Context context) {
+        File dir = new File(context.getFilesDir(), REPORT_DIR);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+        return dir;
     }
 
-    public static void deleteReport(Context context, String reportId) {
-        List<MeditationReportData> existing = loadReports(context);
-        existing.removeIf(r -> r.reportId.equals(reportId));
-        saveList(context, existing);
-    }
-
-    private static void saveList(Context context, List<MeditationReportData> list) {
-        JSONArray array = new JSONArray();
+    public static void saveReport(Context context, MeditationReportData d) {
         try {
-            for (MeditationReportData d : list) {
-                JSONObject obj = new JSONObject();
-                obj.put("id", d.reportId);
-                obj.put("title", d.title);
-                obj.put("isYearly", d.isYearly);
+            JSONObject obj = new JSONObject();
+            // --- Metadata ---
+            obj.put("id", d.reportId);
+            obj.put("title", d.title);
+            obj.put("generatedTimestamp", d.generatedTimestamp); // Crucial for sorting!
+            obj.put("isYearly", d.isYearly);
 
-                // --- Metrics ---
-                obj.put("totalHours", (double) d.totalHours); // Cast to double for JSON safety
-                obj.put("consistency", d.consistencyScore);
-                obj.put("bestStreak", d.bestStreak);
-                obj.put("avgSession", d.avgSessionLength);
-                obj.put("daysWithout", d.daysNotMeditated);
-                obj.put("weeksWithout", d.weeksNotMeditated);
-                obj.put("streakStability", (double) d.streakStability);
-                obj.put("totalSessions", d.totalSessions);
+            // --- Metrics ---
+            obj.put("totalHours", (double) d.totalHours);
+            obj.put("consistency", d.consistencyScore);
+            obj.put("bestStreak", d.bestStreak);
+            obj.put("avgSession", d.avgSessionLength);
+            obj.put("daysWithout", d.daysNotMeditated);
+            obj.put("weeksWithout", d.weeksNotMeditated);
+            obj.put("streakStability", (double) d.streakStability);
+            obj.put("totalSessions", d.totalSessions);
+            obj.put("avgSessionGap", (double) d.avgSessionGap);
 
-                // ✅ NEW FIELDS ADDED HERE
-                obj.put("avgSessionGap", (double) d.avgSessionGap);
+            // --- Extremes (Handle N/A) ---
+            obj.put("mostActiveMonthLabel", d.mostActiveMonthLabel != null ? d.mostActiveMonthLabel : JSONObject.NULL);
+            obj.put("mostActiveMonthValue", (double) d.mostActiveMonthValue);
+            obj.put("leastActiveMonthLabel", d.leastActiveMonthLabel != null ? d.leastActiveMonthLabel : JSONObject.NULL);
+            obj.put("leastActiveMonthValue", (double) d.leastActiveMonthValue);
 
-                // Handle N/A values (JSON doesn't like nulls)
-                obj.put("mostActiveMonthLabel", d.mostActiveMonthLabel != null ? d.mostActiveMonthLabel : JSONObject.NULL);
-                obj.put("mostActiveMonthValue", (double) d.mostActiveMonthValue);
-                obj.put("leastActiveMonthLabel", d.leastActiveMonthLabel != null ? d.leastActiveMonthLabel : JSONObject.NULL);
-                obj.put("leastActiveMonthValue", (double) d.leastActiveMonthValue);
+            // --- Maps ---
+            JSONObject timeMap = new JSONObject(d.preferredTimes);
+            obj.put("preferredTimes", timeMap);
 
-                // --- Maps ---
-                JSONObject timeMap = new JSONObject(d.preferredTimes);
-                obj.put("preferredTimes", timeMap);
+            JSONObject freqMap = new JSONObject(d.sessionFrequency);
+            obj.put("sessionFrequency", freqMap);
 
-                JSONObject freqMap = new JSONObject(d.sessionFrequency);
-                obj.put("sessionFrequency", freqMap);
-
-                array.put(obj);
-            }
-
-            File file = new File(context.getFilesDir(), FILENAME);
+            // Write to a separate file: "report_ID.json"
+            File file = new File(getReportDir(context), "report_" + d.reportId + ".json");
             FileOutputStream fos = new FileOutputStream(file);
-            fos.write(array.toString().getBytes());
+
+            // ✅ Indentation: Use 4 spaces for pretty print
+            fos.write(obj.toString(4).getBytes());
             fos.close();
 
         } catch (Exception e) { e.printStackTrace(); }
     }
 
+    public static void deleteReport(Context context, String reportId) {
+        try {
+            // Construct the specific filename to delete
+            File file = new File(getReportDir(context), "report_" + reportId + ".json");
+            if (file.exists()) {
+                file.delete();
+            }
+        } catch (Exception e) { e.printStackTrace(); }
+    }
+
     public static List<MeditationReportData> loadReports(Context context) {
         List<MeditationReportData> list = new ArrayList<>();
-        try {
-            File file = new File(context.getFilesDir(), FILENAME);
-            if (!file.exists()) return list;
+        File dir = getReportDir(context);
+        File[] files = dir.listFiles();
 
-            FileInputStream fis = new FileInputStream(file);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) sb.append(line);
-            fis.close();
+        if (files == null) return list;
 
-            JSONArray array = new JSONArray(sb.toString());
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject obj = array.getJSONObject(i);
+        for (File file : files) {
+            // Only process our report files
+            if (!file.getName().startsWith("report_") || !file.getName().endsWith(".json")) continue;
+
+            try {
+                FileInputStream fis = new FileInputStream(file);
+                BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
+                StringBuilder sb = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line).append("\n");
+                }
+                fis.close();
+
+                JSONObject obj = new JSONObject(sb.toString());
                 MeditationReportData d = new MeditationReportData();
+
+                // --- Metadata ---
                 d.reportId = obj.optString("id");
                 d.title = obj.optString("title");
+                d.generatedTimestamp = obj.optLong("generatedTimestamp", 0);
                 d.isYearly = obj.optBoolean("isYearly");
 
+                // --- Metrics ---
                 d.totalHours = (float) obj.optDouble("totalHours");
                 d.consistencyScore = obj.optInt("consistency");
                 d.bestStreak = obj.optInt("bestStreak");
@@ -107,10 +120,9 @@ public class ReportJsonHelper {
                 d.weeksNotMeditated = obj.optInt("weeksWithout");
                 d.streakStability = (float) obj.optDouble("streakStability");
                 d.totalSessions = obj.optInt("totalSessions");
-
-                // ✅ NEW FIELDS LOADED HERE
                 d.avgSessionGap = (float) obj.optDouble("avgSessionGap", 0.0);
 
+                // --- Extremes ---
                 if (!obj.isNull("mostActiveMonthLabel")) {
                     d.mostActiveMonthLabel = obj.optString("mostActiveMonthLabel");
                 }
@@ -123,26 +135,31 @@ public class ReportJsonHelper {
 
                 // --- Maps ---
                 JSONObject timeObj = obj.optJSONObject("preferredTimes");
-                if(timeObj != null) {
+                if (timeObj != null) {
                     Iterator<String> keys = timeObj.keys();
-                    while(keys.hasNext()) {
+                    while (keys.hasNext()) {
                         String key = keys.next();
                         d.preferredTimes.put(key, timeObj.getInt(key));
                     }
                 }
 
                 JSONObject freqObj = obj.optJSONObject("sessionFrequency");
-                if(freqObj != null) {
+                if (freqObj != null) {
                     Iterator<String> keys = freqObj.keys();
-                    while(keys.hasNext()) {
+                    while (keys.hasNext()) {
                         String key = keys.next();
                         d.sessionFrequency.put(key, freqObj.getInt(key));
                     }
                 }
 
                 list.add(d);
-            }
-        } catch (Exception e) { e.printStackTrace(); }
+
+            } catch (Exception e) { e.printStackTrace(); }
+        }
+
+        // Sort by timestamp (Newest first)
+        Collections.sort(list, (o1, o2) -> Long.compare(o2.generatedTimestamp, o1.generatedTimestamp));
+
         return list;
     }
 }

@@ -1,13 +1,18 @@
 ### **Version history and changes:**
-Latest release [here](https://github.com/spewedprojects/MeditationTracker/releases/tag/v10.0.a).
+Latest release **_[here](https://github.com/spewedprojects/MeditationTracker/releases/tag/v10.0.b)_**.
 
-75. **_[10.0.0 (14/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v10.0.0)_**
+76. **_[10.0.a (14/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v10.0.a)_**
+    > - Redesigned `minireport_card.xml` to use horizontal rows with weighted columns, thereby refining alignment.
+    > - Removed padding for the Week/Month/Year toggle buttons in `activity_summary.xml`.
+    > - Font and size changes to release notes view.
+
+    75. [10.0.0 (14/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v10.0.0)
     > - Goal cards now show target per day, instead of just the entire target. Made some Changes to how date range was being displayed and refactored teh corresponding files. 
     > - Refined mini report card layout and wrapped full report card contents inside a nestedscrollview.
     > - Font and size changes to release notes view. 
     > - Main screen polishing with gradient while scrolling below static cards.
 
-74. [9.1.a (13/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v9.1.a)
+    74. [9.1.a (13/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v9.1.a)
     > - Added `avgSessionGap` and yearly activity extremes.
     > - Refined `streakStability` calculation to represent average streak length.
     > - Implemented state persistence for the goal card using SharedPreferences.
@@ -34,7 +39,7 @@ Latest release [here](https://github.com/spewedprojects/MeditationTracker/releas
     > - Correctly handling streak database upgrade.
     > - WIP - Reports screen.
 
-    69. 7.2.b (09/01/2026)
+    69. [7.2.b (09/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v7.2.b)
     > - _The lovely goals card scroll is back - much more usable on small screens._
     > - __HUGE!__ Implemented a collapsible "Set a New Goal" card using a button which animates as changes occur.
     > - Using LinearLayout wherever possible.
