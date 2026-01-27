@@ -22,7 +22,7 @@
         <Button
             android:id="@+id/close_menu"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_marginTop="8dp"
             android:gravity="center"
             android:textColor="?attr/colorPrimaryVariant"
@@ -75,7 +75,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:gravity="start"
+            android:gravity="start|center"
             app:layout_constraintTop_toBottomOf="@id/menu_head"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintVertical_bias="0"
@@ -86,21 +86,24 @@
                 android:id="@+id/menu_home"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="start"
                 android:layout_marginTop="2dp"
+                android:background="@android:color/transparent"
                 android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
+                android:gravity="start|center"
+                android:letterSpacing="0.03"
                 android:text="@string/menu_home"
+                android:textAllCaps="false"
                 android:textColor="?attr/colorAccent"
                 android:textSize="16.5sp"
-                android:textAllCaps="false"
-                android:letterSpacing="0.03"
-                android:background="@android:color/transparent"/>
+                app:icon="@drawable/active_dot"
+                app:iconGravity="end"
+                app:iconSize="7dp"/>
 
             <!-- Summary Button -->
             <Button
                 android:id="@+id/menu_summary"
                 android:layout_width="match_parent"
-                android:gravity="start"
+                android:gravity="start|center"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                 android:text="@string/menu_summary"
@@ -108,13 +111,16 @@
                 android:textSize="16sp"
                 android:textAllCaps="false"
                 android:letterSpacing="0.03"
-                android:background="@android:color/transparent" /> <!-- Summary Button -->
+                android:background="@android:color/transparent"
+                app:icon="@drawable/active_dot"
+                app:iconGravity="end"
+                app:iconSize="7dp"/> <!-- Summary Button -->
 
             <!-- Reports Button -->
             <Button
                 android:id="@+id/menu_reports"
                 android:layout_width="match_parent"
-                android:gravity="start"
+                android:gravity="start|center"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                 android:text="Reports"
@@ -123,13 +129,16 @@
                 android:textAllCaps="false"
                 android:letterSpacing="0.03"
                 android:background="@android:color/transparent"
-                android:visibility="visible"/> <!-- Reports Button -->
+                android:visibility="visible"
+                app:icon="@drawable/active_dot"
+                app:iconGravity="end"
+                app:iconSize="7dp"/> <!-- Reports Button -->
 
             <!-- Custom Goals Button -->
             <Button
                 android:id="@+id/menu_goals"
                 android:layout_width="match_parent"
-                android:gravity="start"
+                android:gravity="start|center"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                 android:background="@android:color/transparent"
@@ -138,13 +147,16 @@
                 android:textAllCaps="false"
                 android:elevation="0dp"
                 android:textSize="16sp"
-                android:letterSpacing="0.03"/> <!-- Custom Goals Button -->
+                android:letterSpacing="0.03"
+                app:icon="@drawable/active_dot"
+                app:iconGravity="end"
+                app:iconSize="7dp"/> <!-- Custom Goals Button -->
 
             <!-- About app button -->
             <Button
                 android:id="@+id/menu_about"
                 android:layout_width="match_parent"
-                android:gravity="start"
+                android:gravity="start|center"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
@@ -152,13 +164,16 @@
                 android:textAllCaps="false"
                 android:textColor="?attr/colorAccent"
                 android:textSize="16sp"
-                android:letterSpacing="0.03" /> <!-- About app button -->
+                android:letterSpacing="0.03"
+                app:icon="@drawable/active_dot"
+                app:iconGravity="end"
+                app:iconSize="7dp"/> <!-- About app button -->
 
             <!-- Release notes button -->
             <Button
                 android:id="@+id/menu_releasenotes"
                 android:layout_width="match_parent"
-                android:gravity="start"
+                android:gravity="start|center"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
@@ -166,7 +181,10 @@
                 android:text="Release notes"
                 android:textColor="?attr/colorAccent"
                 android:textSize="16sp"
-                android:letterSpacing="0.03" /> <!-- Release notes button -->
+                android:letterSpacing="0.03"
+                app:icon="@drawable/active_dot"
+                app:iconGravity="end"
+                app:iconSize="7dp"/> <!-- Release notes button -->
 
             <!-- Export / Import Toggle Group -->
             <com.google.android.material.button.MaterialButtonToggleGroup

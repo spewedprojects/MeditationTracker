@@ -46,6 +46,7 @@ import java.util.List;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class GoalsActivity extends BaseActivity {
@@ -294,102 +295,109 @@ public class GoalsActivity extends BaseActivity {
         }
     }
 
+
+    // Updated (27/01/26)
     private void loadGoals() {
         List<Goal> goals = new ArrayList<>();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + GoalsDatabaseHelper.TABLE_GOALS, null);
+
+        // 1. PERFORMANCE: Sort via SQL instead of Collections.reverse()
+        // This avoids iterating through the list a second time to reverse it.
+        Cursor cursor = db.rawQuery("SELECT * FROM " + GoalsDatabaseHelper.TABLE_GOALS +
+                " ORDER BY " + GoalsDatabaseHelper.COLUMN_START_DATE + " DESC", null);
+
+        // 2. PERFORMANCE: Initialize Formatters ONCE outside the loop
+        // Creating SimpleDateFormat instances is expensive. Doing it inside a loop is bad practice.
+        SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        SimpleDateFormat fmtFull = new SimpleDateFormat("MMM dd, yy", Locale.getDefault());
+        SimpleDateFormat fmtMonthDay = new SimpleDateFormat("MMM d", Locale.getDefault());
+        SimpleDateFormat fmtDay = new SimpleDateFormat("d", Locale.getDefault());
+        SimpleDateFormat fmtYear = new SimpleDateFormat("yy", Locale.getDefault());
+
+        // 3. PERFORMANCE: Get Column Indices once
+        int idxDesc = cursor.getColumnIndex("description");
+        int idxTarget = cursor.getColumnIndex("target_hours");
+        int idxStart = cursor.getColumnIndex("start_date");
+        int idxEnd = cursor.getColumnIndex("end_date");
+        int idxId = cursor.getColumnIndex(GoalsDatabaseHelper.COLUMN_ID);
 
         while (cursor.moveToNext()) {
-            String description = cursor.getString(cursor.getColumnIndex("description"));
-            int targetHours = cursor.getInt(cursor.getColumnIndex("target_hours"));
-            String startDateTime = cursor.getString(cursor.getColumnIndex("start_date"));
-            String endDateTime = cursor.getString(cursor.getColumnIndex("end_date"));
-            int goalId = cursor.getInt(cursor.getColumnIndex(GoalsDatabaseHelper.COLUMN_ID));
+            String description = cursor.getString(idxDesc);
+            int targetHours = cursor.getInt(idxTarget);
+            String startDateTime = cursor.getString(idxStart);
+            String endDateTime = cursor.getString(idxEnd);
+            int goalId = cursor.getInt(idxId);
 
-            // Retrieve total seconds for the goal's date range
+            // Retrieve total seconds (Consider optimizing this N+1 query in the future)
             int totalSeconds = meditationLogDatabaseHelper.getTotalSecondsForRange(startDateTime, endDateTime);
-            double loggedHours = totalSeconds / 3600.0; // Convert to hours
+            double loggedHours = totalSeconds / 3600.0;
 
-            // Calculate progress
             int progressPercent = (int) ((loggedHours / targetHours) * 100);
             if (progressPercent > 100) progressPercent = 100;
 
-            // Format dates
-            String formattedStartDate = formatDate(startDateTime);
-            String formattedEndDate = formatDate(endDateTime);
-
-            // --- CALCULATE DAILY TARGET STRING --- (14/01/26)
-            String dailyTargetStr = "";
+            // Parse dates once
+            Date sDate, eDate;
             try {
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-                Date sDate = sdf.parse(startDateTime);
-                Date eDate = sdf.parse(endDateTime);
-
-                long diff = eDate.getTime() - sDate.getTime();
-                long days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) + 1;
-                if (days < 1) days = 1;
-
-                double totalMinutesNeeded = targetHours * 60.0;
-                double dailyMinutes = totalMinutesNeeded / days;
-
-                int h = (int) (dailyMinutes / 60);
-                int m = (int) Math.round(dailyMinutes % 60);
-
-                if (h > 0) {
-                    if (m > 0) dailyTargetStr = h + "h " + m + "m/d";
-                    else dailyTargetStr = h + "h/d";
-                } else {
-                    dailyTargetStr = m + "m/d";
-                }
-
+                sDate = parser.parse(startDateTime);
+                eDate = parser.parse(endDateTime);
             } catch (Exception e) {
                 e.printStackTrace();
-                dailyTargetStr = "- m/d";
+                continue; // Skip malformed rows
             }
 
-            // --- FORMAT DATE RANGE STRING --- (14/01/26)
-            String dateRangeStr = "";
-            try {
-                SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-                Date sDate = parser.parse(startDateTime);
-                Date eDate = parser.parse(endDateTime);
+            // 4. CLEANER: Extracted logic to helper methods
+            String dailyTargetStr = calculateDailyTarget(sDate, eDate, targetHours);
+            String dateRangeStr = formatDateRange(sDate, eDate, fmtFull, fmtMonthDay, fmtDay, fmtYear);
 
-                Calendar sCal = Calendar.getInstance(); sCal.setTime(sDate);
-                Calendar eCal = Calendar.getInstance(); eCal.setTime(eDate);
-
-                if (sCal.get(Calendar.YEAR) != eCal.get(Calendar.YEAR)) {
-                    // Different Years: "MMM dd, yy - MMM dd, yy"
-                    SimpleDateFormat fmt = new SimpleDateFormat("MMM dd, yy", Locale.getDefault());
-                    dateRangeStr = fmt.format(sDate) + " - " + fmt.format(eDate);
-                } else {
-                    // Same Year
-                    if (sCal.get(Calendar.MONTH) != eCal.get(Calendar.MONTH)) {
-                        // Different Months: "MMM d-MMM d, yy"
-                        SimpleDateFormat fmtM = new SimpleDateFormat("MMM d", Locale.getDefault());
-                        SimpleDateFormat fmtY = new SimpleDateFormat("yy", Locale.getDefault());
-                        dateRangeStr = fmtM.format(sDate) + "-" + fmtM.format(eDate) + ", " + fmtY.format(eDate);
-                    } else {
-                        // Same Month: "MMM d–d, yy"
-                        SimpleDateFormat fmtM = new SimpleDateFormat("MMM d", Locale.getDefault());
-                        SimpleDateFormat fmtD = new SimpleDateFormat("d", Locale.getDefault());
-                        SimpleDateFormat fmtY = new SimpleDateFormat("yy", Locale.getDefault());
-                        dateRangeStr = fmtM.format(sDate) + "–" + fmtD.format(eDate) + ", " + fmtY.format(eDate);
-                    }
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                // Fallback
-                dateRangeStr = formattedStartDate + " - " + formattedEndDate;
-            }
-
-            goals.add(new Goal(goalId, description, targetHours, loggedHours, formattedStartDate, formattedEndDate, progressPercent, dailyTargetStr, dateRangeStr));
+            goals.add(new Goal(goalId, description, targetHours, loggedHours,
+                    formatDate(startDateTime), formatDate(endDateTime),
+                    progressPercent, dailyTargetStr, dateRangeStr));
         }
         cursor.close();
         db.close();
 
-        Collections.reverse(goals); // Reverse list order to show newest first
-        goalsAdapter.updateGoals(goals); // Refresh RecyclerView
+        goalsAdapter.updateGoals(goals);
+    }
+
+    // Helper: Calculate Daily Target
+    private String calculateDailyTarget(Date sDate, Date eDate, int targetHours) {
+        long diff = eDate.getTime() - sDate.getTime();
+        long days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) + 1;
+        if (days < 1) days = 1;
+
+        double totalMinutesNeeded = targetHours * 60.0;
+        double dailyMinutes = totalMinutesNeeded / days;
+
+        int h = (int) (dailyMinutes / 60);
+        int m = (int) Math.round(dailyMinutes % 60);
+
+        if (h > 0) {
+            return (m > 0) ? h + "h " + m + "m/d" : h + "h/d";
+        } else {
+            return m + "m/d";
+        }
+    }
+
+    // Helper: Format Date Range
+    private String formatDateRange(Date sDate, Date eDate, SimpleDateFormat fmtFull,
+                                   SimpleDateFormat fmtMonth, SimpleDateFormat fmtDay,
+                                   SimpleDateFormat fmtYear) {
+        Calendar sCal = Calendar.getInstance(); sCal.setTime(sDate);
+        Calendar eCal = Calendar.getInstance(); eCal.setTime(eDate);
+
+        if (sCal.get(Calendar.YEAR) != eCal.get(Calendar.YEAR)) {
+            // Different Years
+            return fmtFull.format(sDate) + " - " + fmtFull.format(eDate);
+        } else {
+            // Same Year
+            if (sCal.get(Calendar.MONTH) != eCal.get(Calendar.MONTH)) {
+                // Different Months: "MMM d-MMM d, yy"
+                return fmtMonth.format(sDate) + " - " + fmtMonth.format(eDate) + ", " + fmtYear.format(eDate);
+            } else {
+                // Same Month: "MMM d–d, yy"
+                return fmtMonth.format(sDate) + " – " + fmtDay.format(eDate) + ", " + fmtYear.format(eDate);
+            }
+        }
     }
 
     private void showDatePickerDialog(EditText dateInput) {
@@ -422,6 +430,9 @@ public class GoalsActivity extends BaseActivity {
 
             positiveButton.setTextColor(positiveColor);
             negativeButton.setTextColor(negativeColor);
+
+            // Apply rounded background
+            Objects.requireNonNull(datePickerDialog.getWindow()).setBackgroundDrawableResource(R.drawable.datepicker_rounded_corners);
         });
 
         datePickerDialog.show();

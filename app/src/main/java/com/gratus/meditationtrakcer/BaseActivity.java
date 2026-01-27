@@ -3,7 +3,9 @@ package com.gratus.meditationtrakcer;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -25,6 +27,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.GravityCompat;
 import androidx.core.view.ViewCompat;
@@ -33,6 +36,7 @@ import androidx.customview.widget.ViewDragHelper;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.annotation.LayoutRes;
 
+import com.google.android.material.button.MaterialButton;
 import com.gratus.meditationtrakcer.databasehelpers.GoalsDatabaseHelper;
 import com.gratus.meditationtrakcer.databasehelpers.MeditationLogDatabaseHelper;
 
@@ -286,6 +290,57 @@ public class BaseActivity extends AppCompatActivity {
         // Export/Import buttons can be set up here too.
         findViewById(R.id.menu_exportButton).setOnClickListener(v -> exportData());
         findViewById(R.id.menu_importButton).setOnClickListener(v -> showFileChooser());
+
+        // === ADD THIS LINE ===
+        updateActiveMenuItem();
+    }
+
+    /**
+     * Highlights the menu item corresponding to the current activity. (27/01/26)
+     */
+    private void updateActiveMenuItem() {
+        // 1. Determine which ID corresponds to the current Activity
+        int activeId = -1;
+
+        if (this instanceof MainActivity) {
+            activeId = R.id.menu_home;
+        } else if (this instanceof SummaryActivity) {
+            activeId = R.id.menu_summary;
+        } else if (this instanceof ReportsActivity) { // Assuming you have this class
+            activeId = R.id.menu_reports;
+        } else if (this instanceof GoalsActivity) {
+            activeId = R.id.menu_goals;
+        } else if (this instanceof AboutActivity) {   // Assuming you have this class
+            activeId = R.id.menu_about;
+        } else if (this instanceof ReleaseNotesActivity) { // Assuming you have this class
+            activeId = R.id.menu_releasenotes;
+        }
+
+        // 2. List of all menu button IDs to iterate through
+        int[] allMenuIds = {
+                R.id.menu_home,
+                R.id.menu_summary,
+                R.id.menu_reports,
+                R.id.menu_goals,
+                R.id.menu_about,
+                R.id.menu_releasenotes
+        };
+
+        // 3. Loop through buttons and set Icon Tint
+        for (int id : allMenuIds) {
+            MaterialButton btn = findViewById(id);
+            if (btn == null) continue;
+
+            if (id == activeId) {
+                // ACTIVE: Set tint to your green color (or fetch from resources)
+                // Use R.color.success_green if defined, or parse the color manually if you don't have a resource handle handy
+                btn.setIconTint(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.inverseprimary)));
+                // If you don't have R.color.success_green defined in java, use: Color.parseColor("#YOUR_HEX_CODE")
+            } else {
+                // INACTIVE: Set tint to Transparent (hides the dot but keeps layout stable)
+                btn.setIconTint(ColorStateList.valueOf(Color.TRANSPARENT));
+            }
+        }
     }
 
     /**

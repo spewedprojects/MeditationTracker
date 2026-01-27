@@ -18,6 +18,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.widget.NestedScrollView;
+import androidx.viewpager2.widget.ViewPager2;
 
 // WeeklyActivity.java - Bar Chart Integration
 import com.github.mikephil.charting.charts.BarChart;
@@ -37,6 +38,7 @@ import com.github.mikephil.charting.listener.ChartTouchListener;
 import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.button.MaterialButtonToggleGroup;
+import com.gratus.meditationtrakcer.adapters.SummaryPagerAdapter;
 import com.gratus.meditationtrakcer.databasehelpers.MeditationLogDatabaseHelper;
 import com.gratus.meditationtrakcer.models.MeditationReportData;
 import com.gratus.meditationtrakcer.utils.MeditationChartManager;
@@ -48,26 +50,17 @@ public class SummaryActivity extends BaseActivity {
     private static final String PREFS_SUMMARY   = "summary_prefs";
     private static final String KEY_LAST_VIEW   = "last_view";   // "W","M","Y"
 
-    // ── lazy-init flags (for future memory optimisation) ──
-    private boolean weekLoaded   = false;
-    private boolean monthLoaded  = false;
-    private boolean yearLoaded   = false;
-
-    // swipe detector
-    private GestureDetector gestureDetector;
-    private static final int SWIPE_THRESHOLD   = 90;   // px
-    private static final int SWIPE_VELOCITY    = 60;   // px/s
-
-    private String selectedWeekStartDate;
-    private String selectedMonthStartDate;
-    private String selectedYearStartDate;
-
     // ── mode toggle ───────────────────────────────
     private MaterialButtonToggleGroup viewGroup;
     private MaterialButton btnWeekly, btnMonthly, btnYearly;
-    private CardView weekCard, monthCard, yearCard;   // promote to fields
 
-    private Typeface myCustomFont; //  <-- Add this
+    public String selectedWeekStartDate, selectedMonthStartDate, selectedYearStartDate;
+    private ViewPager2 viewPager;
+    private SummaryPagerAdapter adapter;
+
+    // Calculate the "Middle" of the infinite list
+    // Ensure it is divisible by 3 so it maps cleanly to index 0 (Week)
+    private static final int START_POSITION = Integer.MAX_VALUE / 2 - ((Integer.MAX_VALUE / 2) % 3);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,105 +73,96 @@ public class SummaryActivity extends BaseActivity {
             return insets;
         });
 
-        // Set default or passed week start date
-        selectedWeekStartDate = getIntent().getStringExtra("startDate");
-        if (selectedWeekStartDate == null) {
-            selectedWeekStartDate = getMondayOfCurrentWeek();
-        }
-
-        // Set default or passed month start date
-        selectedMonthStartDate = getIntent().getStringExtra("startDate");
-        if (selectedMonthStartDate == null) {
-            selectedMonthStartDate = getFirstDayOfCurrentMonth();
-        }
-
-        // Set default or passed year start date
-        selectedYearStartDate = getIntent().getStringExtra("startDate");
-        if (selectedYearStartDate == null) {
-            selectedYearStartDate = getFirstDayOfCurrentYear();
-        }
+        // Date Defaults: Initialize dates so they are not null
+        if (selectedWeekStartDate == null) selectedWeekStartDate = getMondayOfCurrentWeek();
+        if (selectedMonthStartDate == null) selectedMonthStartDate = getFirstDayOfCurrentMonth();
+        if (selectedYearStartDate == null) selectedYearStartDate = getFirstDayOfCurrentYear();
+        // ----------------------
 
         // Initialize the toolbar and menu button
         setupToolbar(R.id.toolbar2, R.id.menubutton);
 
         // 1) grab view handles  (already done in your file) ……………………………………
         viewGroup  = findViewById(R.id.WMY_group);
-        weekCard  = findViewById(R.id.cardView_week);
-        monthCard = findViewById(R.id.cardView_month);
-        yearCard  = findViewById(R.id.cardView_year);
         btnWeekly   = findViewById(R.id.W_Button);
         btnMonthly  = findViewById(R.id.M_Button);
         btnYearly   = findViewById(R.id.Y_Button);
-        // Load the custom font
-        myCustomFont = getResources().getFont(R.font.atkinsonhyperlegiblenext_regular); // <-- Add this
-
         viewGroup.setSingleSelection(true);
 
-        // 2) restore last view from SharedPreferences ………………………………………
+        viewPager = findViewById(R.id.view_pager_summary);
+        viewGroup = findViewById(R.id.WMY_group);
+
+        adapter = new SummaryPagerAdapter(this);
+        viewPager.setAdapter(adapter);
+        // Keeps the current page + 1 page on either side in memory.
+        // Anything further away is destroyed to save RAM.
+        viewPager.setOffscreenPageLimit(6);
+
+        // --- 1. RESTORE STATE CORRECTLY ---
         SharedPreferences sp = getSharedPreferences(PREFS_SUMMARY, MODE_PRIVATE);
         String last = sp.getString(KEY_LAST_VIEW, "W");
-        int startId = last.equals("M") ? R.id.M_Button
-                : last.equals("Y") ? R.id.Y_Button
-                : R.id.W_Button;
-        viewGroup.check(startId);      // will also trigger listener below
-        applyTab(startId);
-        refreshButtonTransparency(startId);        // <<< add here
+        int targetMod = last.equals("M") ? 1 : last.equals("Y") ? 2 : 0;
 
-        // 3) toggle listener → shows card, saves pref, lazy-loads chart …………………
-        viewGroup.addOnButtonCheckedListener((g, id, isChecked) -> {
+        // Set the ViewPager to the middle + offset.
+        // false = no smooth scroll for initial setup
+        viewPager.setCurrentItem(START_POSITION + targetMod, false);
+
+        // Sync buttons visually without triggering listeners
+        syncButtons(targetMod);
+
+        // --- 2. BUTTON CLICK FIX ---
+        viewGroup.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
             if (!isChecked) return;
 
-            weekCard.setVisibility(id == R.id.W_Button ? View.VISIBLE : View.GONE);
-            monthCard.setVisibility(id == R.id.M_Button ? View.VISIBLE : View.GONE);
-            yearCard.setVisibility(id == R.id.Y_Button ? View.VISIBLE : View.GONE);
+            // Determine target type (0=Week, 1=Month, 2=Year)
+            int targetType = (checkedId == R.id.M_Button) ? 1 : (checkedId == R.id.Y_Button) ? 2 : 0;
 
-            String mode = (id == R.id.M_Button) ? "M"
-                    : (id == R.id.Y_Button) ? "Y"
-                    : "W";
-            sp.edit().putString(KEY_LAST_VIEW, mode).apply();
+            // Calculate current type based on massive position
+            int currentPos = viewPager.getCurrentItem();
+            int currentType = currentPos % 3;
 
-            switch (mode) {
-                case "W": maybeLoadWeek();  break;
-                case "M": maybeLoadMonth(); break;
-                case "Y": maybeLoadYear();  break;
+            if (currentType == targetType) return; // Already there
+
+            // Calculate the nearest neighbor.
+            // Example: We are at 1,000,000 (Week). User clicks Month (1).
+            // We want 1,000,001. NOT 1.
+            int newPos = currentPos + (targetType - currentType);
+
+            viewPager.setCurrentItem(newPos, true); // Smooth scroll to neighbor
+
+            // Save Prefs
+            sp.edit().putString(KEY_LAST_VIEW, targetType == 1 ? "M" : targetType == 2 ? "Y" : "W").apply();
+            refreshButtonTransparency(checkedId);
+        });
+
+        // --- 3. SWIPE FIX ---
+        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                // Map the massive position back to 0, 1, 2
+                int type = position % 3;
+
+                // Sync the buttons to match the swipe
+                syncButtons(type);
+
+                // Save Prefs on swipe too
+                String code = type == 1 ? "M" : type == 2 ? "Y" : "W";
+                sp.edit().putString(KEY_LAST_VIEW, code).apply();
             }
-            refreshButtonTransparency(id);        // <<< add here
         });
-
-        // 4) first load whichever card is visible (lazy) ………………………………………
-        if (startId == R.id.W_Button)  maybeLoadWeek();
-        if (startId == R.id.M_Button)  maybeLoadMonth();
-        if (startId == R.id.Y_Button)  maybeLoadYear();
-
-        // 5) hook prev / next buttons (see helper below) ………………………………………
-        setupNavigationButtons();
-
-        findViewById(R.id.month_reports_button).setOnClickListener(v -> {
-            generateAndOpenMonthReport();
-        });
-
-        findViewById(R.id.year_reports_button).setOnClickListener(v -> {
-            generateAndOpenYearReport();
-        });
-
-        // 6) enable swipe across the whole NestedScrollView ………………………………
-        NestedScrollView scroll = findViewById(R.id.main_scroll); // give the NSV an id
-        gestureDetector = new GestureDetector(this, new SwipeListener());
-        scroll.setOnTouchListener((v,e) -> gestureDetector.onTouchEvent(e));
     }
 
-    // put near your other helpers
-    private void applyTab(int id) {
-        // 1. make the right card visible
-        weekCard .setVisibility(id == R.id.W_Button ? View.VISIBLE : View.GONE);
-        monthCard.setVisibility(id == R.id.M_Button ? View.VISIBLE : View.GONE);
-        yearCard .setVisibility(id == R.id.Y_Button ? View.VISIBLE : View.GONE);
+    private void syncButtons(int type) {
+        int targetId = (type == 1) ? R.id.M_Button : (type == 2) ? R.id.Y_Button : R.id.W_Button;
 
-        // 2. load its data once
-        if (id == R.id.W_Button) maybeLoadWeek();
-        else if (id == R.id.M_Button) maybeLoadMonth();
-        else maybeLoadYear();
-        refreshButtonTransparency(id);        // <<< add here
+        // CRITICAL SAFETY CHECK:
+        // Only update the button if it is NOT ALREADY checked.
+        // This stops the infinite loop of "Swipe -> Check Button -> Trigger Listener -> Swipe Again".
+        if (viewGroup.getCheckedButtonId() != targetId) {
+            viewGroup.check(targetId);
+        }
+
+        refreshButtonTransparency(targetId);
     }
 
     /** 100 % opaque for the checked button, 20 % opaque (≈ 70 % transparent)
@@ -189,40 +173,8 @@ public class SummaryActivity extends BaseActivity {
         btnYearly .setAlpha(checkedId == R.id.Y_Button ? 1f : 0.2f);
     }
 
-    private void setupNavigationButtons() {
-        // Week
-        findViewById(R.id.previous_weekButton).setOnClickListener(v -> {
-            selectedWeekStartDate = getAdjustedWeekStartDate(selectedWeekStartDate,-7);
-            updateWeeklySummary();
-        });
-        findViewById(R.id.next_weekButton).setOnClickListener(v -> {
-            selectedWeekStartDate = getAdjustedWeekStartDate(selectedWeekStartDate, 7);
-            updateWeeklySummary();
-        });
-
-        // Month
-        findViewById(R.id.previous_monthButton).setOnClickListener(v -> {
-            selectedMonthStartDate = getAdjustedMonthStartDate(selectedMonthStartDate,-1);
-            updateMonthlySummary();
-        });
-        findViewById(R.id.next_monthButton).setOnClickListener(v -> {
-            selectedMonthStartDate = getAdjustedMonthStartDate(selectedMonthStartDate, 1);
-            updateMonthlySummary();
-        });
-
-        // Year
-        findViewById(R.id.previous_yearButton).setOnClickListener(v -> {
-            selectedYearStartDate = getAdjustedYearStartDate(selectedYearStartDate,-1);
-            updateYearlySummary();
-        });
-        findViewById(R.id.next_yearButton).setOnClickListener(v -> {
-            selectedYearStartDate = getAdjustedYearStartDate(selectedYearStartDate, 1);
-            updateYearlySummary();
-        });
-    }
-
     // (13/01/26) - For reports
-    private void generateAndOpenMonthReport() {
+    public void generateAndOpenMonthReport() {
         // 1. Determine dates based on currently selected month
         // selectedMonthStartDate is already formatted "yyyy-MM-dd"
         // We need the end date of that month
@@ -260,7 +212,7 @@ public class SummaryActivity extends BaseActivity {
     }
 
     // (13/01/26) - For reports
-    private void generateAndOpenYearReport() {
+    public void generateAndOpenYearReport() {
         String startDate = selectedYearStartDate; // "yyyy-01-01"
 
         try {
@@ -285,91 +237,20 @@ public class SummaryActivity extends BaseActivity {
         } catch (Exception e) { e.printStackTrace(); }
     }
 
-    /** ── HELPER CLASS FOR LONG PRESS ─────────────────────────────
-    This abstract class handles the gesture detection logic
-    and exposes a simple onDrillDown method for the Activity to use.**/
-    abstract class DrillDownListener implements OnChartGestureListener {
-        private final BarChart chart;
+    // --- FORMATTERS (Public so Fragment can access) ---
+    public String getWeekNumber(String startDate) { try {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(sdf.parse(startDate));
 
-        public DrillDownListener(BarChart chart) {
-            this.chart = chart;
-        }
-
-        // We will implement this in the anonymous classes above
-        public abstract void onDrillDown(float xIndex);
-
-        @Override
-        public void onChartLongPressed(MotionEvent me) {
-            // Get the Highlight at the touch point
-            Highlight h = chart.getHighlightByTouchPoint(me.getX(), me.getY());
-
-            if (h != null) {
-                // Perform the drill down using the X index of the bar
-                onDrillDown(h.getX());
-            }
-        }
-
-        @Override public void onChartGestureStart(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {}
-        @Override public void onChartGestureEnd(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {}
-        @Override public void onChartDoubleTapped(MotionEvent me) {}
-        @Override public void onChartSingleTapped(MotionEvent me) {}
-        @Override public void onChartFling(MotionEvent me1, MotionEvent me2, float velocityX, float velocityY) {}
-        @Override public void onChartScale(MotionEvent me, float scaleX, float scaleY) {}
-        @Override public void onChartTranslate(MotionEvent me, float dX, float dY) {}
-    }
-
-
-    // ----- WEEKLY VIEW -----
-    private void updateWeeklySummary() {
-        MeditationLogDatabaseHelper dbHelper = new MeditationLogDatabaseHelper(this);
-        ArrayList<BarEntry> weeklyEntries = dbHelper.getWeeklyMeditationDataForDateRange(selectedWeekStartDate);
-        float totalHours = dbHelper.getTotalWeeklyMeditationHoursForDateRange(selectedWeekStartDate, getNextWeekStartDate(selectedWeekStartDate));
-
-        // Generate Labels (Logic remains here as it's specific to the view)
-        ArrayList<String> weekLabels = new ArrayList<>();
-        try {
-            java.time.format.DateTimeFormatter inputFormatter = java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.getDefault());
-            LocalDate currentWeekStart = LocalDate.parse(selectedWeekStartDate, inputFormatter);
-            java.time.format.DateTimeFormatter outputFormatter = java.time.format.DateTimeFormatter.ofPattern("dd-E", Locale.getDefault());
-
-            LocalDate mondayOfWeek = currentWeekStart.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
-            for (int i = 0; i < 7; i++) {
-                weekLabels.add(mondayOfWeek.plusDays(i).format(outputFormatter));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            weekLabels.addAll(Arrays.asList("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"));
-        }
-
-        // --- NEW CODE: Use the Manager ---
-        BarChart weeklyBarChart = findViewById(R.id.weeklyBarChart);
-        MeditationChartManager chartManager = new MeditationChartManager(this, weeklyBarChart, myCustomFont);
-
-        // Setup Chart (Pass data, labels, and specific bar width 0.5f)
-        chartManager.displayChart(weeklyEntries, weekLabels, 0.5f);
-        // --------------------------------
-
-        // Update Text Views
-        TextView weekTotalTextView = findViewById(R.id.week_total);
-        weekTotalTextView.setText(String.format("Total: %.2f hours", totalHours));
-
-        ((TextView) findViewById(R.id.displayed_week)).setText(getWeekNumber(selectedWeekStartDate));
-        ((TextView) findViewById(R.id.displayed_weekDates)).setText(getDateRange(selectedWeekStartDate));
-    }
-    private String getWeekNumber(String startDate) {
-        try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(sdf.parse(startDate));
-
-            int weekOfYear = calendar.get(Calendar.WEEK_OF_YEAR);
-            return "Week #" + weekOfYear;
+        int weekOfYear = calendar.get(Calendar.WEEK_OF_YEAR);
+        return "Week #" + weekOfYear;
         } catch (Exception e) {
             e.printStackTrace();
             return "Week #";
         }
     }
-    private String getDateRange(String startDate) {
+    public String getDateRange(String startDate) {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
             SimpleDateFormat displayFormat = new SimpleDateFormat("MMM dd", Locale.getDefault());
@@ -387,6 +268,33 @@ public class SummaryActivity extends BaseActivity {
             return "Date to date";
         }
     }
+    public String getMonthYear(String startDate) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            SimpleDateFormat displayFormat = new SimpleDateFormat("MMMM", Locale.getDefault());
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(sdf.parse(startDate));
+            return displayFormat.format(calendar.getTime());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Month Year";
+        }
+    }
+    public String getYear(String startDate) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy", Locale.getDefault()); // Year format
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(sdf.parse(startDate)); // Parse the input date
+            return yearFormat.format(calendar.getTime()); // Extract the year
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Year"; // Default fallback in case of errors
+        }
+    }
+
+
+    // ----- WEEKLY VIEW -----
     private String getMondayOfCurrentWeek() {
         Calendar calendar = Calendar.getInstance();
         calendar.setFirstDayOfWeek(Calendar.MONDAY);
@@ -405,80 +313,14 @@ public class SummaryActivity extends BaseActivity {
         }
         return sdf.format(calendar.getTime());
     }
-    private String getNextWeekStartDate(String startDate) {
+    public String getNextWeekStartDate(String startDate) {
         return getAdjustedWeekStartDate(startDate, 7);
     }
 
 
     // ----- MONTHLY VIEW -----
-    private void updateMonthlySummary() {
-        MeditationLogDatabaseHelper dbHelper = new MeditationLogDatabaseHelper(this);
-        ArrayList<BarEntry> monthlyEntries = dbHelper.getMonthlyMeditationDataForDateRange(selectedMonthStartDate);
-        float totalHours = dbHelper.getTotalMonthlyMeditationHoursForDateRange(selectedMonthStartDate, getNextMonthStartDate(selectedMonthStartDate));
-
-        // Generate Labels
-        ArrayList<String> monthLabels = new ArrayList<>();
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.getDefault());
-            LocalDate monthStart = LocalDate.parse(selectedMonthStartDate, formatter);
-            WeekFields weekFields = WeekFields.of(Locale.getDefault());
-            for (int i = 0; i < 5; i++) {
-                int weekNum = monthStart.plusWeeks(i).get(weekFields.weekOfWeekBasedYear());
-                monthLabels.add("Week #" + weekNum);
-            }
-        } catch (Exception e) {
-            for (int i = 1; i <= 5; i++) monthLabels.add("Week " + i);
-        }
-
-        // --- NEW CODE: Use the Manager ---
-        BarChart monthlyBarChart = findViewById(R.id.monthlyBarChart);
-        MeditationChartManager chartManager = new MeditationChartManager(this, monthlyBarChart, myCustomFont);
-
-        // Setup Chart (Width 0.45f)
-        chartManager.displayChart(monthlyEntries, monthLabels, 0.45f);
-
-            // Attach Drill Down Listener
-            chartManager.setDrillDownListener(new DrillDownListener(monthlyBarChart) {
-                @Override
-                public void onDrillDown(float xIndex) {
-                // ... (Existing Drill Down Logic) ...
-                // e.g. Calculate target week, set selectedWeekStartDate, check(R.id.W_Button)
-                try {
-                    // xIndex corresponds to the bar index (0, 1, 2, 3, 4)
-                    int weekOffset = (int) xIndex;
-
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.getDefault());
-                    LocalDate monthStart = LocalDate.parse(selectedMonthStartDate, formatter);
-
-                    // Calculate start date of the specific week tapped
-                    // Ensure we align to the Monday of that specific week
-                    LocalDate targetWeekDate = monthStart.plusWeeks(weekOffset)
-                            .with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
-
-                    selectedWeekStartDate = targetWeekDate.format(formatter);
-
-                    // FIX: Force reload of Week view so it updates to the new date
-                    weekLoaded = false;
-
-                    // Switch tab to Week
-                    viewGroup.check(R.id.W_Button);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        // --------------------------------
-
-        ((TextView) findViewById(R.id.month_total)).setText(String.format("Total: %.2f hours", totalHours));
-        ((TextView) findViewById(R.id.displayed_month)).setText(getMonthYear(selectedMonthStartDate));
-        ((TextView) findViewById(R.id.displayed_monthYear)).setText(getYear(selectedMonthStartDate));
-    }
-
     private String getFirstDayOfCurrentMonth() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.DAY_OF_MONTH, 1);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        return sdf.format(calendar.getTime());
+        return new SimpleDateFormat("yyyy-MM-01", Locale.getDefault()).format(Calendar.getInstance().getTime());
     }
 
     private String getAdjustedMonthStartDate(String currentStartDate, int monthsOffset) {
@@ -494,74 +336,12 @@ public class SummaryActivity extends BaseActivity {
         return sdf.format(calendar.getTime());
     }
 
-    private String getNextMonthStartDate(String startDate) {
+    public String getNextMonthStartDate(String startDate) {
         return getAdjustedMonthStartDate(startDate, 1);
-    }
-    private String getMonthYear(String startDate) {
-        try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-            SimpleDateFormat displayFormat = new SimpleDateFormat("MMMM", Locale.getDefault());
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(sdf.parse(startDate));
-            return displayFormat.format(calendar.getTime());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "Month Year";
-        }
     }
 
 
     // ----- YEARLY VIEW -----
-    private void updateYearlySummary() {
-        MeditationLogDatabaseHelper dbHelper = new MeditationLogDatabaseHelper(this);
-        ArrayList<BarEntry> yearlyEntries = dbHelper.getYearlyMeditationDataForDateRange(selectedYearStartDate);
-        float totalHours = dbHelper.getTotalYearlyMeditationHoursForDateRange(selectedYearStartDate, getNextYearStartDate(selectedYearStartDate));
-
-        // Generate Labels
-        ArrayList<String> yearLabels = new ArrayList<>(Arrays.asList("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"));
-
-        // --- NEW CODE: Use the Manager ---
-        BarChart yearlyBarChart = findViewById(R.id.yearlyBarChart);
-        MeditationChartManager chartManager = new MeditationChartManager(this, yearlyBarChart, myCustomFont);
-
-        // Setup Chart (Width 0.8f)
-        chartManager.displayChart(yearlyEntries, yearLabels, 0.8f);
-
-        // Attach Drill Down Listener
-        chartManager.setDrillDownListener(new DrillDownListener(yearlyBarChart) {
-            @Override
-            public void onDrillDown(float xIndex) {
-                // ... (Existing Drill Down Logic) ...
-                // e.g. Calculate target month, set selectedMonthStartDate, check(R.id.M_Button)
-                try {
-                    // xIndex corresponds to Month index (0=Jan, 1=Feb ...)
-                    int monthIndex = (int) xIndex;
-                    if (monthIndex < 0 || monthIndex > 11) return;
-
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.getDefault());
-                    LocalDate yearStart = LocalDate.parse(selectedYearStartDate, formatter);
-
-                    // Calculate start date of the specific month tapped
-                    LocalDate targetMonthDate = yearStart.withMonth(monthIndex + 1).withDayOfMonth(1);
-
-                    selectedMonthStartDate = targetMonthDate.format(formatter);
-
-                    // FIX: Force reload of Month view so it updates to the new date
-                    monthLoaded = false;
-
-                    // Switch tab to Month
-                    viewGroup.check(R.id.M_Button);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        // --------------------------------
-
-        ((TextView) findViewById(R.id.year_total)).setText(String.format("Total: %.2f hours", totalHours));
-        ((TextView) findViewById(R.id.displayed_year)).setText(getYear(selectedYearStartDate));
-    }
-
     private String getFirstDayOfCurrentYear() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.DAY_OF_YEAR, 1);
@@ -580,154 +360,62 @@ public class SummaryActivity extends BaseActivity {
         }
         return sdf.format(calendar.getTime());
     }
-    private String getNextYearStartDate(String startDate) {
+    public String getNextYearStartDate(String startDate) {
         return getAdjustedYearStartDate(startDate, 1);
     }
 
-    // Get year common for both Month and year views
-    private String getYear(String startDate) {
+
+    // --- NAVIGATION HELPERS ---
+    public void adjustWeek(int days) {
+        selectedWeekStartDate = getAdjustedDate(selectedWeekStartDate, Calendar.DAY_OF_YEAR, days);
+    }
+    public void adjustMonth(int months) {
+        selectedMonthStartDate = getAdjustedDate(selectedMonthStartDate, Calendar.MONTH, months);
+    }
+    public void adjustYear(int years) {
+        selectedYearStartDate = getAdjustedDate(selectedYearStartDate, Calendar.YEAR, years);
+    }
+
+    private String getAdjustedDate(String date, int field, int amount) {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-            SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy", Locale.getDefault()); // Year format
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(sdf.parse(startDate)); // Parse the input date
-            return yearFormat.format(calendar.getTime()); // Extract the year
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "Year"; // Default fallback in case of errors
-        }
+            Calendar c = Calendar.getInstance();
+            c.setTime(sdf.parse(date));
+            c.add(field, amount);
+            if (field == Calendar.MONTH || field == Calendar.YEAR) c.set(Calendar.DAY_OF_MONTH, 1);
+            return sdf.format(c.getTime());
+        } catch (Exception e) { return date; }
     }
 
-    private void maybeLoadWeek()  { if (!weekLoaded)  { updateWeeklySummary();  weekLoaded  = true; } }
-    private void maybeLoadMonth() { if (!monthLoaded) { updateMonthlySummary(); monthLoaded = true; } }
-    private void maybeLoadYear()  { if (!yearLoaded)  { updateYearlySummary();  yearLoaded  = true; } }
+    // --- DRILL DOWN LOGIC ---
+    public void drillDownToWeek(int weekOffset) {
+        try {
+            DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.getDefault());
+            LocalDate monthStart = LocalDate.parse(selectedMonthStartDate, fmt);
+            LocalDate target = monthStart.plusWeeks(weekOffset).with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+            selectedWeekStartDate = target.format(fmt);
+
+            viewPager.setCurrentItem(0, true);
+            // Force refresh the target tab
+            adapter.notifyItemChanged(0);
+        } catch (Exception e) { e.printStackTrace(); }
+    }
+
+    public void drillDownToMonth(int monthIndex) {
+        try {
+            DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.getDefault());
+            LocalDate yearStart = LocalDate.parse(selectedYearStartDate, fmt);
+            LocalDate target = yearStart.withMonth(monthIndex + 1).withDayOfMonth(1);
+            selectedMonthStartDate = target.format(fmt);
+
+            viewPager.setCurrentItem(1, true);
+            adapter.notifyItemChanged(1);
+        } catch (Exception e) { e.printStackTrace(); }
+    }
 
     // Swipe gestures
-    private class SwipeListener extends GestureDetector.SimpleOnGestureListener {
-        @Override
-        public boolean onDown(MotionEvent e) {
-            // You must return true here to ensure the detector tracks the gesture
-            return true;
-        }
-        @Override
-        public boolean onFling(MotionEvent e1, MotionEvent e2, float vx, float vy) {
-            // guard against null events
-            if (e1 == null || e2 == null) return false;
-
-            float dx = e2.getX() - e1.getX();
-            float dy = e2.getY() - e1.getY();
-            if (Math.abs(dx) > Math.abs(dy)
-                    && Math.abs(dx) > SWIPE_THRESHOLD
-                    && Math.abs(vx) > SWIPE_VELOCITY) {
-                if (dx < 0) gotoNext();
-                else       gotoPrev();
-                return true;
-            }
-            return false;
-        }
-    }
-
-    // This is the new method that does all the work. It prepares the cards, runs the simultaneous animations, and cleans up afterward.
-    private void animateCardSwipe(CardView fromCard, CardView toCard, int toId, boolean isNext) {
-        // Update button highlighting immediately for better responsiveness
-        refreshButtonTransparency(toId);
-
-        // Use post() to ensure the fromCard has been measured and has a width.
-        fromCard.post(() -> {
-            // === START OF CHANGES ===
-
-            // A. Get the margin values in pixels to create a gap between cards.
-            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) fromCard.getLayoutParams();
-            // The total gap is the end margin of the outgoing card + the start margin of the incoming one.
-            int gap = params.getMarginEnd() + params.getMarginStart();
-
-            // B. Prepare cards for animation
-            int width = fromCard.getWidth();
-            toCard.setVisibility(View.VISIBLE);
-
-            // Set the starting positions, accounting for the width AND the gap.
-            fromCard.setTranslationX(0);
-            toCard.setTranslationX(isNext ? (width + gap) : -(width + gap));
-
-            // C. Animate the 'from' card moving off-screen, including the gap distance.
-            fromCard.animate()
-                    .translationX(isNext ? -(width + gap) : (width + gap))
-                    .setDuration(450)
-                    .start();
-
-            // === END OF CHANGES ===
-
-            // C. Animate the 'to' card moving into the center
-            toCard.animate()
-                    .translationX(0)
-                    .setDuration(450)
-                    .withEndAction(() -> {
-                        // D. Cleanup after animation completes
-                        fromCard.setVisibility(View.GONE);
-                        fromCard.setTranslationX(0); // Reset position for next time
-                        toCard.setTranslationX(0);   // Reset position for next time
-
-                        // E. Officially update the toggle group's state.
-                        // This triggers the listener to save the preference.
-                        viewGroup.check(toId);
-                    })
-                    .start();
-        });
-    }
-
-    private void gotoNext() {
-        // W → M → Y → W
-        // 1. Identify which cards are 'from' and 'to'
-        int fromId = viewGroup.getCheckedButtonId();
-        int toId;
-        CardView fromCard, toCard;
-
-        if (fromId == R.id.W_Button) {
-            toId = R.id.M_Button;
-            fromCard = weekCard;
-            toCard = monthCard;
-            maybeLoadMonth(); // 2. Pre-load data for the incoming card
-        } else if (fromId == R.id.M_Button) {
-            toId = R.id.Y_Button;
-            fromCard = monthCard;
-            toCard = yearCard;
-            maybeLoadYear();
-        } else { // fromId is R.id.Y_Button
-            toId = R.id.W_Button;
-            fromCard = yearCard;
-            toCard = weekCard;
-            maybeLoadWeek();
-        }
-
-        // 3. Perform the animation
-        animateCardSwipe(fromCard, toCard, toId, true); // true means isNext (swiping left)
-    }
-    private void gotoPrev() {
-        // reverse
-        // 1. Identify which cards are 'from' and 'to'
-        int fromId = viewGroup.getCheckedButtonId();
-        int toId;
-        CardView fromCard, toCard;
-
-        if (fromId == R.id.Y_Button) {
-            toId = R.id.M_Button;
-            fromCard = yearCard;
-            toCard = monthCard;
-            maybeLoadMonth();
-        } else if (fromId == R.id.M_Button) {
-            toId = R.id.W_Button;
-            fromCard = monthCard;
-            toCard = weekCard;
-            maybeLoadWeek();
-        } else { // fromId is R.id.W_Button
-            toId = R.id.Y_Button;
-            fromCard = weekCard;
-            toCard = yearCard;
-            maybeLoadYear();
-        }
-
-        // 3. Perform the animation
-        animateCardSwipe(fromCard, toCard, toId, false); // false means isPrev (swiping right)
-    }
+    // --- CHART SWIPE HELPERS ---
+    public void disableSwipe() { viewPager.setUserInputEnabled(false); }
+    public void enableSwipe() { viewPager.setUserInputEnabled(true); }
 
 }

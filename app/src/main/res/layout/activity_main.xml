@@ -276,7 +276,7 @@
                         android:textSize="64sp"
                         android:letterSpacing="0.055"/> <!-- Timer display -->
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/record"
                         android:layout_width="130dp"
                         android:layout_height="wrap_content"
@@ -288,6 +288,7 @@
                         android:letterSpacing="0.1"
                         android:includeFontPadding="false"
                         android:text="@string/record"
+                        app:rippleColor="@color/big_button_bg"
                         android:textAllCaps="false"
                         android:textSize="15.5sp"
                         android:textStyle="bold"
@@ -385,7 +386,7 @@
 
                     </LinearLayout>
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/add_entry"
                         android:layout_width="200dp"
                         android:layout_height="wrap_content"
@@ -396,6 +397,7 @@
                         android:backgroundTint="?attr/colorOnPrimary"
                         android:includeFontPadding="false"
                         android:text="@string/add_entry"
+                        app:rippleColor="@color/big_button_bg"
                         android:textAllCaps="false"
                         android:textSize="15.5sp"
                         android:letterSpacing="0.1"

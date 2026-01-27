@@ -10,9 +10,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Editable;
 import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.util.Log;
@@ -44,6 +46,7 @@ import com.gratus.meditationtrakcer.dialogfragments.StreakDialogFragment;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends BaseActivity implements BackdatedDialogFragment.BackdatedEntryListener {
@@ -86,6 +89,28 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
         manualMinutes = findViewById(R.id.manual_minutes);
         manualSeconds = findViewById(R.id.manual_seconds);
         //moreMenuButton = findViewById(R.id.menubutton);
+
+        // --- NEW CODE: Monitor text changes to toggle button state ---  (27/01/26)
+        TextWatcher inputWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                updateAddButtonState();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        };
+
+        manualHours.addTextChangedListener(inputWatcher);
+        manualMinutes.addTextChangedListener(inputWatcher);
+        manualSeconds.addTextChangedListener(inputWatcher);
+
+        // Set initial state (Disabled/Dimmed)
+        updateAddButtonState();
+        // -----------------------------------------------------------
 
         MaterialCardView streakCard = findViewById(R.id.cardView3_streak);
 
@@ -142,7 +167,14 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
         });
 
         // Add manual entry functionality
-        addEntryButton.setOnClickListener(v -> addManualEntry());
+        // Update the Add Manual Entry Listener  (27/01/26)
+        addEntryButton.setOnClickListener(v -> {
+            // --- NEW CHECK: Only proceed if there is input ---
+            if (!hasManualInput()) {
+                return; // Ignore the click
+            }
+            addManualEntry();
+        });
 
         updateTodayTotal();
         updateWeekTotal();
@@ -159,10 +191,10 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
         refreshStreakUI();
     }
 
-    private BroadcastReceiver timerUpdateReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver timerUpdateReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals("TIMER_UPDATED")) {
+            if (Objects.equals(intent.getAction(), "TIMER_UPDATED")) {
                 secondsElapsed = intent.getIntExtra("secondsElapsed", 0); // Get the elapsed time
                 updateTimerDisplay(); // Update the timer display
             }
@@ -350,6 +382,9 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
         manualMinutes.setText("");
         manualSeconds.setText("");
 
+        // Force button update after clearing ---
+        updateAddButtonState();
+
         // Hide the keyboard and remove cursor focus after manual entry
         View view = this.getCurrentFocus();
         if (view != null) {
@@ -365,6 +400,30 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
 
         streakManager.updateActiveStreakProgress();
         refreshStreakUI();
+    }
+
+    /**
+     * Checks if any of the manual input fields have text. (27/01/26)
+     */
+    private boolean hasManualInput() {
+        String h = manualHours.getText().toString().trim();
+        String m = manualMinutes.getText().toString().trim();
+        String s = manualSeconds.getText().toString().trim();
+
+        return !h.isEmpty() || !m.isEmpty() || !s.isEmpty();
+    }
+
+    /**
+     * Updates the visual state of the Add Entry button.
+     * We use Alpha (transparency) instead of setEnabled(false) (27/01/26)
+     * so that the LongClickListener remains active.
+     */
+    private void updateAddButtonState() {
+        if (hasManualInput()) {
+            addEntryButton.setAlpha(1.0f); // Fully opaque (looks enabled)
+        } else {
+            addEntryButton.setAlpha(0.3f); // Dimmed (looks disabled)
+        }
     }
 
     // Parse input from EditText
@@ -436,7 +495,7 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
             String formattedStartDate = formatDate(startDateTime);
             String formattedEndDate = formatDate(endDateTime);
 
-            // --- CALCULATE DAILY TARGET STRING ---
+            // --- CALCULATE DAILY TARGET STRING --- (14/01/26)
             String dailyTargetStr = "";
             try {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());

@@ -24,9 +24,9 @@
     <string name="goals_title">Set a New Goal</string>
     <string name="goals_desc">Create a new meditation goal</string>
     <string name="current_version_details">
-        • Migrated report persistence from a single JSON file to individual files per report in a dedicated `reports/` directory.
-        \n• Wrapped menu items in a `NestedScrollView` to support smaller screens.
-        \n• Removed `textIsSelectable` and `focusableInTouchMode` for a cleaner interaction model.
+        • Redesigned Summary Screen – Infinite scrolling between Week/Month/Year views with smoother navigation, these are now view fragments inflated via `viewpager2`.
+        \n• Faster performance via optimized database queries, smarter date handling, and a state‑aware Add Entry button (default - disabled).
+        \n• UI/UX Enhancements – Modernized layouts, rounded dialogs, refined icons, and consistent button styling for a cleaner look.
         \n
         \nNEXT:
         \n › Home screen widget (this will take time to implement).

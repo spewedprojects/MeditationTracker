@@ -27,6 +27,7 @@ import androidx.fragment.app.DialogFragment;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.Objects;
 
 import com.gratus.meditationtrakcer.R;
 
@@ -80,6 +81,9 @@ public class StreakDialogFragment extends DialogFragment {
                 int negativeColor = isDarkMode ? ContextCompat.getColor(requireContext(), R.color.inverseprimary) : ContextCompat.getColor(requireContext(), R.color.inverseprimary);
                 positiveButton.setTextColor(positiveColor);
                 negativeButton.setTextColor(negativeColor);
+
+                // Apply rounded background
+                Objects.requireNonNull(datePickerDialog.getWindow()).setBackgroundDrawableResource(R.drawable.datepicker_rounded_corners);
             });
 
             datePickerDialog.show();

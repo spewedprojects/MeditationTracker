@@ -1,7 +1,12 @@
 ### **Version history and changes:**
-Latest release **_[here](https://github.com/spewedprojects/MeditationTracker/releases/tag/v10.0.b)_**.
+Latest release **_[here](https://github.com/spewedprojects/MeditationTracker/releases/tag/v11.0.0)_**.
 
-76. **_[10.0.a (14/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v10.0.a)_**
+77. **_[10.0.b (16/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v10.0.b)_**
+    > - Migrated report persistence from a single JSON file to individual files per report in a dedicated `reports/` directory.
+    > - Wrapped menu items in a `NestedScrollView` to support smaller screens.
+    > - Removed `textIsSelectable` and `focusableInTouchMode` for a cleaner interaction model and to make links clickable.
+
+    76. [10.0.a (15/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v10.0.a)
     > - Redesigned `minireport_card.xml` to use horizontal rows with weighted columns, thereby refining alignment.
     > - Removed padding for the Week/Month/Year toggle buttons in `activity_summary.xml`.
     > - Font and size changes to release notes view.
