@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
     <color name="secondary">#004D40</color>
     <color name="secondaryVariant">#00897B</color>
     <color name="primary">#222121</color>
@@ -16,6 +19,8 @@
     <color name="success_green">#388E3C</color>
     <color name="success_green_bg">#10388E3C</color>
     <color name="transparent">#00000000</color>
+
+    <color name="text_highlight_color">#41FFFFFF</color>
 
     <color name="minicard_textColor">#E6FFFFFF</color>
 

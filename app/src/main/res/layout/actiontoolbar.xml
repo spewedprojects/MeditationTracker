@@ -28,7 +28,7 @@
             android:src="@drawable/arrow_menu_open"
             app:iconPadding="4dp"
             app:iconSize="23dp"
-            app:iconTint="?attr/colorAccent"
+            android:textColor="@color/onPrimary2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/toolbar_title"
             app:layout_constraintHorizontal_bias="0"

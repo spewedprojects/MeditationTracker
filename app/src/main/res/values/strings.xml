@@ -24,9 +24,8 @@
     <string name="goals_title">Set a New Goal</string>
     <string name="goals_desc">Create a new meditation goal</string>
     <string name="current_version_details">
-        • Redesigned Summary Screen – Infinite scrolling between Week/Month/Year views with smoother navigation, these are now view fragments inflated via `viewpager2`.
-        \n• Faster performance via optimized database queries, smarter date handling, and a state‑aware Add Entry button (default - disabled).
-        \n• UI/UX Enhancements – Modernized layouts, rounded dialogs, refined icons, and consistent button styling for a cleaner look.
+        • Migrated multiple UI elements from `?attr/colorAccent` to a static `@color/onPrimary2` for better color consistency.
+        \n• Added `android:textColorHighlight` to both light and night themes using a new `text_highlight_color` resource - highlighted text will be gray not purple.
         \n
         \nNEXT:
         \n › Home screen widget (this will take time to implement).

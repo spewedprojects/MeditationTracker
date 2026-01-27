@@ -16,11 +16,14 @@
         <item name="colorSurfaceDim">@color/dialog_bg</item>
         <item name="android:textColorHint">@color/textHintcolor</item>
         <item name="colorOnPrimarySurface">@color/barChart</item>
+
+        <item name="android:textColorHighlight">@color/text_highlight_color</item>
+
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/secondary</item>
         <item name="colorSecondaryVariant">@color/secondaryVariant</item>
         <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
+
         <!-- Customize your theme here. -->
         <item name="colorPrimaryInverse">@color/black</item>
     </style>

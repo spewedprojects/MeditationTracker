@@ -59,7 +59,7 @@
                 android:focusableInTouchMode="true"
                 android:fontFamily="@font/atkinsonhyperlegiblenext_light"
                 android:text="Target: 0 hours | 0 days"
-                android:textColor="?attr/colorAccent"
+                android:textColor="@color/onPrimary2"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:letterSpacing="0.04"

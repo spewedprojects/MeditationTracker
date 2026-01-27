@@ -108,7 +108,7 @@
                         android:fontFamily="@font/atkinsonhyperlegiblenext_regular"
                         android:letterSpacing="0.02"
                         android:text="@string/goals_desc"
-                        android:textColor="?attr/colorAccent"
+                        android:textColor="@color/onPrimary2"
                         android:textSize="13sp"
                         app:layout_constraintHorizontal_bias="0"
                         app:layout_constraintLeft_toLeftOf="parent"

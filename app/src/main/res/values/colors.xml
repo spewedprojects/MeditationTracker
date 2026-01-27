@@ -2,12 +2,6 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="status_bar_color">#FFFFFF</color>  <!-- White -->
-    <color name="purple_200">?android:attr/textColorHintInverse</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
 
     <color name="secondary">#B2DFDB</color>
     <color name="secondaryVariant">#26A69A</color>
@@ -25,6 +19,8 @@
     <color name="success_green">#388E3C</color>
     <color name="success_green_bg">#10388E3C</color>
     <color name="transparent">#00000000</color>
+    
+    <color name="text_highlight_color">#41000000</color>
 
     <color name="minicard_textColor">#C7000000</color>
 

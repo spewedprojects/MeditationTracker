@@ -1,7 +1,12 @@
 ### **Version history and changes:**
-Latest release **_[here](https://github.com/spewedprojects/MeditationTracker/releases/tag/v11.0.0)_**.
+Latest release **_[here](https://github.com/spewedprojects/MeditationTracker/releases/tag/v11.0.1)_**.
 
-77. **_[10.0.b (16/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v10.0.b)_**
+78. **_[11.0.0 (27/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v11.0.0)_**
+    > - Redesigned Summary Screen – Infinite scrolling between Week/Month/Year views with smoother navigation, these are now view fragments inflated via `viewpager2`.
+    > - Faster performance via optimized database queries, smarter date handling, and a state‑aware Add Entry button (default - disabled).
+    > - UI/UX Enhancements – Modernized layouts, rounded dialogs, refined icons, and consistent button styling for a cleaner look.
+
+    77. [10.0.b (16/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v10.0.b)
     > - Migrated report persistence from a single JSON file to individual files per report in a dedicated `reports/` directory.
     > - Wrapped menu items in a `NestedScrollView` to support smaller screens.
     > - Removed `textIsSelectable` and `focusableInTouchMode` for a cleaner interaction model and to make links clickable.

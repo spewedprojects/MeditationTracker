@@ -113,7 +113,7 @@
             app:layout_constraintHorizontal_bias="1"
             android:text="Generate Report"
             android:textSize="16sp"
-            app:rippleColor="?attr/colorAccent"
+            app:rippleColor="@color/onPrimary2"
             android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
             android:visibility="gone"/>
 

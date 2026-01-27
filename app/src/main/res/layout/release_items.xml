@@ -19,7 +19,7 @@
         android:filterTouchesWhenObscured="false"
         android:fontFamily="@font/atkinsonhyperlegiblenext_regular"
         android:letterSpacing="0.01"
-        android:textColor="?attr/colorAccent"
+        android:textColor="@color/onPrimary2"
         android:textSize="13sp"
         android:linksClickable="true"
         android:textColorLink="@color/barChart_color"
