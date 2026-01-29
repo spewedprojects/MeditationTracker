@@ -1,5 +1,6 @@
 package com.gratus.meditationtrakcer.dialogfragments;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -9,12 +10,15 @@ import android.graphics.Shader;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.HorizontalScrollView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,6 +34,8 @@ import java.util.Locale;
 import java.util.Objects;
 
 import com.gratus.meditationtrakcer.R;
+import com.gratus.meditationtrakcer.datamodels.Streak;
+import com.gratus.meditationtrakcer.datamanagers.StreakManager;
 
 public class StreakDialogFragment extends DialogFragment {
 
@@ -38,6 +44,7 @@ public class StreakDialogFragment extends DialogFragment {
     }
 
     private static StreakInputListener listener;
+    private StreakManager streakManager;
 
     public static StreakDialogFragment newInstance(StreakInputListener inputListener) {
         listener = inputListener;
@@ -47,6 +54,8 @@ public class StreakDialogFragment extends DialogFragment {
     private final Calendar calendar = Calendar.getInstance();
     private View blurredView;
 
+
+    @SuppressLint("ClickableViewAccessibility")
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -54,9 +63,40 @@ public class StreakDialogFragment extends DialogFragment {
 
         // --- REMOVED The old blur logic that targeted the local view ---
 
+        streakManager = new StreakManager(requireContext());
+
+        // --- View Initialization ---
+        HorizontalScrollView scrollView = dialogView.findViewById(R.id.streak_scroll);
         EditText inputDays = dialogView.findViewById(R.id.streak_days_input);
         EditText inputStartDate = dialogView.findViewById(R.id.streak_start_date);
         Button addStreak = dialogView.findViewById(R.id.add_streak);
+
+        // Stats Views
+        TextView longestStreakText = dialogView.findViewById(R.id.streak_longest_int);
+        TextView currentStreakText = dialogView.findViewById(R.id.streak_current_int);
+        TextView currentStreakLabel = dialogView.findViewById(R.id.streak_current_title); // For modifying title if needed
+
+        // --- 1. Populate Stats (Longest & Current) ---
+        populateStreakStats(longestStreakText, currentStreakText);
+
+        // --- 2. Implement Snap Behavior for HorizontalScrollView ---
+        scrollView.setOnTouchListener((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                // Get width of the container/page (Currently defined as 290dp in XML)
+                // We use the first child of the scrollview's child (the linear layout 'streak_input')
+                View inputPage = dialogView.findViewById(R.id.streak_input);
+                int pageWidth = inputPage.getWidth();
+                int scrollX = scrollView.getScrollX();
+
+                // Calculate which page we are closer to (0 or 1)
+                int page = (scrollX + (pageWidth / 2)) / pageWidth;
+                int targetX = page * pageWidth;
+
+                scrollView.post(() -> scrollView.smoothScrollTo(targetX, 0));
+                return true;
+            }
+            return false;
+        });
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         inputStartDate.setText("");
@@ -104,6 +144,32 @@ public class StreakDialogFragment extends DialogFragment {
         Dialog dialog = new Dialog(requireContext());
         dialog.setContentView(dialogView);
         return dialog;
+    }
+
+    private void populateStreakStats(TextView longestTv, TextView currentTv) {
+        // 1. Longest Streak
+        int longest = streakManager.getLongestStreak();
+        longestTv.setText(String.valueOf(longest));
+
+        // 2. Current Streak Logic
+        Streak activeStreak = streakManager.getActiveStreak();
+
+        if (activeStreak != null) {
+            // Scenario A: Active Goal Exists -> Show "Achieved / Target"
+            // Ensure we calculate progress first so it's up to date
+            streakManager.updateActiveStreakProgress();
+            // Refetch to get updated achieved days
+            activeStreak = streakManager.getActiveStreak();
+
+            if(activeStreak != null) {
+                String progress = activeStreak.getAchievedDays() + "/" + activeStreak.getTargetDays();
+                currentTv.setText(progress);
+            }
+        } else {
+            // Scenario B: No Active Goal -> Show simple contiguous count
+            int currentContiguous = streakManager.getContiguousMeditationDays();
+            currentTv.setText(String.valueOf(currentContiguous));
+        }
     }
 
     @Override

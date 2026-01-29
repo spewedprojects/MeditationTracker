@@ -273,7 +273,7 @@ public class BaseActivity extends AppCompatActivity {
      */
     private void setupDrawer() {
         // Example: set up a listener on the close button inside the drawer.
-        View closeMenu = findViewById(R.id.close_menu);
+        ImageButton closeMenu = findViewById(R.id.close_menu);
         if (closeMenu != null) {
             closeMenu.setOnClickListener(v -> drawerLayout.closeDrawer(GravityCompat.START));
         }
@@ -334,7 +334,7 @@ public class BaseActivity extends AppCompatActivity {
             if (id == activeId) {
                 // ACTIVE: Set tint to your green color (or fetch from resources)
                 // Use R.color.success_green if defined, or parse the color manually if you don't have a resource handle handy
-                btn.setIconTint(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.inverseprimary)));
+                btn.setIconTint(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.active_dot_color)));
                 // If you don't have R.color.success_green defined in java, use: Color.parseColor("#YOUR_HEX_CODE")
             } else {
                 // INACTIVE: Set tint to Transparent (hides the dot but keeps layout stable)

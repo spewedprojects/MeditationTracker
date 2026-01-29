@@ -19,26 +19,20 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <!-- Menu button on toolbar next to title -->
-        <Button
+        <ImageButton
             android:id="@+id/close_menu"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
-            android:textColor="?attr/colorPrimaryVariant"
+            android:layout_width="70dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="0dp"
             android:background="@android:color/transparent"
-            app:cornerRadius="10dp"
-            app:icon="@drawable/arrow_menu_close"
-            app:iconGravity="end"
-            app:iconSize="23dp"
-            app:iconPadding="4dp"
-            app:iconTint="@color/onPrimary2"
+            android:contentDescription="@string/close_menu_button"
+            android:src="@drawable/arrow_menu_close"
+            android:scaleType="fitEnd"
+            android:padding="18dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.034" /> <!-- Close Menu Button -->
+            app:tint="@color/onPrimary2" /> <!-- Close Menu Button -->
 
         <!-- Centered title on actionbar -->
         <TextView
@@ -55,11 +49,8 @@
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.55"
-            app:layout_constraintHorizontal_bias="0"/>
+            app:layout_constraintTop_toTopOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout> <!-- Constrained layout for menubutton and Title -->
 
@@ -97,7 +88,7 @@
                 android:textSize="16.5sp"
                 app:icon="@drawable/active_dot"
                 app:iconGravity="end"
-                app:iconSize="7dp"/>
+                app:iconSize="8dp"/>
 
             <!-- Summary Button -->
             <Button
@@ -114,7 +105,7 @@
                 android:background="@android:color/transparent"
                 app:icon="@drawable/active_dot"
                 app:iconGravity="end"
-                app:iconSize="7dp"/> <!-- Summary Button -->
+                app:iconSize="8dp"/> <!-- Summary Button -->
 
             <!-- Reports Button -->
             <Button
@@ -132,7 +123,7 @@
                 android:visibility="visible"
                 app:icon="@drawable/active_dot"
                 app:iconGravity="end"
-                app:iconSize="7dp"/> <!-- Reports Button -->
+                app:iconSize="8dp"/> <!-- Reports Button -->
 
             <!-- Custom Goals Button -->
             <Button
@@ -150,7 +141,7 @@
                 android:letterSpacing="0.03"
                 app:icon="@drawable/active_dot"
                 app:iconGravity="end"
-                app:iconSize="7dp"/> <!-- Custom Goals Button -->
+                app:iconSize="8dp"/> <!-- Custom Goals Button -->
 
             <!-- About app button -->
             <Button
@@ -167,7 +158,7 @@
                 android:letterSpacing="0.03"
                 app:icon="@drawable/active_dot"
                 app:iconGravity="end"
-                app:iconSize="7dp"/> <!-- About app button -->
+                app:iconSize="8dp"/> <!-- About app button -->
 
             <!-- Release notes button -->
             <Button
@@ -184,7 +175,7 @@
                 android:letterSpacing="0.03"
                 app:icon="@drawable/active_dot"
                 app:iconGravity="end"
-                app:iconSize="7dp"/> <!-- Release notes button -->
+                app:iconSize="8dp"/> <!-- Release notes button -->
 
             <!-- Export / Import Toggle Group -->
             <com.google.android.material.button.MaterialButtonToggleGroup
@@ -208,7 +199,7 @@
                     style="@style/ExportImportButtonStyle"
                     android:text="Export"
                     app:shapeAppearanceOverlay="@style/ExportButtonCorners"
-                    app:icon="@drawable/baseline_import_export"
+                    app:icon="@drawable/download_icon_inverse"
                     app:iconGravity="textStart"
                     android:insetRight="1dp"
                     android:padding="12dp"
@@ -220,7 +211,7 @@
                     style="@style/ExportImportButtonStyle"
                     android:text="Import"
                     app:shapeAppearanceOverlay="@style/ImportButtonCorners"
-                    app:icon="@drawable/baseline_import_export"
+                    app:icon="@drawable/download_icon"
                     app:iconGravity="textEnd"
                     android:insetLeft="1dp"
                     android:padding="12dp"
@@ -238,9 +229,7 @@
         android:layout_margin="20dp"
         android:elevation="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintVertical_bias="1">
 
         <ImageButton

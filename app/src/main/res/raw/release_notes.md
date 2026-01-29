@@ -1,7 +1,73 @@
-### **Version history and changes:**
-Latest release **_[here](https://github.com/spewedprojects/MeditationTracker/releases/tag/v11.0.1)_**.
+<table width="100%">
+  <thead>
+    <tr>
+      <th width="10%" align="right">Ver.</th>
+      <th width="20%" align="left">Date</th>
+      <th width="70%" align="left">Breaking change / reason for major bump</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="right">11</td>
+      <td>27 Jan 2026</td>
+      <td>Redesigned summary architecture: <code>SummaryActivity</code> → fragment + <code>ViewPager2</code> infinite carousel (breaking rewrite of summary UI/fragment contract and data-loading flow).</td>
+    </tr>
+    <tr>
+      <td align="right">10</td>
+      <td>14 Jan 2026</td>
+      <td>Goal-tracking data model refactor: <code>Goal</code> now includes <code>dailyTarget</code> and <code>dateRange</code> (adapter/DB changes affecting goal persistence and UI).</td>
+    </tr>
+    <tr>
+      <td align="right">9</td>
+      <td>13 Jan 2026</td>
+      <td>Full reporting system added: <code>ReportGenerator</code> / <code>ReportJsonHelper</code>, <code>ReportDetailDialogFragment</code> and <code>ReportsActivity</code> (new report data formats and storage).</td>
+    </tr>
+    <tr>
+      <td align="right">8</td>
+      <td>12 Jan 2026</td>
+      <td>Chart/picker overhaul: extracted chart logic, carousel-style year/month picker and MotionLayout-based reports UI (significant UI/UX component changes).</td>
+    </tr>
+    <tr>
+      <td align="right">7</td>
+      <td>08 Jan 2026</td>
+      <td>Backdated-entry & streak resurrection: added backdated manual entries and DB support to resurrect streaks (schema/DB logic change for streaks).</td>
+    </tr>
+    <tr>
+      <td align="right">6</td>
+      <td>08 Jan 2026</td>
+      <td>Summary navigation and menu refactor: fixed <code>SummaryActivity</code> navigation/refresh logic and reworked menu drawer layout (breaking UI/navigation behaviour fixes).</td>
+    </tr>
+    <tr>
+      <td align="right">5</td>
+      <td>22 Jun 2025</td>
+      <td>Streak system implemented in SQLite: new <code>Streak</code> model + <code>StreakDatabaseHelper</code> and <code>StreakManager</code> (database schema + import/export changes).</td>
+    </tr>
+    <tr>
+      <td align="right">3</td>
+      <td>07 Jun 2025</td>
+      <td>Summary/graphs overhaul: consolidated all graphs into a single swipeable screen (major UI flow change).</td>
+    </tr>
+    <tr>
+      <td align="right">2</td>
+      <td>31 May 2025</td>
+      <td>Chart rendering update: introduced rounded bar rendering and revived <code>RoundedBarChartRenderer</code> (visual/renderer change impacting chart modules).</td>
+    </tr>
+    <tr>
+      <td align="right">1</td>
+      <td>07 Feb 2025</td>
+      <td>Core UI/menu polish: menu/title/close layout refactor and swipeable menu (foundation UI changes that stabilized app look/feel).</td>
+    </tr>
+  </tbody>
+</table>
 
-78. **_[11.0.0 (27/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v11.0.0)_**
+### **Version history and changes:**
+Latest release **_[here](https://github.com/spewedprojects/MeditationTracker/releases/tag/v11.1.0)_**.
+
+79. **_[11.0.1 (27/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v11.0.1)_**
+    > - Migrated multiple UI elements from `?attr/colorAccent` to a static `@color/onPrimary2` for better color consistency.
+    > - Added `android:textColorHighlight` to both light and night themes using a new `text_highlight_color` resource.
+
+    78. [11.0.0 (27/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v11.0.0)
     > - Redesigned Summary Screen – Infinite scrolling between Week/Month/Year views with smoother navigation, these are now view fragments inflated via `viewpager2`.
     > - Faster performance via optimized database queries, smarter date handling, and a state‑aware Add Entry button (default - disabled).
     > - UI/UX Enhancements – Modernized layouts, rounded dialogs, refined icons, and consistent button styling for a cleaner look.

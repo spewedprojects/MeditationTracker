@@ -422,7 +422,7 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
         if (hasManualInput()) {
             addEntryButton.setAlpha(1.0f); // Fully opaque (looks enabled)
         } else {
-            addEntryButton.setAlpha(0.3f); // Dimmed (looks disabled)
+            addEntryButton.setAlpha(0.15f); // Dimmed (looks disabled)
         }
     }
 
@@ -523,7 +523,7 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
             }
 
             goalTitle.setText(description);
-            goalDuration.setText(Html.fromHtml("<b>T:</b> " + dailyTargetStr + " | " + targetHours + "h | " + formattedStartDate + " - " + formattedEndDate));
+            goalDuration.setText(dailyTargetStr + " | " + targetHours + "h | " + formattedStartDate + " - " + formattedEndDate);
             goalProgressBar.setProgress(progressPercentage);
             goalProgressPercentage.setText(progressPercentage + "%");
 

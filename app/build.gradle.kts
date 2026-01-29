@@ -10,8 +10,8 @@ android {
         applicationId = "com.gratus.meditationtrakcer"
         minSdk = 31
         targetSdk = 36
-        versionCode = 70
-        versionName = "11.0.1" // Format: Major (4), Minor (0), Patch (a)
+        versionCode = 71
+        versionName = "11.1.0" // Format: Major (4), Minor (0), Patch (a)
 
         // Pass versionName to the app as a resource
         resValue(
@@ -52,5 +52,6 @@ dependencies {
     implementation(libs.mpandroidchart) // Charts support
     implementation(libs.core) // Markdown support
     implementation(libs.ext.tables) // 📌 Add Table support
+    implementation(libs.html) // Add HTML support
     implementation(libs.core.ktx) // Or the latest version
 }

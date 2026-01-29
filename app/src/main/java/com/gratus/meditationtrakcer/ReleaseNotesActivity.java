@@ -19,6 +19,7 @@ import java.util.List;
 
 import io.noties.markwon.Markwon;
 import io.noties.markwon.ext.tables.TablePlugin;
+import io.noties.markwon.html.HtmlPlugin;
 
 public class ReleaseNotesActivity extends BaseActivity {
 
@@ -48,6 +49,7 @@ public class ReleaseNotesActivity extends BaseActivity {
         // Initialize Markdown processor & ✅ Enable Table Plugin
         Markwon markwon = Markwon.builder(this)
                 .usePlugin(TablePlugin.create(this)) // 📌 Add table support
+                //.usePlugin(HtmlPlugin.create()) // 👈 Add this for HTML table support
                 .build();
 
         // Pass Markwon to the adapter

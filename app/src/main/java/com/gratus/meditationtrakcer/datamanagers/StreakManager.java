@@ -2,9 +2,12 @@ package com.gratus.meditationtrakcer.datamanagers;
 
 import android.content.Context;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 import android.database.Cursor;
@@ -90,6 +93,45 @@ public class StreakManager {
     public int getContiguousMeditationDays() {
         // Calculate from today backwards
         return calculateContiguousDays(null);
+    }
+
+    // ✅ NEW METHOD: Calculate the Longest Streak ever recorded (29/01/2026)
+    public int getLongestStreak() {
+        HashSet<String> dateSet = getMeditationDates();
+        if (dateSet.isEmpty()) return 0;
+
+        List<Date> dates = new ArrayList<>();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+
+        // Convert Strings to Dates for sorting
+        for (String s : dateSet) {
+            try {
+                dates.add(sdf.parse(s));
+            } catch (Exception e) { e.printStackTrace(); }
+        }
+
+        Collections.sort(dates);
+
+        int maxStreak = 1;
+        int currentStreak = 1;
+
+        // Iterate through sorted dates
+        for (int i = 0; i < dates.size() - 1; i++) {
+            long diffInMillis = dates.get(i + 1).getTime() - dates.get(i).getTime();
+            long diffInDays = TimeUnit.DAYS.convert(diffInMillis, TimeUnit.MILLISECONDS);
+
+            if (diffInDays == 1) {
+                // Consecutive day
+                currentStreak++;
+            } else if (diffInDays > 1) {
+                // Break in streak
+                maxStreak = Math.max(maxStreak, currentStreak);
+                currentStreak = 1;
+            }
+            // If diffInDays == 0 (duplicate entries), do nothing
+        }
+
+        return Math.max(maxStreak, currentStreak);
     }
 
     private int calculateContiguousDays(String fromDateStr) {

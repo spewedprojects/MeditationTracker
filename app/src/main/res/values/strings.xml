@@ -24,11 +24,14 @@
     <string name="goals_title">Set a New Goal</string>
     <string name="goals_desc">Create a new meditation goal</string>
     <string name="current_version_details">
-        • Migrated multiple UI elements from `?attr/colorAccent` to a static `@color/onPrimary2` for better color consistency.
-        \n• Added `android:textColorHighlight` to both light and night themes using a new `text_highlight_color` resource - highlighted text will be gray not purple.
+        • Added Streak Stats view in StreakDialogFragment, showing longest streak and current progress.
+        \n• Redesigned streak dialog with HorizontalScrollView + snap behavior for toggling goal input/stats.
+        \n• Major UI refinements: new ImageButton close, updated icons, RTL-friendly constraints, improved button styles.
         \n
         \nNEXT:
         \n › Home screen widget (this will take time to implement).
     </string>
     <string name="v1.16.c">v1.16.c:\n- NOICE!\n  - Next indent.\n   • bullet 1 ▶ Bullet 2 › bullet 3</string>
+    <string name="close_menu_button">Close Menu</string>
+    <string name="open_menu_button">Open Menu</string>
 </resources>

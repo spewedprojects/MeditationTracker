@@ -18,6 +18,7 @@
         <item name="android:icon">@drawable/export_button_bg</item>
         <item name="iconSize">24dp</item>
         <item name="iconTint">?attr/colorPrimary</item>
+        <item name="iconPadding">4dp</item>
         <item name="android:insetTop">0dp</item>
         <item name="android:insetBottom">0dp</item>
         <item name="backgroundTint">?attr/colorOnPrimary</item> <!-- Transparent background -->

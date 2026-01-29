@@ -38,8 +38,8 @@
         android:elevation="6dp"
         app:cardBackgroundColor="?attr/colorPrimaryVariant"
         app:layout_constraintTop_toBottomOf="@id/toolbar2_const"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/cardView3_streak"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/cardView3_streak"
         app:layout_constraintBottom_toTopOf="@id/barrier_cardView0"
         app:layout_constraintVertical_bias="0"
         app:layout_constraintHorizontal_bias="0">
@@ -129,8 +129,8 @@
         android:elevation="6dp"
         app:cardBackgroundColor="?attr/colorPrimaryVariant"
         app:layout_constraintBottom_toTopOf="@id/barrier_cardView0"
-        app:layout_constraintLeft_toRightOf="@id/cardView0"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toEndOf="@id/cardView0"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar2_const"
         app:layout_constraintVertical_bias="1"
         app:layout_constraintHorizontal_bias="1"
@@ -161,11 +161,9 @@
                 android:textColor="@color/onPrimary2"
                 android:textSize="18sp"
                 android:letterSpacing="0.04"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0"
                 tools:ignore="TextViewEdits" /> <!-- android:ems="10" removing this removed the touchsize too small and one another warning-->
 
             <TextView
@@ -179,12 +177,12 @@
                 android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                 android:text="111"
                 android:textColor="?attr/colorOnPrimary"
-                android:textSize="54sp"
+                android:textSize="54dp"
                 android:layout_marginVertical="0dp"
                 app:layout_constraintTop_toBottomOf="@id/streak_title"
                 app:layout_constraintBottom_toTopOf="@id/streak_progress_bar"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintVertical_bias="0.41"
                 tools:ignore="TextViewEdits" /> <!-- Streak duration -->
 
@@ -193,16 +191,14 @@
                 style="@android:style/Widget.ProgressBar.Horizontal"
                 android:layout_width="0dp"
                 android:layout_height="6dp"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginBottom="14dp"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginBottom="24dp"
                 android:max="100"
                 android:progress="0"
                 android:progressDrawable="@drawable/progress_bar_style"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.92"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 android:visibility="visible"/> <!-- Streak progress bar -->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -214,8 +210,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:paddingBottom="0dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cardView0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintVertical_bias="0">
@@ -237,8 +233,8 @@
                 app:cardCornerRadius="12dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintCircleRadius="8dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0">
 
@@ -311,8 +307,8 @@
                 app:cardBackgroundColor="?attr/colorPrimaryVariant"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintCircleRadius="8dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardView1"
                 app:layout_constraintVertical_bias="0">
 
@@ -420,8 +416,8 @@
                 app:cardBackgroundColor="?attr/colorPrimaryVariant"
                 app:cardCornerRadius="12dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cardView2"
                 app:layout_constraintVertical_bias="0"
                 app:layout_constraintHorizontal_bias="0.5">
@@ -434,20 +430,17 @@
 
                     <ImageButton
                         android:id="@+id/goto_goals"
-                        android:layout_width="wrap_content"
+                        android:layout_width="70dp"
                         android:layout_height="wrap_content"
                         android:background="#00000000"
                         android:padding="16dp"
+                        android:layout_margin="6dp"
                         android:src="@drawable/baseline_arrow_forward"
                         app:iconGravity="end"
                         android:contentDescription="Go to goals screen"
                         android:clickable="true"
-                        app:layout_constraintBottom_toTopOf="@id/goal_progress_percentage2"
-                        app:layout_constraintHorizontal_bias="0.9"
-                        app:layout_constraintLeft_toRightOf="@id/goal_title_home"
-                        app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.3" />
+                        app:layout_constraintEnd_toEndOf="parent" />
 
                     <TextView
                         android:id="@+id/goal_title_home"
@@ -462,12 +455,8 @@
                         android:text="Goal title"
                         android:textColor="?attr/colorOnPrimary"
                         android:textSize="18sp"
-                        app:layout_constraintBottom_toTopOf="@id/goal_duration_home"
-                        app:layout_constraintHorizontal_bias="0"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.0"
                         tools:ignore="TextViewEdits" /> <!-- Target duration x hours in x days -->
 
                     <TextView
@@ -477,6 +466,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginEnd="10dp"
                         android:layout_marginTop="6dp"
+                        android:layout_marginBottom="16dp"
                         android:filterTouchesWhenObscured="false"
                         android:focusableInTouchMode="true"
                         android:fontFamily="@font/atkinsonhyperlegiblenext_light"
@@ -486,9 +476,7 @@
                         android:letterSpacing="0.03"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toTopOf="@id/goal_progress_bar2"
-                        app:layout_constraintHorizontal_bias="0"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toLeftOf="@id/goto_goals"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/goal_title_home"
                         app:layout_constraintVertical_bias="0.0"
                         tools:ignore="TextViewEdits" /> <!-- Goals summary description -->
@@ -506,17 +494,15 @@
                         android:progress="0"
                         android:progressDrawable="@drawable/progress_bar_style"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/goal_duration_home" /> <!-- Goal progress bar -->
+                        app:layout_constraintStart_toStartOf="parent"/> <!-- Goal progress bar -->
 
                     <TextView
                         android:id="@+id/goal_progress_percentage2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:layout_marginTop="18dp"
                         android:layout_marginEnd="15dp"
+                        android:layout_marginBottom="17dp"
                         android:filterTouchesWhenObscured="false"
                         android:focusableInTouchMode="true"
                         android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
@@ -525,10 +511,8 @@
                         android:textSize="13sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintHorizontal_bias="0"
-                        app:layout_constraintLeft_toRightOf="@+id/goal_progress_bar2"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/goal_duration_home"
-                        app:layout_constraintVertical_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/goal_progress_bar2"
+                        app:layout_constraintEnd_toEndOf="parent"
                         tools:ignore="TextViewEdits" /> <!-- Goal completion progressbar -->
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
