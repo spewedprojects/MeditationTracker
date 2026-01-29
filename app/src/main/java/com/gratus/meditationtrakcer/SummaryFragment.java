@@ -87,13 +87,17 @@ public class SummaryFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setupUI(view);
+
+        // FIX: Load data immediately when the view is created in the background buffer.
+        // This ensures the graph is ready BEFORE you swipe to it.
+        refreshData();
     }
 
     // Called when the tab becomes visible to refresh data
     @Override
     public void onResume() {
         super.onResume();
-        refreshData();
+        //refreshData();
     }
 
     public void refreshData() {

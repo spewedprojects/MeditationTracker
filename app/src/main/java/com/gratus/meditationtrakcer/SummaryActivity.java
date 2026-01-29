@@ -165,12 +165,12 @@ public class SummaryActivity extends BaseActivity {
         refreshButtonTransparency(targetId);
     }
 
-    /** 100 % opaque for the checked button, 20 % opaque (≈ 70 % transparent)
+    /** 100 % opaque for the checked button, 25 % opaque (≈ 75 % transparent)
      *  for the others.  */
     private void refreshButtonTransparency(int checkedId) {
-        btnWeekly .setAlpha(checkedId == R.id.W_Button ? 1f : 0.2f);
-        btnMonthly.setAlpha(checkedId == R.id.M_Button ? 1f : 0.2f);
-        btnYearly .setAlpha(checkedId == R.id.Y_Button ? 1f : 0.2f);
+        btnWeekly .setAlpha(checkedId == R.id.W_Button ? 1f : 0.25f);
+        btnMonthly.setAlpha(checkedId == R.id.M_Button ? 1f : 0.25f);
+        btnYearly .setAlpha(checkedId == R.id.Y_Button ? 1f : 0.25f);
     }
 
     // (13/01/26) - For reports
@@ -395,9 +395,19 @@ public class SummaryActivity extends BaseActivity {
             LocalDate target = monthStart.plusWeeks(weekOffset).with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
             selectedWeekStartDate = target.format(fmt);
 
-            viewPager.setCurrentItem(0, true);
-            // Force refresh the target tab
-            adapter.notifyItemChanged(0);
+            // FIX: Find the nearest "Week" page relative to where we are now. (29/01/26)
+            // Do NOT jump to 0.
+            int currentPos = viewPager.getCurrentItem();
+            int currentMode = currentPos % 3;
+            int targetMode = 0; // 0 = Week
+
+            // Calculate offset (e.g., if at Month(1), target Week(0) -> offset is -1)
+            int newPos = currentPos + (targetMode - currentMode);
+
+            viewPager.setCurrentItem(newPos, true);
+
+            // Force the adapter to refresh that specific page (in case it was already preloaded with old data)
+            adapter.notifyItemChanged(newPos);
         } catch (Exception e) { e.printStackTrace(); }
     }
 
@@ -408,8 +418,19 @@ public class SummaryActivity extends BaseActivity {
             LocalDate target = yearStart.withMonth(monthIndex + 1).withDayOfMonth(1);
             selectedMonthStartDate = target.format(fmt);
 
-            viewPager.setCurrentItem(1, true);
-            adapter.notifyItemChanged(1);
+            // FIX: Find the nearest "Month" page relative to where we are now. (29/01/26)
+            // Do NOT jump to 1.
+            int currentPos = viewPager.getCurrentItem();
+            int currentMode = currentPos % 3;
+            int targetMode = 1; // 1 = Month
+
+            // Calculate offset (e.g., if at Year(2), target Month(1) -> offset is -1)
+            int newPos = currentPos + (targetMode - currentMode);
+
+            viewPager.setCurrentItem(newPos, true);
+
+            // Force refresh to ensure the chart reloads with the newly selected month date
+            adapter.notifyItemChanged(newPos);
         } catch (Exception e) { e.printStackTrace(); }
     }
 

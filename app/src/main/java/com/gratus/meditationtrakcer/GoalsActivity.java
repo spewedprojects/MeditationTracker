@@ -406,7 +406,7 @@ public class GoalsActivity extends BaseActivity {
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this, (view, selectedYear, selectedMonth, selectedDay) -> {
+        DatePickerDialog dPDialog = new DatePickerDialog(this, (view, selectedYear, selectedMonth, selectedDay) -> {
             String selectedDate = selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear;
             dateInput.setText(selectedDate);
         }, year, month, day);
@@ -417,9 +417,9 @@ public class GoalsActivity extends BaseActivity {
         }
 
         // Customize button colors when the dialog is shown
-        datePickerDialog.setOnShowListener(dialog -> {
-            Button positiveButton = datePickerDialog.getButton(DialogInterface.BUTTON_POSITIVE);
-            Button negativeButton = datePickerDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+        dPDialog.setOnShowListener(dialog -> {
+            Button positiveButton = dPDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+            Button negativeButton = dPDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
 
             // Determine the current effective theme
             boolean isDarkMode = isDarkMode();
@@ -432,10 +432,10 @@ public class GoalsActivity extends BaseActivity {
             negativeButton.setTextColor(negativeColor);
 
             // Apply rounded background
-            Objects.requireNonNull(datePickerDialog.getWindow()).setBackgroundDrawableResource(R.drawable.datepicker_rounded_corners);
+            Objects.requireNonNull(dPDialog.getWindow()).setBackgroundDrawableResource(R.drawable.datepicker_rounded_corners);
         });
 
-        datePickerDialog.show();
+        dPDialog.show();
     }
 
     private void showTimePickerDialog(EditText timeInput) {
@@ -448,7 +448,7 @@ public class GoalsActivity extends BaseActivity {
             minute = Integer.parseInt(p[1]);
         }
 
-        TimePickerDialog dialog = new TimePickerDialog(
+        TimePickerDialog tPDialog = new TimePickerDialog(
                 this,
                 (TimePicker view, int selectedHour, int selectedMinute) -> {
                     String hh = String.format(Locale.US, "%02d", selectedHour);
@@ -458,15 +458,17 @@ public class GoalsActivity extends BaseActivity {
                 hour, minute, true);                     // 24-hour
 
         // match the colour-tint logic you already use for DatePicker
-        dialog.setOnShowListener(d -> {
+        tPDialog.setOnShowListener(d -> {
             boolean dark = isDarkMode();
             int colour   = ContextCompat.getColor(this,
                     dark ? R.color.inverseprimary : R.color.inverseprimary);
-            dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(colour);
-            dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(colour);
+            tPDialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(colour);
+            tPDialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(colour);
+            // Apply rounded background
+            Objects.requireNonNull(tPDialog.getWindow()).setBackgroundDrawableResource(R.drawable.datepicker_rounded_corners);
         });
 
-        dialog.show();
+        tPDialog.show();
     }
 
     private boolean isDarkMode() {

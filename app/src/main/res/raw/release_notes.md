@@ -61,13 +61,18 @@
 </table>
 
 ### **Version history and changes:**
-Latest release **_[here](https://github.com/spewedprojects/MeditationTracker/releases/tag/v11.1.0)_**.
+Latest release **_[here](https://github.com/spewedprojects/MeditationTracker/releases/tag/v11.1.1)_**.
 
-79. **_[11.0.1 (27/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v11.0.1)_**
+80. **_[11.1.0 (27/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v11.1.0)_**
+    > - Added Streak Stats view in `StreakDialogFragment`, showing longest streak and current progress.
+    > - Redesigned streak dialog with `HorizontalScrollView` + snap behavior for toggling goal input/stats.
+    > - Major UI refinements: new `ImageButton` close, updated icons, RTL-friendly constraints, improved button styles.
+
+    79. [11.0.1 (27/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v11.0.1)
     > - Migrated multiple UI elements from `?attr/colorAccent` to a static `@color/onPrimary2` for better color consistency.
     > - Added `android:textColorHighlight` to both light and night themes using a new `text_highlight_color` resource.
 
-    78. [11.0.0 (27/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v11.0.0)
+    78. **[11.0.0 (27/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v11.0.0)**
     > - Redesigned Summary Screen – Infinite scrolling between Week/Month/Year views with smoother navigation, these are now view fragments inflated via `viewpager2`.
     > - Faster performance via optimized database queries, smarter date handling, and a state‑aware Add Entry button (default - disabled).
     > - UI/UX Enhancements – Modernized layouts, rounded dialogs, refined icons, and consistent button styling for a cleaner look.
@@ -82,7 +87,7 @@ Latest release **_[here](https://github.com/spewedprojects/MeditationTracker/rel
     > - Removed padding for the Week/Month/Year toggle buttons in `activity_summary.xml`.
     > - Font and size changes to release notes view.
 
-    75. [10.0.0 (14/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v10.0.0)
+    75. **[10.0.0 (14/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v10.0.0)**
     > - Goal cards now show target per day, instead of just the entire target. Made some Changes to how date range was being displayed and refactored teh corresponding files. 
     > - Refined mini report card layout and wrapped full report card contents inside a nestedscrollview.
     > - Font and size changes to release notes view. 
@@ -93,13 +98,13 @@ Latest release **_[here](https://github.com/spewedprojects/MeditationTracker/rel
     > - Refined `streakStability` calculation to represent average streak length.
     > - Implemented state persistence for the goal card using SharedPreferences.
 
-    73. [9.0.a (13/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v9.0.a)
+    73. **[9.0.a (13/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v9.0.a)**
     > - ### HUGE ONE!!! Reports are ready!
     >   - ReportJsonHelper, MeditationReportData, ReportGenerator, ReportDetailDialogFragment - files that made it happen.
     >   - Button Ready to use in Summary activity
     > - Next will be adding a persistent goal collapse state.
 
-    72. [8.1.a (12/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v8.1.a)
+    72. **[8.1.a (12/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v8.1.a)**
     > - Extracted chart configuration logic into a new `MeditationChartManager` class to reduce boilerplate in `SummaryActivity`
     > - Dialogs completely ready, visually. Using new classes to inject year and handle the carousel.
     > - The prev./next buttons now without any BG, looks better this way. Text size increased and font thickened.
@@ -120,7 +125,7 @@ Latest release **_[here](https://github.com/spewedprojects/MeditationTracker/rel
     > - __HUGE!__ Implemented a collapsible "Set a New Goal" card using a button which animates as changes occur.
     > - Using LinearLayout wherever possible.
 
-    68. 7.1.a (08/01/2026)
+    68. **[7.1.a (08/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v7.1.a)**
     > - Added back-dated entry feature, via long click on (Add manually) opens a dialog box with blur bg.
     > - Refined streakmanager to resurrect streak in case of contiguous day due to back entry.
     > - Added a `status` column to the streaks table to distinguish between active and inactive/failed goals (db ver. 2).
@@ -145,7 +150,7 @@ Latest release **_[here](https://github.com/spewedprojects/MeditationTracker/rel
     > - Release notes now have cardview for current version.
     > - Colors are now stored in night and not-night instead of Dark/Light prefixes.
 
-    63. 6.1.a (18/09/2025)
+    63. **[6.1.a (18/09/2025)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v6.1.a)**
     > - Upgraded Gradle wrapper to 8.13 and updated various AndroidX and Material dependencies.
     > - Made About screen scrollable for better usability on smaller displays.
     > - Replaced deprecated `LocalBroadcastManager` with `ContextCompat.registerReceiver` for timer updates.
@@ -178,7 +183,7 @@ Latest release **_[here](https://github.com/spewedprojects/MeditationTracker/rel
     56. 5.0.b (22/06/2025)
     > - Fixed crash due to toolbar/constraint issue.
 
-    55. 5.0.a (22/06/2025)
+    55. **[5.0.a (22/06/2025)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v5.0.a)**
     > - Font style is now "Atkinson Hyperlegible Next" because I like the way ZERO looks in it.
     > - Made a separate actionbar layout resource file and included it in all the screens - reducing redundancies.
     > - Removed the leftover layout files of separate summary screens.

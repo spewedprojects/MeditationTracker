@@ -24,9 +24,9 @@
     <string name="goals_title">Set a New Goal</string>
     <string name="goals_desc">Create a new meditation goal</string>
     <string name="current_version_details">
-        • Added Streak Stats view in StreakDialogFragment, showing longest streak and current progress.
-        \n• Redesigned streak dialog with HorizontalScrollView + snap behavior for toggling goal input/stats.
-        \n• Major UI refinements: new ImageButton close, updated icons, RTL-friendly constraints, improved button styles.
+        • Applied rounded corner backgrounds to `TimePickerDialog` and `DatePickerDialog` across `GoalsActivity`.
+        \n• Improved `ViewPager` navigation logic in `SummaryActivity` to transition to the nearest relative page (Week/Month) instead of jumping to index 0/1.
+        \n• Optimized data loading in `SummaryFragment` by triggering `refreshData()` during `onViewCreated`.
         \n
         \nNEXT:
         \n › Home screen widget (this will take time to implement).

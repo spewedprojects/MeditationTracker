@@ -102,7 +102,7 @@ public class StreakDialogFragment extends DialogFragment {
         inputStartDate.setText("");
 
         inputStartDate.setOnClickListener(v -> {
-            DatePickerDialog datePickerDialog = new DatePickerDialog(
+            DatePickerDialog dPDialog = new DatePickerDialog(
                     requireContext(),
                     (view, year, month, dayOfMonth) -> {
                         calendar.set(year, month, dayOfMonth);
@@ -113,9 +113,9 @@ public class StreakDialogFragment extends DialogFragment {
                     calendar.get(Calendar.DAY_OF_MONTH)
             );
 
-            datePickerDialog.setOnShowListener(dialog -> {
-                Button positiveButton = datePickerDialog.getButton(DialogInterface.BUTTON_POSITIVE);
-                Button negativeButton = datePickerDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+            dPDialog.setOnShowListener(dialog -> {
+                Button positiveButton = dPDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+                Button negativeButton = dPDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
                 boolean isDarkMode = isDarkMode();
                 int positiveColor = isDarkMode ? ContextCompat.getColor(requireContext(), R.color.inverseprimary) : ContextCompat.getColor(requireContext(), R.color.inverseprimary);
                 int negativeColor = isDarkMode ? ContextCompat.getColor(requireContext(), R.color.inverseprimary) : ContextCompat.getColor(requireContext(), R.color.inverseprimary);
@@ -123,10 +123,10 @@ public class StreakDialogFragment extends DialogFragment {
                 negativeButton.setTextColor(negativeColor);
 
                 // Apply rounded background
-                Objects.requireNonNull(datePickerDialog.getWindow()).setBackgroundDrawableResource(R.drawable.datepicker_rounded_corners);
+                Objects.requireNonNull(dPDialog.getWindow()).setBackgroundDrawableResource(R.drawable.datepicker_rounded_corners);
             });
 
-            datePickerDialog.show();
+            dPDialog.show();
         });
 
         addStreak.setOnClickListener(v -> {

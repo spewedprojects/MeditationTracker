@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:fillViewport="true"
             android:overScrollMode="never"
-            android:scrollbars="vertical"
+            android:scrollbars="horizontal"
             android:scrollbarStyle="insideOverlay"
             android:scrollbarFadeDuration="200"
             android:fadeScrollbars="true">
