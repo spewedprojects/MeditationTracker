@@ -134,11 +134,13 @@ public class GoalsDatabaseHelper extends SQLiteOpenHelper {
             }
 
             db.setTransactionSuccessful();
-            db.endTransaction();
-            return true;
         } catch (Exception e) {
             e.printStackTrace();
             return false;
+        } finally {
+            db.endTransaction(); // Ensure transaction is ended
+            db.close(); // Ensure database is closed
         }
+        return true;
     }
 }

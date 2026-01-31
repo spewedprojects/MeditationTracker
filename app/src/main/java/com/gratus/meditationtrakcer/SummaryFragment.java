@@ -97,7 +97,13 @@ public class SummaryFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        //refreshData();
+
+        // Optional: If you want to force a refresh only when returning
+        // from a completely different Activity (like changing settings),
+        // you can keep this, but for smooth swiping, it's better to rely on onViewCreated.
+
+        // If you find data is stale when returning from "GoalsActivity", un-comment the line below:
+        refreshData();
     }
 
     public void refreshData() {

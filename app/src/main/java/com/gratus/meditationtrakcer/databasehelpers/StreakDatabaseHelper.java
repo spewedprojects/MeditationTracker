@@ -9,6 +9,9 @@ import android.util.Log;
 
 import com.gratus.meditationtrakcer.datamodels.Streak;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -58,6 +61,66 @@ public class StreakDatabaseHelper extends SQLiteOpenHelper {
             }
         }
     }
+
+    // ----- implemented on (31/01/26) - start
+    public JSONArray getStreaksAsJSONArray() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_STREAKS, null);
+
+        JSONArray jsonArray = new JSONArray();
+        try {
+            while (cursor.moveToNext()) {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("_id", cursor.getInt(cursor.getColumnIndexOrThrow("_id")));
+                jsonObject.put("start_date", cursor.getString(cursor.getColumnIndexOrThrow("start_date")));
+                jsonObject.put("end_date", cursor.getString(cursor.getColumnIndexOrThrow("end_date")));
+                jsonObject.put("target_days", cursor.getInt(cursor.getColumnIndexOrThrow("target_days")));
+                jsonObject.put("achieved_days", cursor.getInt(cursor.getColumnIndexOrThrow("achieved_days")));
+                jsonObject.put("status", cursor.getInt(cursor.getColumnIndexOrThrow("status")));
+                jsonArray.put(jsonObject);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
+        return jsonArray;
+    }
+
+    public boolean importDataFromJSONArray(JSONArray streaksArray) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        try {
+            db.beginTransaction();
+            db.delete("streaks", null, null);
+
+            for (int i = 0; i < streaksArray.length(); i++) {
+                JSONObject streak = streaksArray.getJSONObject(i);
+
+                ContentValues values = new ContentValues();
+                values.put("_id", streak.getInt("_id"));
+                values.put("start_date", streak.getString("start_date"));
+                values.put("end_date", streak.getString("end_date"));
+                values.put("target_days", streak.getInt("target_days"));
+                values.put("achieved_days", streak.getInt("achieved_days"));
+                values.put("status", streak.getInt("status"));
+
+                db.insert("streaks", null, values);
+            }
+
+            db.setTransactionSuccessful();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            db.endTransaction(); // Ensure transaction is ended
+            db.close(); // Ensure database is closed
+        }
+        return true;
+    }
+    // ----- implemented on (31/01/26) - end
 
     public void addStreak(String startDate, String endDate, int targetDays) {
         SQLiteDatabase db = this.getWritableDatabase();

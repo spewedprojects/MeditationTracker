@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:openDrawer="start"
+    android:elevation="50dp"
     tools:context=".BaseActivity">
 
     <!-- Main content container -->

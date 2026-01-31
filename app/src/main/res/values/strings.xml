@@ -24,9 +24,11 @@
     <string name="goals_title">Set a New Goal</string>
     <string name="goals_desc">Create a new meditation goal</string>
     <string name="current_version_details">
-        • Applied rounded corner backgrounds to `TimePickerDialog` and `DatePickerDialog` across `GoalsActivity`.
-        \n• Improved `ViewPager` navigation logic in `SummaryActivity` to transition to the nearest relative page (Week/Month) instead of jumping to index 0/1.
-        \n• Optimized data loading in `SummaryFragment` by triggering `refreshData()` during `onViewCreated`.
+        • Added `StreakDatabaseHelper` support for JSON export and import, ensuring streak history is included in data backups.
+        \n• Updated `BaseActivity` to include streak data in `exportDataAsJson` and `importDataFromJson` methods.
+        \n• Updated `SummaryFragment` to force a data refresh in `onResume`.
+        \n• Adjusted `dialog_streak.xml` constraint bias for better vertical alignment.
+        \n• Lighter scrim color for navigation drawer - 0.2 now, vs 0.5 earlier.
         \n
         \nNEXT:
         \n › Home screen widget (this will take time to implement).

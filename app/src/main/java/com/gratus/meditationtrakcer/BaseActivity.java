@@ -14,6 +14,7 @@ import android.os.Looper;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -39,6 +40,7 @@ import androidx.annotation.LayoutRes;
 import com.google.android.material.button.MaterialButton;
 import com.gratus.meditationtrakcer.databasehelpers.GoalsDatabaseHelper;
 import com.gratus.meditationtrakcer.databasehelpers.MeditationLogDatabaseHelper;
+import com.gratus.meditationtrakcer.databasehelpers.StreakDatabaseHelper;
 
 import org.jetbrains.annotations.Nullable;
 import org.json.JSONArray;
@@ -178,6 +180,7 @@ public class BaseActivity extends AppCompatActivity {
             ViewDragHelper leftDragger = (ViewDragHelper) leftDraggerField.get(drawerLayout);
 
             // Access the private mEdgeSize field within ViewDragHelper
+            assert leftDragger != null;
             Field edgeSizeField = leftDragger.getClass().getDeclaredField("mEdgeSize");
             edgeSizeField.setAccessible(true);
             int edgeSize = edgeSizeField.getInt(leftDragger);
@@ -201,8 +204,9 @@ public class BaseActivity extends AppCompatActivity {
     public void setContentView(@LayoutRes int layoutResID) {
         // Inflate the base layout which includes the DrawerLayout
         DrawerLayout fullView = (DrawerLayout) getLayoutInflater().inflate(R.layout.activity_base, null);
+        fullView.setScrimColor(Color.parseColor("#33000000")); // 20% black
 
-        setDrawerLeftEdgeSize(drawerLayout, 0.15f); // sets edge swipe area to 20% of screen width
+        setDrawerLeftEdgeSize(drawerLayout, 0.30f); // sets edge swipe area to 20% of screen width
 
         // Find the container into which we will inflate the child layout
         // (child layouts like activity_main.xml, etc.)
@@ -448,13 +452,16 @@ public class BaseActivity extends AppCompatActivity {
     private void exportDataAsJson(OutputStream outputStream) throws Exception {
         GoalsDatabaseHelper goalsHelper = new GoalsDatabaseHelper(this);
         MeditationLogDatabaseHelper logHelper = new MeditationLogDatabaseHelper(this);
+        StreakDatabaseHelper streakHelper = new StreakDatabaseHelper(this);
 
         JSONArray goalsData = goalsHelper.getGoalsAsJSONArray();
         JSONArray logsData = logHelper.getLogsAsJSONArray();
+        JSONArray streakData = streakHelper.getStreaksAsJSONArray();
 
         JSONObject exportData = new JSONObject();
         exportData.put("goals", goalsData);
         exportData.put("logs", logsData);
+        exportData.put("streaks", streakData);
 
         outputStream.write(exportData.toString().getBytes(StandardCharsets.UTF_8));
     }
@@ -526,9 +533,11 @@ public class BaseActivity extends AppCompatActivity {
 
         JSONArray goalsArray = jsonData.optJSONArray("goals");
         JSONArray logsArray = jsonData.optJSONArray("logs");
+        JSONArray streaksArray = jsonData.optJSONArray("streaks");
 
         GoalsDatabaseHelper goalsHelper = new GoalsDatabaseHelper(this);
         MeditationLogDatabaseHelper logHelper = new MeditationLogDatabaseHelper(this);
+        StreakDatabaseHelper streaksHelper = new StreakDatabaseHelper(this);
 
         if (goalsArray != null) {
             goalsHelper.importDataFromJSONArray(goalsArray);
@@ -536,16 +545,28 @@ public class BaseActivity extends AppCompatActivity {
         if (logsArray != null) {
             logHelper.importDataFromJSONArray(logsArray);
         }
+        if (streaksArray != null){
+            streaksHelper.importDataFromJSONArray(streaksArray);
+        }
     }
 
     private String getFileName(Uri uri) {
-        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
-        if (cursor != null && cursor.moveToFirst()) {
-            String name = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
-            cursor.close();
-            return name;
+        // 1. Use try-with-resources to ensure the cursor closes automatically
+        try (Cursor cursor = getContentResolver().query(uri, null, null, null, null)) {
+            if (cursor != null && cursor.moveToFirst()) {
+                // 2. Use getColumnIndexOrThrow to catch issues early
+                // or check if index > -1
+                int nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                if (nameIndex != -1) {
+                    return cursor.getString(nameIndex);
+                }
+            }
+        } catch (Exception e) {
+            Log.e("FileUtil", "Error retrieving file name", e);
         }
-        return null;
+
+        // 3. Fallback: If query fails, try to get the name from the URI path
+        return uri.getLastPathSegment();
     }
 
     // BaseActivity.java

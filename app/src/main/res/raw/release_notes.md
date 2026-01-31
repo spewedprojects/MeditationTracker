@@ -61,9 +61,14 @@
 </table>
 
 ### **Version history and changes:**
-Latest release **_[here](https://github.com/spewedprojects/MeditationTracker/releases/tag/v11.1.1)_**.
+Latest release **_[here](https://github.com/spewedprojects/MeditationTracker/releases/tag/v11.1.2)_**.
 
-80. **_[11.1.0 (27/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v11.1.0)_**
+81. **_[11.1.1 (29/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v11.1.1)_**
+    > - Applied rounded corner backgrounds to `TimePickerDialog` and `DatePickerDialog` across `GoalsActivity`.
+    > - Improved `ViewPager` navigation logic in `SummaryActivity` to transition to the nearest relative page (Week/Month).
+    > - Optimized data loading in `SummaryFragment` by triggering `refreshData()` during `onViewCreated`.
+
+    80. [11.1.0 (27/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v11.1.0)
     > - Added Streak Stats view in `StreakDialogFragment`, showing longest streak and current progress.
     > - Redesigned streak dialog with `HorizontalScrollView` + snap behavior for toggling goal input/stats.
     > - Major UI refinements: new `ImageButton` close, updated icons, RTL-friendly constraints, improved button styles.
