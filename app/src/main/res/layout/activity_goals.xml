@@ -23,41 +23,40 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout> <!-- Constrained layout for menubutton and Title -->
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/card_constraint_layout"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/card_constraint_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/toolbar2_constG"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView_goals"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@id/toolbar2_constG"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintVertical_bias="0">
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="0dp"
+            app:barrierMargin="16dp"
+            app:cardCornerRadius="12dp"
+            android:elevation="8dp"
+            app:cardElevation="6dp"
+            app:cardBackgroundColor="?attr/colorPrimaryVariant"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView_goals"
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="0dp"
-                app:barrierMargin="16dp"
-                app:cardCornerRadius="12dp"
-                android:elevation="8dp"
-                app:cardElevation="6dp"
-                app:cardBackgroundColor="?attr/colorPrimaryVariant"
-                app:layout_constraintBottom_toTopOf="@id/goals_recycler_view"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0">
+                android:layout_height="match_parent">
 
-                <androidx.core.widget.NestedScrollView
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
                     <TextView
                         android:id="@+id/goals_title"
                         android:layout_width="wrap_content"
@@ -73,8 +72,7 @@
                         android:textSize="23sp"
                         app:layout_constraintBottom_toTopOf="@id/goals_desc"
                         app:layout_constraintHorizontal_bias="0"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_chainStyle="packed"
                         app:layout_constraintVertical_bias="0"
@@ -87,13 +85,11 @@
                         android:layout_margin="16dp"
                         android:layout_marginBottom="16dp"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/goals_title"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         android:src="@drawable/outline_chevron_line_up_24"
                         android:background="@drawable/round_button_bg"
                         android:rotation="0"
-                        app:layout_constraintHorizontal_bias="1"
                         app:layout_constraintVertical_bias="0"/>
 
                     <TextView
@@ -110,9 +106,7 @@
                         android:text="@string/goals_desc"
                         android:textColor="@color/onPrimary2"
                         android:textSize="13sp"
-                        app:layout_constraintHorizontal_bias="0"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintVertical_bias="0"
                         app:layout_constraintVertical_chainStyle="packed"
@@ -155,13 +149,8 @@
                             android:fontFamily="@font/atkinsonhyperlegiblenext_semibold"
                             android:letterSpacing="0.05"
                             android:hint="Meditate every day"
-                            android:inputType="text"
-                            android:textSize="15sp"
-                            app:layout_constraintBottom_toTopOf="@id/A_B_group"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/goal_input_title" /> <!-- Set goal blank (input) -->
+                            android:inputType="text|textCapSentences"
+                            android:textSize="15sp" /> <!-- Set goal blank (input) -->
 
                         <!-- Method change button group -->
                         <com.google.android.material.button.MaterialButtonToggleGroup
@@ -172,32 +161,27 @@
                             android:layout_marginHorizontal="36dp"
                             android:padding="5dp"
                             app:shapeAppearance="@style/method_A_B_GroupShape"
-                            app:singleSelection="true"
-                            app:layout_constraintTop_toBottomOf="@id/goal_input"
-                            app:layout_constraintBottom_toTopOf="@id/methods_A_B"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.5">
+                            app:singleSelection="true">
 
-                                <!-- Export Button -->
-                                <com.google.android.material.button.MaterialButton
-                                    android:id="@+id/method_A_Button"
-                                    style="@style/method_A_B_Group_ButtonStyle"
-                                    android:text="A"
-                                    app:shapeAppearanceOverlay="@style/ExportButtonCorners"
-                                    android:insetRight="1dp"
-                                    android:paddingEnd="0dp"/>
+                            <!-- Export Button -->
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/method_A_Button"
+                                style="@style/method_A_B_Group_ButtonStyle"
+                                android:text="A"
+                                app:shapeAppearanceOverlay="@style/ExportButtonCorners"
+                                android:insetRight="1dp"
+                                android:paddingEnd="0dp"/>
 
-                                <!-- Import Button -->
-                                <com.google.android.material.button.MaterialButton
-                                    android:id="@+id/method_B_Button"
-                                    style="@style/method_A_B_Group_ButtonStyle"
-                                    android:text="B"
-                                    app:shapeAppearanceOverlay="@style/ImportButtonCorners"
-                                    android:insetLeft="1dp"
-                                    android:paddingStart="0dp"/>
+                            <!-- Import Button -->
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/method_B_Button"
+                                style="@style/method_A_B_Group_ButtonStyle"
+                                android:text="B"
+                                app:shapeAppearanceOverlay="@style/ImportButtonCorners"
+                                android:insetLeft="1dp"
+                                android:paddingStart="0dp"/>
 
-                            </com.google.android.material.button.MaterialButtonToggleGroup> <!-- Method change button group -->
+                        </com.google.android.material.button.MaterialButtonToggleGroup> <!-- Method change button group -->
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/methods_A_B"
@@ -222,8 +206,8 @@
                                 android:textSize="15sp"
                                 app:layout_constraintBottom_toTopOf="@id/target_input"
                                 app:layout_constraintHorizontal_bias="0"
-                                app:layout_constraintLeft_toLeftOf="parent"
-                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
                                 tools:ignore="TextViewEdits"/> <!-- Target hours blank title-->
 
@@ -261,8 +245,8 @@
                                 android:textSize="15sp"
                                 app:layout_constraintBottom_toTopOf="@id/start_date_input"
                                 app:layout_constraintHorizontal_bias="0"
-                                app:layout_constraintLeft_toLeftOf="parent"
-                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/target_input"
                                 tools:ignore="TextViewEdits"/> <!-- Start date input title-->
 
@@ -277,7 +261,7 @@
                                 android:letterSpacing="0.05"
                                 android:textSize="15sp"
                                 android:hint="01/01/2026"
-                                android:inputType="number"
+                                android:inputType="date"
                                 android:focusable="false"
                                 android:clickable="true"
                                 app:layout_constraintBottom_toTopOf="@id/end_date_input_title"
@@ -302,8 +286,8 @@
                                 android:textSize="15sp"
                                 app:layout_constraintBottom_toTopOf="@id/end_date_input"
                                 app:layout_constraintHorizontal_bias="0"
-                                app:layout_constraintLeft_toLeftOf="parent"
-                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/start_date_input"
                                 tools:ignore="TextViewEdits"/> <!-- End date input title-->
 
@@ -318,7 +302,7 @@
                                 android:fontFamily="@font/atkinsonhyperlegiblenext_semibold"
                                 android:letterSpacing="0.05"
                                 android:textSize="15sp"
-                                android:inputType="number"
+                                android:inputType="date"
                                 android:hint="28/01/2026"
                                 android:focusable="false"
                                 android:clickable="true"
@@ -358,8 +342,8 @@
                                 android:textSize="15sp"
                                 app:layout_constraintBottom_toTopOf="@id/daily_duration_input"
                                 app:layout_constraintHorizontal_bias="0"
-                                app:layout_constraintLeft_toLeftOf="parent"
-                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
                                 tools:ignore="TextViewEdits"/> <!-- Method B_Daily duration title-->
 
@@ -380,7 +364,7 @@
                                 app:layout_constraintHorizontal_bias="0"
                                 android:focusable="false"
                                 android:clickable="true"
-                                android:inputType="none"/> <!-- Daily duration input blank (input) -->
+                                android:inputType="time"/> <!-- Daily duration input blank (input) -->
 
                             <TextView
                                 android:id="@+id/totaldays_input_title"
@@ -397,8 +381,8 @@
                                 android:textSize="15sp"
                                 app:layout_constraintBottom_toTopOf="@id/totaldays_input"
                                 app:layout_constraintHorizontal_bias="0"
-                                app:layout_constraintLeft_toLeftOf="parent"
-                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/daily_duration_input"
                                 tools:ignore="TextViewEdits"/> <!-- Total days input title-->
 
@@ -436,8 +420,8 @@
                                 android:textSize="15sp"
                                 app:layout_constraintBottom_toTopOf="@id/B_startdate_input"
                                 app:layout_constraintHorizontal_bias="0"
-                                app:layout_constraintLeft_toLeftOf="parent"
-                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/totaldays_input"
                                 tools:ignore="TextViewEdits"/> <!-- B Start date title-->
 
@@ -452,7 +436,7 @@
                                 android:letterSpacing="0.06"
                                 android:textSize="15sp"
                                 android:hint="01/01/2026"
-                                android:inputType="number"
+                                android:inputType="date"
                                 android:focusable="false"
                                 android:clickable="true"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -478,32 +462,25 @@
                             android:textColor="?attr/colorPrimary"
                             android:textSize="15.5sp"
                             android:textAllCaps="false"
-                            app:cornerRadius="10dp"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/methods_A_B"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintHorizontal_bias="0.5"
-                            app:layout_constraintVertical_bias="0" /> <!-- Add goal button -->
+                            app:cornerRadius="10dp"/> <!-- Add goal button -->
                     </LinearLayout>
-
                 </androidx.constraintlayout.widget.ConstraintLayout> <!-- items constrained to cardview -->
-                </androidx.core.widget.NestedScrollView>
+            </androidx.core.widget.NestedScrollView>
 
-            </androidx.cardview.widget.CardView> <!-- Set new goal card -->
+        </androidx.cardview.widget.CardView> <!-- Set new goal card -->
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/goals_recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:scrollbars="none"
-                android:clipToPadding="true"
-                android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="@id/cardView_goals"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintVertical_bias="0"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/goals_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:scrollbars="none"
+            android:clipToPadding="true"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/cardView_goals"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintVertical_bias="0"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

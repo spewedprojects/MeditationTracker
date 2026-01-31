@@ -22,7 +22,8 @@
 
     <color name="text_highlight_color">#41FFFFFF</color>
 
-    <color name="active_dot_color">#00F0FF</color>
+    <color name="active_dot_color">#FFF</color>
+    <color name="active_dot_color_old">#00F0FF</color>
 
     <color name="minicard_textColor">#E6FFFFFF</color>
 

@@ -60,18 +60,13 @@
         app:layout_constraintTop_toBottomOf="@id/menu_head"
         app:layout_constraintBottom_toTopOf="@id/theme_btn_container"
         app:layout_constraintVertical_bias="0"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
         <LinearLayout
             android:id="@+id/menu_items"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="start|center"
-            app:layout_constraintTop_toBottomOf="@id/menu_head"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            android:orientation="vertical">
             <!-- Home Button -->
             <Button
                 android:id="@+id/menu_home"
@@ -114,7 +109,7 @@
                 android:gravity="start|center"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
-                android:text="Reports"
+                android:text="@string/menu_reports_button_text"
                 android:textColor="@color/onPrimary2"
                 android:textSize="16sp"
                 android:textAllCaps="false"
@@ -151,7 +146,7 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
-                android:text="About app"
+                android:text="@string/menu_about_app_button_text"
                 android:textAllCaps="false"
                 android:textColor="@color/onPrimary2"
                 android:textSize="16sp"
@@ -169,7 +164,7 @@
                 android:background="@android:color/transparent"
                 android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                 android:textAllCaps="false"
-                android:text="Release notes"
+                android:text="@string/menu_release_notes_button_text"
                 android:textColor="@color/onPrimary2"
                 android:textSize="16sp"
                 android:letterSpacing="0.03"
@@ -197,25 +192,23 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/menu_exportButton"
                     style="@style/ExportImportButtonStyle"
-                    android:text="Export"
+                    android:text="@string/menu_export_button_text"
                     app:shapeAppearanceOverlay="@style/ExportButtonCorners"
                     app:icon="@drawable/download_icon_inverse"
                     app:iconGravity="textStart"
                     android:insetRight="1dp"
-                    android:padding="12dp"
-                    android:paddingEnd="20dp"/>
+                    android:padding="12dp"/>
 
                 <!-- Import Button -->
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/menu_importButton"
                     style="@style/ExportImportButtonStyle"
-                    android:text="Import"
+                    android:text="@string/menu_import_button_text"
                     app:shapeAppearanceOverlay="@style/ImportButtonCorners"
                     app:icon="@drawable/download_icon"
                     app:iconGravity="textEnd"
                     android:insetLeft="1dp"
-                    android:padding="12dp"
-                    android:paddingStart="20dp"/>
+                    android:padding="12dp"/>
 
             </com.google.android.material.button.MaterialButtonToggleGroup>
 
@@ -237,6 +230,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/rounded_corners"
+            android:contentDescription="@string/btn_light_mode"
             android:scaleX="1.1"
             android:scaleY="1.1"
             android:visibility="visible"
@@ -249,6 +243,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/rounded_corners"
+            android:contentDescription="@string/btn_dark_mode"
             android:scaleX="1.1"
             android:scaleY="1.1"
             android:visibility="visible"
@@ -256,17 +251,17 @@
             app:srcCompat="@drawable/dark_mode"
             app:tint="?attr/colorOnPrimary" />
 
-        <Button
+        <ImageButton
             android:id="@+id/btn_auto"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/rounded_corners"
-            android:text="A"
-            android:fontFamily="@font/atkinsonhyperlegiblenext_semibold"
-            android:textSize="21.5sp"
+            android:contentDescription="@string/btn_auto_mode"
+            android:scaleX="1.1"
+            android:scaleY="1.1"
             android:visibility="visible"
             android:elevation="2dp"
-            app:tint="?attr/colorOnPrimary" />
+            app:srcCompat="@drawable/auto_mode"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -61,9 +61,16 @@
 </table>
 
 ### **Version history and changes:**
-Latest release **_[here](https://github.com/spewedprojects/MeditationTracker/releases/tag/v11.1.2)_**.
+Latest release **_[here](https://github.com/spewedprojects/MeditationTracker/releases/tag/v11.2.0)_**.
 
-81. **_[11.1.1 (29/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v11.1.1)_**
+82. **_[11.1.2 (31/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v11.1.2)_**
+    > - Added `StreakDatabaseHelper` support for JSON export and import, ensuring streak history is included in data backups.
+    > - Updated `BaseActivity` to include streak data in `exportDataAsJson` and `importDataFromJson` methods.
+    > - Updated `SummaryFragment` to force a data refresh in `onResume`.
+    > - Adjusted `dialog_streak.xml` constraint bias for better vertical alignment.
+    > - Lighter scrim color for navigation drawer - 0.2 now, vs 0.5 earlier.
+
+    81. [11.1.1 (29/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v11.1.1)
     > - Applied rounded corner backgrounds to `TimePickerDialog` and `DatePickerDialog` across `GoalsActivity`.
     > - Improved `ViewPager` navigation logic in `SummaryActivity` to transition to the nearest relative page (Week/Month).
     > - Optimized data loading in `SummaryFragment` by triggering `refreshData()` during `onViewCreated`.

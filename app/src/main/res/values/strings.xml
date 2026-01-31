@@ -17,18 +17,17 @@
     <string name="blank_spaces">blank</string>
     <string name="timer_card_title">Timer</string>
     <string name="manual_card_title">Manual Entry</string>
-    <string name="week_summ_desc">Your meditation progress for the past week</string>
-    <string name="month_summ_desc">Your meditation progress for the past month</string>
-    <string name="year_summ_desc">Your meditation progress for the past year</string>
+    <string name="week_summ_desc">Your weekly meditation progress</string>
+    <string name="month_summ_desc">Your monthly meditation progress</string>
+    <string name="year_summ_desc">Your yearly meditation progress</string>
     <string name="total_hours">Total hours: </string>
     <string name="goals_title">Set a New Goal</string>
     <string name="goals_desc">Create a new meditation goal</string>
     <string name="current_version_details">
-        • Added `StreakDatabaseHelper` support for JSON export and import, ensuring streak history is included in data backups.
-        \n• Updated `BaseActivity` to include streak data in `exportDataAsJson` and `importDataFromJson` methods.
-        \n• Updated `SummaryFragment` to force a data refresh in `onResume`.
-        \n• Adjusted `dialog_streak.xml` constraint bias for better vertical alignment.
-        \n• Lighter scrim color for navigation drawer - 0.2 now, vs 0.5 earlier.
+        • A new `setYAxisEnabled` method to toggle Y-axis visibility - `false` in report card.
+        \n• Replaced Left/Right with Start/End across layouts.
+        \n• Standardized menu item texts, button descriptions using new string resources.
+        \n• Auto button for theme switcher is now an image instead of text.
         \n
         \nNEXT:
         \n › Home screen widget (this will take time to implement).
@@ -36,4 +35,18 @@
     <string name="v1.16.c">v1.16.c:\n- NOICE!\n  - Next indent.\n   • bullet 1 ▶ Bullet 2 › bullet 3</string>
     <string name="close_menu_button">Close Menu</string>
     <string name="open_menu_button">Open Menu</string>
+    <string name="total_hours_placeholder">Total: x.xx hours</string>
+    <string name="nav_label_main_placeholder">January</string>
+    <string name="nav_label_sub_placeholder">202#</string>
+    <string name="report_button_desc">Generate report for displaye Month or Year</string>
+    <string name="next_nav_button_desc">Switch to next week or month or year</string>
+    <string name="prev_nav_button_desc">Switch to previous week or month or year</string>
+    <string name="menu_import_button_text">Import</string>
+    <string name="menu_export_button_text">Export</string>
+    <string name="menu_reports_button_text">Reports</string>
+    <string name="menu_about_app_button_text">About app</string>
+    <string name="menu_release_notes_button_text">Release notes</string>
+    <string name="btn_light_mode">Switch to Light mode</string>
+    <string name="btn_auto_mode">Switch to Auto mode</string>
+    <string name="btn_dark_mode">Switch to Dark mode</string>
 </resources>

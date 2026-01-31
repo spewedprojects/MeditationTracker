@@ -22,8 +22,8 @@
             app:cardBackgroundColor="?attr/colorPrimaryVariant"
             app:cardCornerRadius="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.04">
 
@@ -47,9 +47,7 @@
                     android:textColor="?attr/colorOnPrimary"
                     android:textSize="23sp"
                     app:layout_constraintBottom_toTopOf="@id/page_desc"
-                    app:layout_constraintHorizontal_bias="0"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0"
                     tools:ignore="TextViewEdits" /> <!-- Month overview -->
@@ -69,9 +67,7 @@
                     android:textColor="@color/onPrimary2"
                     android:textSize="13sp"
                     app:layout_constraintBottom_toTopOf="@id/total_hours"
-                    app:layout_constraintHorizontal_bias="0"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/page_title"
                     app:layout_constraintVertical_bias="0.0"
                     tools:ignore="TextViewEdits" /> <!-- Month Overview description -->
@@ -83,12 +79,12 @@
                     android:layout_margin="16dp"
                     android:layout_marginBottom="16dp"
                     android:background="@drawable/round_button_bg"
+                    android:contentDescription="@string/report_button_desc"
                     android:rotation="0"
                     android:src="@drawable/analytics_24dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1"
-                    app:layout_constraintStart_toEndOf="@id/page_title"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0" />
 
@@ -103,13 +99,11 @@
                     android:focusableInTouchMode="true"
                     android:fontFamily="@font/atkinsonhyperlegiblenext_bold"
                     android:letterSpacing="0.01"
-                    android:text="Total: 0.00 hours"
+                    android:text="@string/total_hours_placeholder"
                     android:textColor="?attr/colorOnPrimary"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toTopOf="@id/barChart"
-                    app:layout_constraintHorizontal_bias="0"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/page_desc"
                     app:layout_constraintVertical_bias="0.0"
                     tools:ignore="TextViewEdits" /> <!-- Month's total time -->
@@ -123,8 +117,8 @@
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="12dp"
                     app:layout_constraintBottom_toTopOf="@id/nav_container"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/total_hours"
                     app:layout_constraintVertical_bias="0"
                     android:animateLayoutChanges="true"/>
@@ -137,53 +131,37 @@
                     android:layout_marginBottom="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/barChart">
 
-                    <com.google.android.material.button.MaterialButton
+                    <ImageButton
                         android:id="@+id/btn_prev"
                         android:layout_width="60dp"
                         android:layout_height="48dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginEnd="55dp"
                         android:backgroundTint="@android:color/transparent"
-                        android:insetTop="0dp"
-                        android:insetBottom="0dp"
-                        app:cornerRadius="12dp"
-                        app:icon="@drawable/baseline_arrow_back"
-                        app:iconGravity="textStart"
-                        app:iconPadding="0dp"
-                        app:iconSize="20dp"
-                        app:iconTint="?attr/colorOnPrimary"
+                        android:contentDescription="@string/prev_nav_button_desc"
+                        android:src="@drawable/baseline_arrow_back"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toLeftOf="@+id/btn_next"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/btn_next"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <com.google.android.material.button.MaterialButton
+                    <ImageButton
                         android:id="@+id/btn_next"
                         android:layout_width="60dp"
                         android:layout_height="48dp"
                         android:layout_marginStart="55dp"
                         android:layout_marginEnd="16dp"
                         android:backgroundTint="@android:color/transparent"
-                        android:gravity="center"
-                        android:insetTop="0dp"
-                        android:insetBottom="0dp"
-                        android:textStyle="bold"
-                        app:cornerRadius="12dp"
-                        app:icon="@drawable/baseline_arrow_forward"
-                        app:iconGravity="textStart"
-                        app:iconPadding="0dp"
-                        app:iconSize="20dp"
-                        app:iconTint="?attr/colorOnPrimary"
+                        android:contentDescription="@string/next_nav_button_desc"
+                        android:src="@drawable/baseline_arrow_forward"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintLeft_toRightOf="@+id/btn_prev"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintStart_toEndOf="@+id/btn_prev"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -192,8 +170,8 @@
                         android:orientation="vertical"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintLeft_toRightOf="@id/btn_prev"
-                        app:layout_constraintRight_toLeftOf="@id/btn_next"
+                        app:layout_constraintStart_toEndOf="@id/btn_prev"
+                        app:layout_constraintEnd_toStartOf="@id/btn_next"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.5">
 
@@ -204,7 +182,7 @@
                             android:filterTouchesWhenObscured="false"
                             android:focusableInTouchMode="true"
                             android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
-                            android:text="January"
+                            android:text="@string/nav_label_main_placeholder"
                             android:textColor="@color/onPrimary2"
                             android:textSize="18sp"
                             tools:ignore="TextViewEdits" />
@@ -216,7 +194,7 @@
                             android:filterTouchesWhenObscured="false"
                             android:focusableInTouchMode="true"
                             android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
-                            android:text="2025"
+                            android:text="@string/nav_label_sub_placeholder"
                             android:textColor="@color/onPrimary2"
                             android:textSize="12sp"
                             tools:ignore="TextViewEdits" /> <!-- Week Date display -->

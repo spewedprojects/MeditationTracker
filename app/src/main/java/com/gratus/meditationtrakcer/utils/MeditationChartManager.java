@@ -23,12 +23,20 @@ public class MeditationChartManager {
     private final BarChart chart;
     private final Typeface customFont;
     private final int barColor;
+    private boolean isYAxisEnabled = true; // Default to true
 
     public MeditationChartManager(Context context, BarChart chart, Typeface customFont) {
         this.context = context;
         this.chart = chart;
         this.customFont = customFont;
         this.barColor = resolveThemeColor();
+    }
+
+    /**
+     * Set whether the Left Y-Axis should be visible.  (31/01/26)
+     */
+    public void setYAxisEnabled(boolean enabled) {
+        this.isYAxisEnabled = enabled;
     }
 
     /**
@@ -72,16 +80,20 @@ public class MeditationChartManager {
 
         // 5. Configure Y-Axis
         YAxis leftAxis = chart.getAxisLeft();
-        leftAxis.setDrawGridLines(false);
-        leftAxis.setTextColor(Color.parseColor("#969696"));
-        leftAxis.setTypeface(customFont);
-        leftAxis.setTextSize(13f);
-        leftAxis.setAxisMinimum(0f);
+        leftAxis.setEnabled(isYAxisEnabled); // Apply the flag (31/01/26)
+        if (isYAxisEnabled) {
+            leftAxis.setDrawGridLines(false);
+            leftAxis.setTextColor(Color.parseColor("#969696"));
+            leftAxis.setTypeface(customFont);
+            leftAxis.setTextSize(13f);
+            leftAxis.setAxisMinimum(0f);
+        }
         chart.getAxisRight().setEnabled(false);
 
         // 6. General Chart Cleanup
         chart.getDescription().setEnabled(false);
         chart.getLegend().setEnabled(false); // Often cleaner without legend for single datasets
+        //chart.setTouchEnabled(false); // Optional: Disable touch for static report cards if desired
 
         // 7. Refresh
         chart.invalidate();

@@ -186,6 +186,7 @@ public class ReportDetailDialogFragment extends DialogFragment {
         // 1. Preferred Times Chart
         BarChart timeChart = view.findViewById(R.id.chartPreferredTimes);
         MeditationChartManager timeManager = new MeditationChartManager(requireContext(), timeChart, font);
+        timeManager.setYAxisEnabled(false); // <--- Disable Y-Axis (31/01/26)
 
         ArrayList<BarEntry> timeEntries = new ArrayList<>();
         List<String> timeLabels = new ArrayList<>();
@@ -201,6 +202,7 @@ public class ReportDetailDialogFragment extends DialogFragment {
         // 2. Frequency Chart
         BarChart freqChart = view.findViewById(R.id.chartSessionFrequency);
         MeditationChartManager freqManager = new MeditationChartManager(requireContext(), freqChart, font);
+        freqManager.setYAxisEnabled(false); // <--- Disable Y-Axis (31/01/26)
 
         ArrayList<BarEntry> freqEntries = new ArrayList<>();
         List<String> freqLabels = new ArrayList<>();

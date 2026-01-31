@@ -100,7 +100,7 @@ public class BaseActivity extends AppCompatActivity {
     private void setupThemeButtons() {
         ImageButton lightButton = findViewById(R.id.btn_light);
         ImageButton darkButton = findViewById(R.id.btn_dark);
-        Button autoButton = findViewById(R.id.btn_auto);
+        ImageButton autoButton = findViewById(R.id.btn_auto);
 
         if (lightButton != null && darkButton != null && autoButton != null) {
             // Get the current theme from SharedPreferences
@@ -131,25 +131,25 @@ public class BaseActivity extends AppCompatActivity {
     /**
      * Update the visibility of the theme buttons based on the current theme.
      */
-    private void updateButtonVisibility(String currentTheme, ImageButton lightButton, ImageButton darkButton, Button autoButton) {
+    private void updateButtonVisibility(String currentTheme, ImageButton lightButton, ImageButton darkButton, ImageButton autoButton) {
         switch (currentTheme) {
             case "light":
                 lightButton.setVisibility(View.GONE);
                 darkButton.setVisibility(View.VISIBLE);
                 autoButton.setVisibility(View.GONE);
-                System.out.println("Light mode: Hiding light button, showing dark and auto buttons.");
+                System.out.println("LIGHT mode - GONE (Light button and Auto button), VISIBLE (Dark button)");
                 break;
             case "dark":
                 lightButton.setVisibility(View.GONE);
                 darkButton.setVisibility(View.GONE);
                 autoButton.setVisibility(View.VISIBLE);
-                System.out.println("Dark mode: Showing light button, hiding dark button, showing auto button.");
+                System.out.println("DARK mode - GONE (Light button and Dark button), VISIBLE (Auto button)");
                 break;
             case "auto":
                 lightButton.setVisibility(View.VISIBLE);
                 darkButton.setVisibility(View.GONE);
                 autoButton.setVisibility(View.GONE);
-                System.out.println("Auto mode: Showing light and dark buttons, hiding auto button.");
+                System.out.println("AUTO mode - GONE (Dark button and Auto button), VISIBLE (Light button)");
                 break;
         }
     }
