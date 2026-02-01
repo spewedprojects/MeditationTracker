@@ -23,7 +23,7 @@ public class MeditationChartManager {
     private final BarChart chart;
     private final Typeface customFont;
     private final int barColor;
-    private boolean isYAxisEnabled = true; // Default to true
+    private boolean isYAxisVisible = true; // Default to true
 
     public MeditationChartManager(Context context, BarChart chart, Typeface customFont) {
         this.context = context;
@@ -35,8 +35,8 @@ public class MeditationChartManager {
     /**
      * Set whether the Left Y-Axis should be visible.  (31/01/26)
      */
-    public void setYAxisEnabled(boolean enabled) {
-        this.isYAxisEnabled = enabled;
+    public void setYAxisEnabled(boolean visible) {
+        this.isYAxisVisible = visible;
     }
 
     /**
@@ -49,6 +49,9 @@ public class MeditationChartManager {
         dataSet.setValueTextColor(Color.parseColor("#969696"));
         dataSet.setValueTextSize(14f);
         dataSet.setValueTypeface(customFont);
+
+        // Note: If you want "0" to appear as a number on top of empty bars,
+        // remove this specific line. Keeping it hides the number "0".
         dataSet.setValueFormatter(new HideZeroValueFormatter());
 
         // 2. Setup Bar Data
@@ -80,13 +83,26 @@ public class MeditationChartManager {
 
         // 5. Configure Y-Axis
         YAxis leftAxis = chart.getAxisLeft();
-        leftAxis.setEnabled(isYAxisEnabled); // Apply the flag (31/01/26)
-        if (isYAxisEnabled) {
-            leftAxis.setDrawGridLines(false);
+        // CRITICAL: Always keep enabled so the scale (0 to Max) is respected.
+        // If set to false, the chart auto-scales to the data range (floating bars).
+        leftAxis.setEnabled(true);
+        leftAxis.setAxisMinimum(0f); // Forces the bars to sit on the floor (0)
+
+        if (isYAxisVisible) {
+            // Normal mode: Show labels
+            leftAxis.setDrawLabels(true);
+            leftAxis.setDrawGridLines(false); // Preference: clean look
+            leftAxis.setDrawAxisLine(true);
             leftAxis.setTextColor(Color.parseColor("#969696"));
             leftAxis.setTypeface(customFont);
             leftAxis.setTextSize(13f);
-            leftAxis.setAxisMinimum(0f);
+        } else {
+            // "Hidden" mode: Hide visuals but keep the scale logic
+            leftAxis.setDrawLabels(false);
+            leftAxis.setDrawAxisLine(false);
+            leftAxis.setDrawGridLines(false);
+            leftAxis.setDrawZeroLine(true); // Optional: Draws a line at 0 for grounding
+            leftAxis.setZeroLineColor(Color.parseColor("#969696"));
         }
         chart.getAxisRight().setEnabled(false);
 

@@ -61,9 +61,15 @@
 </table>
 
 ### **Version history and changes:**
-Latest release **_[here](https://github.com/spewedprojects/MeditationTracker/releases/tag/v11.2.0)_**.
+Latest release **_[here](https://github.com/spewedprojects/MeditationTracker/releases/tag/v11.3.0)_**.
 
-82. **_[11.1.2 (31/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v11.1.2)_**
+83. **_[11.2.0 (01/02/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v11.2.0)_**
+    > - A new `setYAxisEnabled` method to toggle Y-axis visibility - `false` in report card.
+    > - Replaced Left/Right with Start/End across layouts.
+    > - Standardized menu item texts, button descriptions using new string resources.
+    > - Auto button for theme switcher is now an image instead of text.
+
+    82. [11.1.2 (31/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v11.1.2)
     > - Added `StreakDatabaseHelper` support for JSON export and import, ensuring streak history is included in data backups.
     > - Updated `BaseActivity` to include streak data in `exportDataAsJson` and `importDataFromJson` methods.
     > - Updated `SummaryFragment` to force a data refresh in `onResume`.

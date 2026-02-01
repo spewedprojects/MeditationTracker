@@ -16,6 +16,7 @@ import com.gratus.meditationtrakcer.GoalsActivity;
 import com.gratus.meditationtrakcer.R;
 
 import java.util.List;
+import java.util.Locale;
 
 public class GoalsAdapter extends RecyclerView.Adapter<GoalsAdapter.GoalViewHolder> {
     private List<Goal> goals;
@@ -75,11 +76,22 @@ public class GoalsAdapter extends RecyclerView.Adapter<GoalsAdapter.GoalViewHold
         String endDate = goal.getEndDate(); // Already formatted
         //String dateRange = goal.getDateRange(); // New field
 
+        // ✅ Format targetHours to 1 decimal place (e.g. 8.5)
+        double hours = goal.getTargetHours();
+        String targetFormatted;
+        if (hours == Math.floor(hours)) {
+            // It's an integer, no decimals
+            targetFormatted = String.format(Locale.US, "%.0f", hours);
+        } else {
+            // Show one decimal
+            targetFormatted = String.format(Locale.US, "%.1f", hours);
+        }
+
 
         Log.d("GoalsAdapter", "Start Date: " + goal.getStartDate() + ", End Date: " + goal.getEndDate());
 
         holder.goalTitle.setText(goal.getDescription());
-        holder.durationView.setText("Target: " + goal.getDailyTarget() + " | " + + goal.getTargetHours() + "h | " + goal.getDateRange());
+        holder.durationView.setText("Target: " + goal.getDailyTarget() + " | " + targetFormatted + "h | " + goal.getDateRange());
         holder.progressBar.setProgress(goal.getProgressPercent());
         holder.percentageView.setText(goal.getProgressPercent() + "% completed");
 

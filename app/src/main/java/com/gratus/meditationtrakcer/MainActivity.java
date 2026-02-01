@@ -1,5 +1,7 @@
 package com.gratus.meditationtrakcer;
 
+import static com.gratus.meditationtrakcer.utils.ClearFocusUtils.clearFocusOnKeyboardHide;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -11,7 +13,6 @@ import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
-import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextWatcher;
@@ -107,6 +108,10 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
         manualHours.addTextChangedListener(inputWatcher);
         manualMinutes.addTextChangedListener(inputWatcher);
         manualSeconds.addTextChangedListener(inputWatcher);
+
+        clearFocusOnKeyboardHide(manualHours, manualHours);
+        clearFocusOnKeyboardHide(manualMinutes, manualMinutes);
+        clearFocusOnKeyboardHide(manualSeconds, manualSeconds);
 
         // Set initial state (Disabled/Dimmed)
         updateAddButtonState();
@@ -475,7 +480,7 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
 
         if (cursor != null && cursor.moveToFirst()) {
             String description = cursor.getString(cursor.getColumnIndexOrThrow(GoalsDatabaseHelper.COLUMN_DESCRIPTION));
-            int targetHours = cursor.getInt(cursor.getColumnIndexOrThrow(GoalsDatabaseHelper.COLUMN_TARGET_HOURS));
+            double targetHours = cursor.getDouble(cursor.getColumnIndexOrThrow(GoalsDatabaseHelper.COLUMN_TARGET_HOURS));
             String startDateTime = cursor.getString(cursor.getColumnIndexOrThrow(GoalsDatabaseHelper.COLUMN_START_DATE));
             String endDateTime = cursor.getString(cursor.getColumnIndexOrThrow(GoalsDatabaseHelper.COLUMN_END_DATE));
 
@@ -523,7 +528,19 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
             }
 
             goalTitle.setText(description);
-            goalDuration.setText(dailyTargetStr + " | " + targetHours + "h | " + formattedStartDate + " - " + formattedEndDate);
+
+            // ✅ Format targetHours to 1 decimal place (e.g. 8.5)
+            double hours = targetHours;
+            String targetFormatted;
+            if (hours == Math.floor(hours)) {
+                // It's an integer, no decimals
+                targetFormatted = String.format(Locale.US, "%.0f", hours);
+            } else {
+                // Show one decimal
+                targetFormatted = String.format(Locale.US, "%.1f", hours);
+            }
+
+            goalDuration.setText(dailyTargetStr + " | " + targetFormatted + "h | " + formattedStartDate + " - " + formattedEndDate);
             goalProgressBar.setProgress(progressPercentage);
             goalProgressPercentage.setText(progressPercentage + "%");
 

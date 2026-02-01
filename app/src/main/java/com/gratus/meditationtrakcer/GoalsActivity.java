@@ -1,5 +1,7 @@
 package com.gratus.meditationtrakcer;
 
+import static com.gratus.meditationtrakcer.utils.ClearFocusUtils.clearFocusOnKeyboardHide;
+
 import android.app.DatePickerDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
@@ -41,7 +43,6 @@ import com.gratus.meditationtrakcer.datamodels.Goal;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.List;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -110,6 +111,8 @@ public class GoalsActivity extends BaseActivity {
         numDaysInput        = findViewById(R.id.totaldays_input);
         bStartDateInput     = findViewById(R.id.B_startdate_input);
 
+        clearFocusOnKeyboardHide(goalDescription, goalDescription);
+
         // 1. Initialize the new Views
         collapseExpandButton = findViewById(R.id.col_exp_button);
         expandableContainer = findViewById(R.id.goals_expandable_container);
@@ -138,11 +141,13 @@ public class GoalsActivity extends BaseActivity {
                 findViewById(R.id.target_input_title), targetHours,
                 findViewById(R.id.start_date_input_title), startDateInput,
                 findViewById(R.id.end_date_input_title),   endDateInput);
+        clearFocusOnKeyboardHide(targetHours, targetHours);
 
         methodBViews = Arrays.asList(
                 findViewById(R.id.daily_duration_title),  durationPerDayInput,
                 findViewById(R.id.totaldays_input_title), numDaysInput,
                 findViewById(R.id.B_startdate_title),     bStartDateInput);
+        clearFocusOnKeyboardHide(numDaysInput, numDaysInput);
 
         // Make group behave like two mutually-exclusive buttons
         modeGroup.setSingleSelection(true);
@@ -176,7 +181,7 @@ public class GoalsActivity extends BaseActivity {
 
         // —— Method-B picker listeners ————————————————————————————
         durationPerDayInput.setOnClickListener(v -> showTimePickerDialog(durationPerDayInput));
-        bStartDateInput   .setOnClickListener(v -> showDatePickerDialog(bStartDateInput));
+        bStartDateInput.setOnClickListener(v -> showDatePickerDialog(bStartDateInput));
 
         // digits-only for “No. of Days”
         numDaysInput.setKeyListener(DigitsKeyListener.getInstance("0123456789"));
@@ -323,7 +328,7 @@ public class GoalsActivity extends BaseActivity {
 
         while (cursor.moveToNext()) {
             String description = cursor.getString(idxDesc);
-            int targetHours = cursor.getInt(idxTarget);
+            double targetHours = cursor.getDouble(idxTarget);
             String startDateTime = cursor.getString(idxStart);
             String endDateTime = cursor.getString(idxEnd);
             int goalId = cursor.getInt(idxId);
@@ -360,7 +365,7 @@ public class GoalsActivity extends BaseActivity {
     }
 
     // Helper: Calculate Daily Target
-    private String calculateDailyTarget(Date sDate, Date eDate, int targetHours) {
+    private String calculateDailyTarget(Date sDate, Date eDate, double targetHours) {
         long diff = eDate.getTime() - sDate.getTime();
         long days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) + 1;
         if (days < 1) days = 1;

@@ -325,6 +325,7 @@ public class SummaryFragment extends Fragment {
     private BarChart setupChart(View view, ArrayList<BarEntry> entries, ArrayList<String> labels, float width) {
         BarChart chart = view.findViewById(R.id.barChart);
         MeditationChartManager manager = new MeditationChartManager(getContext(), chart, myCustomFont);
+        manager.setYAxisEnabled(true); // Corrected (02/02/26)
         manager.displayChart(entries, labels, width);
         return chart;
     }

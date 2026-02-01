@@ -24,10 +24,10 @@
     <string name="goals_title">Set a New Goal</string>
     <string name="goals_desc">Create a new meditation goal</string>
     <string name="current_version_details">
-        • A new `setYAxisEnabled` method to toggle Y-axis visibility - `false` in report card.
-        \n• Replaced Left/Right with Start/End across layouts.
-        \n• Standardized menu item texts, button descriptions using new string resources.
-        \n• Auto button for theme switcher is now an image instead of text.
+        • Implemented `ClearFocusUtils` to automatically clear focus from input fields.
+        \n• Refactored `MeditationChartManager` Y-axis logic to allow hiding labels/lines while maintaining a fixed scale (0 to Max) to prevent "floating" bars.
+        \n• Updated `SummaryFragment` to hide the Y-axis in charts.
+        \n• Migrated `GoalsDatabaseHelper` to version 6, updating `COLUMN_TARGET_HOURS` from `INTEGER` to `REAL` to support decimal values.
         \n
         \nNEXT:
         \n › Home screen widget (this will take time to implement).

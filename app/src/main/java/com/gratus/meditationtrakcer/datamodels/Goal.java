@@ -3,7 +3,7 @@ package com.gratus.meditationtrakcer.datamodels;
 public class Goal {
     private int id;
     private String description;
-    private int targetHours;
+    private double targetHours;
     private double loggedHours;
     private String startDate;
     private String endDate;
@@ -11,7 +11,7 @@ public class Goal {
     private String dailyTarget; // New field (14/01/26)
     private String dateRange; // New field for the formatted range (14/01/26)
 
-    public Goal(int id, String description, int targetHours, double loggedHours, String startDate, String endDate, int progressPercent, String dailyTarget, String dateRange) {
+    public Goal(int id, String description, double targetHours, double loggedHours, String startDate, String endDate, int progressPercent, String dailyTarget, String dateRange) {
         this.id = id;
         this.description = description;
         this.targetHours = targetHours;
@@ -26,7 +26,7 @@ public class Goal {
     // Getters
     public int getId() { return id; }
     public String getDescription() { return description; }
-    public int getTargetHours() { return targetHours; }
+    public double getTargetHours() { return targetHours; }
     public String getStartDate() { return startDate; }
     public String getEndDate() { return endDate; }
     public int getProgressPercent() { return progressPercent; }

@@ -1,5 +1,7 @@
 package com.gratus.meditationtrakcer.dialogfragments;
 
+import static com.gratus.meditationtrakcer.utils.ClearFocusUtils.clearFocusOnKeyboardHide;
+
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -75,6 +77,8 @@ public class StreakDialogFragment extends DialogFragment {
         TextView longestStreakText = dialogView.findViewById(R.id.streak_longest_int);
         TextView currentStreakText = dialogView.findViewById(R.id.streak_current_int);
         TextView currentStreakLabel = dialogView.findViewById(R.id.streak_current_title); // For modifying title if needed
+
+        clearFocusOnKeyboardHide(inputDays, dialogView);
 
         // --- 1. Populate Stats (Longest & Current) ---
         populateStreakStats(longestStreakText, currentStreakText);

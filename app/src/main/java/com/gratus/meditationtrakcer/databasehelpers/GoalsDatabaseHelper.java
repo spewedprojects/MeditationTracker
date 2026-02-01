@@ -16,7 +16,7 @@ import java.util.Locale;
 public class GoalsDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "goals.db";
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 6;
 
     public static final String TABLE_GOALS = "goals";
     public static final String COLUMN_ID = "_id";
@@ -30,7 +30,7 @@ public class GoalsDatabaseHelper extends SQLiteOpenHelper {
             "CREATE TABLE " + TABLE_GOALS + " (" +
                     COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     COLUMN_DESCRIPTION + " TEXT, " +
-                    COLUMN_TARGET_HOURS + " INTEGER, " +
+                    COLUMN_TARGET_HOURS + " REAL, " +
                     COLUMN_PROGRESS_HOURS + " INTEGER DEFAULT 0, " +
                     COLUMN_START_DATE + " TEXT, " + // Stores timestamp
                     COLUMN_END_DATE + " TEXT);";    // Stores timestamp
@@ -69,6 +69,42 @@ public class GoalsDatabaseHelper extends SQLiteOpenHelper {
             // Step 4: Rename the new table
             db.execSQL("ALTER TABLE goals_new RENAME TO " + TABLE_GOALS);
         }
+
+        if (oldVersion < 6) {
+            // Migration to support Decimal Target Hours (REAL)
+            db.beginTransaction();
+            try {
+                // 1. Rename old table
+                db.execSQL("ALTER TABLE " + TABLE_GOALS + " RENAME TO goals_old");
+
+                // 2. Create new table with REAL type for target_hours
+                db.execSQL(TABLE_GOALS_CREATE);
+
+                // 3. Copy data
+                db.execSQL("INSERT INTO " + TABLE_GOALS + " (" +
+                        COLUMN_ID + ", " +
+                        COLUMN_DESCRIPTION + ", " +
+                        COLUMN_TARGET_HOURS + ", " +
+                        COLUMN_PROGRESS_HOURS + ", " +
+                        COLUMN_START_DATE + ", " +
+                        COLUMN_END_DATE + ") " +
+                        "SELECT " +
+                        COLUMN_ID + ", " +
+                        COLUMN_DESCRIPTION + ", " +
+                        COLUMN_TARGET_HOURS + ", " +
+                        COLUMN_PROGRESS_HOURS + ", " +
+                        COLUMN_START_DATE + ", " +
+                        COLUMN_END_DATE +
+                        " FROM goals_old");
+
+                // 4. Drop old table
+                db.execSQL("DROP TABLE goals_old");
+
+                db.setTransactionSuccessful();
+            } finally {
+                db.endTransaction();
+            }
+        }
     }
 
     // ✅ Update progress of goals based on meditation logs
@@ -96,7 +132,7 @@ public class GoalsDatabaseHelper extends SQLiteOpenHelper {
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("_id", cursor.getInt(cursor.getColumnIndexOrThrow("_id")));
                 jsonObject.put("description", cursor.getString(cursor.getColumnIndexOrThrow("description")));
-                jsonObject.put("target_hours", cursor.getInt(cursor.getColumnIndexOrThrow("target_hours")));
+                jsonObject.put("target_hours", cursor.getDouble(cursor.getColumnIndexOrThrow("target_hours"))); // double real
                 jsonObject.put("progress_hours", cursor.getInt(cursor.getColumnIndexOrThrow("progress_hours")));
                 jsonObject.put("start_date", cursor.getString(cursor.getColumnIndexOrThrow("start_date"))); // Includes timestamp
                 jsonObject.put("end_date", cursor.getString(cursor.getColumnIndexOrThrow("end_date")));     // Includes timestamp
@@ -125,7 +161,7 @@ public class GoalsDatabaseHelper extends SQLiteOpenHelper {
                 ContentValues values = new ContentValues();
                 values.put("_id", goal.getInt("_id"));
                 values.put("description", goal.getString("description"));
-                values.put("target_hours", goal.getInt("target_hours"));
+                values.put("target_hours", goal.getDouble("target_hours"));
                 values.put("progress_hours", goal.getInt("progress_hours"));
                 values.put("start_date", goal.getString("start_date"));
                 values.put("end_date", goal.getString("end_date"));
