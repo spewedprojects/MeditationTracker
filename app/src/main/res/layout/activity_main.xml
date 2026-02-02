@@ -406,7 +406,7 @@
 
             <!-- For cardview Goals -->
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardView_goals_list"
+                android:id="@+id/cardView_goal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="50dp"

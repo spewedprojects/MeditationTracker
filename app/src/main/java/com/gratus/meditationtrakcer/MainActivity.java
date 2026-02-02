@@ -476,7 +476,7 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
         );
 
 
-        View goalCardView = findViewById(R.id.cardView_goals_list);
+        View goalCardView = findViewById(R.id.cardView_goal);
 
         if (cursor != null && cursor.moveToFirst()) {
             String description = cursor.getString(cursor.getColumnIndexOrThrow(GoalsDatabaseHelper.COLUMN_DESCRIPTION));
@@ -488,7 +488,7 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
             MeditationLogDatabaseHelper meditationLogDatabaseHelper = new MeditationLogDatabaseHelper(this);
             double loggedHours = meditationLogDatabaseHelper.getLoggedHours(startDateTime, endDateTime);
             int progressPercentage = (int) ((loggedHours * 100.0f) / targetHours);
-            if (progressPercentage > 100) progressPercentage = 100;
+            //if (progressPercentage > 100) progressPercentage = 100;
 
             // Bind data to the views
             TextView goalTitle = findViewById(R.id.goal_title_home);

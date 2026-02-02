@@ -338,7 +338,7 @@ public class GoalsActivity extends BaseActivity {
             double loggedHours = totalSeconds / 3600.0;
 
             int progressPercent = (int) ((loggedHours / targetHours) * 100);
-            if (progressPercent > 100) progressPercent = 100;
+            //if (progressPercent > 100) progressPercent = 100;
 
             // Parse dates once
             Date sDate, eDate;

@@ -61,9 +61,15 @@
 </table>
 
 ### **Version history and changes:**
-Latest release **_[here](https://github.com/spewedprojects/MeditationTracker/releases/tag/v11.3.0)_**.
+###### Latest release **_[here](https://github.com/spewedprojects/MeditationTracker/releases/tag/v12.0.1)_**.
+---
+84. **_[12.0.0 (02/02/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v12.0.0)_**
+    > - Implemented `ClearFocusUtils` to automatically clear focus from input fields.
+    > - Refactored `MeditationChartManager` Y-axis logic to allow hiding labels/lines while maintaining a fixed scale (0 to Max) to prevent "floating" bars.
+    > - Updated `SummaryFragment` to hide the Y-axis in charts.
+    > - Migrated `GoalsDatabaseHelper` to version 6, updating `COLUMN_TARGET_HOURS.
 
-83. **_[11.2.0 (01/02/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v11.2.0)_**
+    83. [11.2.0 (01/02/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v11.2.0)
     > - A new `setYAxisEnabled` method to toggle Y-axis visibility - `false` in report card.
     > - Replaced Left/Right with Start/End across layouts.
     > - Standardized menu item texts, button descriptions using new string resources.

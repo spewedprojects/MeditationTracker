@@ -24,10 +24,9 @@
     <string name="goals_title">Set a New Goal</string>
     <string name="goals_desc">Create a new meditation goal</string>
     <string name="current_version_details">
-        • Implemented `ClearFocusUtils` to automatically clear focus from input fields.
-        \n• Refactored `MeditationChartManager` Y-axis logic to allow hiding labels/lines while maintaining a fixed scale (0 to Max) to prevent "floating" bars.
-        \n• Updated `SummaryFragment` to hide the Y-axis in charts.
-        \n• Migrated `GoalsDatabaseHelper` to version 6, updating `COLUMN_TARGET_HOURS` from `INTEGER` to `REAL` to support decimal values.
+        • Simplified `goal_item.xml` by removing the redundant outer `ConstraintLayout`.
+        \n• Renamed `cardView_goals_list` to `cardView_goal` in `MainActivity` and `activity_main.xml`.
+        \n• Removed the cap on goal progress percentage, allowing it to exceed 100% in `GoalsActivity` and `MainActivity`.
         \n
         \nNEXT:
         \n › Home screen widget (this will take time to implement).
