@@ -35,7 +35,10 @@ public class TimerWidgetProvider extends AppWidgetProvider {
         int m = (seconds % 3600) / 60;
         int s = seconds % 60;
         String timeString = String.format(Locale.getDefault(), "%02d:%02d:%02d", h, m, s);
+        // Get the spacing value from resources (e.g. 0.05f)
+        float spacing = context.getResources().getDimension(R.dimen.widget_letter_spacing);
         views.setTextViewText(R.id.widget_timer_display, timeString);
+        views.setFloat(R.id.widget_timer_display, "setLetterSpacing", spacing);
 
         // 2. Configure Start/Stop Button
         Intent serviceIntent = new Intent(context, TimerService.class);

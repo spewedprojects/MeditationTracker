@@ -29,6 +29,8 @@
 
     <color name="minicard_textColor">#C7000000</color>
 
+    <color name="widget_bg">#80FFFFFF</color>
+
     <color name="big_button_bg">#05000000</color>
     <color name="mid_button_bg">#12000000</color>
 </resources>

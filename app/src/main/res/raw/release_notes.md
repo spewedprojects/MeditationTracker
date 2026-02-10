@@ -64,7 +64,12 @@
 
 Latest release **_[here](https://github.com/spewedprojects/MeditationTracker/releases/latest)_**.
 
-87. **_[13.0.0 (10/02/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v13.0.0)_**
+89. **[13.0.0 (10/02/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v13.1.0)**
+    > - Home screen widgets are finally here, timer first and now goals.
+    > - Changed the start/stop button to an icon for compactness.
+    > - Overhauled the timer widget - looks more polished now.
+
+    87. **[13.0.0 (10/02/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v13.0.0)**
     > - ### Home screen widgets are finally here.
     >   - Added `MeditationWidgetProvider` and `widget_timer.xml` to support the same.
     >   - Integrated automatic database persistence for sessions finished via the widget.
