@@ -7,7 +7,6 @@ import android.app.PendingIntent; // ⬅️ new; used for tap on notification to
 import android.app.Service;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Handler;
@@ -22,7 +21,7 @@ import androidx.core.app.NotificationCompat;
 import com.gratus.meditationtrakcer.MainActivity;
 import com.gratus.meditationtrakcer.databasehelpers.GoalsDatabaseHelper;
 import com.gratus.meditationtrakcer.databasehelpers.MeditationLogDatabaseHelper;
-import com.gratus.meditationtrakcer.widgets.MeditationWidgetProvider;
+import com.gratus.meditationtrakcer.widgets.TimerWidgetProvider;
 import com.gratus.meditationtrakcer.R;
 
 import java.util.Locale;
@@ -197,13 +196,22 @@ public class TimerService extends Service {
     // ✅ NEW: Helper to update the widget directly from Service
     private void updateWidgets() {
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
-        ComponentName thisWidget = new ComponentName(this, MeditationWidgetProvider.class);
-        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
 
+        // 1. Update Timer Widgets
+        ComponentName thisWidget = new ComponentName(this, TimerWidgetProvider.class);
+        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
         // Call the static update method in your Provider
         // We pass 'secondsElapsed' and 'isTimerRunning' state
         for (int appWidgetId : appWidgetIds) {
-            MeditationWidgetProvider.updateWidget(this, appWidgetManager, appWidgetId, secondsElapsed, isTimerRunning);
+            TimerWidgetProvider.updateTimerWidget(this, appWidgetManager, appWidgetId, secondsElapsed, isTimerRunning);
+        }
+
+        // 2. ✅ Update Goal Widgets (Only on STOP, or periodically, but updating here is safe)
+        ComponentName goalWidget = new ComponentName(this, com.gratus.meditationtrakcer.widgets.GoalWidgetProvider.class);
+        int[] goalIds = appWidgetManager.getAppWidgetIds(goalWidget);
+        for (int id : goalIds) {
+            // We can reuse the static update method we created
+            com.gratus.meditationtrakcer.widgets.GoalWidgetProvider.updateGoalWidget(this, appWidgetManager, id);
         }
     }
 

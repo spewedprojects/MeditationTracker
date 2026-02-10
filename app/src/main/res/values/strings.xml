@@ -24,9 +24,14 @@
     <string name="goals_title">Set a New Goal</string>
     <string name="goals_desc">Create a new meditation goal</string>
     <string name="current_version_details">
-        • Home screen widget is finally here, timer first.
+        • Home screen widgets are finally here, timer first and now goals.\n
+        • Changed the start/stop button to an icon for compactness.\n
+        • Overhauled the timer widget - looks more polished now.\n
+        \n
+        NEXT:\n
+          ৹ Streaks widget.
     </string>
-    <string name="v1.16.c">v1.16.c:\n- NOICE!\n  - Next indent.\n   • bullet 1 ▶ Bullet 2 › bullet 3</string>
+    <string name="v1.16.c">v1.16.c:\n- NOICE!\n  - Next indent.\n   • bullet 1 ▶ Bullet 2 › bullet 3 ৹</string>
     <string name="close_menu_button">Close Menu</string>
     <string name="open_menu_button">Open Menu</string>
     <string name="total_hours_placeholder">Total: 0.00 hours</string>

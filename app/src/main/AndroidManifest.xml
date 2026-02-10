@@ -77,14 +77,26 @@
 
         <service android:name=".datamanagers.TimerService" android:foregroundServiceType="dataSync" />
 
-        <receiver android:name=".widgets.MeditationWidgetProvider"
-            android:exported="false">
+        <receiver android:name=".widgets.TimerWidgetProvider"
+            android:exported="false"
+            android:label="Meditation Timer">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="TIMER_UPDATED" /> </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/meditation_widget_info" />
+                android:resource="@xml/widget_timer_info" />
+        </receiver>
+
+        <receiver android:name=".widgets.GoalWidgetProvider"
+            android:exported="false"
+            android:label="Latest Goal">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_goal_info" />
         </receiver>
 
     </application>

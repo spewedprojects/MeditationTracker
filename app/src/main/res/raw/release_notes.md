@@ -64,7 +64,14 @@
 
 Latest release **_[here](https://github.com/spewedprojects/MeditationTracker/releases/latest)_**.
 
-86. **_[12.0.2 (10/02/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v12.0.2)_**
+87. **_[13.0.0 (10/02/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v13.0.0)_**
+    > - ### Home screen widgets are finally here.
+    >   - Added `MeditationWidgetProvider` and `widget_timer.xml` to support the same.
+    >   - Integrated automatic database persistence for sessions finished via the widget.
+    > - Refactored `TimerService` to handle explicit `START_TIMER` and `STOP_TIMER` actions.
+    > - Fixed a sync issue where the app display wouldn't reflect progress made while the timer was controlled via notification or widget.
+
+    86. [12.0.2 (10/02/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v12.0.2)
     > - Migrated back-button logic from the deprecated `onBackPressed()` to `OnBackPressedCallback` in BaseActivity.
     > - Cleaned up `onCreate` by extracting click listener setup into a dedicated `setupOnCLickListeners()` method.
     > - AGP upgraded to 9.0.0. No breaking changes.

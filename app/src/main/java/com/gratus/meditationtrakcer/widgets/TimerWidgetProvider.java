@@ -3,7 +3,6 @@ package com.gratus.meditationtrakcer.widgets;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -15,7 +14,7 @@ import com.gratus.meditationtrakcer.datamanagers.TimerService;
 
 import java.util.Locale;
 
-public class MeditationWidgetProvider extends AppWidgetProvider {
+public class TimerWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
@@ -23,12 +22,12 @@ public class MeditationWidgetProvider extends AppWidgetProvider {
         for (int appWidgetId : appWidgetIds) {
             // Passing 0 and false as default since we don't know state yet,
             // but the service will override this quickly if running.
-            updateWidget(context, appWidgetManager, appWidgetId, 0, TimerService.isTimerRunning);
+            updateTimerWidget(context, appWidgetManager, appWidgetId, 0, TimerService.isTimerRunning);
         }
     }
 
     // Helper method called by onUpdate AND by TimerService
-    public static void updateWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId, int seconds, boolean isRunning) {
+    public static void updateTimerWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId, int seconds, boolean isRunning) {
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_timer);
 
         // 1. Format Time
@@ -41,11 +40,13 @@ public class MeditationWidgetProvider extends AppWidgetProvider {
         // 2. Configure Start/Stop Button
         Intent serviceIntent = new Intent(context, TimerService.class);
         if (isRunning) {
-            views.setTextViewText(R.id.widget_record_btn, "Stop");
+            //views.setTextViewText(R.id.widget_record_btn, "Stop");
+            views.setImageViewResource(R.id.widget_record_btn, R.drawable.stop_circle_64dp);
             serviceIntent.setAction(TimerService.ACTION_STOP);
             serviceIntent.putExtra(TimerService.EXTRA_SAVE_DATA, true); // ✅ Tell service to save
         } else {
-            views.setTextViewText(R.id.widget_record_btn, "Start");
+            //views.setTextViewText(R.id.widget_record_btn, "Start");
+            views.setImageViewResource(R.id.widget_record_btn, R.drawable.start_circle_64dp);
             serviceIntent.setAction(TimerService.ACTION_START);
         }
 
