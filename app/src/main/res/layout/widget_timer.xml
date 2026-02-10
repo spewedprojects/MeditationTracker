@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:background="@drawable/widget_background">
+
+    <TextView
+        android:id="@+id/widget_timer_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="28dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
+        android:letterSpacing="0.05"
+        android:gravity="start"
+        android:text="@string/timer_card_title"
+        android:textColor="?attr/colorOnPrimary"
+        android:textSize="20sp"
+        android:textStyle="bold" /> <!-- Timer title -->
+
+    <TextView
+        android:id="@+id/widget_timer_display"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="4dp"
+        android:fontFamily="@font/atkinsonhyperlegiblenext_regular"
+        android:gravity="center"
+        android:text="00:00:00"
+        android:textColor="?attr/colorOnPrimary"
+        android:textSize="64sp"
+        android:letterSpacing="0.055"/> <!-- Timer display -->
+
+    <Button
+        android:id="@+id/widget_record"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="18dp"
+        android:backgroundTint="?attr/colorOnPrimary"
+        android:fontFamily="@font/atkinsonhyperlegiblenext_regular"
+        android:gravity="center"
+        android:letterSpacing="0.1"
+        android:includeFontPadding="false"
+        android:text="@string/record"
+        app:rippleColor="@color/big_button_bg"
+        android:textAllCaps="false"
+        android:textSize="15.5sp"
+        android:textStyle="bold"
+        android:textColor="?attr/colorPrimary"
+        app:cornerRadius="8dp"/> <!-- Record button -->
+
+</LinearLayout>

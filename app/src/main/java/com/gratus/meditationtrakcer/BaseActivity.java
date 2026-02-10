@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
@@ -67,10 +68,47 @@ public class BaseActivity extends AppCompatActivity {
     private static final String THEME_KEY = "SelectedTheme";
     private boolean doubleBackToExitPressedOnce = false;
     private final Handler backPressHandler = new Handler(Looper.getMainLooper());
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         applyTheme();
+        super.onCreate(savedInstanceState);
+
+        // Register the modern back press callback
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                // 1. Handle Drawer first
+                if (drawerLayout != null && drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    return;
+                }
+
+                // 2. Handle "Double Tap to Exit" logic
+                if (isTaskRoot() && isMainActivity()) {
+                    if (doubleBackToExitPressedOnce) {
+                        finish(); // Or use finishAffinity() to close the whole app
+                        return;
+                    }
+
+                    doubleBackToExitPressedOnce = true;
+                    Toast.makeText(BaseActivity.this, "Press BACK again to exit", Toast.LENGTH_SHORT).show();
+
+                    // Reset the flag after 2 seconds
+                    backPressHandler.postDelayed(() -> doubleBackToExitPressedOnce = false, 2000);
+                } else {
+                    // 3. Default behavior (pop backstack or finish child activity)
+                    setEnabled(false); // Temporarily disable this callback
+                    getOnBackPressedDispatcher().onBackPressed();
+                    setEnabled(true);  // Re-enable it
+                }
+            }
+        });
+    }
+
+    // Help avoid 'instanceof' by using a helper method
+    protected boolean isMainActivity() {
+        return false;
     }
 
     /**
@@ -570,24 +608,31 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     // BaseActivity.java
+//    @Override
+//    public void onBackPressed() {
+//        if (drawerLayout != null &&
+//                drawerLayout.isDrawerOpen(GravityCompat.START)) {
+//            drawerLayout.closeDrawer(GravityCompat.START);
+//            return;
+//        }
+//
+//        if (doubleBackToExitPressedOnce || !(this instanceof MainActivity)) {
+//            //       ^^^^^^^^^^^^^^^^^^^^ ── pressed twice in Main, OR
+//            //                                 we're on a child screen ➜ just finish
+//            super.onBackPressed();
+//            return;
+//        }
+//
+//        doubleBackToExitPressedOnce = true;
+//        Toast.makeText(this, "Press BACK again to exit", Toast.LENGTH_SHORT).show();
+//        backPressHandler.postDelayed(() -> doubleBackToExitPressedOnce = false, 2000);
+//    }
+
     @Override
-    public void onBackPressed() {
-        if (drawerLayout != null &&
-                drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START);
-            return;
-        }
-
-        if (doubleBackToExitPressedOnce || !(this instanceof MainActivity)) {
-            //       ^^^^^^^^^^^^^^^^^^^^ ── pressed twice in Main, OR
-            //                                 we're on a child screen ➜ just finish
-            super.onBackPressed();
-            return;
-        }
-
-        doubleBackToExitPressedOnce = true;
-        Toast.makeText(this, "Press BACK again to exit", Toast.LENGTH_SHORT).show();
-        backPressHandler.postDelayed(() -> doubleBackToExitPressedOnce = false, 2000);
+    protected void onDestroy() {
+        super.onDestroy();
+        // Prevent memory leaks by removing callbacks when activity is destroyed
+        backPressHandler.removeCallbacksAndMessages(null);
     }
 
 }

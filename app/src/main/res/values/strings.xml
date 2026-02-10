@@ -24,9 +24,9 @@
     <string name="goals_title">Set a New Goal</string>
     <string name="goals_desc">Create a new meditation goal</string>
     <string name="current_version_details">
-        • Simplified `goal_item.xml` by removing the redundant outer `ConstraintLayout`.
-        \n• Renamed `cardView_goals_list` to `cardView_goal` in `MainActivity` and `activity_main.xml`.
-        \n• Removed the cap on goal progress percentage, allowing it to exceed 100% in `GoalsActivity` and `MainActivity`.
+        • Migrated back-button logic from the deprecated `onBackPressed()` to `OnBackPressedCallback` in BaseActivity.
+        \n• Cleaned up `onCreate` by extracting click listener setup into a dedicated `setupOnCLickListeners()` method.
+        \n• AGP upgraded to 9.0.0. No breaking changes.
         \n
         \nNEXT:
         \n › Home screen widget (this will take time to implement).

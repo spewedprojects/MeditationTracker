@@ -26,8 +26,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
 import androidx.core.graphics.Insets;
@@ -55,17 +57,18 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
     private TextView dateDisplay, timerDisplay, todayTotalDisplay, weekTotalDisplay, streakText;
     private Button recordButton, addEntryButton;
     private ImageButton gotoGoalsButton, moreMenuButton;
+    private MaterialCardView streakCard;
     private EditText manualHours, manualMinutes, manualSeconds;
     private boolean isTimerRunning = false;
     private int secondsElapsed = 0;
     private int totalSecondsLogged = 0;
-    private Handler handler = new Handler();
     private StreakManager streakManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
+
         setContentView(R.layout.activity_main);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -90,6 +93,8 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
         manualMinutes = findViewById(R.id.manual_minutes);
         manualSeconds = findViewById(R.id.manual_seconds);
         //moreMenuButton = findViewById(R.id.menubutton);
+        streakCard = findViewById(R.id.cardView3_streak);
+        gotoGoalsButton = findViewById(R.id.goto_goals);
 
         // --- NEW CODE: Monitor text changes to toggle button state ---  (27/01/26)
         TextWatcher inputWatcher = new TextWatcher() {
@@ -117,8 +122,37 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
         updateAddButtonState();
         // -----------------------------------------------------------
 
-        MaterialCardView streakCard = findViewById(R.id.cardView3_streak);
+        displayShortestAndLatestGoal();  // New method call
 
+        // Display today's date
+        updateDateDisplay();
+
+        // ✅ Load saved total from database
+        MeditationLogDatabaseHelper dbHelper = new MeditationLogDatabaseHelper(this);
+        totalSecondsLogged = dbHelper.getTodayLoggedSeconds();
+        dbHelper.close();
+
+        updateTodayTotal();
+        updateWeekTotal();
+
+        // Menu button functionality
+        //moreMenuButton.setOnClickListener(v -> openMenu());
+
+        refreshStreakUI();
+        setupOnCLickListeners();
+    }
+
+    private final BroadcastReceiver timerUpdateReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (Objects.equals(intent.getAction(), "TIMER_UPDATED")) {
+                secondsElapsed = intent.getIntExtra("secondsElapsed", 0); // Get the elapsed time
+                updateTimerDisplay(); // Update the timer display
+            }
+        }
+    };
+
+    private void setupOnCLickListeners(){
         // Streak dialog toggle
         streakCard.setOnLongClickListener(v -> {
             StreakDialogFragment dialog = StreakDialogFragment.newInstance((days, startDate) -> {
@@ -152,16 +186,6 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
             return true; // Important: Consume the long click event
         });
 
-        displayShortestAndLatestGoal();  // New method call
-
-        // Display today's date
-        updateDateDisplay();
-
-        // ✅ Load saved total from database
-        MeditationLogDatabaseHelper dbHelper = new MeditationLogDatabaseHelper(this);
-        totalSecondsLogged = dbHelper.getTodayLoggedSeconds();
-        dbHelper.close();
-
         // Record button functionality
         recordButton.setOnClickListener(v -> {
             if (isTimerRunning) {
@@ -181,30 +205,11 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
             addManualEntry();
         });
 
-        updateTodayTotal();
-        updateWeekTotal();
-
-        // Menu button functionality
-        //moreMenuButton.setOnClickListener(v -> openMenu());
-
-        gotoGoalsButton = findViewById(R.id.goto_goals);
         gotoGoalsButton.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, GoalsActivity.class);
             startActivity(intent);
         });
-
-        refreshStreakUI();
     }
-
-    private final BroadcastReceiver timerUpdateReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (Objects.equals(intent.getAction(), "TIMER_UPDATED")) {
-                secondsElapsed = intent.getIntExtra("secondsElapsed", 0); // Get the elapsed time
-                updateTimerDisplay(); // Update the timer display
-            }
-        }
-    };
 
     private SpannableString createStyledStreakText(int days) {
         streakText = findViewById(R.id.streak);
@@ -660,5 +665,10 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    protected boolean isMainActivity() {
+        return true;
     }
 }
