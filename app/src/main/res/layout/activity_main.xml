@@ -278,18 +278,18 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="18dp"
-                        android:backgroundTint="?attr/colorOnPrimary"
+                        android:backgroundTint="@color/black_white"
                         android:fontFamily="@font/atkinsonhyperlegiblenext_regular"
                         android:gravity="center"
-                        android:letterSpacing="0.1"
                         android:includeFontPadding="false"
+                        android:letterSpacing="0.1"
                         android:text="@string/record"
-                        app:rippleColor="@color/big_button_bg"
                         android:textAllCaps="false"
+                        android:textColor="@color/white_black"
                         android:textSize="15.5sp"
                         android:textStyle="bold"
-                        android:textColor="?attr/colorPrimary"
-                        app:cornerRadius="8dp"/> <!-- Record button -->
+                        app:cornerRadius="8dp"
+                        app:rippleColor="@color/big_button_bg" /> <!-- Record button -->
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView> <!-- For cardview Timer -->
@@ -390,7 +390,7 @@
                         android:layout_marginBottom="18dp"
                         android:fontFamily="@font/atkinsonhyperlegiblenext_regular"
                         android:gravity="center"
-                        android:backgroundTint="?attr/colorOnPrimary"
+                        android:backgroundTint="@color/black_white"
                         android:includeFontPadding="false"
                         android:text="@string/add_entry"
                         app:rippleColor="@color/big_button_bg"
@@ -398,7 +398,7 @@
                         android:textSize="15.5sp"
                         android:letterSpacing="0.1"
                         android:textStyle="bold"
-                        android:textColor="?attr/colorPrimary"
+                        android:textColor="@color/white_black"
                         app:cornerRadius="8dp"/> <!-- Add manually button -->
 
                 </LinearLayout>

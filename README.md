@@ -6,7 +6,7 @@ Or alternatively, you can find it in Releases section also.
 
 ***
 
-# (v11.1.2) 31/01/2026
+# (v13.0.0) 10/02/2026
 **Current known issues:**
 - **NONE (...of which I noticed).**
 - ~~Streak Goal (when enabled) doesn't reset to 0 when the the chain is broken; only displays the no. of days contiguously recorded.~~ __DONE!! 08/01/2026__

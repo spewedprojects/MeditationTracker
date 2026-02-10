@@ -64,7 +64,13 @@
 
 Latest release **_[here](https://github.com/spewedprojects/MeditationTracker/releases/latest)_**.
 
-85. **_[12.0.1 (02/02/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v12.0.1)_**
+86. **_[12.0.2 (10/02/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v12.0.2)_**
+    > - Migrated back-button logic from the deprecated `onBackPressed()` to `OnBackPressedCallback` in BaseActivity.
+    > - Cleaned up `onCreate` by extracting click listener setup into a dedicated `setupOnCLickListeners()` method.
+    > - AGP upgraded to 9.0.0. No breaking changes.
+    > - Gearing up home-screen widget.
+
+    85. [12.0.1 (02/02/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v12.0.1)
     > - Simplified `goal_item.xml` by removing the redundant outer `ConstraintLayout`.
     > - Renamed `cardView_goals_list` to `cardView_goal` in `MainActivity` and `activity_main.xml`.
     > - Removed the cap on goal progress percentage, allowing it to exceed 100% in `GoalsActivity` and `MainActivity`.

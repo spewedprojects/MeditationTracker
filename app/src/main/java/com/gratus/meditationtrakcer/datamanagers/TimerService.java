@@ -5,6 +5,9 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent; // ⬅️ new; used for tap on notification to launch app main screen
 import android.app.Service;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Handler;
@@ -17,6 +20,9 @@ import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
 import com.gratus.meditationtrakcer.MainActivity;
+import com.gratus.meditationtrakcer.databasehelpers.GoalsDatabaseHelper;
+import com.gratus.meditationtrakcer.databasehelpers.MeditationLogDatabaseHelper;
+import com.gratus.meditationtrakcer.widgets.MeditationWidgetProvider;
 import com.gratus.meditationtrakcer.R;
 
 import java.util.Locale;
@@ -24,6 +30,9 @@ import java.util.Locale;
 public class TimerService extends Service {
     // Unique channel ID for the foreground service notification
     public static final String CHANNEL_ID = "MeditationTimerChannel";
+    public static final String ACTION_START = "START_TIMER"; // Explicit Start Action
+    public static final String ACTION_STOP = "STOP_TIMER";   // Explicit Stop Action
+    public static final String EXTRA_SAVE_DATA = "SAVE_DATA"; // New Flag
 
     // Handler to manage periodic timer updates
     private Handler handler = new Handler();
@@ -59,16 +68,25 @@ public class TimerService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        // Check if the intent has a "STOP_TIMER" action to stop the timer
-        Log.d("TimerService", "onStartCommand called");
-        if (intent.getAction() != null && intent.getAction().equals("STOP_TIMER")) {
-            stopTimer(); // Stop the timer
-            stopSelf(); // Stop the service
-        } else {
-            // Start the timer if no "STOP_TIMER" action is provided
+        String action = intent != null ? intent.getAction() : "";
+
+        if (ACTION_START.equals(action)) {
+            startForeground(1, getNotification("Meditation Timer Running..."));
             startTimer();
+        } else if (ACTION_STOP.equals(action)) {
+            // Check if we should save data (True for Widget, False for App)
+            boolean shouldSave = intent.getBooleanExtra(EXTRA_SAVE_DATA, false);
+            stopTimer(shouldSave);
+            stopForeground(true);
+            stopSelf();
+        } else {
+            // Default behavior (e.g. generic start)
+            if (!isTimerRunning) {
+                startForeground(1, getNotification("Meditation Timer Running..."));
+                startTimer();
+            }
         }
-        // Keep the service running until explicitly stopped
+        updateWidgets();
         return START_STICKY;
     }
 
@@ -95,13 +113,40 @@ public class TimerService extends Service {
     /**
      * Stops the timer and removes any scheduled updates.
      */
-    private void stopTimer() {
+    private void stopTimer(boolean saveToDb) {
         if (isTimerRunning) {
             long endTime = System.currentTimeMillis();
-            secondsElapsed += (int) ((endTime - startTime) / 1000); // Calculate total elapsed time
+
+            // ✅ FIX 1: Prevent doubling. Recalculate total time from start, don't add to existing.
+            int finalSeconds = (int) ((endTime - startTime) / 1000);
+
+            // ✅ FIX 2: Save to Database if requested (Widget scenario)
+            if (saveToDb) {
+                // 1. Log the session
+                MeditationLogDatabaseHelper dbHelper = new MeditationLogDatabaseHelper(this);
+                dbHelper.logSessionWithTimestamp(startTime, finalSeconds);
+                dbHelper.close();
+
+                // 2. Update Goals
+                GoalsDatabaseHelper goalsDbHelper = new GoalsDatabaseHelper(this);
+                goalsDbHelper.updateGoalsProgress(finalSeconds);
+                goalsDbHelper.close();
+
+                // 3. Update Streak
+                StreakManager streakManager = new StreakManager(this);
+                streakManager.updateActiveStreakProgress();
+            }
+
             isTimerRunning = false;
             handler.removeCallbacks(timerRunnable);
-            prefs.edit().remove(KEY_START_TIME).apply();   // ⬅️ wipe
+            prefs.edit().remove(KEY_START_TIME).apply();
+
+            // 4. ✅ CRITICAL FIX: Reset the global counter to 0
+            secondsElapsed = 0;
+
+            // 5. Broadcast the "0" state to both App and Widget
+            sendTimeUpdate(); // Will now send 0 to MainActivity
+            updateWidgets();  // Will now send 0 to Widget
         }
     }
 
@@ -141,10 +186,26 @@ public class TimerService extends Service {
                 Log.d("TimerService", "Timer running: secondsElapsed = " + secondsElapsed);
                 updateNotification("Elapsed Time: " + formatTime(secondsElapsed)); // Update the notification
                 sendTimeUpdate(); // Send the update to MainActivity
+
+                // NEW: Push update to the widget
+                updateWidgets();  // Update Widget
                 handler.postDelayed(this, 1000); // Schedule the next update in 1 second
             }
         }
     };
+
+    // ✅ NEW: Helper to update the widget directly from Service
+    private void updateWidgets() {
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
+        ComponentName thisWidget = new ComponentName(this, MeditationWidgetProvider.class);
+        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
+
+        // Call the static update method in your Provider
+        // We pass 'secondsElapsed' and 'isTimerRunning' state
+        for (int appWidgetId : appWidgetIds) {
+            MeditationWidgetProvider.updateWidget(this, appWidgetManager, appWidgetId, secondsElapsed, isTimerRunning);
+        }
+    }
 
     /** PendingIntent that re-opens MainActivity when the notification is tapped */
     private PendingIntent buildContentIntent() {

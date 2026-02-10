@@ -126,6 +126,7 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
 
         // Display today's date
         updateDateDisplay();
+        updateTimerDisplay();
 
         // ✅ Load saved total from database
         MeditationLogDatabaseHelper dbHelper = new MeditationLogDatabaseHelper(this);
@@ -567,6 +568,11 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
         // Sync the timer state with TimerService
         isTimerRunning = TimerService.isTimerRunning;
 
+        // 2. ✅ RELOAD DATA FROM DB (This fixes the missing sync when returning to app)
+        MeditationLogDatabaseHelper dbHelper = new MeditationLogDatabaseHelper(this);
+        totalSecondsLogged = dbHelper.getTodayLoggedSeconds();
+        dbHelper.close();
+
         // ✅ Load saved total from shared preferences
         SharedPreferences sp = getSharedPreferences("timer_prefs", MODE_PRIVATE);
         long stored = sp.getLong("timer_start", -1);
@@ -582,10 +588,12 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
             isTimerRunning = true;
         } else {
             isTimerRunning = false;
+            // ✅ CRITICAL FIX: Explicitly reset the counter to 0
+            secondsElapsed = 0;
         }
 
         recordButton.setText(isTimerRunning ? "Stop" : "Start");
-        updateTimerDisplay();
+        updateTimerDisplay(); // Refresh timer display when returning to main screen.
 
         // Register the broadcast receiver for timer updates
         //LocalBroadcastManager.getInstance(this).registerReceiver(timerUpdateReceiver, new IntentFilter("TIMER_UPDATED"));
@@ -593,7 +601,6 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
         updateDateDisplay();  // Refresh date display when returning ot main screen.
         updateTodayTotal(); // Refresh today's total when returning to main screen.
         updateWeekTotal(); // Refresh week's total when returning to main screen.
-        updateTimerDisplay(); // Refresh timer display when returning to main screen.
         displayShortestAndLatestGoal(); // Refresh shortest and latest goal when returning to main screen.
         manualHours.clearFocus();
         manualMinutes.clearFocus();
@@ -611,6 +618,7 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
         // Also update the progress when the app is paused.
         streakManager.updateActiveStreakProgress();
         refreshStreakUI();
+        updateTimerDisplay();
         updateDateDisplay();
         updateTodayTotal(); // Refresh today's total when returning to main screen.
         updateWeekTotal(); // Refresh week's total when returning to main screen.
