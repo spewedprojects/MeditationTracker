@@ -6,6 +6,7 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.util.TypedValue;
 import android.widget.RemoteViews;
 
 import com.gratus.meditationtrakcer.MainActivity;
@@ -35,8 +36,13 @@ public class TimerWidgetProvider extends AppWidgetProvider {
         int m = (seconds % 3600) / 60;
         int s = seconds % 60;
         String timeString = String.format(Locale.getDefault(), "%02d:%02d:%02d", h, m, s);
-        // Get the spacing value from resources (e.g. 0.05f)
-        float spacing = context.getResources().getDimension(R.dimen.widget_letter_spacing);
+        
+        // Fix: Use TypedValue to retrieve float from resources instead of getDimension
+        // getDimension expects a unit (dp, sp, px) and fails if the resource is a raw float.
+        TypedValue outValue = new TypedValue();
+        context.getResources().getValue(R.dimen.widget_letter_spacing, outValue, true);
+        float spacing = outValue.getFloat();
+
         views.setTextViewText(R.id.widget_timer_display, timeString);
         views.setFloat(R.id.widget_timer_display, "setLetterSpacing", spacing);
 

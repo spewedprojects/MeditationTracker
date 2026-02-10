@@ -24,11 +24,9 @@
     <string name="goals_title">Set a New Goal</string>
     <string name="goals_desc">Create a new meditation goal</string>
     <string name="current_version_details">
-        • Home screen widgets are finally here, timer first and now goals.
-        \n• Transparent bg for widgets - 50% opacity.
-        \n• Font changes and letter spacing for timer display.
+        • Fixed crash related to letterspacing retrieval - dimens does not accept raw values.
         \n
-        NEXT:
+        \nNEXT:
         \n  ৹ Streaks widget.
     </string>
     <string name="v1.16.c">v1.16.c:\n- NOICE!\n  - Next indent.\n   • bullet 1 ▶ Bullet 2 › bullet 3 ৹</string>

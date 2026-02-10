@@ -64,7 +64,11 @@
 
 Latest release **_[here](https://github.com/spewedprojects/MeditationTracker/releases/latest)_**.
 
-89. **[13.0.0 (10/02/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v13.1.0)**
+90. **[13.1.1 (10/02/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v13.1.1)**
+    > - Transparent bg for widgets - 60% opacity.
+    > - Font changes and letter spacing for timer display.
+
+    89. **[13.1.0 (10/02/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v13.1.0)**
     > - Home screen widgets are finally here, timer first and now goals.
     > - Changed the start/stop button to an icon for compactness.
     > - Overhauled the timer widget - looks more polished now.
