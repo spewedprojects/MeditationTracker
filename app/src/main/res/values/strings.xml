@@ -24,7 +24,9 @@
     <string name="goals_title">Set a New Goal</string>
     <string name="goals_desc">Create a new meditation goal</string>
     <string name="current_version_details">
-        • Fixed crash related to letterspacing retrieval - dimens does not accept raw values.
+        • Migrated AboutActivity from Java to Kotlin.
+        \n• Enabled Kotlin support in build configuration (JVM 17).
+        \n• Minor documentation and versioning corrections.
         \n
         \nNEXT:
         \n  ৹ Streaks widget.

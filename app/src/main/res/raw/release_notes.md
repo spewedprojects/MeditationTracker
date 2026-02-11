@@ -64,7 +64,14 @@
 
 Latest release **_[here](https://github.com/spewedprojects/MeditationTracker/releases/latest)_**.
 
-90. **[13.1.1 (10/02/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v13.1.1)**
+92. _**[13.1.3 (12/02/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v13.1.3)**_
+    > - Migrated `AboutActivity` from Java to Kotlin (`AboutActivity.kt`).
+    > - Introduced Kotlin support in project configuration (JVM target 17).
+    > - Updated `activity_about.xml` root ID to `main_about`.
+    > - Updated dependencies (`kotlin` 2.3.10, `activity` 1.12.4).
+    > - Minor documentation and versioning fixes.
+
+    90. **[13.1.1 (10/02/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v13.1.1)**
     > - Transparent bg for widgets - 60% opacity.
     > - Font changes and letter spacing for timer display.
 
@@ -172,7 +179,7 @@ Latest release **_[here](https://github.com/spewedprojects/MeditationTracker/rel
     >  - Correctly handling streak database upgrade.
     >  - WIP - Reports screen.
 
-     69. [7.2.b (09/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v7.2.b)
+     69. [7.2.a (09/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v7.2.a)
     >  - _The lovely goals card scroll is back - much more usable on small screens._
     >  - __HUGE!__ Implemented a collapsible "Set a New Goal" card using a button which animates as changes occur.
     >  - Using LinearLayout wherever possible.

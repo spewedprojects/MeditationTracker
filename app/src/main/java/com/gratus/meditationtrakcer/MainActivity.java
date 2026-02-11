@@ -580,7 +580,7 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
             // Re-compute elapsed for immediate display
             secondsElapsed = (int) ((System.currentTimeMillis() - stored) / 1000);
 
-            // 🔶 If the service isn’t running any more, start it again
+            // 🔶 If the service isn’t running anymore, start it again
             if (!TimerService.isTimerRunning) {
                 Intent revive = new Intent(this, TimerService.class);
                 ContextCompat.startForegroundService(this, revive);
