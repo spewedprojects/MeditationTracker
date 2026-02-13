@@ -62,7 +62,7 @@ public class GoalsActivity extends BaseActivity {
     private ViewGroup cardConstraintLayout; // The parent container for animation
 
     // inside GoalsActivity class
-    private static final String PREFS_NAME = "goals_Prefs";
+    // private static final String PREFS_NAME = "goals_Prefs"; // Legacy
     private static final String KEY_GOALS_EXPANDED = "goals_card_expanded";
     private boolean isExpanded = true;
 
@@ -76,7 +76,11 @@ public class GoalsActivity extends BaseActivity {
     // ── mode toggle ───────────────────────────────
     private MaterialButtonToggleGroup modeGroup;
     private MaterialButton btnMethodA, btnMethodB;
-    private enum GoalInputMode { A, B }
+
+    private enum GoalInputMode {
+        A, B
+    }
+
     private GoalInputMode currentMode = GoalInputMode.A;
 
     // ── Method-A views ────────────────────────────
@@ -107,13 +111,13 @@ public class GoalsActivity extends BaseActivity {
         endDateInput = findViewById(R.id.end_date_input);
         addGoalButton = findViewById(R.id.add_goal);
         // ── toggle & Method-B fields ─────────────────────────────
-        modeGroup   = findViewById(R.id.A_B_group);
-        btnMethodA  = findViewById(R.id.method_A_Button);
-        btnMethodB  = findViewById(R.id.method_B_Button);
+        modeGroup = findViewById(R.id.A_B_group);
+        btnMethodA = findViewById(R.id.method_A_Button);
+        btnMethodB = findViewById(R.id.method_B_Button);
         // B-specific views
         durationPerDayInput = findViewById(R.id.daily_duration_input);
-        numDaysInput        = findViewById(R.id.totaldays_input);
-        bStartDateInput     = findViewById(R.id.B_startdate_input);
+        numDaysInput = findViewById(R.id.totaldays_input);
+        bStartDateInput = findViewById(R.id.B_startdate_input);
 
         clearFocusOnKeyboardHide(goalDescription, goalDescription);
 
@@ -124,7 +128,7 @@ public class GoalsActivity extends BaseActivity {
 
         // --- NEW CODE STARTS HERE --- (13/01/2026)
         // Restore state from SharedPreferences
-        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        SharedPreferences prefs = getSharedPreferences(BaseActivity.SHARED_PREFS_NAME, MODE_PRIVATE);
         isExpanded = prefs.getBoolean(KEY_GOALS_EXPANDED, true); // Default to true (expanded) if no key exists
 
         // Apply the initial state immediately (no animation)
@@ -144,25 +148,26 @@ public class GoalsActivity extends BaseActivity {
         methodAViews = Arrays.asList(
                 findViewById(R.id.target_input_title), targetHours,
                 findViewById(R.id.start_date_input_title), startDateInput,
-                findViewById(R.id.end_date_input_title),   endDateInput);
+                findViewById(R.id.end_date_input_title), endDateInput);
         clearFocusOnKeyboardHide(targetHours, targetHours);
 
         methodBViews = Arrays.asList(
-                findViewById(R.id.daily_duration_title),  durationPerDayInput,
+                findViewById(R.id.daily_duration_title), durationPerDayInput,
                 findViewById(R.id.totaldays_input_title), numDaysInput,
-                findViewById(R.id.B_startdate_title),     bStartDateInput);
+                findViewById(R.id.B_startdate_title), bStartDateInput);
         clearFocusOnKeyboardHide(numDaysInput, numDaysInput);
 
         // Make group behave like two mutually-exclusive buttons
         modeGroup.setSingleSelection(true);
-        modeGroup.check(R.id.method_A_Button);      // default to A
-        highlightActiveButton();                    // dim the inactive one
-        setMode(GoalInputMode.A);                   // show A-fields first
+        modeGroup.check(R.id.method_A_Button); // default to A
+        highlightActiveButton(); // dim the inactive one
+        setMode(GoalInputMode.A); // show A-fields first
 
         modeGroup.addOnButtonCheckedListener((g, id, state) -> {
-            if (!state) return;                     // ignore un-checks
+            if (!state)
+                return; // ignore un-checks
             if (id == R.id.method_A_Button) {
-                prefillAFromB();                    // copy-over if possible
+                prefillAFromB(); // copy-over if possible
                 setMode(GoalInputMode.A);
             } else {
                 prefillBFromA();
@@ -191,14 +196,13 @@ public class GoalsActivity extends BaseActivity {
         numDaysInput.setKeyListener(DigitsKeyListener.getInstance("0123456789"));
         numDaysInput.setInputType(InputType.TYPE_CLASS_NUMBER);
 
-
         startDateInput.setOnClickListener(v -> showDatePickerDialog(startDateInput));
         endDateInput.setOnClickListener(v -> showDatePickerDialog(endDateInput));
         addGoalButton.setOnClickListener(v -> {
             if (currentMode == GoalInputMode.A) {
-                addGoal();               // existing method
+                addGoal(); // existing method
             } else {
-                addGoalMethodB();        // new one below
+                addGoalMethodB(); // new one below
             }
             resetInputFields();
             loadGoals(); // Refresh goals
@@ -206,7 +210,8 @@ public class GoalsActivity extends BaseActivity {
     }
 
     private void toggleCardVisibility() {
-        // Prepare the smooth transition (AutoTransition handles layout changes automatically)
+        // Prepare the smooth transition (AutoTransition handles layout changes
+        // automatically)
         TransitionManager.beginDelayedTransition(cardConstraintLayout, new AutoTransition());
 
         if (isExpanded) {
@@ -225,14 +230,15 @@ public class GoalsActivity extends BaseActivity {
         isExpanded = !isExpanded;
 
         // --- NEW CODE: Save the new state --- (13/01/2026)
-        SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
+        SharedPreferences.Editor editor = getSharedPreferences(BaseActivity.SHARED_PREFS_NAME, MODE_PRIVATE).edit();
         editor.putBoolean(KEY_GOALS_EXPANDED, isExpanded);
         editor.apply();
     }
 
     public void deleteGoal(int goalId) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        int rowsDeleted = db.delete(GoalsDatabaseHelper.TABLE_GOALS, GoalsDatabaseHelper.COLUMN_ID + "=?", new String[]{String.valueOf(goalId)});
+        int rowsDeleted = db.delete(GoalsDatabaseHelper.TABLE_GOALS, GoalsDatabaseHelper.COLUMN_ID + "=?",
+                new String[] { String.valueOf(goalId) });
 
         if (rowsDeleted > 0) {
             Log.d("GoalsActivity", "Goal deleted successfully.");
@@ -256,30 +262,31 @@ public class GoalsActivity extends BaseActivity {
             toastInvalidInput();
             return;
         }
-            try {
-                // Parse input date and append a timestamp
-                SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-                SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        try {
+            // Parse input date and append a timestamp
+            SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 
-                Date parsedStartDate = inputFormat.parse(startDate);
-                Date parsedEndDate = inputFormat.parse(endDate);
+            Date parsedStartDate = inputFormat.parse(startDate);
+            Date parsedEndDate = inputFormat.parse(endDate);
 
-                String formattedStartDate = outputFormat.format(parsedStartDate);
-                String formattedEndDate = outputFormat.format(parsedEndDate);
+            String formattedStartDate = outputFormat.format(parsedStartDate);
+            String formattedEndDate = outputFormat.format(parsedEndDate);
 
-                SQLiteDatabase db = dbHelper.getWritableDatabase();
-                ContentValues values = new ContentValues();
-                values.put("description", description);
-                values.put("target_hours", target);
-                values.put("start_date", formattedStartDate);  // Save with timestamp
-                values.put("end_date", formattedEndDate);      // Save with timestamp
-                db.insert("goals", null, values);
+            SQLiteDatabase db = dbHelper.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put("description", description);
+            values.put("target_hours", target);
+            values.put("start_date", formattedStartDate); // Save with timestamp
+            values.put("end_date", formattedEndDate); // Save with timestamp
+            db.insert("goals", null, values);
 
-                Log.d("GoalsActivity", "Added Goal - Start Date: " + formattedStartDate + ", End Date: " + formattedEndDate);
-                updateHomeWidgets(); // <--- ADD THIS
-            } catch (Exception e) {
-                Log.e("GoalsActivity", "Error formatting dates", e);
-            }
+            Log.d("GoalsActivity",
+                    "Added Goal - Start Date: " + formattedStartDate + ", End Date: " + formattedEndDate);
+            updateHomeWidgets(); // <--- ADD THIS
+        } catch (Exception e) {
+            Log.e("GoalsActivity", "Error formatting dates", e);
+        }
 
         // Dismiss keyboard after adding goal
         InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
@@ -306,7 +313,6 @@ public class GoalsActivity extends BaseActivity {
         }
     }
 
-
     // Updated (27/01/26)
     private void loadGoals() {
         List<Goal> goals = new ArrayList<>();
@@ -318,7 +324,8 @@ public class GoalsActivity extends BaseActivity {
                 " ORDER BY " + GoalsDatabaseHelper.COLUMN_START_DATE + " DESC", null);
 
         // 2. PERFORMANCE: Initialize Formatters ONCE outside the loop
-        // Creating SimpleDateFormat instances is expensive. Doing it inside a loop is bad practice.
+        // Creating SimpleDateFormat instances is expensive. Doing it inside a loop is
+        // bad practice.
         SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         SimpleDateFormat fmtFull = new SimpleDateFormat("MMM dd, yy", Locale.getDefault());
         SimpleDateFormat fmtMonthDay = new SimpleDateFormat("MMM d", Locale.getDefault());
@@ -344,7 +351,7 @@ public class GoalsActivity extends BaseActivity {
             double loggedHours = totalSeconds / 3600.0;
 
             int progressPercent = (int) ((loggedHours / targetHours) * 100);
-            //if (progressPercent > 100) progressPercent = 100;
+            // if (progressPercent > 100) progressPercent = 100;
 
             // Parse dates once
             Date sDate, eDate;
@@ -374,7 +381,8 @@ public class GoalsActivity extends BaseActivity {
     private String calculateDailyTarget(Date sDate, Date eDate, double targetHours) {
         long diff = eDate.getTime() - sDate.getTime();
         long days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) + 1;
-        if (days < 1) days = 1;
+        if (days < 1)
+            days = 1;
 
         double totalMinutesNeeded = targetHours * 60.0;
         double dailyMinutes = totalMinutesNeeded / days;
@@ -391,10 +399,12 @@ public class GoalsActivity extends BaseActivity {
 
     // Helper: Format Date Range
     private String formatDateRange(Date sDate, Date eDate, SimpleDateFormat fmtFull,
-                                   SimpleDateFormat fmtMonth, SimpleDateFormat fmtDay,
-                                   SimpleDateFormat fmtYear) {
-        Calendar sCal = Calendar.getInstance(); sCal.setTime(sDate);
-        Calendar eCal = Calendar.getInstance(); eCal.setTime(eDate);
+            SimpleDateFormat fmtMonth, SimpleDateFormat fmtDay,
+            SimpleDateFormat fmtYear) {
+        Calendar sCal = Calendar.getInstance();
+        sCal.setTime(sDate);
+        Calendar eCal = Calendar.getInstance();
+        eCal.setTime(eDate);
 
         if (sCal.get(Calendar.YEAR) != eCal.get(Calendar.YEAR)) {
             // Different Years
@@ -436,14 +446,17 @@ public class GoalsActivity extends BaseActivity {
             boolean isDarkMode = isDarkMode();
 
             // Apply colors based on the theme
-            int positiveColor = isDarkMode ? ContextCompat.getColor(this, R.color.inverseprimary) : ContextCompat.getColor(this, R.color.inverseprimary);
-            int negativeColor = isDarkMode ? ContextCompat.getColor(this, R.color.inverseprimary) : ContextCompat.getColor(this, R.color.inverseprimary);
+            int positiveColor = isDarkMode ? ContextCompat.getColor(this, R.color.inverseprimary)
+                    : ContextCompat.getColor(this, R.color.inverseprimary);
+            int negativeColor = isDarkMode ? ContextCompat.getColor(this, R.color.inverseprimary)
+                    : ContextCompat.getColor(this, R.color.inverseprimary);
 
             positiveButton.setTextColor(positiveColor);
             negativeButton.setTextColor(negativeColor);
 
             // Apply rounded background
-            Objects.requireNonNull(dPDialog.getWindow()).setBackgroundDrawableResource(R.drawable.datepicker_rounded_corners);
+            Objects.requireNonNull(dPDialog.getWindow())
+                    .setBackgroundDrawableResource(R.drawable.datepicker_rounded_corners);
         });
 
         dPDialog.show();
@@ -451,11 +464,11 @@ public class GoalsActivity extends BaseActivity {
 
     private void showTimePickerDialog(EditText timeInput) {
         // ── derive a sensible default ──────────────────────────────
-        int hour = 0, minute = 0;                      // default 00:00
+        int hour = 0, minute = 0; // default 00:00
         String existing = timeInput.getText().toString();
-        if (existing.matches("\\d{2}:\\d{2}")) {       // “HH:MM”
+        if (existing.matches("\\d{2}:\\d{2}")) { // “HH:MM”
             String[] p = existing.split(":");
-            hour   = Integer.parseInt(p[0]);
+            hour = Integer.parseInt(p[0]);
             minute = Integer.parseInt(p[1]);
         }
 
@@ -466,17 +479,18 @@ public class GoalsActivity extends BaseActivity {
                     String mm = String.format(Locale.US, "%02d", selectedMinute);
                     timeInput.setText(hh + ":" + mm);
                 },
-                hour, minute, true);                     // 24-hour
+                hour, minute, true); // 24-hour
 
         // match the colour-tint logic you already use for DatePicker
         tPDialog.setOnShowListener(d -> {
             boolean dark = isDarkMode();
-            int colour   = ContextCompat.getColor(this,
+            int colour = ContextCompat.getColor(this,
                     dark ? R.color.inverseprimary : R.color.inverseprimary);
             tPDialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(colour);
             tPDialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(colour);
             // Apply rounded background
-            Objects.requireNonNull(tPDialog.getWindow()).setBackgroundDrawableResource(R.drawable.datepicker_rounded_corners);
+            Objects.requireNonNull(tPDialog.getWindow())
+                    .setBackgroundDrawableResource(R.drawable.datepicker_rounded_corners);
         });
 
         tPDialog.show();
@@ -486,7 +500,8 @@ public class GoalsActivity extends BaseActivity {
         boolean isDarkMode;
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM) {
             // Check the system's current theme
-            int nightModeFlags = getResources().getConfiguration().uiMode & android.content.res.Configuration.UI_MODE_NIGHT_MASK;
+            int nightModeFlags = getResources().getConfiguration().uiMode
+                    & android.content.res.Configuration.UI_MODE_NIGHT_MASK;
             isDarkMode = (nightModeFlags == android.content.res.Configuration.UI_MODE_NIGHT_YES);
         } else {
             // Use the app's explicitly set theme
@@ -496,13 +511,15 @@ public class GoalsActivity extends BaseActivity {
     }
 
     // ──────────────────────────────────────────────────────────
-    //  Visibility toggle
+    // Visibility toggle
     // ──────────────────────────────────────────────────────────
 
     private void setMode(GoalInputMode mode) {
         currentMode = mode;
-        for (View v : methodAViews) v.setVisibility(mode == GoalInputMode.A ? View.VISIBLE : View.INVISIBLE);
-        for (View v : methodBViews) v.setVisibility(mode == GoalInputMode.B ? View.VISIBLE : View.INVISIBLE);
+        for (View v : methodAViews)
+            v.setVisibility(mode == GoalInputMode.A ? View.VISIBLE : View.INVISIBLE);
+        for (View v : methodBViews)
+            v.setVisibility(mode == GoalInputMode.B ? View.VISIBLE : View.INVISIBLE);
     }
 
     // 70 % dim for inactive button
@@ -514,27 +531,30 @@ public class GoalsActivity extends BaseActivity {
     // ── Quick pre-fill when switching ─────────────────────────
     private void prefillBFromA() {
         String hrsStr = targetHours.getText().toString().trim();
-        String sDate  = startDateInput.getText().toString().trim();
-        String eDate  = endDateInput.getText().toString().trim();
+        String sDate = startDateInput.getText().toString().trim();
+        String eDate = endDateInput.getText().toString().trim();
         try {
-            if (hrsStr.isEmpty() || sDate.isEmpty() || eDate.isEmpty()) return;
+            if (hrsStr.isEmpty() || sDate.isEmpty() || eDate.isEmpty())
+                return;
 
             float totalHours = Float.parseFloat(hrsStr);
             SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-            Date s             = fmt.parse(sDate);
-            Date e             = fmt.parse(eDate);
-            long diffMillis    = e.getTime() - s.getTime();
-            int  days          = (int) (diffMillis / (24*60*60*1000)) + 1;
-            if (days <= 0) return;
+            Date s = fmt.parse(sDate);
+            Date e = fmt.parse(eDate);
+            long diffMillis = e.getTime() - s.getTime();
+            int days = (int) (diffMillis / (24 * 60 * 60 * 1000)) + 1;
+            if (days <= 0)
+                return;
 
-            float hoursPerDay  = totalHours / days;
+            float hoursPerDay = totalHours / days;
             int hh = (int) hoursPerDay;
             int mm = Math.round((hoursPerDay - hh) * 60f);
 
-            durationPerDayInput.setText(String.format(Locale.US,"%02d:%02d", hh, mm));
+            durationPerDayInput.setText(String.format(Locale.US, "%02d:%02d", hh, mm));
             numDaysInput.setText(String.valueOf(days));
             bStartDateInput.setText(sDate);
-        } catch (Exception ignore) {}
+        } catch (Exception ignore) {
+        }
     }
 
     private void prefillAFromB() {
@@ -542,14 +562,15 @@ public class GoalsActivity extends BaseActivity {
         String nDaysStr = numDaysInput.getText().toString().trim();
         String sDateStr = bStartDateInput.getText().toString().trim();
         try {
-            if (dur.isEmpty() || nDaysStr.isEmpty() || sDateStr.isEmpty()) return;
+            if (dur.isEmpty() || nDaysStr.isEmpty() || sDateStr.isEmpty())
+                return;
 
             String[] parts = dur.split(":");
             int hh = Integer.parseInt(parts[0]);
             int mm = Integer.parseInt(parts[1]);
             int numDays = Integer.parseInt(nDaysStr);
 
-            float target = (hh + mm/60f) * numDays;
+            float target = (hh + mm / 60f) * numDays;
 
             SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
             Date start = fmt.parse(sDateStr);
@@ -558,17 +579,18 @@ public class GoalsActivity extends BaseActivity {
             cal.add(Calendar.DATE, numDays - 1);
             String endStr = fmt.format(cal.getTime());
 
-            targetHours.setText(String.format(Locale.US,"%.1f", target));
+            targetHours.setText(String.format(Locale.US, "%.1f", target));
             startDateInput.setText(sDateStr);
             endDateInput.setText(endStr);
-        } catch (Exception ignore) {}
+        } catch (Exception ignore) {
+        }
     }
 
     // ── Method-B “add goal” routine ───────────────────────────
     private void addGoalMethodB() {
         String description = goalDescription.getText().toString().trim();
-        String durStr   = durationPerDayInput.getText().toString().trim();  // HH:MM
-        String daysStr  = numDaysInput.getText().toString().trim();
+        String durStr = durationPerDayInput.getText().toString().trim(); // HH:MM
+        String daysStr = numDaysInput.getText().toString().trim();
         String startStr = bStartDateInput.getText().toString().trim();
 
         if (description.isEmpty() || durStr.isEmpty() || daysStr.isEmpty() || startStr.isEmpty()) {
@@ -579,34 +601,36 @@ public class GoalsActivity extends BaseActivity {
             String[] hhmm = durStr.split(":");
             int hh = Integer.parseInt(hhmm[0]);
             int mm = Integer.parseInt(hhmm[1]);
-            if (hh==0 && mm==0) throw new NumberFormatException();
+            if (hh == 0 && mm == 0)
+                throw new NumberFormatException();
 
             int numDays = Integer.parseInt(daysStr);
-            if (numDays <= 0) throw new NumberFormatException();
+            if (numDays <= 0)
+                throw new NumberFormatException();
 
             // Derive target-hours & end-date
-            float target = (hh + mm/60f) * numDays;
+            float target = (hh + mm / 60f) * numDays;
 
             SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
             Date startDate = fmt.parse(startStr);
-            Calendar cal   = Calendar.getInstance();
+            Calendar cal = Calendar.getInstance();
             cal.setTime(startDate);
             cal.add(Calendar.DATE, numDays - 1);
-            String endStr  = fmt.format(cal.getTime());
+            String endStr = fmt.format(cal.getTime());
 
             // Re-use the existing addGoal() plumbing by filling A-fields then calling it
             targetHours.setText(String.valueOf(target));
             startDateInput.setText(startStr);
             endDateInput.setText(endStr);
 
-            addGoal();                   // existing DB insert
+            addGoal(); // existing DB insert
         } catch (Exception e) {
             toastInvalidInput();
         }
     }
 
     private void toastInvalidInput() {
-        Toast.makeText(this,"Invalid input", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Invalid input", Toast.LENGTH_SHORT).show();
     }
 
     private void resetInputFields() {
@@ -637,13 +661,15 @@ public class GoalsActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        loadGoals();  // Refresh goal cards when returning to Goals screen
+        loadGoals(); // Refresh goal cards when returning to Goals screen
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (dbHelper != null) dbHelper.close();
-        if (meditationLogDatabaseHelper != null) meditationLogDatabaseHelper.close();
+        if (dbHelper != null)
+            dbHelper.close();
+        if (meditationLogDatabaseHelper != null)
+            meditationLogDatabaseHelper.close();
     }
 }

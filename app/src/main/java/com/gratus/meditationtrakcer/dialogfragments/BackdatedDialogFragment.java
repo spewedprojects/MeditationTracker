@@ -27,6 +27,7 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.WindowCompat;
 import androidx.fragment.app.DialogFragment;
 
+import com.gratus.meditationtrakcer.BaseActivity;
 import com.gratus.meditationtrakcer.R;
 
 import java.util.Calendar;
@@ -111,6 +112,10 @@ public class BackdatedDialogFragment extends DialogFragment {
                 Toast.makeText(getContext(), "Please enter a valid duration", Toast.LENGTH_SHORT).show();
             }
         });
+        // ---> ADD THIS BEFORE RETURNING THE DIALOG <---
+        if (getActivity() instanceof BaseActivity) {
+            ((BaseActivity) getActivity()).applySystemFontToView(view);
+        }
 
         return view;
     }

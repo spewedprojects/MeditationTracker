@@ -64,7 +64,12 @@
 
 Latest release **_[here](https://github.com/spewedprojects/MeditationTracker/releases/latest)_**.
 
-92. _**[13.1.3 (12/02/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v13.1.3)**_
+93. _**[13.2.0 (13/02/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v13.2.0)**_
+    > - Implemented a new Settings and Info screen and integrated Jetpack Compose support into the build configuration.
+    > - Created `SettingsInfoActivity.kt` and `activity_settingsinfo.xml` to host a new usage guide and global app settings.
+    > - Experimented with Jetpack Compose.
+
+    92. [13.1.3 (12/02/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v13.1.3)
     > - Migrated `AboutActivity` from Java to Kotlin (`AboutActivity.kt`).
     > - Introduced Kotlin support in project configuration (JVM target 17).
     > - Updated `activity_about.xml` root ID to `main_about`.

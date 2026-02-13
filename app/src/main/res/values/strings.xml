@@ -24,10 +24,10 @@
     <string name="goals_title">Set a New Goal</string>
     <string name="goals_desc">Create a new meditation goal</string>
     <string name="current_version_details">
-        • Implemented a new Settings and Info screen and integrated Jetpack Compose support into the build configuration.
-        \n• Created `SettingsInfoActivity.kt` and `activity_settingsinfo.xml` to host a new usage guide and global app settings.
-        \n• Experimenting with Compose.
-        \n• Functionality not in place.
+        • Implemented a new Settings and Info screen.
+        \n• Implemented `applySystemFontToView` in `BaseActivity.java` to recursively strip custom typefaces.
+        \n• Functional buttons in settings screen.
+        \n• Foregoing Compose, removed all dependencies.
         \n
         \nNEXT:
         \n  ৹ Streaks widget.

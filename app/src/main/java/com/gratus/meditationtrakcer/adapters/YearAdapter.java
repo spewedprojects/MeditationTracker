@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.gratus.meditationtrakcer.BaseActivity;
 import com.gratus.meditationtrakcer.R;
 import java.util.List;
 
@@ -70,6 +72,11 @@ public class YearAdapter extends RecyclerView.Adapter<YearAdapter.YearVH> {
             // Vertical: Width is match parent, Height is dynamic
             tv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, itemSize));
             tv.setTextSize(60);
+        }
+
+        // Catch all text inside the newly created list item
+        if (parent.getContext() instanceof BaseActivity) {
+            ((BaseActivity) parent.getContext()).applySystemFontToView(tv);
         }
 
         return new YearVH(tv);

@@ -24,6 +24,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarEntry;
+import com.gratus.meditationtrakcer.BaseActivity;
 import com.gratus.meditationtrakcer.R;
 import com.gratus.meditationtrakcer.models.MeditationReportData;
 import com.gratus.meditationtrakcer.utils.MeditationChartManager;
@@ -50,13 +51,19 @@ public class ReportDetailDialogFragment extends DialogFragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.report_card, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        // ---> ADD THIS BEFORE RETURNING THE VIEW <---
+        if (getActivity() instanceof BaseActivity) {
+            ((BaseActivity) getActivity()).applySystemFontToView(view);
+        }
 
         if (getArguments() == null) {
             dismiss();
@@ -181,17 +188,28 @@ public class ReportDetailDialogFragment extends DialogFragment {
     }
 
     private void setupCharts(View view, MeditationReportData data) {
-        Typeface font = getResources().getFont(R.font.atkinsonhyperlegiblenext_regular);
+
+        // Read preference (Default true)
+        android.content.SharedPreferences prefs = requireContext().
+                getSharedPreferences(com.gratus.meditationtrakcer.BaseActivity.SHARED_PREFS_NAME, android.content.Context.MODE_PRIVATE);
+        boolean showYAxis = prefs.getBoolean("y_axis_visible", true);
+        boolean useSystemFont = prefs.getBoolean("use_system_font", false);
+        Typeface font;
+        if (useSystemFont) {
+            font = android.graphics.Typeface.DEFAULT;
+        } else {
+            font = getResources().getFont(R.font.atkinsonhyperlegiblenext_regular);
+        }
 
         // 1. Preferred Times Chart
         BarChart timeChart = view.findViewById(R.id.chartPreferredTimes);
         MeditationChartManager timeManager = new MeditationChartManager(requireContext(), timeChart, font);
-        timeManager.setYAxisEnabled(false); // <--- Disable Y-Axis (31/01/26)
+        timeManager.setYAxisEnabled(showYAxis); // Set based on preference
 
         ArrayList<BarEntry> timeEntries = new ArrayList<>();
         List<String> timeLabels = new ArrayList<>();
         int i = 0;
-        String[] timeKeys = {"Morning", "Noon", "Evening"};
+        String[] timeKeys = { "Morning", "Noon", "Evening" };
         for (String key : timeKeys) {
             Integer val = data.preferredTimes.get(key);
             timeEntries.add(new BarEntry(i++, val != null ? val : 0));
@@ -202,12 +220,12 @@ public class ReportDetailDialogFragment extends DialogFragment {
         // 2. Frequency Chart
         BarChart freqChart = view.findViewById(R.id.chartSessionFrequency);
         MeditationChartManager freqManager = new MeditationChartManager(requireContext(), freqChart, font);
-        freqManager.setYAxisEnabled(false); // <--- Disable Y-Axis (31/01/26)
+        freqManager.setYAxisEnabled(showYAxis); // Set based on preference
 
         ArrayList<BarEntry> freqEntries = new ArrayList<>();
         List<String> freqLabels = new ArrayList<>();
-        String[] freqKeys = {"0-5 min", "5-10 min", "10-25 min", ">25mins"};
-        String[] displayLabels = {"0-5", "5-10", "10-25", ">25"};
+        String[] freqKeys = { "0-5 min", "5-10 min", "10-25 min", ">25mins" };
+        String[] displayLabels = { "0-5", "5-10", "10-25", ">25" };
 
         for (int k = 0; k < freqKeys.length; k++) {
             Integer val = data.sessionFrequency.get(freqKeys[k]);

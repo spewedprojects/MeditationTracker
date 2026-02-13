@@ -17,24 +17,13 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout> <!-- Constrained layout for menubutton and Title -->
 
-    <androidx.compose.ui.platform.ComposeView
-        android:id="@+id/settingsCompose"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar2_constW"/>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar2_constW"
-        android:visibility="gone">
+        app:layout_constraintTop_toBottomOf="@id/toolbar2_constW">
 
         <!-- ======================= -->
         <!-- Usage Guide Card -->
@@ -84,7 +73,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginVertical="12dp"
-                    android:alpha="0.4" />
+                    android:alpha="0.3" />
 
                 <!-- Hidden Shortcuts -->
                 <LinearLayout
@@ -160,7 +149,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="20dp">
+                android:paddingHorizontal="20dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="12dp">
 
                 <!-- Title Row -->
                 <LinearLayout
@@ -190,7 +181,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginVertical="12dp"
-                    android:alpha="0.4" />
+                    android:alpha="0.3" />
 
                 <!-- Graph Y Axis -->
                 <RelativeLayout
@@ -202,7 +193,8 @@
                         android:id="@+id/yAxisTextContainer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:layout_alignParentStart="true">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -230,7 +222,10 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
-                        app:thumbTint="@color/switch_thumb_colors"/>
+                        android:enabled="true"
+                        android:checked="false"
+                        app:thumbTint="@color/switch_thumb_colors"
+                        app:trackTint="@color/switch_track_colors"/>
 
                 </RelativeLayout>
 
@@ -245,8 +240,9 @@
                         android:id="@+id/fontTextContainer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_alignParentStart="true">
+                        android:layout_alignParentStart="true"
+                        android:layout_toStartOf="@+id/switchFont"
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -255,7 +251,7 @@
                             android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                             android:text="App Font"
                             android:textColor="@color/black_white"
-                            android:textSize="16sp"/>
+                            android:textSize="16sp" />
 
                         <TextView
                             android:id="@+id/fontSubtitle"
@@ -266,7 +262,7 @@
                             android:fontFamily="@font/atkinsonhyperlegiblenext_regular"
                             android:text="Using App Font"
                             android:textColor="@color/black_white"
-                            android:textSize="14sp"/>
+                            android:textSize="14sp" />
                     </LinearLayout>
 
                     <com.google.android.material.button.MaterialButtonToggleGroup
@@ -277,22 +273,28 @@
                         android:layout_alignParentEnd="true"
                         app:singleSelection="true">
                         <com.google.android.material.button.MaterialButton
+                            android:id="@+id/set_system_font_btn"
                             android:layout_width="wrap_content"
                             android:layout_height="48dp"
-                            android:text="Abc 012"
+                            android:text="System"
                             app:cornerRadius="8dp"
                             android:padding="0dp"
                             android:insetRight="1dp"
+                            app:strokeWidth="0dp"
+                            app:strokeColor="@color/black_white_0.4"
                             android:includeFontPadding="false"
                             android:backgroundTint="@color/black_white_0.1"
                             android:textColor="@color/black_white"/>
                         <com.google.android.material.button.MaterialButton
+                            android:id="@+id/set_custom_font_btn"
                             android:layout_width="wrap_content"
                             android:layout_height="48dp"
-                            android:text="AbC 012"
+                            android:text="Atkinson"
                             app:cornerRadius="8dp"
                             android:padding="0dp"
                             android:insetLeft="1dp"
+                            app:strokeWidth="0dp"
+                            app:strokeColor="@color/black_white_0.4"
                             android:includeFontPadding="false"
                             android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                             android:backgroundTint="@color/black_white_0.1"

@@ -1,5 +1,6 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!-- Checked + Enabled -->
     <item android:state_checked="true" android:state_enabled="true">
         <shape android:shape="rectangle">
             <solid android:color="@color/black_white"/>
@@ -7,19 +8,27 @@
         </shape>
     </item>
 
-    <item android:state_enabled="true">
+    <!-- Checked + Disabled -->
+    <item android:state_checked="true" android:state_enabled="false">
         <shape android:shape="rectangle">
-            <solid android:color="@color/black_white_0.1"/>
+            <solid android:color="@color/black_white_0.4"/>
             <corners android:radius="8dp"/>
         </shape>
     </item>
 
-    <!-- Disabled -->
-    <item>
+    <!-- Unchecked + Enabled -->
+    <item android:state_checked="false" android:state_enabled="true">
         <shape android:shape="rectangle">
-            <size android:height="32dp"/>
-            <solid android:color="@color/black_white_0.1"/>
-            <corners android:radius="12dp"/>
+            <solid android:color="@color/black_white_0.4"/>
+            <corners android:radius="8dp"/>
+        </shape>
+    </item>
+
+    <!-- Unchecked + Disabled -->
+    <item android:state_checked="false" android:state_enabled="false">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/black_white_0.4"/>
+            <corners android:radius="8dp"/>
         </shape>
     </item>
 

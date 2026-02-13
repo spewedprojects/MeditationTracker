@@ -1,5 +1,7 @@
 package com.gratus.meditationtrakcer;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
@@ -74,12 +76,21 @@ public class SummaryFragment extends Fragment {
         if (getArguments() != null) {
             currentMode = getArguments().getInt(ARG_MODE);
         }
-        myCustomFont = getResources().getFont(R.font.atkinsonhyperlegiblenext_regular);
+        // --- NEW: Check preference and assign font ---
+        SharedPreferences prefs = requireContext().getSharedPreferences(BaseActivity.SHARED_PREFS_NAME, Context.MODE_PRIVATE);
+        boolean useSystemFont = prefs.getBoolean("use_system_font", false);
+
+        if (useSystemFont) {
+            myCustomFont = android.graphics.Typeface.DEFAULT;
+        } else {
+            myCustomFont = getResources().getFont(R.font.atkinsonhyperlegiblenext_regular);
+        }
     }
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_summary_page, container, false);
     }
 
@@ -87,6 +98,10 @@ public class SummaryFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setupUI(view);
+        // Catch all text inside the newly created list item
+        if (getContext() instanceof BaseActivity) {
+            ((BaseActivity) getContext()).applySystemFontToView(view);
+        }
 
         // FIX: Load data immediately when the view is created in the background buffer.
         // This ensures the graph is ready BEFORE you swipe to it.
@@ -100,17 +115,23 @@ public class SummaryFragment extends Fragment {
 
         // Optional: If you want to force a refresh only when returning
         // from a completely different Activity (like changing settings),
-        // you can keep this, but for smooth swiping, it's better to rely on onViewCreated.
+        // you can keep this, but for smooth swiping, it's better to rely on
+        // onViewCreated.
 
-        // If you find data is stale when returning from "GoalsActivity", un-comment the line below:
+        // If you find data is stale when returning from "GoalsActivity", un-comment the
+        // line below:
         refreshData();
     }
 
     public void refreshData() {
-        if (getView() == null) return;
-        if (currentMode == MODE_WEEK) updateWeeklySummary(getView());
-        else if (currentMode == MODE_MONTH) updateMonthlySummary(getView());
-        else if (currentMode == MODE_YEAR) updateYearlySummary(getView());
+        if (getView() == null)
+            return;
+        if (currentMode == MODE_WEEK)
+            updateWeeklySummary(getView());
+        else if (currentMode == MODE_MONTH)
+            updateMonthlySummary(getView());
+        else if (currentMode == MODE_YEAR)
+            updateYearlySummary(getView());
     }
 
     private void setupUI(View view) {
@@ -190,11 +211,25 @@ public class SummaryFragment extends Fragment {
                 getParent().enableSwipe();
             }
 
-            @Override public void onChartDoubleTapped(MotionEvent me) {}
-            @Override public void onChartSingleTapped(MotionEvent me) {}
-            @Override public void onChartFling(MotionEvent me1, MotionEvent me2, float velocityX, float velocityY) {}
-            @Override public void onChartScale(MotionEvent me, float scaleX, float scaleY) {}
-            @Override public void onChartTranslate(MotionEvent me, float dX, float dY) {}
+            @Override
+            public void onChartDoubleTapped(MotionEvent me) {
+            }
+
+            @Override
+            public void onChartSingleTapped(MotionEvent me) {
+            }
+
+            @Override
+            public void onChartFling(MotionEvent me1, MotionEvent me2, float velocityX, float velocityY) {
+            }
+
+            @Override
+            public void onChartScale(MotionEvent me, float scaleX, float scaleY) {
+            }
+
+            @Override
+            public void onChartTranslate(MotionEvent me, float dX, float dY) {
+            }
         });
     }
 
@@ -202,7 +237,8 @@ public class SummaryFragment extends Fragment {
 
     // UPDATE: Modify updateWeeklySummary to run in background
     private void updateWeeklySummary(View view) {
-        // Show a loading state here if you want (e.g. progressBar.setVisibility(View.VISIBLE))
+        // Show a loading state here if you want (e.g.
+        // progressBar.setVisibility(View.VISIBLE))
 
         executor.execute(() -> {
             // --- BACKGROUND THREAD STARTS ---
@@ -212,7 +248,8 @@ public class SummaryFragment extends Fragment {
 
             // Fetch data
             ArrayList<BarEntry> entries = dbHelper.getWeeklyMeditationDataForDateRange(startDate);
-            float total = dbHelper.getTotalWeeklyMeditationHoursForDateRange(startDate, getParent().getNextWeekStartDate(startDate));
+            float total = dbHelper.getTotalWeeklyMeditationHoursForDateRange(startDate,
+                    getParent().getNextWeekStartDate(startDate));
 
             // Calculate Labels
             ArrayList<String> labels = new ArrayList<>();
@@ -221,8 +258,11 @@ public class SummaryFragment extends Fragment {
                 LocalDate start = LocalDate.parse(startDate, fmt);
                 DateTimeFormatter outFmt = DateTimeFormatter.ofPattern("dd-E", Locale.getDefault());
                 LocalDate monday = start.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
-                for (int i = 0; i < 7; i++) labels.add(monday.plusDays(i).format(outFmt));
-            } catch (Exception e) { e.printStackTrace(); }
+                for (int i = 0; i < 7; i++)
+                    labels.add(monday.plusDays(i).format(outFmt));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             // Prepare UI strings
             String weekNumStr = getParent().getWeekNumber(startDate);
@@ -232,7 +272,8 @@ public class SummaryFragment extends Fragment {
 
             // 2. Post results back to Main UI Thread
             mainHandler.post(() -> {
-                if (getView() == null) return; // Fragment might be destroyed
+                if (getView() == null)
+                    return; // Fragment might be destroyed
 
                 setupChart(view, entries, labels, 0.5f);
 
@@ -256,7 +297,8 @@ public class SummaryFragment extends Fragment {
             MeditationLogDatabaseHelper dbHelper = new MeditationLogDatabaseHelper(getContext());
 
             ArrayList<BarEntry> entries = dbHelper.getMonthlyMeditationDataForDateRange(startDate);
-            float total = dbHelper.getTotalMonthlyMeditationHoursForDateRange(startDate, getParent().getNextMonthStartDate(startDate));
+            float total = dbHelper.getTotalMonthlyMeditationHoursForDateRange(startDate,
+                    getParent().getNextMonthStartDate(startDate));
 
             ArrayList<String> labels = new ArrayList<>();
             try {
@@ -267,13 +309,17 @@ public class SummaryFragment extends Fragment {
                     int weekNum = start.plusWeeks(i).get(wf.weekOfWeekBasedYear());
                     labels.add("Week #" + weekNum);
                 }
-            } catch (Exception e) { for(int i=1;i<=5;i++) labels.add("Week "+i); }
+            } catch (Exception e) {
+                for (int i = 1; i <= 5; i++)
+                    labels.add("Week " + i);
+            }
 
             String monthYearStr = getParent().getMonthYear(startDate);
             String yearStr = getParent().getYear(startDate);
 
             mainHandler.post(() -> {
-                if (getView() == null) return;
+                if (getView() == null)
+                    return;
 
                 BarChart chart = setupChart(view, entries, labels, 0.45f);
                 setupDrillDown(chart, xIndex -> getParent().drillDownToWeek((int) xIndex));
@@ -298,14 +344,17 @@ public class SummaryFragment extends Fragment {
             MeditationLogDatabaseHelper dbHelper = new MeditationLogDatabaseHelper(getContext());
 
             ArrayList<BarEntry> entries = dbHelper.getYearlyMeditationDataForDateRange(startDate);
-            float total = dbHelper.getTotalYearlyMeditationHoursForDateRange(startDate, getParent().getNextYearStartDate(startDate));
+            float total = dbHelper.getTotalYearlyMeditationHoursForDateRange(startDate,
+                    getParent().getNextYearStartDate(startDate));
 
-            ArrayList<String> labels = new ArrayList<>(Arrays.asList("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"));
+            ArrayList<String> labels = new ArrayList<>(
+                    Arrays.asList("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"));
 
             String yearStr = getParent().getYear(startDate);
 
             mainHandler.post(() -> {
-                if (getView() == null) return;
+                if (getView() == null)
+                    return;
 
                 BarChart chart = setupChart(view, entries, labels, 0.8f);
                 setupDrillDown(chart, xIndex -> getParent().drillDownToMonth((int) xIndex));
@@ -325,12 +374,19 @@ public class SummaryFragment extends Fragment {
     private BarChart setupChart(View view, ArrayList<BarEntry> entries, ArrayList<String> labels, float width) {
         BarChart chart = view.findViewById(R.id.barChart);
         MeditationChartManager manager = new MeditationChartManager(getContext(), chart, myCustomFont);
-        manager.setYAxisEnabled(false); // Corrected (02/02/26)
+
+        // Read preference (Default true)
+        SharedPreferences prefs = requireContext().getSharedPreferences(BaseActivity.SHARED_PREFS_NAME,
+                Context.MODE_PRIVATE);
+        boolean showYAxis = prefs.getBoolean("y_axis_visible", true);
+
+        manager.setYAxisEnabled(showYAxis); // Set based on preference
         manager.displayChart(entries, labels, width);
         return chart;
     }
 
-    // Don't forget to shut down the executor when the fragment is destroyed to prevent leaks
+    // Don't forget to shut down the executor when the fragment is destroyed to
+    // prevent leaks
     @Override
     public void onDestroy() {
         super.onDestroy();

@@ -1,6 +1,7 @@
 package com.gratus.meditationtrakcer;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
@@ -13,6 +14,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
+import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +22,7 @@ import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
@@ -64,16 +67,33 @@ public class BaseActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private static final int PICK_FILE_REQUEST_CODE = 1;
 
-    private static final String PREFS_NAME = "AppThemeSettings";
+    private static final String PREFS_NAME = "MeditationTrackerPrefs"; // Consolidated Prefs File
+    public static final String SHARED_PREFS_NAME = PREFS_NAME; // Public accessor
     private static final String THEME_KEY = "SelectedTheme";
+
+    // Legacy Prefs Files (for migration)
+    private static final String LEGACY_THEME_PREFS = "AppThemeSettings";
+    private static final String LEGACY_GOALS_PREFS = "goals_Prefs";
+    private static final String LEGACY_SUMMARY_PREFS = "summary_prefs";
+    private static final String KEY_MIGRATION_COMPLETE = "prefs_migration_complete_v1";
     private boolean doubleBackToExitPressedOnce = false;
     private final Handler backPressHandler = new Handler(Looper.getMainLooper());
+    private boolean useSystemFont = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // 1. Read the preference before any layouts are inflated
+        SharedPreferences prefs = getSharedPreferences(SHARED_PREFS_NAME, MODE_PRIVATE);
+        useSystemFont = prefs.getBoolean("use_system_font", false);
+
+        migrateLegacyPreferences(); // Run migration before applying theme
         applyTheme();
         super.onCreate(savedInstanceState);
 
+        setupOnDoubleBackPressed();
+    }
+
+    private void setupOnDoubleBackPressed() {
         // Register the modern back press callback
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
@@ -100,7 +120,7 @@ public class BaseActivity extends AppCompatActivity {
                     // 3. Default behavior (pop backstack or finish child activity)
                     setEnabled(false); // Temporarily disable this callback
                     getOnBackPressedDispatcher().onBackPressed();
-                    setEnabled(true);  // Re-enable it
+                    setEnabled(true); // Re-enable it
                 }
             }
         });
@@ -169,7 +189,8 @@ public class BaseActivity extends AppCompatActivity {
     /**
      * Update the visibility of the theme buttons based on the current theme.
      */
-    private void updateButtonVisibility(String currentTheme, ImageButton lightButton, ImageButton darkButton, ImageButton autoButton) {
+    private void updateButtonVisibility(String currentTheme, ImageButton lightButton, ImageButton darkButton,
+            ImageButton autoButton) {
         switch (currentTheme) {
             case "light":
                 lightButton.setVisibility(View.GONE);
@@ -206,11 +227,12 @@ public class BaseActivity extends AppCompatActivity {
         applyTheme();
 
         // Restart the activity to reflect the theme change
-        //recreate();
+        recreate();
     }
 
     public void setDrawerLeftEdgeSize(DrawerLayout drawerLayout, float displayWidthPercentage) {
-        if (drawerLayout == null) return;
+        if (drawerLayout == null)
+            return;
         try {
             // Access the private mLeftDragger field in DrawerLayout
             Field leftDraggerField = drawerLayout.getClass().getDeclaredField("mLeftDragger");
@@ -235,7 +257,8 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     /**
-     * Override setContentView so that the child layout is inflated into the content_frame
+     * Override setContentView so that the child layout is inflated into the
+     * content_frame
      * of our activity_base.xml.
      */
     @Override
@@ -268,25 +291,67 @@ public class BaseActivity extends AppCompatActivity {
 
         // Initialize theme buttons
         setupThemeButtons();
+        // ---> ADD THIS RIGHT AT THE END <---
+        // Now that the layout is fully built and font styles are settled, strip them.
+        applySystemFontToView(fullView);
+    }
+
+    // ==========================================
+    // MANUAL HELPER FOR DIALOGS AND RECYCLERVIEWS
+    // ==========================================
+
+    /**
+     * Recursively applies the system font. Call this on Dialog windows or RecyclerView items.
+     */
+    public void applySystemFontToView(View view) {
+        if (!useSystemFont || view == null) return;
+
+        // --- NEW: EXCEPTION FOR CUSTOM FONT PREVIEW BUTTON ---
+        if (view.getId() == R.id.set_custom_font_btn) {
+            return; // Skip overriding this specific view so it keeps the app font
+        }
+
+        if (view instanceof android.view.ViewGroup) {
+            android.view.ViewGroup vg = (android.view.ViewGroup) view;
+            for (int i = 0; i < vg.getChildCount(); i++) {
+                applySystemFontToView(vg.getChildAt(i));
+            }
+        } else if (view instanceof android.widget.TextView) {
+            android.widget.TextView tv = (android.widget.TextView) view;
+            android.graphics.Typeface current = tv.getTypeface();
+            int style = android.graphics.Typeface.NORMAL;
+
+            if (current != null) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                    boolean isBold = current.getWeight() >= 600 || current.isBold();
+                    if (isBold && current.isItalic()) style = android.graphics.Typeface.BOLD_ITALIC;
+                    else if (isBold) style = android.graphics.Typeface.BOLD;
+                    else if (current.isItalic()) style = android.graphics.Typeface.ITALIC;
+                } else {
+                    style = current.getStyle();
+                }
+            }
+            tv.setTypeface(android.graphics.Typeface.DEFAULT, style);
+        }
     }
 
     // Disable all activity transition animations
     @Override
     public void startActivity(Intent intent) {
         super.startActivity(intent);
-        overridePendingTransition(0, 0);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
     @Override
     public void startActivityForResult(Intent intent, int requestCode) {
         super.startActivityForResult(intent, requestCode);
-        overridePendingTransition(0, 0);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
     @Override
     public void finish() {
         super.finish();
-        overridePendingTransition(0, 0);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
     /**
@@ -353,7 +418,7 @@ public class BaseActivity extends AppCompatActivity {
             activeId = R.id.menu_reports;
         } else if (this instanceof GoalsActivity) {
             activeId = R.id.menu_goals;
-        } else if (this instanceof AboutActivity) {   // Assuming you have this class
+        } else if (this instanceof AboutActivity) { // Assuming you have this class
             activeId = R.id.menu_about;
         } else if (this instanceof ReleaseNotesActivity) { // Assuming you have this class
             activeId = R.id.menu_releasenotes;
@@ -372,13 +437,16 @@ public class BaseActivity extends AppCompatActivity {
         // 3. Loop through buttons and set Icon Tint
         for (int id : allMenuIds) {
             MaterialButton btn = findViewById(id);
-            if (btn == null) continue;
+            if (btn == null)
+                continue;
 
             if (id == activeId) {
                 // ACTIVE: Set tint to your green color (or fetch from resources)
-                // Use R.color.success_green if defined, or parse the color manually if you don't have a resource handle handy
+                // Use R.color.success_green if defined, or parse the color manually if you
+                // don't have a resource handle handy
                 btn.setIconTint(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.active_dot_color)));
-                // If you don't have R.color.success_green defined in java, use: Color.parseColor("#YOUR_HEX_CODE")
+                // If you don't have R.color.success_green defined in java, use:
+                // Color.parseColor("#YOUR_HEX_CODE")
             } else {
                 // INACTIVE: Set tint to Transparent (hides the dot but keeps layout stable)
                 btn.setIconTint(ColorStateList.valueOf(Color.TRANSPARENT));
@@ -390,7 +458,7 @@ public class BaseActivity extends AppCompatActivity {
      * Navigation helper that starts the given activity.
      */
     private void navigateTo(Class<?> activityClass) {
-        // Already there?  Nothing to do
+        // Already there? Nothing to do
         if (getClass() == activityClass) {
             drawerLayout.closeDrawer(GravityCompat.START);
             return;
@@ -402,8 +470,8 @@ public class BaseActivity extends AppCompatActivity {
         startActivity(intent);
 
         // If we *weren’t* on MainActivity, kill the screen we just left.
-        // This collapses any    Main → Child-A → Child-B   chain to just
-        //                       Main → Child-B
+        // This collapses any Main → Child-A → Child-B chain to just
+        // Main → Child-B
         if (!(this instanceof MainActivity)) {
             finish();
         }
@@ -468,7 +536,8 @@ public class BaseActivity extends AppCompatActivity {
             } else if (fileName.contains("streaks")) { // Assuming you meant to check for "streaks"
                 dbName = "streaks.db";
             } else {
-                // Handle the case where none of the conditions are met (optional but good practice)
+                // Handle the case where none of the conditions are met (optional but good
+                // practice)
                 dbName = "default.db"; // Or throw an exception, or assign null
             }
             exportDatabase(dbName, outputStream);
@@ -552,7 +621,7 @@ public class BaseActivity extends AppCompatActivity {
     private void importDatabase(Uri fileUri, String targetDbName) throws Exception {
         File targetFile = getDatabasePath(targetDbName);
         try (InputStream inputStream = getContentResolver().openInputStream(fileUri);
-             OutputStream outputStream = new FileOutputStream(targetFile)) {
+                OutputStream outputStream = new FileOutputStream(targetFile)) {
             byte[] buffer = new byte[1024];
             int length;
             while ((length = inputStream.read(buffer)) > 0) {
@@ -584,7 +653,7 @@ public class BaseActivity extends AppCompatActivity {
         if (logsArray != null) {
             logHelper.importDataFromJSONArray(logsArray);
         }
-        if (streaksArray != null){
+        if (streaksArray != null) {
             streaksHelper.importDataFromJSONArray(streaksArray);
         }
     }
@@ -613,6 +682,72 @@ public class BaseActivity extends AppCompatActivity {
         super.onDestroy();
         // Prevent memory leaks by removing callbacks when activity is destroyed
         backPressHandler.removeCallbacksAndMessages(null);
+    }
+
+    /**
+     * Migrates preferences from old files to the new consolidated file.
+     * Runs only once.
+     */
+    private void migrateLegacyPreferences() {
+        SharedPreferences newPrefs = getSharedPreferences(SHARED_PREFS_NAME, MODE_PRIVATE);
+
+        // Check if migration is already done
+        if (newPrefs.getBoolean(KEY_MIGRATION_COMPLETE, false)) {
+            return;
+        }
+
+        Log.d("BaseActivity", "Starting Preferences Migration...");
+        SharedPreferences.Editor editor = newPrefs.edit();
+
+        // 1. Migrate Theme Settings
+        migrateFile(LEGACY_THEME_PREFS, editor);
+
+        // 2. Migrate Goals Settings
+        migrateFile(LEGACY_GOALS_PREFS, editor);
+
+        // 3. Migrate Summary Settings
+        migrateFile(LEGACY_SUMMARY_PREFS, editor);
+
+        // Mark migration as complete
+        editor.putBoolean(KEY_MIGRATION_COMPLETE, true);
+        editor.apply();
+
+        Log.d("BaseActivity", "Preferences Migration Completed Successfully.");
+    }
+
+    private void migrateFile(String legacyFileName, SharedPreferences.Editor newEditor) {
+        SharedPreferences legacyPrefs = getSharedPreferences(legacyFileName, MODE_PRIVATE);
+        java.util.Map<String, ?> allEntries = legacyPrefs.getAll();
+
+        if (allEntries.isEmpty())
+            return;
+
+        for (java.util.Map.Entry<String, ?> entry : allEntries.entrySet()) {
+            Object value = entry.getValue();
+            String key = entry.getKey();
+
+            if (value instanceof String)
+                newEditor.putString(key, (String) value);
+            else if (value instanceof Integer)
+                newEditor.putInt(key, (Integer) value);
+            else if (value instanceof Boolean)
+                newEditor.putBoolean(key, (Boolean) value);
+            else if (value instanceof Float)
+                newEditor.putFloat(key, (Float) value);
+            else if (value instanceof Long)
+                newEditor.putLong(key, (Long) value);
+            else if (value instanceof java.util.Set)
+                newEditor.putStringSet(key, (java.util.Set<String>) value);
+        }
+
+        // Clear and remove the old file references if possible
+        legacyPrefs.edit().clear().apply();
+
+        // On API 24+, we can delete the file. For older versions, clearing is
+        // sufficient.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            deleteSharedPreferences(legacyFileName);
+        }
     }
 
 }

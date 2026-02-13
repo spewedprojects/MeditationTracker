@@ -1,6 +1,5 @@
 package com.gratus.meditationtrakcer;
 
-
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.icu.text.SimpleDateFormat;
@@ -43,12 +42,11 @@ import com.gratus.meditationtrakcer.databasehelpers.MeditationLogDatabaseHelper;
 import com.gratus.meditationtrakcer.models.MeditationReportData;
 import com.gratus.meditationtrakcer.utils.MeditationChartManager;
 
-
 public class SummaryActivity extends BaseActivity {
 
     // ── remembering which tab was last viewed ─────────────
-    private static final String PREFS_SUMMARY   = "summary_prefs";
-    private static final String KEY_LAST_VIEW   = "last_view";   // "W","M","Y"
+    // private static final String PREFS_SUMMARY = "summary_prefs"; // Legacy
+    private static final String KEY_LAST_VIEW = "last_view"; // "W","M","Y"
 
     // ── mode toggle ───────────────────────────────
     private MaterialButtonToggleGroup viewGroup;
@@ -74,19 +72,22 @@ public class SummaryActivity extends BaseActivity {
         });
 
         // Date Defaults: Initialize dates so they are not null
-        if (selectedWeekStartDate == null) selectedWeekStartDate = getMondayOfCurrentWeek();
-        if (selectedMonthStartDate == null) selectedMonthStartDate = getFirstDayOfCurrentMonth();
-        if (selectedYearStartDate == null) selectedYearStartDate = getFirstDayOfCurrentYear();
+        if (selectedWeekStartDate == null)
+            selectedWeekStartDate = getMondayOfCurrentWeek();
+        if (selectedMonthStartDate == null)
+            selectedMonthStartDate = getFirstDayOfCurrentMonth();
+        if (selectedYearStartDate == null)
+            selectedYearStartDate = getFirstDayOfCurrentYear();
         // ----------------------
 
         // Initialize the toolbar and menu button
         setupToolbar(R.id.toolbar2, R.id.menubutton);
 
-        // 1) grab view handles  (already done in your file) ……………………………………
-        viewGroup  = findViewById(R.id.WMY_group);
-        btnWeekly   = findViewById(R.id.W_Button);
-        btnMonthly  = findViewById(R.id.M_Button);
-        btnYearly   = findViewById(R.id.Y_Button);
+        // 1) grab view handles (already done in your file) ……………………………………
+        viewGroup = findViewById(R.id.WMY_group);
+        btnWeekly = findViewById(R.id.W_Button);
+        btnMonthly = findViewById(R.id.M_Button);
+        btnYearly = findViewById(R.id.Y_Button);
         viewGroup.setSingleSelection(true);
 
         viewPager = findViewById(R.id.view_pager_summary);
@@ -99,7 +100,7 @@ public class SummaryActivity extends BaseActivity {
         viewPager.setOffscreenPageLimit(6);
 
         // --- 1. RESTORE STATE CORRECTLY ---
-        SharedPreferences sp = getSharedPreferences(PREFS_SUMMARY, MODE_PRIVATE);
+        SharedPreferences sp = getSharedPreferences(BaseActivity.SHARED_PREFS_NAME, MODE_PRIVATE);
         String last = sp.getString(KEY_LAST_VIEW, "W");
         int targetMod = last.equals("M") ? 1 : last.equals("Y") ? 2 : 0;
 
@@ -112,7 +113,8 @@ public class SummaryActivity extends BaseActivity {
 
         // --- 2. BUTTON CLICK FIX ---
         viewGroup.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
-            if (!isChecked) return;
+            if (!isChecked)
+                return;
 
             // Determine target type (0=Week, 1=Month, 2=Year)
             int targetType = (checkedId == R.id.M_Button) ? 1 : (checkedId == R.id.Y_Button) ? 2 : 0;
@@ -121,7 +123,8 @@ public class SummaryActivity extends BaseActivity {
             int currentPos = viewPager.getCurrentItem();
             int currentType = currentPos % 3;
 
-            if (currentType == targetType) return; // Already there
+            if (currentType == targetType)
+                return; // Already there
 
             // Calculate the nearest neighbor.
             // Example: We are at 1,000,000 (Week). User clicks Month (1).
@@ -157,7 +160,8 @@ public class SummaryActivity extends BaseActivity {
 
         // CRITICAL SAFETY CHECK:
         // Only update the button if it is NOT ALREADY checked.
-        // This stops the infinite loop of "Swipe -> Check Button -> Trigger Listener -> Swipe Again".
+        // This stops the infinite loop of "Swipe -> Check Button -> Trigger Listener ->
+        // Swipe Again".
         if (viewGroup.getCheckedButtonId() != targetId) {
             viewGroup.check(targetId);
         }
@@ -165,12 +169,14 @@ public class SummaryActivity extends BaseActivity {
         refreshButtonTransparency(targetId);
     }
 
-    /** 100 % opaque for the checked button, 25 % opaque (≈ 75 % transparent)
-     *  for the others.  */
+    /**
+     * 100 % opaque for the checked button, 25 % opaque (≈ 75 % transparent)
+     * for the others.
+     */
     private void refreshButtonTransparency(int checkedId) {
-        btnWeekly .setAlpha(checkedId == R.id.W_Button ? 1f : 0.25f);
+        btnWeekly.setAlpha(checkedId == R.id.W_Button ? 1f : 0.25f);
         btnMonthly.setAlpha(checkedId == R.id.M_Button ? 1f : 0.25f);
-        btnYearly .setAlpha(checkedId == R.id.Y_Button ? 1f : 0.25f);
+        btnYearly.setAlpha(checkedId == R.id.Y_Button ? 1f : 0.25f);
     }
 
     // (13/01/26) - For reports
@@ -182,7 +188,8 @@ public class SummaryActivity extends BaseActivity {
         String startDate = selectedMonthStartDate;
         String endDate = getNextMonthStartDate(startDate);
         // Note: getNextMonthStartDate returns 1st of next month.
-        // ReportGenerator expects inclusive end date usually, but SQL queries handle <= datetime properly.
+        // ReportGenerator expects inclusive end date usually, but SQL queries handle <=
+        // datetime properly.
         // Actually, let's be precise. We need the actual last day.
 
         Calendar cal = Calendar.getInstance();
@@ -197,8 +204,7 @@ public class SummaryActivity extends BaseActivity {
 
             // 2. Generate
             MeditationReportData data = com.gratus.meditationtrakcer.utils.ReportGenerator.generateReport(
-                    this, startDate, preciseEndDate, false, title
-            );
+                    this, startDate, preciseEndDate, false, title);
 
             // 3. Save (so it appears in history)
             com.gratus.meditationtrakcer.utils.ReportJsonHelper.saveReport(this, data);
@@ -208,7 +214,9 @@ public class SummaryActivity extends BaseActivity {
                     .newInstance(data.reportId)
                     .show(getSupportFragmentManager(), "month_report_dialog");
 
-        } catch (Exception e) { e.printStackTrace(); }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     // (13/01/26) - For reports
@@ -223,8 +231,7 @@ public class SummaryActivity extends BaseActivity {
 
             // Generate
             MeditationReportData data = com.gratus.meditationtrakcer.utils.ReportGenerator.generateReport(
-                    this, startDate, endDate, true, title
-            );
+                    this, startDate, endDate, true, title);
 
             // Save
             com.gratus.meditationtrakcer.utils.ReportJsonHelper.saveReport(this, data);
@@ -234,22 +241,26 @@ public class SummaryActivity extends BaseActivity {
                     .newInstance(data.reportId)
                     .show(getSupportFragmentManager(), "year_report_dialog");
 
-        } catch (Exception e) { e.printStackTrace(); }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     // --- FORMATTERS (Public so Fragment can access) ---
-    public String getWeekNumber(String startDate) { try {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(sdf.parse(startDate));
+    public String getWeekNumber(String startDate) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(sdf.parse(startDate));
 
-        int weekOfYear = calendar.get(Calendar.WEEK_OF_YEAR);
-        return "Week #" + weekOfYear;
+            int weekOfYear = calendar.get(Calendar.WEEK_OF_YEAR);
+            return "Week #" + weekOfYear;
         } catch (Exception e) {
             e.printStackTrace();
             return "Week #";
         }
     }
+
     public String getDateRange(String startDate) {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
@@ -268,6 +279,7 @@ public class SummaryActivity extends BaseActivity {
             return "Date to date";
         }
     }
+
     public String getMonthYear(String startDate) {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
@@ -280,6 +292,7 @@ public class SummaryActivity extends BaseActivity {
             return "Month Year";
         }
     }
+
     public String getYear(String startDate) {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
@@ -293,7 +306,6 @@ public class SummaryActivity extends BaseActivity {
         }
     }
 
-
     // ----- WEEKLY VIEW -----
     private String getMondayOfCurrentWeek() {
         Calendar calendar = Calendar.getInstance();
@@ -302,6 +314,7 @@ public class SummaryActivity extends BaseActivity {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         return sdf.format(calendar.getTime());
     }
+
     private String getAdjustedWeekStartDate(String currentStartDate, int daysOffset) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         Calendar calendar = Calendar.getInstance();
@@ -313,10 +326,10 @@ public class SummaryActivity extends BaseActivity {
         }
         return sdf.format(calendar.getTime());
     }
+
     public String getNextWeekStartDate(String startDate) {
         return getAdjustedWeekStartDate(startDate, 7);
     }
-
 
     // ----- MONTHLY VIEW -----
     private String getFirstDayOfCurrentMonth() {
@@ -340,7 +353,6 @@ public class SummaryActivity extends BaseActivity {
         return getAdjustedMonthStartDate(startDate, 1);
     }
 
-
     // ----- YEARLY VIEW -----
     private String getFirstDayOfCurrentYear() {
         Calendar calendar = Calendar.getInstance();
@@ -348,6 +360,7 @@ public class SummaryActivity extends BaseActivity {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         return sdf.format(calendar.getTime());
     }
+
     private String getAdjustedYearStartDate(String currentStartDate, int yearsOffset) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         Calendar calendar = Calendar.getInstance();
@@ -360,18 +373,20 @@ public class SummaryActivity extends BaseActivity {
         }
         return sdf.format(calendar.getTime());
     }
+
     public String getNextYearStartDate(String startDate) {
         return getAdjustedYearStartDate(startDate, 1);
     }
-
 
     // --- NAVIGATION HELPERS ---
     public void adjustWeek(int days) {
         selectedWeekStartDate = getAdjustedDate(selectedWeekStartDate, Calendar.DAY_OF_YEAR, days);
     }
+
     public void adjustMonth(int months) {
         selectedMonthStartDate = getAdjustedDate(selectedMonthStartDate, Calendar.MONTH, months);
     }
+
     public void adjustYear(int years) {
         selectedYearStartDate = getAdjustedDate(selectedYearStartDate, Calendar.YEAR, years);
     }
@@ -382,9 +397,12 @@ public class SummaryActivity extends BaseActivity {
             Calendar c = Calendar.getInstance();
             c.setTime(sdf.parse(date));
             c.add(field, amount);
-            if (field == Calendar.MONTH || field == Calendar.YEAR) c.set(Calendar.DAY_OF_MONTH, 1);
+            if (field == Calendar.MONTH || field == Calendar.YEAR)
+                c.set(Calendar.DAY_OF_MONTH, 1);
             return sdf.format(c.getTime());
-        } catch (Exception e) { return date; }
+        } catch (Exception e) {
+            return date;
+        }
     }
 
     // --- DRILL DOWN LOGIC ---
@@ -392,7 +410,8 @@ public class SummaryActivity extends BaseActivity {
         try {
             DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.getDefault());
             LocalDate monthStart = LocalDate.parse(selectedMonthStartDate, fmt);
-            LocalDate target = monthStart.plusWeeks(weekOffset).with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+            LocalDate target = monthStart.plusWeeks(weekOffset)
+                    .with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
             selectedWeekStartDate = target.format(fmt);
 
             // FIX: Find the nearest "Week" page relative to where we are now. (29/01/26)
@@ -406,9 +425,12 @@ public class SummaryActivity extends BaseActivity {
 
             viewPager.setCurrentItem(newPos, true);
 
-            // Force the adapter to refresh that specific page (in case it was already preloaded with old data)
+            // Force the adapter to refresh that specific page (in case it was already
+            // preloaded with old data)
             adapter.notifyItemChanged(newPos);
-        } catch (Exception e) { e.printStackTrace(); }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void drillDownToMonth(int monthIndex) {
@@ -431,12 +453,19 @@ public class SummaryActivity extends BaseActivity {
 
             // Force refresh to ensure the chart reloads with the newly selected month date
             adapter.notifyItemChanged(newPos);
-        } catch (Exception e) { e.printStackTrace(); }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     // Swipe gestures
     // --- CHART SWIPE HELPERS ---
-    public void disableSwipe() { viewPager.setUserInputEnabled(false); }
-    public void enableSwipe() { viewPager.setUserInputEnabled(true); }
+    public void disableSwipe() {
+        viewPager.setUserInputEnabled(false);
+    }
+
+    public void enableSwipe() {
+        viewPager.setUserInputEnabled(true);
+    }
 
 }

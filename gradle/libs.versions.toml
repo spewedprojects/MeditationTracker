@@ -1,6 +1,5 @@
 [versions]
 agp = "9.0.0"
-composeBom = "2026.02.00"
 core = "4.6.2"
 coreKtx = "1.17.0"
 junit = "4.13.2"
@@ -12,14 +11,8 @@ activity = "1.12.4"
 constraintlayout = "2.2.1"
 mpandroidchart = "v3.1.0"
 kotlin = "2.3.10"
-ui = "1.10.3"
-uiTooling = "1.10.3"
-runtime = "1.10.3"
-foundation = "1.10.3"
-material3 = "1.4.0"
 
 [libraries]
-compose-bom = { module = "androidx.compose:compose-bom", version.ref = "composeBom" }
 core = { module = "io.noties.markwon:core", version.ref = "core" }
 core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
 html = { module = "io.noties.markwon:html", version.ref = "core" }
@@ -31,18 +24,9 @@ appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "a
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
-material-icons-extended = { module = "androidx.compose.material:material-icons-extended" }
 mpandroidchart = { module = "com.github.PhilJay:MPAndroidChart", version.ref = "mpandroidchart" }
-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "ui" }
-ui-graphics = { module = "androidx.compose.ui:ui-graphics" }
-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "uiTooling" }
-runtime = { group = "androidx.compose.runtime", name = "runtime", version.ref = "runtime" }
-foundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "foundation" }
-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3" }
-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 

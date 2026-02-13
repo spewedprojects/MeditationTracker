@@ -92,14 +92,15 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
         manualHours = findViewById(R.id.manual_hours);
         manualMinutes = findViewById(R.id.manual_minutes);
         manualSeconds = findViewById(R.id.manual_seconds);
-        //moreMenuButton = findViewById(R.id.menubutton);
+        // moreMenuButton = findViewById(R.id.menubutton);
         streakCard = findViewById(R.id.cardView3_streak);
         gotoGoalsButton = findViewById(R.id.goto_goals);
 
-        // --- NEW CODE: Monitor text changes to toggle button state ---  (27/01/26)
+        // --- NEW CODE: Monitor text changes to toggle button state --- (27/01/26)
         TextWatcher inputWatcher = new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -107,7 +108,8 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
             }
 
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+            }
         };
 
         manualHours.addTextChangedListener(inputWatcher);
@@ -122,7 +124,7 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
         updateAddButtonState();
         // -----------------------------------------------------------
 
-        displayShortestAndLatestGoal();  // New method call
+        displayShortestAndLatestGoal(); // New method call
 
         // Display today's date
         updateDateDisplay();
@@ -137,7 +139,7 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
         updateWeekTotal();
 
         // Menu button functionality
-        //moreMenuButton.setOnClickListener(v -> openMenu());
+        // moreMenuButton.setOnClickListener(v -> openMenu());
 
         refreshStreakUI();
         setupOnCLickListeners();
@@ -153,7 +155,7 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
         }
     };
 
-    private void setupOnCLickListeners(){
+    private void setupOnCLickListeners() {
         // Streak dialog toggle
         streakCard.setOnLongClickListener(v -> {
             StreakDialogFragment dialog = StreakDialogFragment.newInstance((days, startDate) -> {
@@ -175,11 +177,12 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
         });
 
         // --- UPDATED LISTENER FOR WEEK VIEW ---
-        // Long-pressing week total takes you to Summary activity, specifically WEEK view
+        // Long-pressing week total takes you to Summary activity, specifically WEEK
+        // view
         weekTotalDisplay.setOnLongClickListener(v -> {
             // Force "Week" view preference before launching.
             // This ensures SummaryActivity opens in "W" mode regardless of previous state.
-            SharedPreferences sp = getSharedPreferences("summary_prefs", MODE_PRIVATE);
+            SharedPreferences sp = getSharedPreferences(BaseActivity.SHARED_PREFS_NAME, MODE_PRIVATE);
             sp.edit().putString("last_view", "W").apply();
 
             Intent intent = new Intent(v.getContext(), SummaryActivity.class);
@@ -197,7 +200,7 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
         });
 
         // Add manual entry functionality
-        // Update the Add Manual Entry Listener  (27/01/26)
+        // Update the Add Manual Entry Listener (27/01/26)
         addEntryButton.setOnClickListener(v -> {
             // --- NEW CHECK: Only proceed if there is input ---
             if (!hasManualInput()) {
@@ -227,9 +230,8 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
         styledText.setSpan(
                 new RelativeSizeSpan(relativeSize),
                 numberPart.length(), // Start index of "d"
-                fullText.length(),   // End index of "d"
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        );
+                fullText.length(), // End index of "d"
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         // 2. Set transparency (alpha)
         // We'll get the original text color and apply a new alpha value to it.
@@ -240,9 +242,8 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
         styledText.setSpan(
                 new ForegroundColorSpan(translucentColor),
                 numberPart.length(), // Start index of "d"
-                fullText.length(),   // End index of "d"
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        );
+                fullText.length(), // End index of "d"
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         return styledText;
     }
@@ -298,9 +299,11 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
     // Stop the timer and reset the timer display
     private void stopTimer() {
         if (TimerService.isTimerRunning) {
-            // 1. Capture the start time from preferences BEFORE stopping the service (which wipes the pref)
+            // 1. Capture the start time from preferences BEFORE stopping the service (which
+            // wipes the pref)
             SharedPreferences sp = getSharedPreferences("timer_prefs", MODE_PRIVATE);
-            // Fallback: if pref is missing for some reason, calculate approximate start time from elapsed
+            // Fallback: if pref is missing for some reason, calculate approximate start
+            // time from elapsed
             long startTimeMillis = sp.getLong("timer_start", System.currentTimeMillis() - (secondsElapsed * 1000L));
 
             Intent serviceIntent = new Intent(this, TimerService.class);
@@ -470,31 +473,39 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
         // 2. If none, the shortest and latest future goal
         Cursor cursor = db.rawQuery(
                 "SELECT * FROM " + GoalsDatabaseHelper.TABLE_GOALS +
-                        " WHERE " + GoalsDatabaseHelper.COLUMN_PROGRESS_HOURS + " < " + GoalsDatabaseHelper.COLUMN_TARGET_HOURS +
+                        " WHERE " + GoalsDatabaseHelper.COLUMN_PROGRESS_HOURS + " < "
+                        + GoalsDatabaseHelper.COLUMN_TARGET_HOURS +
                         " AND (" +
-                        "   (date(" + GoalsDatabaseHelper.COLUMN_START_DATE + ") <= date(?) AND date(" + GoalsDatabaseHelper.COLUMN_END_DATE + ") >= date(?))" + // Prioritize goals that include today's date
-                        "   OR (date(" + GoalsDatabaseHelper.COLUMN_START_DATE + ") > date(?))" + // If no valid goal for today, pick the shortest & latest upcoming goal
+                        "   (date(" + GoalsDatabaseHelper.COLUMN_START_DATE + ") <= date(?) AND date("
+                        + GoalsDatabaseHelper.COLUMN_END_DATE + ") >= date(?))" + // Prioritize goals that include
+                                                                                  // today's date
+                        "   OR (date(" + GoalsDatabaseHelper.COLUMN_START_DATE + ") > date(?))" + // If no valid goal
+                                                                                                  // for today, pick the
+                                                                                                  // shortest & latest
+                                                                                                  // upcoming goal
                         ") ORDER BY " +
-                        "   CASE WHEN date(" + GoalsDatabaseHelper.COLUMN_START_DATE + ") <= date(?) AND date(" + GoalsDatabaseHelper.COLUMN_END_DATE + ") >= date(?) THEN 0 ELSE 1 END, " + // Prioritize today's goal
+                        "   CASE WHEN date(" + GoalsDatabaseHelper.COLUMN_START_DATE + ") <= date(?) AND date("
+                        + GoalsDatabaseHelper.COLUMN_END_DATE + ") >= date(?) THEN 0 ELSE 1 END, " + // Prioritize
+                                                                                                     // today's goal
                         GoalsDatabaseHelper.COLUMN_TARGET_HOURS + " ASC, " +
                         GoalsDatabaseHelper.COLUMN_START_DATE + " DESC LIMIT 1",
-                new String[]{today, today, today, today, today}
-        );
-
+                new String[] { today, today, today, today, today });
 
         View goalCardView = findViewById(R.id.cardView_goal);
 
         if (cursor != null && cursor.moveToFirst()) {
             String description = cursor.getString(cursor.getColumnIndexOrThrow(GoalsDatabaseHelper.COLUMN_DESCRIPTION));
-            double targetHours = cursor.getDouble(cursor.getColumnIndexOrThrow(GoalsDatabaseHelper.COLUMN_TARGET_HOURS));
-            String startDateTime = cursor.getString(cursor.getColumnIndexOrThrow(GoalsDatabaseHelper.COLUMN_START_DATE));
+            double targetHours = cursor
+                    .getDouble(cursor.getColumnIndexOrThrow(GoalsDatabaseHelper.COLUMN_TARGET_HOURS));
+            String startDateTime = cursor
+                    .getString(cursor.getColumnIndexOrThrow(GoalsDatabaseHelper.COLUMN_START_DATE));
             String endDateTime = cursor.getString(cursor.getColumnIndexOrThrow(GoalsDatabaseHelper.COLUMN_END_DATE));
 
             // Dynamically calculate logged hours
             MeditationLogDatabaseHelper meditationLogDatabaseHelper = new MeditationLogDatabaseHelper(this);
             double loggedHours = meditationLogDatabaseHelper.getLoggedHours(startDateTime, endDateTime);
             int progressPercentage = (int) ((loggedHours * 100.0f) / targetHours);
-            //if (progressPercentage > 100) progressPercentage = 100;
+            // if (progressPercentage > 100) progressPercentage = 100;
 
             // Bind data to the views
             TextView goalTitle = findViewById(R.id.goal_title_home);
@@ -515,7 +526,8 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
 
                 long diff = eDate.getTime() - sDate.getTime();
                 long days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) + 1;
-                if (days < 1) days = 1;
+                if (days < 1)
+                    days = 1;
 
                 double totalMinutesNeeded = targetHours * 60.0;
                 double dailyMinutes = totalMinutesNeeded / days;
@@ -524,8 +536,10 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
                 int m = (int) Math.round(dailyMinutes % 60);
 
                 if (h > 0) {
-                    if (m > 0) dailyTargetStr = h + "h " + m + "m/d";
-                    else dailyTargetStr = h + "h/d";
+                    if (m > 0)
+                        dailyTargetStr = h + "h " + m + "m/d";
+                    else
+                        dailyTargetStr = h + "h/d";
                 } else {
                     dailyTargetStr = m + "m/d";
                 }
@@ -546,7 +560,8 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
                 targetFormatted = String.format(Locale.US, "%.1f", hours);
             }
 
-            goalDuration.setText(dailyTargetStr + " | " + targetFormatted + "h | " + formattedStartDate + " - " + formattedEndDate);
+            goalDuration.setText(
+                    dailyTargetStr + " | " + targetFormatted + "h | " + formattedStartDate + " - " + formattedEndDate);
             goalProgressBar.setProgress(progressPercentage);
             goalProgressPercentage.setText(progressPercentage + "%");
 
@@ -596,9 +611,11 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
         updateTimerDisplay(); // Refresh timer display when returning to main screen.
 
         // Register the broadcast receiver for timer updates
-        //LocalBroadcastManager.getInstance(this).registerReceiver(timerUpdateReceiver, new IntentFilter("TIMER_UPDATED"));
-        ContextCompat.registerReceiver(this, timerUpdateReceiver, new IntentFilter("TIMER_UPDATED"), ContextCompat.RECEIVER_NOT_EXPORTED);
-        updateDateDisplay();  // Refresh date display when returning ot main screen.
+        // LocalBroadcastManager.getInstance(this).registerReceiver(timerUpdateReceiver,
+        // new IntentFilter("TIMER_UPDATED"));
+        ContextCompat.registerReceiver(this, timerUpdateReceiver, new IntentFilter("TIMER_UPDATED"),
+                ContextCompat.RECEIVER_NOT_EXPORTED);
+        updateDateDisplay(); // Refresh date display when returning ot main screen.
         updateTodayTotal(); // Refresh today's total when returning to main screen.
         updateWeekTotal(); // Refresh week's total when returning to main screen.
         displayShortestAndLatestGoal(); // Refresh shortest and latest goal when returning to main screen.
@@ -614,7 +631,8 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
     @Override
     protected void onPause() {
         super.onPause();
-        // When the app is paused, check and update the longest streak using the manager.
+        // When the app is paused, check and update the longest streak using the
+        // manager.
         // Also update the progress when the app is paused.
         streakManager.updateActiveStreakProgress();
         refreshStreakUI();
@@ -625,7 +643,7 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
         manualHours.clearFocus();
         manualMinutes.clearFocus();
         manualSeconds.clearFocus();
-        //LocalBroadcastManager.getInstance(this).unregisterReceiver(timerUpdateReceiver);
+        // LocalBroadcastManager.getInstance(this).unregisterReceiver(timerUpdateReceiver);
         unregisterReceiver(timerUpdateReceiver);
     }
 
@@ -636,9 +654,11 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
         dbHelper.logBackdatedSession(dateInMillis, durationSeconds);
         dbHelper.close();
 
-        // 2. Update Goals (Goals calculate progress based on DB logs, so simple update check is fine)
+        // 2. Update Goals (Goals calculate progress based on DB logs, so simple update
+        // check is fine)
         GoalsDatabaseHelper goalsDbHelper = new GoalsDatabaseHelper(this);
-        // We pass the seconds to trigger any internal progress listeners or simple accumulation
+        // We pass the seconds to trigger any internal progress listeners or simple
+        // accumulation
         goalsDbHelper.updateGoalsProgress(durationSeconds);
         goalsDbHelper.close();
 
@@ -660,7 +680,8 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
         updateWeekTotal();
 
         // 4. Force Streak Recalculation
-        // A backdated entry might fill a gap in the streak, so we must refresh the manager
+        // A backdated entry might fill a gap in the streak, so we must refresh the
+        // manager
         streakManager.updateActiveStreakProgress();
         refreshStreakUI();
 

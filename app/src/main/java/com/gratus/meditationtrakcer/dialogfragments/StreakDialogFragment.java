@@ -36,6 +36,7 @@ import java.util.Locale;
 import java.util.Objects;
 
 import com.gratus.meditationtrakcer.R;
+import com.gratus.meditationtrakcer.BaseActivity;
 import com.gratus.meditationtrakcer.datamodels.Streak;
 import com.gratus.meditationtrakcer.datamanagers.StreakManager;
 
@@ -147,6 +148,10 @@ public class StreakDialogFragment extends DialogFragment {
 
         Dialog dialog = new Dialog(requireContext());
         dialog.setContentView(dialogView);
+        // ---> ADD THIS BEFORE RETURNING THE DIALOG <---
+        if (getActivity() instanceof BaseActivity) {
+            ((BaseActivity) getActivity()).applySystemFontToView(dialogView);
+        }
         return dialog;
     }
 

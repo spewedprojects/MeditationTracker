@@ -7,6 +7,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.gratus.meditationtrakcer.BaseActivity;
 import com.gratus.meditationtrakcer.R;
 
 import java.util.List;
@@ -33,6 +34,11 @@ public class ReleaseNotesAdapter extends RecyclerView.Adapter<ReleaseNotesAdapte
         layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT; // Set to wrap content
         view.setLayoutParams(layoutParams);
         /* Until here */
+
+        // Catch all text inside the newly created list item
+        if (parent.getContext() instanceof BaseActivity) {
+            ((BaseActivity) parent.getContext()).applySystemFontToView(view);
+        }
         return new ViewHolder(view);
     }
 

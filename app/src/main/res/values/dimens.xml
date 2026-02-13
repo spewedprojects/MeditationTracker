@@ -2,4 +2,5 @@
 <resources>
     <dimen name="item_spacing">8dp</dimen>
     <dimen name="widget_letter_spacing">0.04</dimen>
+    <dimen name="active_stroke_width">1.5dp</dimen>
 </resources>

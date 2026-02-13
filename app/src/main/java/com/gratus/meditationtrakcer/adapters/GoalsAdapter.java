@@ -11,6 +11,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.gratus.meditationtrakcer.BaseActivity;
 import com.gratus.meditationtrakcer.datamodels.Goal;
 import com.gratus.meditationtrakcer.GoalsActivity;
 import com.gratus.meditationtrakcer.R;
@@ -32,6 +33,11 @@ public class GoalsAdapter extends RecyclerView.Adapter<GoalsAdapter.GoalViewHold
         ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
         layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT; // Set to wrap content
         view.setLayoutParams(layoutParams);
+
+        // Catch all text inside the newly created list item
+        if (parent.getContext() instanceof BaseActivity) {
+            ((BaseActivity) parent.getContext()).applySystemFontToView(view);
+        }
         return new GoalViewHolder(view);
     }
 

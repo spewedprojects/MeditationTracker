@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
 
+import com.gratus.meditationtrakcer.BaseActivity;
 import com.gratus.meditationtrakcer.R;
 import com.gratus.meditationtrakcer.adapters.YearAdapter;
 import com.gratus.meditationtrakcer.utils.YearUtils;
@@ -87,6 +88,11 @@ public class YMPickerDialogFragment extends DialogFragment {
 
         Dialog dialog = new Dialog(requireContext());
         dialog.setContentView(dialogView);
+
+        // ---> ADD THIS BEFORE RETURNING THE VIEW <---
+        if (getActivity() instanceof BaseActivity) {
+            ((BaseActivity) getActivity()).applySystemFontToView(dialogView);
+        }
         return dialog;
     }
 
