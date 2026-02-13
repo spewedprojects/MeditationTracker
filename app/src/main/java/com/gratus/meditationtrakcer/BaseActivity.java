@@ -328,6 +328,7 @@ public class BaseActivity extends AppCompatActivity {
         findViewById(R.id.menu_goals).setOnClickListener(v -> navigateTo(GoalsActivity.class));
         findViewById(R.id.menu_about).setOnClickListener(v -> navigateTo(AboutActivity.class));
         findViewById(R.id.menu_releasenotes).setOnClickListener(v -> navigateTo(ReleaseNotesActivity.class));
+        findViewById(R.id.menu_app_settings).setOnClickListener(v -> navigateTo(SettingsInfoActivity.class));
 
         // Export/Import buttons can be set up here too.
         findViewById(R.id.menu_exportButton).setOnClickListener(v -> exportData());
@@ -606,27 +607,6 @@ public class BaseActivity extends AppCompatActivity {
         // 3. Fallback: If query fails, try to get the name from the URI path
         return uri.getLastPathSegment();
     }
-
-    // BaseActivity.java
-//    @Override
-//    public void onBackPressed() {
-//        if (drawerLayout != null &&
-//                drawerLayout.isDrawerOpen(GravityCompat.START)) {
-//            drawerLayout.closeDrawer(GravityCompat.START);
-//            return;
-//        }
-//
-//        if (doubleBackToExitPressedOnce || !(this instanceof MainActivity)) {
-//            //       ^^^^^^^^^^^^^^^^^^^^ ── pressed twice in Main, OR
-//            //                                 we're on a child screen ➜ just finish
-//            super.onBackPressed();
-//            return;
-//        }
-//
-//        doubleBackToExitPressedOnce = true;
-//        Toast.makeText(this, "Press BACK again to exit", Toast.LENGTH_SHORT).show();
-//        backPressHandler.postDelayed(() -> doubleBackToExitPressedOnce = false, 2000);
-//    }
 
     @Override
     protected void onDestroy() {

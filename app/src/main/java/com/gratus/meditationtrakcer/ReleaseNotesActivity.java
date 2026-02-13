@@ -1,6 +1,7 @@
 package com.gratus.meditationtrakcer;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
 import androidx.core.graphics.Insets;
@@ -71,7 +72,7 @@ public class ReleaseNotesActivity extends BaseActivity {
             reader.close();
             releaseNotesList.add(stringBuilder.toString()); // Store entire content
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("ReleaseNotesActivity", "Error reading release notes: " + e.getMessage(), e);
         }
     }
 

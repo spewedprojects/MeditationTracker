@@ -32,7 +32,7 @@
         android:textStyle="normal"
         android:textColor="@color/black_white"
         android:textSize="42dp"
-        android:translationY="-2dp"
+        android:includeFontPadding="false"
         android:typeface="monospace" />
 
     <ImageButton

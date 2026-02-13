@@ -75,6 +75,15 @@
             </intent-filter>
         </activity> <!-- About activity -->
 
+        <activity
+            android:name=".SettingsInfoActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity> <!-- Settings/Info activity -->
+
         <service android:name=".datamanagers.TimerService" android:foregroundServiceType="dataSync" />
 
         <receiver android:name=".widgets.TimerWidgetProvider"

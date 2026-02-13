@@ -61,6 +61,7 @@
         app:layout_constraintBottom_toTopOf="@id/theme_btn_container"
         app:layout_constraintVertical_bias="0"
         app:layout_constraintEnd_toEndOf="parent"
+        android:requiresFadingEdge="vertical"
         app:layout_constraintStart_toStartOf="parent">
         <LinearLayout
             android:id="@+id/menu_items"
@@ -180,7 +181,7 @@
                 android:layout_marginTop="14dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="20dp"
                 app:shapeAppearance="@style/ExportImportGroupShape"
                 app:singleSelection="false"
                 android:layout_gravity="center"
@@ -215,19 +216,34 @@
     </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:id="@+id/theme_btn_container"
-        android:layout_width="65dp"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_margin="20dp"
+        android:layout_marginHorizontal="20dp"
         android:elevation="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_bias="1">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageButton
+            android:id="@+id/menu_app_settings"
+            android:layout_width="65dp"
+            android:layout_height="match_parent"
+            android:background="@color/transparent"
+            android:contentDescription="@string/btn_light_mode"
+            android:scaleX="1.1"
+            android:scaleY="1.1"
+            android:visibility="visible"
+            android:elevation="2dp"
+            android:alpha="0.5"
+            app:srcCompat="@drawable/settings_24dp_opsz40"
+            app:tint="?attr/colorOnPrimary"
+            android:layout_alignParentStart="true"/>
 
         <ImageButton
             android:id="@+id/btn_light"
-            android:layout_width="match_parent"
+            android:layout_width="65dp"
             android:layout_height="match_parent"
             android:background="@drawable/rounded_corners"
             android:contentDescription="@string/btn_light_mode"
@@ -236,11 +252,12 @@
             android:visibility="visible"
             android:elevation="2dp"
             app:srcCompat="@drawable/light_mode"
-            app:tint="?attr/colorOnPrimary" />
+            app:tint="?attr/colorOnPrimary"
+            android:layout_alignParentEnd="true"/>
 
         <ImageButton
             android:id="@+id/btn_dark"
-            android:layout_width="match_parent"
+            android:layout_width="65dp"
             android:layout_height="match_parent"
             android:background="@drawable/rounded_corners"
             android:contentDescription="@string/btn_dark_mode"
@@ -249,20 +266,22 @@
             android:visibility="visible"
             android:elevation="2dp"
             app:srcCompat="@drawable/dark_mode"
-            app:tint="?attr/colorOnPrimary" />
+            app:tint="?attr/colorOnPrimary"
+            android:layout_alignParentEnd="true"/>
 
         <ImageButton
             android:id="@+id/btn_auto"
-            android:layout_width="match_parent"
+            android:layout_width="65dp"
             android:layout_height="match_parent"
             android:background="@drawable/rounded_corners"
             android:contentDescription="@string/btn_auto_mode"
-            android:scaleX="1.1"
-            android:scaleY="1.1"
+            android:scaleX="1"
+            android:scaleY="1"
             android:visibility="visible"
             android:elevation="2dp"
-            app:srcCompat="@drawable/auto_mode"/>
+            app:srcCompat="@drawable/auto_mode"
+            android:layout_alignParentEnd="true"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
