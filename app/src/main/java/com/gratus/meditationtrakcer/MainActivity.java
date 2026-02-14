@@ -2,7 +2,9 @@ package com.gratus.meditationtrakcer;
 
 import static com.gratus.meditationtrakcer.utils.ClearFocusUtils.clearFocusOnKeyboardHide;
 
+import android.appwidget.AppWidgetManager;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -45,6 +47,7 @@ import com.gratus.meditationtrakcer.datamanagers.TimerService;
 import com.gratus.meditationtrakcer.datamodels.Streak;
 import com.gratus.meditationtrakcer.dialogfragments.BackdatedDialogFragment;
 import com.gratus.meditationtrakcer.dialogfragments.StreakDialogFragment;
+import com.gratus.meditationtrakcer.utils.WidgetUpdateHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -414,6 +417,7 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
 
         streakManager.updateActiveStreakProgress();
         refreshStreakUI();
+        WidgetUpdateHelper.updateAllWidgets(this);
     }
 
     /**
@@ -687,6 +691,7 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
 
         // 5. Refresh Goal Card
         displayShortestAndLatestGoal();
+        WidgetUpdateHelper.updateAllWidgets(this);
 
         android.widget.Toast.makeText(this, "Backdated entry added", android.widget.Toast.LENGTH_SHORT).show();
     }

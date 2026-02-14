@@ -24,13 +24,11 @@
     <string name="goals_title">Set a New Goal</string>
     <string name="goals_desc">Create a new meditation goal</string>
     <string name="current_version_details">
-        • Implemented a new Settings and Info screen.
-        \n• Implemented `applySystemFontToView` in `BaseActivity.java` to recursively strip custom typefaces.
-        \n• Functional buttons in settings screen.
-        \n• Foregoing Compose, removed all dependencies.
+        • Streaks Widget is here.
+        \n• Fixed MainScreen not updating with font settings, +OnResume in BaseActivity.
         \n
         \nNEXT:
-        \n  ৹ Streaks widget.
+        \n  ৹ Consolidate fonts for better maintainability.
     </string>
     <string name="v1.16.c">v1.16.c:\n- NOICE!\n  - Next indent.\n   • bullet 1 ▶ Bullet 2 › bullet 3 ৹</string>
     <string name="close_menu_button">Close Menu</string>

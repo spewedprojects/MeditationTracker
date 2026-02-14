@@ -5,7 +5,11 @@ import static com.gratus.meditationtrakcer.utils.ClearFocusUtils.clearFocusOnKey
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.RenderEffect;
 import android.graphics.Shader;
@@ -39,6 +43,8 @@ import com.gratus.meditationtrakcer.R;
 import com.gratus.meditationtrakcer.BaseActivity;
 import com.gratus.meditationtrakcer.datamodels.Streak;
 import com.gratus.meditationtrakcer.datamanagers.StreakManager;
+import com.gratus.meditationtrakcer.utils.WidgetUpdateHelper;
+import com.gratus.meditationtrakcer.widgets.StreakWidgetProvider;
 
 public class StreakDialogFragment extends DialogFragment {
 
@@ -141,6 +147,7 @@ public class StreakDialogFragment extends DialogFragment {
                 int days = Integer.parseInt(dayStr);
                 if (listener != null) {
                     listener.onStreakInputConfirmed(days, startDateStr);
+                    WidgetUpdateHelper.updateAllWidgets(requireContext());
                 }
                 dismiss();
             }

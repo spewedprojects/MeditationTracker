@@ -21,6 +21,7 @@ import androidx.core.app.NotificationCompat;
 import com.gratus.meditationtrakcer.MainActivity;
 import com.gratus.meditationtrakcer.databasehelpers.GoalsDatabaseHelper;
 import com.gratus.meditationtrakcer.databasehelpers.MeditationLogDatabaseHelper;
+import com.gratus.meditationtrakcer.utils.WidgetUpdateHelper;
 import com.gratus.meditationtrakcer.widgets.TimerWidgetProvider;
 import com.gratus.meditationtrakcer.R;
 
@@ -135,6 +136,7 @@ public class TimerService extends Service {
                 StreakManager streakManager = new StreakManager(this);
                 streakManager.updateActiveStreakProgress();
             }
+            WidgetUpdateHelper.updateAllWidgets(this);
 
             isTimerRunning = false;
             handler.removeCallbacks(timerRunnable);
@@ -145,7 +147,6 @@ public class TimerService extends Service {
 
             // 5. Broadcast the "0" state to both App and Widget
             sendTimeUpdate(); // Will now send 0 to MainActivity
-            updateWidgets();  // Will now send 0 to Widget
         }
     }
 
@@ -194,7 +195,7 @@ public class TimerService extends Service {
     };
 
     // ✅ NEW: Helper to update the widget directly from Service
-    private void updateWidgets() {
+    public void updateWidgets() {
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
 
         // 1. Update Timer Widgets
@@ -212,6 +213,13 @@ public class TimerService extends Service {
         for (int id : goalIds) {
             // We can reuse the static update method we created
             com.gratus.meditationtrakcer.widgets.GoalWidgetProvider.updateGoalWidget(this, appWidgetManager, id);
+        }
+
+        // 3. ✅ Update Streak Widgets
+        ComponentName streakWidget = new ComponentName(this, com.gratus.meditationtrakcer.widgets.StreakWidgetProvider.class);
+        int[] streakIds = appWidgetManager.getAppWidgetIds(streakWidget);
+        for (int id : streakIds) {
+            com.gratus.meditationtrakcer.widgets.StreakWidgetProvider.updateStreakWidget(this, appWidgetManager, id);
         }
     }
 

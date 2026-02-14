@@ -64,7 +64,13 @@
 
 Latest release **_[here](https://github.com/spewedprojects/MeditationTracker/releases/latest)_**.
 
-93. _**[13.2.0 (13/02/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v13.2.0)**_
+94. _**[13.3.0 (13/02/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v13.3.0)**_
+    > - Implemented a new Settings and Info screen.
+    > - Implemented `applySystemFontToView` in `BaseActivity.java` to recursively strip custom typefaces.
+    > - Functional buttons in settings screen.
+    > - Foregoing Compose, removed all dependencies.
+
+    93. [13.2.0 (13/02/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v13.2.0)
     > - Implemented a new Settings and Info screen and integrated Jetpack Compose support into the build configuration.
     > - Created `SettingsInfoActivity.kt` and `activity_settingsinfo.xml` to host a new usage guide and global app settings.
     > - Experimented with Jetpack Compose.

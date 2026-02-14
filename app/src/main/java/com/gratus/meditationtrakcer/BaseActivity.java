@@ -93,6 +93,20 @@ public class BaseActivity extends AppCompatActivity {
         setupOnDoubleBackPressed();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Check if the font preference changed while this activity was in the background
+        SharedPreferences prefs = getSharedPreferences(SHARED_PREFS_NAME, MODE_PRIVATE);
+        boolean shouldBeSystemFont = prefs.getBoolean("use_system_font", false);
+
+        // If the stored pref doesn't match the boolean we set in onCreate...
+        if (shouldBeSystemFont != useSystemFont) {
+            recreate(); // ...restart this activity to apply the new font!
+        }
+    }
+
     private void setupOnDoubleBackPressed() {
         // Register the modern back press callback
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
@@ -267,7 +281,7 @@ public class BaseActivity extends AppCompatActivity {
         DrawerLayout fullView = (DrawerLayout) getLayoutInflater().inflate(R.layout.activity_base, null);
         fullView.setScrimColor(Color.parseColor("#33000000")); // 20% black
 
-        setDrawerLeftEdgeSize(drawerLayout, 0.30f); // sets edge swipe area to 20% of screen width
+        setDrawerLeftEdgeSize(drawerLayout, 0.20f); // sets edge swipe area to 20% of screen width
 
         // Find the container into which we will inflate the child layout
         // (child layouts like activity_main.xml, etc.)

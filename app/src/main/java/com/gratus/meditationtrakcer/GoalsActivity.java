@@ -42,6 +42,7 @@ import com.gratus.meditationtrakcer.adapters.GoalsAdapter;
 import com.gratus.meditationtrakcer.databasehelpers.GoalsDatabaseHelper;
 import com.gratus.meditationtrakcer.databasehelpers.MeditationLogDatabaseHelper;
 import com.gratus.meditationtrakcer.datamodels.Goal;
+import com.gratus.meditationtrakcer.utils.WidgetUpdateHelper;
 import com.gratus.meditationtrakcer.widgets.GoalWidgetProvider;
 
 import java.util.Arrays;
@@ -242,7 +243,7 @@ public class GoalsActivity extends BaseActivity {
 
         if (rowsDeleted > 0) {
             Log.d("GoalsActivity", "Goal deleted successfully.");
-            updateHomeWidgets(); // <--- ADD THIS
+            WidgetUpdateHelper.updateAllWidgets(this); // <--- ADD THIS
         } else {
             Log.d("GoalsActivity", "Failed to delete goal.");
         }
@@ -283,7 +284,7 @@ public class GoalsActivity extends BaseActivity {
 
             Log.d("GoalsActivity",
                     "Added Goal - Start Date: " + formattedStartDate + ", End Date: " + formattedEndDate);
-            updateHomeWidgets(); // <--- ADD THIS
+            WidgetUpdateHelper.updateAllWidgets(this); // <--- ADD THIS
         } catch (Exception e) {
             Log.e("GoalsActivity", "Error formatting dates", e);
         }
@@ -644,18 +645,6 @@ public class GoalsActivity extends BaseActivity {
         durationPerDayInput.setText("");
         numDaysInput.setText("");
         bStartDateInput.setText("");
-    }
-
-    private void updateHomeWidgets() {
-        Intent intent = new Intent(this, GoalWidgetProvider.class);
-        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-
-        // Get all IDs for the GoalWidget
-        int[] ids = AppWidgetManager.getInstance(getApplication())
-                .getAppWidgetIds(new ComponentName(getApplication(), GoalWidgetProvider.class));
-
-        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
-        sendBroadcast(intent);
     }
 
     @Override
