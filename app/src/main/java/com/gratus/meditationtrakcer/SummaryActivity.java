@@ -261,6 +261,24 @@ public class SummaryActivity extends BaseActivity {
         }
     }
 
+    // Another way to get the week number - some doubts, clarify them. Like the minimum days in first week=4. why?
+//    public String getWeekNumber(String startDate) {
+//        try {
+//            // Parse the string to a LocalDate (Modern Java Time is safer than Calendar)
+//            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.getDefault());
+//            LocalDate date = LocalDate.parse(startDate, formatter);
+//
+//            // Force ISO-8601 (Monday start) calculation
+//            WeekFields weekFields = WeekFields.of(DayOfWeek.MONDAY, 4);
+//            int weekOfYear = date.get(weekFields.weekOfWeekBasedYear());
+//
+//            return "Week #" + weekOfYear;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return "Week #";
+//        }
+//    }
+
     public String getDateRange(String startDate) {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());

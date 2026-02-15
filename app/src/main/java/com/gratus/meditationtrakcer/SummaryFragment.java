@@ -300,11 +300,12 @@ public class SummaryFragment extends Fragment {
             float total = dbHelper.getTotalMonthlyMeditationHoursForDateRange(startDate,
                     getParent().getNextMonthStartDate(startDate));
 
+            // This is for the chart
             ArrayList<String> labels = new ArrayList<>();
             try {
                 DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.getDefault());
                 LocalDate start = LocalDate.parse(startDate, fmt);
-                WeekFields wf = WeekFields.of(Locale.getDefault());
+                WeekFields wf = WeekFields.of(DayOfWeek.MONDAY, 4);
                 for (int i = 0; i < 5; i++) {
                     int weekNum = start.plusWeeks(i).get(wf.weekOfWeekBasedYear());
                     labels.add("Week #" + weekNum);
@@ -314,6 +315,7 @@ public class SummaryFragment extends Fragment {
                     labels.add("Week " + i);
             }
 
+            //This is for the text below chart
             String monthYearStr = getParent().getMonthYear(startDate);
             String yearStr = getParent().getYear(startDate);
 

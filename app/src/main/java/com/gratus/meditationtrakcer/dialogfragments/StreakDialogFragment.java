@@ -15,6 +15,7 @@ import android.graphics.RenderEffect;
 import android.graphics.Shader;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -61,28 +62,30 @@ public class StreakDialogFragment extends DialogFragment {
     }
 
     private final Calendar calendar = Calendar.getInstance();
-    private View blurredView;
-
+    private View blurredView, dialogView;
+    private EditText inputStartDate, inputDays;
+    private TextView longestStreakText, currentStreakText;
+    private Button addStreak;
+    private HorizontalScrollView scrollView;
 
     @SuppressLint("ClickableViewAccessibility")
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        View dialogView = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_streak, null);
+        dialogView = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_streak, null);
 
         // --- REMOVED The old blur logic that targeted the local view ---
-
         streakManager = new StreakManager(requireContext());
 
         // --- View Initialization ---
-        HorizontalScrollView scrollView = dialogView.findViewById(R.id.streak_scroll);
-        EditText inputDays = dialogView.findViewById(R.id.streak_days_input);
-        EditText inputStartDate = dialogView.findViewById(R.id.streak_start_date);
-        Button addStreak = dialogView.findViewById(R.id.add_streak);
+        scrollView = dialogView.findViewById(R.id.streak_scroll);
+        inputDays = dialogView.findViewById(R.id.streak_days_input);
+        inputStartDate = dialogView.findViewById(R.id.streak_start_date);
+        addStreak = dialogView.findViewById(R.id.add_streak);
 
         // Stats Views
-        TextView longestStreakText = dialogView.findViewById(R.id.streak_longest_int);
-        TextView currentStreakText = dialogView.findViewById(R.id.streak_current_int);
+        longestStreakText = dialogView.findViewById(R.id.streak_longest_int);
+        currentStreakText = dialogView.findViewById(R.id.streak_current_int);
         TextView currentStreakLabel = dialogView.findViewById(R.id.streak_current_title); // For modifying title if needed
 
         clearFocusOnKeyboardHide(inputDays, dialogView);
@@ -90,25 +93,91 @@ public class StreakDialogFragment extends DialogFragment {
         // --- 1. Populate Stats (Longest & Current) ---
         populateStreakStats(longestStreakText, currentStreakText);
 
-        // --- 2. Implement Snap Behavior for HorizontalScrollView ---
+        setupHorizontalScrollSnap(scrollView, dialogView);
+        setupOnClickListeners();
+
+        Dialog dialog = new Dialog(requireContext());
+        dialog.setContentView(dialogView);
+        // ---> ADD THIS BEFORE RETURNING THE DIALOG <---
+        if (getActivity() instanceof BaseActivity) {
+            ((BaseActivity) getActivity()).applySystemFontToView(dialogView);
+        }
+        return dialog;
+    }
+
+    // ✅ NEW: Helper method to handle Flick (Velocity) and Snap
+    @SuppressLint("ClickableViewAccessibility")
+    private void setupHorizontalScrollSnap(HorizontalScrollView scrollView, View dialogView) {
+        final GestureDetector gestureDetector = new GestureDetector(requireContext(), new GestureDetector.SimpleOnGestureListener() {
+            @Override
+            public boolean onDown(@NonNull MotionEvent e) {
+                // Must return true to allow further gestures like Fling to be detected
+                return true;
+            }
+
+            @Override
+            public boolean onFling(@NonNull MotionEvent e1, @NonNull MotionEvent e2, float velocityX, float velocityY) {
+                try {
+                    // Small threshold for "flick" detection
+                    int SWIPE_THRESHOLD_VELOCITY = 300;
+
+                    if (Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+                        View inputPage = dialogView.findViewById(R.id.streak_input);
+                        int pageWidth = inputPage.getWidth();
+                        int scrollX = scrollView.getScrollX();
+                        int currentPage = (scrollX + (pageWidth / 2)) / pageWidth;
+
+                        int targetPage;
+                        // Negative Velocity = Swipe Left (Finger Right->Left) -> Go Next
+                        // Positive Velocity = Swipe Right (Finger Left->Right) -> Go Previous
+                        if (velocityX < 0) {
+                            targetPage = 1; // Force go to Next Page
+                        } else {
+                            targetPage = 0; // Force go to Previous Page
+                        }
+
+                        // Bounds Check (Assuming 2 pages: 0 and 1)
+                        targetPage = Math.max(0, Math.min(targetPage, 1));
+
+                        int targetX = targetPage * pageWidth;
+                        scrollView.smoothScrollTo(targetX, 0);
+                        return true; // Mark handled so we don't snap again
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return false;
+            }
+        });
+
         scrollView.setOnTouchListener((v, event) -> {
+            // 1. Pass event to detector.
+            // If onFling triggers (during ACTION_UP), this returns true.
+            boolean isFlingHandled = gestureDetector.onTouchEvent(event);
+
+            // 2. Handle Release (ACTION_UP)
             if (event.getAction() == MotionEvent.ACTION_UP) {
-                // Get width of the container/page (Currently defined as 290dp in XML)
-                // We use the first child of the scrollview's child (the linear layout 'streak_input')
+                if (isFlingHandled) {
+                    return true; // Fling took care of the scroll
+                }
+
+                // 3. Fallback: If no flick detected (just slow drag), use position-based snap
                 View inputPage = dialogView.findViewById(R.id.streak_input);
                 int pageWidth = inputPage.getWidth();
                 int scrollX = scrollView.getScrollX();
-
-                // Calculate which page we are closer to (0 or 1)
                 int page = (scrollX + (pageWidth / 2)) / pageWidth;
                 int targetX = page * pageWidth;
 
                 scrollView.post(() -> scrollView.smoothScrollTo(targetX, 0));
-                return true;
+                return true; // Consume event to stop default inertia
             }
+
+            // 4. Return false for Down/Move to let ScrollView handle normal dragging
             return false;
         });
+    }
 
+    private void setupOnClickListeners() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         inputStartDate.setText("");
 
@@ -123,6 +192,8 @@ public class StreakDialogFragment extends DialogFragment {
                     calendar.get(Calendar.MONTH),
                     calendar.get(Calendar.DAY_OF_MONTH)
             );
+            // After creating the dialog, set the first day of week on its DatePicker
+            dPDialog.getDatePicker().setFirstDayOfWeek(Calendar.MONDAY);
 
             dPDialog.setOnShowListener(dialog -> {
                 Button positiveButton = dPDialog.getButton(DialogInterface.BUTTON_POSITIVE);
@@ -152,14 +223,6 @@ public class StreakDialogFragment extends DialogFragment {
                 dismiss();
             }
         });
-
-        Dialog dialog = new Dialog(requireContext());
-        dialog.setContentView(dialogView);
-        // ---> ADD THIS BEFORE RETURNING THE DIALOG <---
-        if (getActivity() instanceof BaseActivity) {
-            ((BaseActivity) getActivity()).applySystemFontToView(dialogView);
-        }
-        return dialog;
     }
 
     private void populateStreakStats(TextView longestTv, TextView currentTv) {

@@ -24,8 +24,9 @@
     <string name="goals_title">Set a New Goal</string>
     <string name="goals_desc">Create a new meditation goal</string>
     <string name="current_version_details">
-        • Streaks Widget is here.
-        \n• Fixed MainScreen not updating with font settings, +OnResume in BaseActivity.
+        • Fixed incorrect week number displayed in monthly chart.
+        \n• Improved scrolling for streak dialog by implementing Gesture detection - requires much less effort now.
+        \n• Fixed calendars to display Monday as first week by default.
         \n
         \nNEXT:
         \n  ৹ Consolidate fonts for better maintainability.

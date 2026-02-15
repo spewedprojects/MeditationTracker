@@ -110,17 +110,7 @@
                             android:layout_marginTop="4dp"
                             android:alpha="0.7"
                             android:fontFamily="@font/atkinsonhyperlegiblenext_regular"
-                            android:text="Long-press on the Streak card to set streak goals and to view the streak stats."
-                            android:textColor="@color/black_white"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:alpha="0.7"
-                            android:fontFamily="@font/atkinsonhyperlegiblenext_regular"
-                            android:text="Long-press on `Add Manually` button to open the dialog to add back-dated entry.\n\nNote: All future dates are disabled."
+                            android:text="Long-press on the Streak card to set streak goals and to view the streak stats.\n\nLong-press on `Add Manually` button to open the dialog to add back-dated entry.\n*Note: All future dates are disabled."
                             android:textColor="@color/black_white"
                             android:textSize="14sp" />
                     </LinearLayout>

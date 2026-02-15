@@ -64,7 +64,11 @@
 
 Latest release **_[here](https://github.com/spewedprojects/MeditationTracker/releases/latest)_**.
 
-94. _**[13.3.0 (13/02/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v13.3.0)**_
+95. _**[13.4.0 (14/02/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v13.3.0)**_
+    > - Streaks Widget is here.
+    > - Fixed MainScreen not updating with font settings, +OnResume in BaseActivity.
+
+    94. [13.3.0 (13/02/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v13.3.0)
     > - Implemented a new Settings and Info screen.
     > - Implemented `applySystemFontToView` in `BaseActivity.java` to recursively strip custom typefaces.
     > - Functional buttons in settings screen.
