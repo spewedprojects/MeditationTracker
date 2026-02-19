@@ -64,7 +64,12 @@
 
 Latest release **_[here](https://github.com/spewedprojects/MeditationTracker/releases/latest)_**.
 
-95. _**[13.4.0 (14/02/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v13.3.0)**_
+96. _**[13.4.1 (14/02/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v13.4.1)**_
+    > - Fixed incorrect week number displayed in monthly chart.
+    > - Improved scrolling for streak dialog by implementing Gesture detection - requires much less effort now.
+    > - Fixed calendars to display Monday as first week by default.
+
+    95. [13.4.0 (14/02/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v13.4.0)
     > - Streaks Widget is here.
     > - Fixed MainScreen not updating with font settings, +OnResume in BaseActivity.
 

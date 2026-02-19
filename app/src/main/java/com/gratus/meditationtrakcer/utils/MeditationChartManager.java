@@ -91,7 +91,7 @@ public class MeditationChartManager {
         if (isYAxisVisible) {
             // Normal mode: Show labels
             leftAxis.setDrawLabels(true);
-            leftAxis.setDrawGridLines(false); // Preference: clean look
+            leftAxis.setDrawGridLines(true); // Preference: clean look
             leftAxis.setDrawAxisLine(true);
             leftAxis.setTextColor(Color.parseColor("#969696"));
             leftAxis.setTypeface(customFont);

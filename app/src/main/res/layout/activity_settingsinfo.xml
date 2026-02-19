@@ -191,7 +191,7 @@
                             android:layout_height="wrap_content"
                             android:alpha="0.8"
                             android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
-                            android:text="Graph Y-Axis"
+                            android:text="Graph Y-Axis Lines"
                             android:textColor="@color/black_white"
                             android:textSize="16sp"/>
 
@@ -201,7 +201,7 @@
                             android:layout_marginTop="4dp"
                             android:alpha="0.65"
                             android:fontFamily="@font/atkinsonhyperlegiblenext_regular"
-                            android:text="Show vertical axis line on charts"
+                            android:text="Show vertical axis and grid on charts"
                             android:textColor="@color/black_white"
                             android:textSize="14sp"/>
                     </LinearLayout>

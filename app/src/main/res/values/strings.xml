@@ -24,9 +24,8 @@
     <string name="goals_title">Set a New Goal</string>
     <string name="goals_desc">Create a new meditation goal</string>
     <string name="current_version_details">
-        • Fixed incorrect week number displayed in monthly chart.
-        \n• Improved scrolling for streak dialog by implementing Gesture detection - requires much less effort now.
-        \n• Fixed calendars to display Monday as first week by default.
+        • Updated `widget_streak.xml` to use `wrap_content` for dimensions.
+        \n• Enabled grid lines on the Y-axis in `MeditationChartManager.java`.
         \n
         \nNEXT:
         \n  ৹ Consolidate fonts for better maintainability.

@@ -66,7 +66,7 @@ public class StreakWidgetProvider extends AppWidgetProvider {
             views.setTextViewText(R.id.widget_streak_number, String.valueOf(contiguousDays));
 
             // 4. Apply Offset (Translation Y = 12dp) -> Simulated via Top Padding
-            int paddingPx = dpToPx(context, 12);
+            int paddingPx = dpToPx(context, 14);
             views.setViewPadding(R.id.streakdaysField, 0, paddingPx, 0, 0);
         }
 
