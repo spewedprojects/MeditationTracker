@@ -77,7 +77,8 @@ public class SummaryFragment extends Fragment {
             currentMode = getArguments().getInt(ARG_MODE);
         }
         // --- NEW: Check preference and assign font ---
-        SharedPreferences prefs = requireContext().getSharedPreferences(BaseActivity.SHARED_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences prefs = requireContext().getSharedPreferences(BaseActivity.SHARED_PREFS_NAME,
+                Context.MODE_PRIVATE);
         boolean useSystemFont = prefs.getBoolean("use_system_font", false);
 
         if (useSystemFont) {
@@ -99,9 +100,6 @@ public class SummaryFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         setupUI(view);
         // Catch all text inside the newly created list item
-        if (getContext() instanceof BaseActivity) {
-            ((BaseActivity) getContext()).applySystemFontToView(view);
-        }
 
         // FIX: Load data immediately when the view is created in the background buffer.
         // This ensures the graph is ready BEFORE you swipe to it.
@@ -315,7 +313,7 @@ public class SummaryFragment extends Fragment {
                     labels.add("Week " + i);
             }
 
-            //This is for the text below chart
+            // This is for the text below chart
             String monthYearStr = getParent().getMonthYear(startDate);
             String yearStr = getParent().getYear(startDate);
 

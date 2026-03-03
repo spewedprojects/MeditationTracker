@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/backdated_entry"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -47,7 +48,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="16dp"
                         android:layout_marginTop="18dp"
-                        android:fontFamily="@font/atkinsonhyperlegiblenext_variable"
+                        android:textAppearance="?attr/textAppearanceAppSubheader"
+                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subheader"
                         android:gravity="center"
                         android:text="Be honest with yourself!" />
 
@@ -67,39 +69,36 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="8dp"
-                            android:fontFamily="@font/atkinsonhyperlegiblenext_regular"
+                            android:textAppearance="?attr/textAppearanceAppSubheader"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subheader"
                             android:gravity="center"
                             android:hint="hh"
                             android:inputType="number"
-                            android:letterSpacing="0.05"
-                            android:padding="10dp"
-                            android:textSize="19sp" /> <!-- hrs -->
+                            android:padding="10dp" /> <!-- hrs -->
 
                         <EditText
                             android:id="@+id/manual_minutes_B"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="8dp"
-                            android:fontFamily="@font/atkinsonhyperlegiblenext_regular"
+                            android:textAppearance="?attr/textAppearanceAppSubheader"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subheader"
                             android:gravity="center"
                             android:hint="mm"
                             android:inputType="number"
-                            android:letterSpacing="0.05"
-                            android:padding="10dp"
-                            android:textSize="19sp" /> <!-- mm -->
+                            android:padding="10dp" /> <!-- mm -->
 
                         <EditText
                             android:id="@+id/manual_seconds_B"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
-                            android:fontFamily="@font/atkinsonhyperlegiblenext_regular"
+                            android:textAppearance="?attr/textAppearanceAppSubheader"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subheader"
                             android:gravity="center"
                             android:hint="ss"
                             android:inputType="number"
-                            android:letterSpacing="0.05"
-                            android:padding="10dp"
-                            android:textSize="19sp" /> <!-- ss -->
+                            android:padding="10dp" /> <!-- ss -->
                     </LinearLayout>
 
                     <Button
@@ -109,15 +108,13 @@
                         android:layout_marginHorizontal="38dp"
                         android:layout_marginTop="12dp"
                         android:layout_marginBottom="18dp"
-                        android:fontFamily="@font/atkinsonhyperlegiblenext_regular"
+                        android:textAppearance="?attr/textAppearanceAppButton"
+                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.AppButton"
                         android:gravity="center"
                         android:backgroundTint="?attr/colorOnPrimary"
                         android:includeFontPadding="false"
                         android:text="@string/add_entry"
                         android:textAllCaps="false"
-                        android:textSize="15.5sp"
-                        android:letterSpacing="0.1"
-                        android:textStyle="bold"
                         android:textColor="?attr/colorPrimary"
                         app:cornerRadius="8dp"/> <!-- Add goal button -->
 

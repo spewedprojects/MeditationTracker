@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/transparent"
@@ -8,19 +9,19 @@
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="0dp"
-        app:layout_constraintWidth_max="600dp"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="?attr/colorPrimaryVariant"
-        app:strokeColor="@color/textHintcolor"
-        app:cardElevation="4dp"
-        app:strokeWidth="2dp"
-        app:cardCornerRadius="16dp"
         android:layout_marginHorizontal="16dp"
         android:layout_marginVertical="16dp"
+        app:cardBackgroundColor="?attr/colorPrimaryVariant"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_max="600dp"
+        app:strokeColor="@color/textHintcolor"
+        app:strokeWidth="2dp">
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -47,22 +48,23 @@
                         android:id="@+id/tvReportTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                         android:letterSpacing="0.04"
                         android:text="Meditation Report"
+                        android:textAppearance="?attr/textAppearanceReportTitle"
                         android:textColor="@color/inverseprimary"
                         android:textSize="30dp"
-                        android:textStyle="bold" />
+                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.ReportTitle" />
 
                     <TextView
                         android:id="@+id/tvReportYearMonth"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                         android:letterSpacing="0.04"
                         android:text="For Year/Month 2025"
+                        android:textAppearance="?attr/textAppearanceStatUnit"
                         android:textColor="@color/inverseprimary"
-                        android:textSize="15dp" />
+                        android:textSize="15dp"
+                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatUnit" />
                 </LinearLayout>
 
                 <ImageView
@@ -117,11 +119,12 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:alpha="0.7"
-                            android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                             android:gravity="center"
                             android:text="Total hrs\nMeditated"
+                            android:textAppearance="?attr/textAppearanceStatLabel"
                             android:textColor="@color/inverseprimary"
-                            android:textSize="15dp" />
+                            android:textSize="15dp"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatLabel" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -132,19 +135,21 @@
                                 android:id="@+id/tvTotalHoursValue"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                                 android:text="48"
+                                android:textAppearance="?attr/textAppearanceStatValue"
                                 android:textColor="@color/inverseprimary"
-                                android:textSize="36dp" />
+                                android:textSize="36dp"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatValue" />
 
                             <TextView
                                 android:id="@+id/tvTotalHoursUnit"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                                 android:text="hrs"
+                                android:textAppearance="?attr/textAppearanceStatUnit"
                                 android:textColor="@color/inverseprimary"
-                                android:textSize="14.5dp"/>
+                                android:textSize="14.5dp"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatUnit" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -161,11 +166,12 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:alpha="0.7"
-                            android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                             android:gravity="center"
                             android:text="Consistency\nScore"
+                            android:textAppearance="?attr/textAppearanceStatLabel"
                             android:textColor="@color/inverseprimary"
-                            android:textSize="15dp" />
+                            android:textSize="15dp"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatLabel" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -176,18 +182,20 @@
                                 android:id="@+id/tvConsistencyValue"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                                 android:text="45"
+                                android:textAppearance="?attr/textAppearanceStatValue"
                                 android:textColor="@color/inverseprimary"
-                                android:textSize="36dp" />
+                                android:textSize="36dp"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatValue" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                                 android:text="%"
+                                android:textAppearance="?attr/textAppearanceStatUnit"
                                 android:textColor="@color/inverseprimary"
-                                android:textSize="14.5dp"/>
+                                android:textSize="14.5dp"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatUnit" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -204,11 +212,12 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:alpha="0.7"
-                            android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                             android:gravity="center"
                             android:text="Best\nstreak"
+                            android:textAppearance="?attr/textAppearanceStatLabel"
                             android:textColor="@color/inverseprimary"
-                            android:textSize="15dp" />
+                            android:textSize="15dp"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatLabel" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -219,19 +228,21 @@
                                 android:id="@+id/tvBestStreakValue"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                                 android:text="21"
+                                android:textAppearance="?attr/textAppearanceStatValue"
                                 android:textColor="@color/inverseprimary"
-                                android:textSize="36dp" />
+                                android:textSize="36dp"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatValue" />
 
                             <TextView
                                 android:id="@+id/tvBestStreakUnit"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                                 android:text="days"
+                                android:textAppearance="?attr/textAppearanceStatUnit"
                                 android:textColor="@color/inverseprimary"
-                                android:textSize="14.5dp"/>
+                                android:textSize="14.5dp"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatUnit" />
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
@@ -277,20 +288,22 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:alpha="0.7"
-                            android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                             android:gravity="center"
                             android:text="Days not\nMeditated"
+                            android:textAppearance="?attr/textAppearanceStatLabel"
                             android:textColor="@color/inverseprimary"
-                            android:textSize="15dp" />
+                            android:textSize="15dp"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatLabel" />
 
                         <TextView
                             android:id="@+id/tvDaysNotMeditatedValue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                             android:text="185"
+                            android:textAppearance="?attr/textAppearanceStatValue"
                             android:textColor="@color/inverseprimary"
-                            android:textSize="32dp" />
+                            android:textSize="32dp"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatValue" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -305,20 +318,22 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:alpha="0.7"
-                            android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                             android:gravity="center"
                             android:text="Weeks not\nMeditated"
+                            android:textAppearance="?attr/textAppearanceStatLabel"
                             android:textColor="@color/inverseprimary"
-                            android:textSize="15dp"/>
+                            android:textSize="15dp"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatLabel" />
 
                         <TextView
                             android:id="@+id/tvWeeksNotMeditatedValue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                             android:text="15"
+                            android:textAppearance="?attr/textAppearanceStatValue"
                             android:textColor="@color/inverseprimary"
-                            android:textSize="32dp" />
+                            android:textSize="32dp"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatValue" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -333,11 +348,12 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:alpha="0.7"
-                            android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                             android:gravity="center"
                             android:text="Streak\nStability"
+                            android:textAppearance="?attr/textAppearanceStatLabel"
                             android:textColor="@color/inverseprimary"
-                            android:textSize="15dp"/>
+                            android:textSize="15dp"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatLabel" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -348,19 +364,21 @@
                                 android:id="@+id/tvStreakStabilityValue"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                                 android:text="5"
+                                android:textAppearance="?attr/textAppearanceStatValue"
                                 android:textColor="@color/inverseprimary"
-                                android:textSize="32dp" />
+                                android:textSize="32dp"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatValue" />
 
                             <TextView
                                 android:id="@+id/tvStreakStabilityUnit"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                                 android:text="days"
+                                android:textAppearance="?attr/textAppearanceStatUnit"
                                 android:textColor="@color/inverseprimary"
-                                android:textSize="14.5dp"/>
+                                android:textSize="14.5dp"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatUnit" />
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
@@ -405,20 +423,22 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:alpha="0.7"
-                            android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                             android:gravity="center"
                             android:text="Total\nsessions"
+                            android:textAppearance="?attr/textAppearanceStatLabel"
                             android:textColor="@color/inverseprimary"
-                            android:textSize="15dp"/>
+                            android:textSize="15dp"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatLabel" />
 
                         <TextView
                             android:id="@+id/tvTotalSessionsValue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                             android:text="121"
+                            android:textAppearance="?attr/textAppearanceStatValue"
                             android:textColor="@color/inverseprimary"
-                            android:textSize="32dp" />
+                            android:textSize="32dp"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatValue" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -433,11 +453,12 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:alpha="0.7"
-                            android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                             android:gravity="center"
                             android:text="Avg. session\nGap"
+                            android:textAppearance="?attr/textAppearanceStatLabel"
                             android:textColor="@color/inverseprimary"
-                            android:textSize="15dp"/>
+                            android:textSize="15dp"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatLabel" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -448,19 +469,21 @@
                                 android:id="@+id/tvAvgGapValue"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                                 android:text="4"
+                                android:textAppearance="?attr/textAppearanceStatValue"
                                 android:textColor="@color/inverseprimary"
-                                android:textSize="32dp" />
+                                android:textSize="32dp"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatValue" />
 
                             <TextView
                                 android:id="@+id/tvAvgGapUnit"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                                 android:text="days"
+                                android:textAppearance="?attr/textAppearanceStatUnit"
                                 android:textColor="@color/inverseprimary"
-                                android:textSize="14.5dp"/>
+                                android:textSize="14.5dp"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatUnit" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -476,11 +499,12 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:alpha="0.7"
-                            android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                             android:gravity="center"
                             android:text="Avg.\nSession length"
+                            android:textAppearance="?attr/textAppearanceStatLabel"
                             android:textColor="@color/inverseprimary"
-                            android:textSize="15dp" />
+                            android:textSize="15dp"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatLabel" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -491,19 +515,21 @@
                                 android:id="@+id/tvAvgSessionValue"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                                 android:text="15"
+                                android:textAppearance="?attr/textAppearanceStatValue"
                                 android:textColor="@color/inverseprimary"
-                                android:textSize="32dp" />
+                                android:textSize="32dp"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatValue" />
 
                             <TextView
                                 android:id="@+id/tvAvgSessionUnit"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                                 android:text="mins"
+                                android:textAppearance="?attr/textAppearanceStatUnit"
                                 android:textColor="@color/inverseprimary"
-                                android:textSize="14.5dp"/>
+                                android:textSize="14.5dp"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatUnit" />
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
@@ -534,30 +560,35 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:alpha="0.85"
-                            android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                             android:text="Most active Month"
+                            android:textAppearance="?attr/textAppearanceStatLabel"
                             android:textColor="@color/inverseprimary"
-                            android:textSize="15dp"/>
+                            android:textSize="15dp"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatLabel" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:orientation="horizontal">
+
                             <TextView
                                 android:id="@+id/tvMostActiveValue"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                                 android:text="May – 9"
+                                android:textAppearance="?attr/textAppearanceStatValue"
                                 android:textColor="@color/inverseprimary"
-                                android:textSize="26dp" />
+                                android:textSize="26dp"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatValue" />
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                                 android:text="hrs"
+                                android:textAppearance="?attr/textAppearanceStatUnit"
+                                android:textColor="@color/inverseprimary"
                                 android:textSize="15.5dp"
-                                android:textColor="@color/inverseprimary" />
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatUnit" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -573,10 +604,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:alpha="0.85"
-                            android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                             android:text="Least active Month"
+                            android:textAppearance="?attr/textAppearanceStatLabel"
                             android:textColor="@color/inverseprimary"
-                            android:textSize="15dp"/>
+                            android:textSize="15dp"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatLabel" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -587,17 +619,20 @@
                                 android:id="@+id/tvLeastActiveValue"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                                 android:text="Apr – 0.9"
+                                android:textAppearance="?attr/textAppearanceStatValue"
                                 android:textColor="@color/inverseprimary"
-                                android:textSize="26dp" />
+                                android:textSize="26dp"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatValue" />
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                                 android:text="hrs"
+                                android:textAppearance="?attr/textAppearanceStatUnit"
+                                android:textColor="@color/inverseprimary"
                                 android:textSize="15.5dp"
-                                android:textColor="@color/inverseprimary" />
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatUnit" />
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
@@ -627,9 +662,10 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                             android:text="Preferred Times"
-                            android:textColor="@color/inverseprimary" />
+                            android:textAppearance="?attr/textAppearanceStatLabel"
+                            android:textColor="@color/inverseprimary"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatLabel" />
 
                         <com.github.mikephil.charting.charts.BarChart
                             android:id="@+id/chartPreferredTimes"
@@ -648,9 +684,10 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                             android:text="Session Frequency"
-                            android:textColor="@color/inverseprimary" />
+                            android:textAppearance="?attr/textAppearanceStatLabel"
+                            android:textColor="@color/inverseprimary"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatLabel" />
 
                         <com.github.mikephil.charting.charts.BarChart
                             android:id="@+id/chartSessionFrequency"

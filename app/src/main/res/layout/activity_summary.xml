@@ -43,7 +43,8 @@
             android:id="@+id/W_Button"
             style="@style/method_WMY_Group_ButtonStyle"
             android:text="Week"
-            app:shapeAppearanceOverlay="@style/ExportButtonCorners"
+            tools:textAppearance="@style/TextAppearance.MeditationTracker.AppFont.AppButton"
+            app:shapeAppearanceOverlay="@style/StartButtonCorners"
             android:insetRight="1dp"
             android:padding="0dp"/>
         <!-- Month Button -->
@@ -53,6 +54,7 @@
             android:text="Month"
             app:shapeAppearanceOverlay="@style/MiddleButtonCorners"
             android:insetLeft="1dp"
+            tools:textAppearance="@style/TextAppearance.MeditationTracker.AppFont.AppButton"
             android:insetRight="1dp"
             android:padding="0dp"/>
         <!-- Year Button -->
@@ -60,7 +62,8 @@
             android:id="@+id/Y_Button"
             style="@style/method_WMY_Group_ButtonStyle"
             android:text="Year"
-            app:shapeAppearanceOverlay="@style/ImportButtonCorners"
+            tools:textAppearance="@style/TextAppearance.MeditationTracker.AppFont.AppButton"
+            app:shapeAppearanceOverlay="@style/EndButtonCorners"
             android:insetLeft="1dp"
             android:padding="0dp"/>
 
@@ -112,9 +115,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintHorizontal_bias="1"
             android:text="Generate Report"
-            android:textSize="16sp"
+            android:textAppearance="?attr/textAppearanceAppButton"
+            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.AppButton"
             app:rippleColor="@color/onPrimary2"
-            android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
             android:visibility="gone"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

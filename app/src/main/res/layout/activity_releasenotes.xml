@@ -51,10 +51,10 @@
             android:layout_marginTop="16dp"
             android:filterTouchesWhenObscured="false"
             android:focusableInTouchMode="true"
-            android:fontFamily="@font/atkinsonhyperlegiblenext_bold"
+            android:textAppearance="?attr/textAppearanceAppTitle"
+            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.AppTitle"
             android:text="Release Notes"
             android:textColor="?attr/colorOnPrimary"
-            android:textSize="23sp"
             tools:ignore="TextViewEdits" /> <!-- Release notes page title -->
 
         <TextView
@@ -66,10 +66,10 @@
             android:layout_marginEnd="16dp"
             android:filterTouchesWhenObscured="false"
             android:focusableInTouchMode="true"
-            android:fontFamily="@font/atkinsonhyperlegiblenext_semibold"
+            android:textAppearance="?attr/textAppearanceAppButton"
+            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.AppButton"
             android:text="@string/app_version"
             android:textColor="?attr/colorOnPrimary"
-            android:textSize="15.5sp"
             tools:ignore="TextViewEdits" /> <!-- current version display -->
 
         <TextView
@@ -82,11 +82,11 @@
             android:layout_marginBottom="16dp"
             android:filterTouchesWhenObscured="false"
             android:focusableInTouchMode="true"
-            android:fontFamily="@font/atkinsonhyperlegiblenext_regular"
+            android:textAppearance="?attr/textAppearanceAppSubtitle"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subtitle"
             android:letterSpacing="0.01"
             android:text="@string/current_version_details"
             android:textColor="?attr/colorOnPrimary"
-            android:textSize="15sp"
             tools:ignore="TextViewEdits" /> <!-- Release notes page title -->
         </LinearLayout>
 

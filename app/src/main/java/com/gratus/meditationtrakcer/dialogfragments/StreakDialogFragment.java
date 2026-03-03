@@ -86,7 +86,8 @@ public class StreakDialogFragment extends DialogFragment {
         // Stats Views
         longestStreakText = dialogView.findViewById(R.id.streak_longest_int);
         currentStreakText = dialogView.findViewById(R.id.streak_current_int);
-        TextView currentStreakLabel = dialogView.findViewById(R.id.streak_current_title); // For modifying title if needed
+        TextView currentStreakLabel = dialogView.findViewById(R.id.streak_current_title); // For modifying title if
+                                                                                          // needed
 
         clearFocusOnKeyboardHide(inputDays, dialogView);
 
@@ -99,56 +100,55 @@ public class StreakDialogFragment extends DialogFragment {
         Dialog dialog = new Dialog(requireContext());
         dialog.setContentView(dialogView);
         // ---> ADD THIS BEFORE RETURNING THE DIALOG <---
-        if (getActivity() instanceof BaseActivity) {
-            ((BaseActivity) getActivity()).applySystemFontToView(dialogView);
-        }
         return dialog;
     }
 
     // ✅ NEW: Helper method to handle Flick (Velocity) and Snap
     @SuppressLint("ClickableViewAccessibility")
     private void setupHorizontalScrollSnap(HorizontalScrollView scrollView, View dialogView) {
-        final GestureDetector gestureDetector = new GestureDetector(requireContext(), new GestureDetector.SimpleOnGestureListener() {
-            @Override
-            public boolean onDown(@NonNull MotionEvent e) {
-                // Must return true to allow further gestures like Fling to be detected
-                return true;
-            }
-
-            @Override
-            public boolean onFling(@NonNull MotionEvent e1, @NonNull MotionEvent e2, float velocityX, float velocityY) {
-                try {
-                    // Small threshold for "flick" detection
-                    int SWIPE_THRESHOLD_VELOCITY = 300;
-
-                    if (Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-                        View inputPage = dialogView.findViewById(R.id.streak_input);
-                        int pageWidth = inputPage.getWidth();
-                        int scrollX = scrollView.getScrollX();
-                        int currentPage = (scrollX + (pageWidth / 2)) / pageWidth;
-
-                        int targetPage;
-                        // Negative Velocity = Swipe Left (Finger Right->Left) -> Go Next
-                        // Positive Velocity = Swipe Right (Finger Left->Right) -> Go Previous
-                        if (velocityX < 0) {
-                            targetPage = 1; // Force go to Next Page
-                        } else {
-                            targetPage = 0; // Force go to Previous Page
-                        }
-
-                        // Bounds Check (Assuming 2 pages: 0 and 1)
-                        targetPage = Math.max(0, Math.min(targetPage, 1));
-
-                        int targetX = targetPage * pageWidth;
-                        scrollView.smoothScrollTo(targetX, 0);
-                        return true; // Mark handled so we don't snap again
+        final GestureDetector gestureDetector = new GestureDetector(requireContext(),
+                new GestureDetector.SimpleOnGestureListener() {
+                    @Override
+                    public boolean onDown(@NonNull MotionEvent e) {
+                        // Must return true to allow further gestures like Fling to be detected
+                        return true;
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                return false;
-            }
-        });
+
+                    @Override
+                    public boolean onFling(@NonNull MotionEvent e1, @NonNull MotionEvent e2, float velocityX,
+                            float velocityY) {
+                        try {
+                            // Small threshold for "flick" detection
+                            int SWIPE_THRESHOLD_VELOCITY = 300;
+
+                            if (Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+                                View inputPage = dialogView.findViewById(R.id.streak_input);
+                                int pageWidth = inputPage.getWidth();
+                                int scrollX = scrollView.getScrollX();
+                                int currentPage = (scrollX + (pageWidth / 2)) / pageWidth;
+
+                                int targetPage;
+                                // Negative Velocity = Swipe Left (Finger Right->Left) -> Go Next
+                                // Positive Velocity = Swipe Right (Finger Left->Right) -> Go Previous
+                                if (velocityX < 0) {
+                                    targetPage = 1; // Force go to Next Page
+                                } else {
+                                    targetPage = 0; // Force go to Previous Page
+                                }
+
+                                // Bounds Check (Assuming 2 pages: 0 and 1)
+                                targetPage = Math.max(0, Math.min(targetPage, 1));
+
+                                int targetX = targetPage * pageWidth;
+                                scrollView.smoothScrollTo(targetX, 0);
+                                return true; // Mark handled so we don't snap again
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        return false;
+                    }
+                });
 
         scrollView.setOnTouchListener((v, event) -> {
             // 1. Pass event to detector.
@@ -190,8 +190,7 @@ public class StreakDialogFragment extends DialogFragment {
                     },
                     calendar.get(Calendar.YEAR),
                     calendar.get(Calendar.MONTH),
-                    calendar.get(Calendar.DAY_OF_MONTH)
-            );
+                    calendar.get(Calendar.DAY_OF_MONTH));
             // After creating the dialog, set the first day of week on its DatePicker
             dPDialog.getDatePicker().setFirstDayOfWeek(Calendar.MONDAY);
 
@@ -199,13 +198,16 @@ public class StreakDialogFragment extends DialogFragment {
                 Button positiveButton = dPDialog.getButton(DialogInterface.BUTTON_POSITIVE);
                 Button negativeButton = dPDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
                 boolean isDarkMode = isDarkMode();
-                int positiveColor = isDarkMode ? ContextCompat.getColor(requireContext(), R.color.inverseprimary) : ContextCompat.getColor(requireContext(), R.color.inverseprimary);
-                int negativeColor = isDarkMode ? ContextCompat.getColor(requireContext(), R.color.inverseprimary) : ContextCompat.getColor(requireContext(), R.color.inverseprimary);
+                int positiveColor = isDarkMode ? ContextCompat.getColor(requireContext(), R.color.inverseprimary)
+                        : ContextCompat.getColor(requireContext(), R.color.inverseprimary);
+                int negativeColor = isDarkMode ? ContextCompat.getColor(requireContext(), R.color.inverseprimary)
+                        : ContextCompat.getColor(requireContext(), R.color.inverseprimary);
                 positiveButton.setTextColor(positiveColor);
                 negativeButton.setTextColor(negativeColor);
 
                 // Apply rounded background
-                Objects.requireNonNull(dPDialog.getWindow()).setBackgroundDrawableResource(R.drawable.datepicker_rounded_corners);
+                Objects.requireNonNull(dPDialog.getWindow())
+                        .setBackgroundDrawableResource(R.drawable.datepicker_rounded_corners);
             });
 
             dPDialog.show();
@@ -240,7 +242,7 @@ public class StreakDialogFragment extends DialogFragment {
             // Refetch to get updated achieved days
             activeStreak = streakManager.getActiveStreak();
 
-            if(activeStreak != null) {
+            if (activeStreak != null) {
                 String progress = activeStreak.getAchievedDays() + "/" + activeStreak.getTargetDays();
                 currentTv.setText(progress);
             }
@@ -308,7 +310,8 @@ public class StreakDialogFragment extends DialogFragment {
     private boolean isDarkMode() {
         boolean isDarkMode;
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM) {
-            int nightModeFlags = getResources().getConfiguration().uiMode & android.content.res.Configuration.UI_MODE_NIGHT_MASK;
+            int nightModeFlags = getResources().getConfiguration().uiMode
+                    & android.content.res.Configuration.UI_MODE_NIGHT_MASK;
             isDarkMode = (nightModeFlags == android.content.res.Configuration.UI_MODE_NIGHT_YES);
         } else {
             isDarkMode = (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES);

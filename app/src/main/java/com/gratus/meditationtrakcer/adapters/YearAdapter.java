@@ -1,17 +1,11 @@
 package com.gratus.meditationtrakcer.adapters;
 
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.gratus.meditationtrakcer.BaseActivity;
 import com.gratus.meditationtrakcer.R;
 import java.util.List;
 
@@ -27,15 +21,11 @@ public class YearAdapter extends RecyclerView.Adapter<YearAdapter.YearVH> {
     @NonNull
     @Override
     public YearVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        TextView tv = new TextView(parent.getContext());
-        tv.setTextColor(ContextCompat.getColor(parent.getContext(), R.color.inverseprimary)); // Use ?attr/colorOnSurface if feasible
-        tv.setAlpha(1.0f);
-        tv.setGravity(Gravity.CENTER);
-
-        // Font setup
-        if (!parent.isInEditMode()) {
-            Typeface tf = ResourcesCompat.getFont(parent.getContext(), R.font.atkinsonhyperlegiblenext_medium);
-            tv.setTypeface(tf);
+        TextView tv;
+        if (true) {
+            View view = android.view.LayoutInflater.from(parent.getContext()).inflate(R.layout.item_year, parent,
+                    false);
+            tv = (TextView) view;
         }
 
         // Determine orientation
@@ -72,11 +62,6 @@ public class YearAdapter extends RecyclerView.Adapter<YearAdapter.YearVH> {
             // Vertical: Width is match parent, Height is dynamic
             tv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, itemSize));
             tv.setTextSize(60);
-        }
-
-        // Catch all text inside the newly created list item
-        if (parent.getContext() instanceof BaseActivity) {
-            ((BaseActivity) parent.getContext()).applySystemFontToView(tv);
         }
 
         return new YearVH(tv);

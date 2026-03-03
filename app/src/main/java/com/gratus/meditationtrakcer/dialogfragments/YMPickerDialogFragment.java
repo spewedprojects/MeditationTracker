@@ -35,10 +35,13 @@ import java.util.List;
 
 public class YMPickerDialogFragment extends DialogFragment {
 
-    public enum PickerMode { YEAR_ONLY, YEAR_MONTH }
+    public enum PickerMode {
+        YEAR_ONLY, YEAR_MONTH
+    }
 
     public interface OnYMSelectedListener {
         void onYearSelected(int year);
+
         void onYearMonthSelected(int year, int month); // month: 1–12
     }
 
@@ -50,14 +53,12 @@ public class YMPickerDialogFragment extends DialogFragment {
     private int selectedYear;
     private int selectedMonth = -1;
 
-
     private View blurredView;
     private final Calendar calendar = Calendar.getInstance();
 
     public static YMPickerDialogFragment newInstance(
             PickerMode mode,
-            OnYMSelectedListener ymListener
-    ) {
+            OnYMSelectedListener ymListener) {
         listener = ymListener;
         Bundle args = new Bundle();
         args.putString(ARG_MODE, mode.name());
@@ -72,8 +73,7 @@ public class YMPickerDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
 
         mode = PickerMode.valueOf(
-                requireArguments().getString(ARG_MODE)
-        );
+                requireArguments().getString(ARG_MODE));
 
         View dialogView;
         if (mode == PickerMode.YEAR_ONLY) {
@@ -90,9 +90,7 @@ public class YMPickerDialogFragment extends DialogFragment {
         dialog.setContentView(dialogView);
 
         // ---> ADD THIS BEFORE RETURNING THE VIEW <---
-        if (getActivity() instanceof BaseActivity) {
-            ((BaseActivity) getActivity()).applySystemFontToView(dialogView);
-        }
+
         return dialog;
     }
 
@@ -149,7 +147,8 @@ public class YMPickerDialogFragment extends DialogFragment {
         });
 
         selectBtn.setOnClickListener(v -> {
-            if (listener != null) listener.onYearSelected(selectedYear);
+            if (listener != null)
+                listener.onYearSelected(selectedYear);
             dismiss();
         });
     }
@@ -214,7 +213,8 @@ public class YMPickerDialogFragment extends DialogFragment {
             int monthIndex = i + 1;
             view.findViewById(monthIds[i]).setOnClickListener(v -> {
                 selectedMonth = monthIndex;
-                if (listener != null) listener.onYearMonthSelected(selectedYear, selectedMonth);
+                if (listener != null)
+                    listener.onYearMonthSelected(selectedYear, selectedMonth);
                 dismiss();
             });
         }
@@ -240,7 +240,8 @@ public class YMPickerDialogFragment extends DialogFragment {
             // Logic:
             // 1. If selected year is PAST, all months enabled.
             // 2. If selected year is CURRENT, months <= current month enabled.
-            // 3. If selected year is FUTURE, all disabled (optional, depending on use case).
+            // 3. If selected year is FUTURE, all disabled (optional, depending on use
+            // case).
             boolean enabled = selectedYear < currentYear ||
                     (selectedYear == currentYear && month <= currentMonth);
 
@@ -248,7 +249,6 @@ public class YMPickerDialogFragment extends DialogFragment {
             btn.setAlpha(enabled ? 1f : 0.3f);
         }
     }
-
 
     /* ---------------- WINDOW / BLUR (CONSISTENT) ---------------- */
     @Override
@@ -261,8 +261,7 @@ public class YMPickerDialogFragment extends DialogFragment {
                 WindowCompat.setDecorFitsSystemWindows(window, false);
                 window.setLayout(
                         ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT
-                );
+                        ViewGroup.LayoutParams.WRAP_CONTENT);
                 window.setBackgroundDrawableResource(android.R.color.transparent);
                 window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
 
@@ -293,9 +292,7 @@ public class YMPickerDialogFragment extends DialogFragment {
         if (blurredView != null) {
             blurredView.setRenderEffect(
                     RenderEffect.createBlurEffect(
-                            12f, 12f, Shader.TileMode.DECAL
-                    )
-            );
+                            12f, 12f, Shader.TileMode.DECAL));
         }
     }
 

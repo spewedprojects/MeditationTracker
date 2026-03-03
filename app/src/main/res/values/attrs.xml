@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="textAppearanceCardTitle" format="reference" />
+    <attr name="textAppearanceCardSubTitle" format="reference" />
+    <attr name="textAppearanceReportTitle" format="reference" />
+    <attr name="textAppearanceHeroValue" format="reference" />
+    <attr name="textAppearanceToolbarTitle" format="reference" />
+    <attr name="textAppearanceAppTitle" format="reference" />
+    <attr name="textAppearanceDateHeader" format="reference" />
+    <attr name="textAppearanceAppSubheader" format="reference" />
+    <attr name="textAppearanceStatValue" format="reference" />
+    <attr name="textAppearanceStatLabel" format="reference" />
+    <attr name="textAppearanceStatUnit" format="reference" />
+    <attr name="textAppearanceAppSubtitle" format="reference" />
+    <attr name="textAppearanceAppSubtitle2" format="reference" />
+    <attr name="textAppearanceAppButton" format="reference" />
+    <attr name="textAppearanceProgressLabel" format="reference" />
+    <attr name="textAppearanceSubhead" format="reference" />
+    <attr name="textAppearanceTextInput" format="reference" />
+</resources>

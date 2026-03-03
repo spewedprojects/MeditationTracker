@@ -27,4 +27,46 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimaryInverse">@color/black</item>
     </style>
+
+    <!-- Theme with Custom App Fonts (Default) -->
+    <style name="Theme.MeditationTracker.AppFont" parent="AppTheme_Auto">
+        <item name="textAppearanceCardTitle">@style/TextAppearance.MeditationTracker.AppFont.CardTitle</item>
+        <item name="textAppearanceCardSubTitle">@style/TextAppearance.MeditationTracker.AppFont.CardSubTitle</item>
+        <item name="textAppearanceReportTitle">@style/TextAppearance.MeditationTracker.AppFont.ReportTitle</item>
+        <item name="textAppearanceHeroValue">@style/TextAppearance.MeditationTracker.AppFont.HeroValue</item>
+        <item name="textAppearanceToolbarTitle">@style/TextAppearance.MeditationTracker.AppFont.ToolbarTitle</item>
+        <item name="textAppearanceAppTitle">@style/TextAppearance.MeditationTracker.AppFont.AppTitle</item>
+        <item name="textAppearanceDateHeader">@style/TextAppearance.MeditationTracker.AppFont.DateHeader</item>
+        <item name="textAppearanceAppSubheader">@style/TextAppearance.MeditationTracker.AppFont.Subheader</item>
+        <item name="textAppearanceStatValue">@style/TextAppearance.MeditationTracker.AppFont.StatValue</item>
+        <item name="textAppearanceStatLabel">@style/TextAppearance.MeditationTracker.AppFont.StatLabel</item>
+        <item name="textAppearanceStatUnit">@style/TextAppearance.MeditationTracker.AppFont.StatUnit</item>
+        <item name="textAppearanceAppSubtitle">@style/TextAppearance.MeditationTracker.AppFont.Subtitle</item>
+        <item name="textAppearanceAppSubtitle2">@style/TextAppearance.MeditationTracker.AppFont.Subtitle2</item>
+        <item name="textAppearanceAppButton">@style/TextAppearance.MeditationTracker.AppFont.AppButton</item>
+        <item name="textAppearanceProgressLabel">@style/TextAppearance.MeditationTracker.AppFont.ProgressLabel</item>
+        <item name="textAppearanceSubhead">@style/TextAppearance.MeditationTracker.AppFont.Subhead</item>
+        <item name="textAppearanceTextInput">@style/TextAppearance.MeditationTracker.AppFont.TextInput</item>
+    </style>
+
+    <!-- Theme with System Fonts -->
+    <style name="Theme.MeditationTracker.SystemFont" parent="AppTheme_Auto">
+        <item name="textAppearanceCardTitle">@style/TextAppearance.MeditationTracker.SystemFont.CardTitle</item>
+        <item name="textAppearanceCardSubTitle">@style/TextAppearance.MeditationTracker.SystemFont.CardSubTitle</item>
+        <item name="textAppearanceReportTitle">@style/TextAppearance.MeditationTracker.SystemFont.ReportTitle</item>
+        <item name="textAppearanceHeroValue">@style/TextAppearance.MeditationTracker.SystemFont.HeroValue</item>
+        <item name="textAppearanceToolbarTitle">@style/TextAppearance.MeditationTracker.SystemFont.ToolbarTitle</item>
+        <item name="textAppearanceAppTitle">@style/TextAppearance.MeditationTracker.SystemFont.AppTitle</item>
+        <item name="textAppearanceDateHeader">@style/TextAppearance.MeditationTracker.SystemFont.DateHeader</item>
+        <item name="textAppearanceAppSubheader">@style/TextAppearance.MeditationTracker.SystemFont.Subheader</item>
+        <item name="textAppearanceStatValue">@style/TextAppearance.MeditationTracker.SystemFont.StatValue</item>
+        <item name="textAppearanceStatLabel">@style/TextAppearance.MeditationTracker.SystemFont.StatLabel</item>
+        <item name="textAppearanceStatUnit">@style/TextAppearance.MeditationTracker.SystemFont.StatUnit</item>
+        <item name="textAppearanceAppSubtitle">@style/TextAppearance.MeditationTracker.SystemFont.Subtitle</item>
+        <item name="textAppearanceAppSubtitle2">@style/TextAppearance.MeditationTracker.SystemFont.Subtitle2</item>
+        <item name="textAppearanceAppButton">@style/TextAppearance.MeditationTracker.SystemFont.AppButton</item>
+        <item name="textAppearanceProgressLabel">@style/TextAppearance.MeditationTracker.SystemFont.ProgressLabel</item>
+        <item name="textAppearanceSubhead">@style/TextAppearance.MeditationTracker.SystemFont.Subhead</item>
+        <item name="textAppearanceTextInput">@style/TextAppearance.MeditationTracker.SystemFont.TextInput</item>
+    </style>
 </resources>

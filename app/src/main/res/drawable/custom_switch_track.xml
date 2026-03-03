@@ -11,7 +11,7 @@
     <!-- Checked + Disabled -->
     <item android:state_checked="true" android:state_enabled="false">
         <shape android:shape="rectangle">
-            <solid android:color="@color/black_white_0.4"/>
+            <solid android:color="@color/black_white_0.x"/>
             <corners android:radius="8dp"/>
         </shape>
     </item>
@@ -19,15 +19,16 @@
     <!-- Unchecked + Enabled -->
     <item android:state_checked="false" android:state_enabled="true">
         <shape android:shape="rectangle">
-            <solid android:color="@color/black_white_0.4"/>
+            <solid android:color="@color/black_white_0.1"/>
             <corners android:radius="8dp"/>
+            <stroke android:width="2dp" android:color="@color/black_white"/>
         </shape>
     </item>
 
     <!-- Unchecked + Disabled -->
     <item android:state_checked="false" android:state_enabled="false">
         <shape android:shape="rectangle">
-            <solid android:color="@color/black_white_0.4"/>
+            <solid android:color="@color/black_white_0.x"/>
             <corners android:radius="8dp"/>
         </shape>
     </item>

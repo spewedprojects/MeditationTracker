@@ -11,7 +11,6 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.gratus.meditationtrakcer.BaseActivity;
 import com.gratus.meditationtrakcer.datamodels.Goal;
 import com.gratus.meditationtrakcer.GoalsActivity;
 import com.gratus.meditationtrakcer.R;
@@ -29,15 +28,13 @@ public class GoalsAdapter extends RecyclerView.Adapter<GoalsAdapter.GoalViewHold
     @NonNull
     @Override
     public GoalViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.goal_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_goal, parent, false);
         ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
         layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT; // Set to wrap content
         view.setLayoutParams(layoutParams);
 
         // Catch all text inside the newly created list item
-        if (parent.getContext() instanceof BaseActivity) {
-            ((BaseActivity) parent.getContext()).applySystemFontToView(view);
-        }
+
         return new GoalViewHolder(view);
     }
 
@@ -80,7 +77,7 @@ public class GoalsAdapter extends RecyclerView.Adapter<GoalsAdapter.GoalViewHold
         // Format dates
         String startDate = goal.getStartDate(); // Already formatted
         String endDate = goal.getEndDate(); // Already formatted
-        //String dateRange = goal.getDateRange(); // New field
+        // String dateRange = goal.getDateRange(); // New field
 
         // ✅ Format targetHours to 1 decimal place (e.g. 8.5)
         double hours = goal.getTargetHours();
@@ -93,11 +90,11 @@ public class GoalsAdapter extends RecyclerView.Adapter<GoalsAdapter.GoalViewHold
             targetFormatted = String.format(Locale.US, "%.1f", hours);
         }
 
-
         Log.d("GoalsAdapter", "Start Date: " + goal.getStartDate() + ", End Date: " + goal.getEndDate());
 
         holder.goalTitle.setText(goal.getDescription());
-        holder.durationView.setText("Target: " + goal.getDailyTarget() + " | " + targetFormatted + "h | " + goal.getDateRange());
+        holder.durationView
+                .setText("Target: " + goal.getDailyTarget() + " | " + targetFormatted + "h | " + goal.getDateRange());
         holder.progressBar.setProgress(goal.getProgressPercent());
         holder.percentageView.setText(goal.getProgressPercent() + "% completed");
 

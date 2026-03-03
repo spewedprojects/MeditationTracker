@@ -3,7 +3,8 @@
 
     <!-- Checked -->
     <item android:color="@color/white_black"
-        android:state_checked="true"/>
+        android:state_checked="true"
+        android:state_enabled="true"/>
 
     <!-- Disabled -->
     <item android:color="@color/black_white"

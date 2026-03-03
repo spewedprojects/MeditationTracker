@@ -5,6 +5,8 @@
     <color name="white_black">#FFFFFF</color>
     <color name="black_white_0.1">#0A000000</color>
     <color name="white_black_0.1">#0AFFFFFF</color>
+    <color name="black_white_0.x">#34000000</color>
+    <color name="white_black_0.x">#34FFFFFF</color>
     <color name="black_white_0.4">#66000000</color>
     <color name="white_black_0.4">#66FFFFFF</color>
     <color name="white">#FFFFFFFF</color>
@@ -33,7 +35,7 @@
 
     <color name="minicard_textColor">#C7000000</color>
 
-    <color name="widget_bg">#9AFFFFFF</color>
+    <color name="widget_bg">#BFFFFFFF</color>
 
     <color name="big_button_bg">#05000000</color>
     <color name="mid_button_bg">#12000000</color>

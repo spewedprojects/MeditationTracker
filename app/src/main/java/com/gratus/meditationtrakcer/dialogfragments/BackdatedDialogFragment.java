@@ -59,11 +59,13 @@ public class BackdatedDialogFragment extends DialogFragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_backdated_manual, container, false);
         Typeface customFont = ResourcesCompat.getFont(requireContext(), R.font.atkinsonhyperlegiblenext_regular);
 
-        // Make the dialog background transparent so your CardView radius shows correctly
+        // Make the dialog background transparent so your CardView radius shows
+        // correctly
         if (getDialog() != null && getDialog().getWindow() != null) {
             getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
@@ -82,7 +84,7 @@ public class BackdatedDialogFragment extends DialogFragment {
         long today = System.currentTimeMillis();
         calendarView.setMaxDate(today); // Disable future dates
         calendarView.setFirstDayOfWeek(Calendar.MONDAY);
-        selectedDateInMillis = today;   // Default to today
+        selectedDateInMillis = today; // Default to today
 
         calendarView.setOnDateChangeListener((view1, year, month, dayOfMonth) -> {
             // Create a Calendar object to store the selected date
@@ -114,9 +116,6 @@ public class BackdatedDialogFragment extends DialogFragment {
             }
         });
         // ---> ADD THIS BEFORE RETURNING THE DIALOG <---
-        if (getActivity() instanceof BaseActivity) {
-            ((BaseActivity) getActivity()).applySystemFontToView(view);
-        }
 
         return view;
     }
@@ -124,8 +123,7 @@ public class BackdatedDialogFragment extends DialogFragment {
     private void applyFontRecursively(View view, Typeface typeface) {
         if (view instanceof android.widget.TextView) {
             ((android.widget.TextView) view).setTypeface(typeface);
-        } else if (view instanceof ViewGroup) {
-            ViewGroup group = (ViewGroup) view;
+        } else if (view instanceof ViewGroup group) {
             for (int i = 0; i < group.getChildCount(); i++) {
                 applyFontRecursively(group.getChildAt(i), typeface);
             }
@@ -135,7 +133,8 @@ public class BackdatedDialogFragment extends DialogFragment {
     // Helper to parse EditText safely
     private int parseInput(EditText editText) {
         String input = editText.getText().toString().trim();
-        if (input.isEmpty()) return 0;
+        if (input.isEmpty())
+            return 0;
         try {
             return Integer.parseInt(input);
         } catch (NumberFormatException e) {

@@ -86,6 +86,13 @@ public class BaseActivity extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences(SHARED_PREFS_NAME, MODE_PRIVATE);
         useSystemFont = prefs.getBoolean("use_system_font", false);
 
+        // Apply Font Theme BEFORE super.onCreate
+        if (useSystemFont) {
+            setTheme(R.style.Theme_MeditationTracker_SystemFont);
+        } else {
+            setTheme(R.style.Theme_MeditationTracker_AppFont);
+        }
+
         migrateLegacyPreferences(); // Run migration before applying theme
         applyTheme();
         super.onCreate(savedInstanceState);
@@ -97,7 +104,8 @@ public class BaseActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        // Check if the font preference changed while this activity was in the background
+        // Check if the font preference changed while this activity was in the
+        // background
         SharedPreferences prefs = getSharedPreferences(SHARED_PREFS_NAME, MODE_PRIVATE);
         boolean shouldBeSystemFont = prefs.getBoolean("use_system_font", false);
 
@@ -305,48 +313,6 @@ public class BaseActivity extends AppCompatActivity {
 
         // Initialize theme buttons
         setupThemeButtons();
-        // ---> ADD THIS RIGHT AT THE END <---
-        // Now that the layout is fully built and font styles are settled, strip them.
-        applySystemFontToView(fullView);
-    }
-
-    // ==========================================
-    // MANUAL HELPER FOR DIALOGS AND RECYCLERVIEWS
-    // ==========================================
-
-    /**
-     * Recursively applies the system font. Call this on Dialog windows or RecyclerView items.
-     */
-    public void applySystemFontToView(View view) {
-        if (!useSystemFont || view == null) return;
-
-        // --- NEW: EXCEPTION FOR CUSTOM FONT PREVIEW BUTTON ---
-        if (view.getId() == R.id.set_custom_font_btn) {
-            return; // Skip overriding this specific view so it keeps the app font
-        }
-
-        if (view instanceof android.view.ViewGroup) {
-            android.view.ViewGroup vg = (android.view.ViewGroup) view;
-            for (int i = 0; i < vg.getChildCount(); i++) {
-                applySystemFontToView(vg.getChildAt(i));
-            }
-        } else if (view instanceof android.widget.TextView) {
-            android.widget.TextView tv = (android.widget.TextView) view;
-            android.graphics.Typeface current = tv.getTypeface();
-            int style = android.graphics.Typeface.NORMAL;
-
-            if (current != null) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                    boolean isBold = current.getWeight() >= 600 || current.isBold();
-                    if (isBold && current.isItalic()) style = android.graphics.Typeface.BOLD_ITALIC;
-                    else if (isBold) style = android.graphics.Typeface.BOLD;
-                    else if (current.isItalic()) style = android.graphics.Typeface.ITALIC;
-                } else {
-                    style = current.getStyle();
-                }
-            }
-            tv.setTypeface(android.graphics.Typeface.DEFAULT, style);
-        }
     }
 
     // Disable all activity transition animations

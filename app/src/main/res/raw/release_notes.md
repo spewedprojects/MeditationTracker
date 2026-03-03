@@ -64,7 +64,12 @@
 
 Latest release **_[here](https://github.com/spewedprojects/MeditationTracker/releases/latest)_**.
 
-96. _**[13.4.1 (14/02/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v13.4.1)**_
+97. _**[13.4.2 (14/02/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v13.4.2)**_
+    > - Updated `widget_streak.xml` to use `wrap_content` for dimensions.
+    > - Enabled grid lines on the Y-axis in `MeditationChartManager.java`.
+    > - **TODO**: Consolidate all fonts into a typography layer.
+
+    96. _**[13.4.1 (14/02/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v13.4.1)**_
     > - Fixed incorrect week number displayed in monthly chart.
     > - Improved scrolling for streak dialog by implementing Gesture detection - requires much less effort now.
     > - Fixed calendars to display Monday as first week by default.

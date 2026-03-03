@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.RenderEffect;
 import android.graphics.Shader;
 import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -24,7 +23,6 @@ import androidx.fragment.app.DialogFragment;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarEntry;
-import com.gratus.meditationtrakcer.BaseActivity;
 import com.gratus.meditationtrakcer.R;
 import com.gratus.meditationtrakcer.models.MeditationReportData;
 import com.gratus.meditationtrakcer.utils.MeditationChartManager;
@@ -53,7 +51,7 @@ public class ReportDetailDialogFragment extends DialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.report_card, container, false);
+        return inflater.inflate(R.layout.dialog_report_card, container, false);
     }
 
     @Override
@@ -61,9 +59,6 @@ public class ReportDetailDialogFragment extends DialogFragment {
         super.onViewCreated(view, savedInstanceState);
 
         // ---> ADD THIS BEFORE RETURNING THE VIEW <---
-        if (getActivity() instanceof BaseActivity) {
-            ((BaseActivity) getActivity()).applySystemFontToView(view);
-        }
 
         if (getArguments() == null) {
             dismiss();
@@ -147,11 +142,13 @@ public class ReportDetailDialogFragment extends DialogFragment {
         // --- Header ---
         // Note: I added a null check or use a fallback if title is missing
         TextView tvTitle = view.findViewById(R.id.tvReportTitle);
-        if (tvTitle != null) tvTitle.setText(data.title);
+        if (tvTitle != null)
+            tvTitle.setText(data.title);
 
         TextView tvSub = view.findViewById(R.id.tvReportYearMonth);
         // Assuming your Data model has title/isYearly logic, or use generic text
-        if (tvSub != null) tvSub.setText(data.isYearly ? "Yearly Meditation Report" : "Monthly Meditation Report");
+        if (tvSub != null)
+            tvSub.setText(data.isYearly ? "Yearly Meditation Report" : "Monthly Meditation Report");
 
         // --- Row 1: Hero Metrics ---
         ((TextView) view.findViewById(R.id.tvTotalHoursValue)).setText(fmt(data.totalHours));
@@ -190,8 +187,8 @@ public class ReportDetailDialogFragment extends DialogFragment {
     private void setupCharts(View view, MeditationReportData data) {
 
         // Read preference (Default true)
-        android.content.SharedPreferences prefs = requireContext().
-                getSharedPreferences(com.gratus.meditationtrakcer.BaseActivity.SHARED_PREFS_NAME, android.content.Context.MODE_PRIVATE);
+        android.content.SharedPreferences prefs = requireContext().getSharedPreferences(
+                com.gratus.meditationtrakcer.BaseActivity.SHARED_PREFS_NAME, android.content.Context.MODE_PRIVATE);
         boolean showYAxis = prefs.getBoolean("y_axis_visible", true);
         boolean useSystemFont = prefs.getBoolean("use_system_font", false);
         Typeface font;
@@ -236,7 +233,8 @@ public class ReportDetailDialogFragment extends DialogFragment {
     }
 
     private String fmt(float val) {
-        if (val == (long) val) return String.format(Locale.getDefault(), "%d", (long) val);
+        if (val == (long) val)
+            return String.format(Locale.getDefault(), "%d", (long) val);
         return String.format(Locale.getDefault(), "%.1f", val);
     }
 }

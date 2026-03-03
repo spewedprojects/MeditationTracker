@@ -1,15 +1,20 @@
 package com.gratus.meditationtrakcer
 
+import android.content.Context
 import android.os.Bundle
+import android.transition.AutoTransition
+import android.transition.TransitionManager
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageButton
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
+import androidx.core.content.edit
 import androidx.core.graphics.Insets
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-
+import androidx.core.view.isGone
 import com.google.android.material.materialswitch.MaterialSwitch
-import android.content.Context
-import android.widget.TextView
-import androidx.core.content.edit
 
 class SettingsInfoActivity : BaseActivity(){
 
@@ -29,6 +34,7 @@ class SettingsInfoActivity : BaseActivity(){
 
         setupYAxisSwitch()
         setupFontToggle()
+        setupCustomRadiiBlock()
     }
 
     private fun setupYAxisSwitch() {
@@ -86,5 +92,45 @@ class SettingsInfoActivity : BaseActivity(){
                 recreate()
             }
         }
+    }
+
+    private fun setupCustomRadiiBlock(){
+        // 1. Initialize the new Views
+        val colExpButton = findViewById<ImageButton?>(R.id.btn_expand_radius_options)
+        val radiiContainer = findViewById<ViewGroup?>(R.id.customRadiiContainer)
+
+
+        // Prepare the smooth transition (AutoTransition handles layout changes automatically)
+        val cardLinearLayout = findViewById<ViewGroup?>(R.id.settingscard_const_layout)
+        TransitionManager.beginDelayedTransition(cardLinearLayout, AutoTransition())
+
+        // Guard against nulls
+        if (colExpButton == null || radiiContainer == null) return
+
+        // Ensure initial state
+        radiiContainer.visibility = View.GONE
+        colExpButton.rotation = 0f
+
+        // Click listener to toggle visibility and rotate the button
+        colExpButton.setOnClickListener {
+            val isCollapsed = radiiContainer.isGone
+
+            if (isCollapsed) {
+                // Expand: make visible and rotate to 180 degrees
+                radiiContainer.visibility = View.VISIBLE
+                colExpButton.animate()
+                    .rotation(180f)
+                    .setDuration(150)
+                    .start()
+            } else {
+                // Collapse: hide and rotate back to 0 degrees
+                radiiContainer.visibility = View.GONE
+                colExpButton.animate()
+                    .rotation(0f)
+                    .setDuration(150)
+                    .start()
+            }
+        }
+
     }
 }

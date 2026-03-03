@@ -9,7 +9,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.gratus.meditationtrakcer.BaseActivity;
 import com.gratus.meditationtrakcer.R;
 import com.gratus.meditationtrakcer.models.MeditationReportData;
 import com.gratus.meditationtrakcer.utils.ReportJsonHelper;
@@ -36,15 +35,14 @@ public class ReportsAdapter extends RecyclerView.Adapter<ReportsAdapter.ReportVi
     @NonNull
     @Override
     public ReportViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.minireport_card, parent, false);
+        View v = LayoutInflater.from(context).inflate(R.layout.item_minireport_card, parent, false);
         ViewGroup.LayoutParams layoutParams = v.getLayoutParams();
-        layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT; // Set to wrap content SOLVES THE HUGE GAP EVERY SINGLE TIME!
+        layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT; // Set to wrap content SOLVES THE HUGE GAP EVERY
+                                                                   // SINGLE TIME!
         v.setLayoutParams(layoutParams);
 
         // Catch all text inside the newly created list item
-        if (parent.getContext() instanceof BaseActivity) {
-            ((BaseActivity) parent.getContext()).applySystemFontToView(v);
-        }
+
         return new ReportViewHolder(v);
     }
 

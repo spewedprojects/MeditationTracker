@@ -211,8 +211,7 @@ public class GoalsActivity extends BaseActivity {
     }
 
     private void toggleCardVisibility() {
-        // Prepare the smooth transition (AutoTransition handles layout changes
-        // automatically)
+        // Prepare the smooth transition (AutoTransition handles layout changes automatically)
         TransitionManager.beginDelayedTransition(cardConstraintLayout, new AutoTransition());
 
         if (isExpanded) {

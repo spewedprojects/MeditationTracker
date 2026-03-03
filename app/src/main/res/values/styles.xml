@@ -6,28 +6,8 @@
         <item name="cornerSize">10dp</item>
     </style>
 
-    <!-- Button Style (Shared Properties) -->
-    <style name="ExportImportButtonStyle" parent="Widget.Material3.Button.OutlinedButton">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">?attr/colorPrimary</item>
-        <item name="android:fontFamily">@font/atkinsonhyperlegiblenext_medium</item>
-        <item name="android:letterSpacing">0.05</item>
-        <item name="android:textSize">16.5sp</item>
-        <item name="android:padding">10dp</item>
-        <item name="android:icon">@drawable/export_button_bg</item>
-        <item name="iconSize">24dp</item>
-        <item name="iconTint">?attr/colorPrimary</item>
-        <item name="iconPadding">4dp</item>
-        <item name="android:insetTop">0dp</item>
-        <item name="android:insetBottom">0dp</item>
-        <item name="backgroundTint">?attr/colorOnPrimary</item> <!-- Transparent background -->
-        <item name="background">?attr/colorOnPrimary</item>
-        <item name="strokeWidth">0dp</item> <!-- Remove border -->
-    </style>
-
     <!-- Export Button Corners (Left Rounded, Right Square) -->
-    <style name="ExportButtonCorners">
+    <style name="StartButtonCorners">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSizeTopLeft">10dp</item>
         <item name="cornerSizeBottomLeft">10dp</item>
@@ -36,7 +16,7 @@
     </style>
 
     <!-- Import Button Corners (Right Rounded, Left Square) -->
-    <style name="ImportButtonCorners">
+    <style name="EndButtonCorners">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSizeTopRight">10dp</item>
         <item name="cornerSizeBottomRight">10dp</item>
@@ -54,28 +34,6 @@
     </style>
 
     <!-- Group Shape (Outer Corners Rounded) -->
-    <style name="method_A_B_GroupShape" parent="ShapeAppearance.Material3.SmallComponent">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">10dp</item>
-    </style>
-
-    <!-- Button Style (Shared Properties) -->
-    <style name="method_A_B_Group_ButtonStyle" parent="Widget.Material3.Button.OutlinedButton">
-        <item name="android:layout_width">48dp</item>
-        <item name="android:layout_height">35dp</item>
-        <item name="android:textColor">?attr/colorPrimary</item>
-        <item name="android:fontFamily">@font/atkinsonhyperlegiblenext_extrabold</item>
-        <item name="android:textSize">14.5sp</item>
-        <item name="android:padding">0dp</item>
-        <item name="android:gravity">center</item>
-        <item name="android:insetTop">0dp</item>
-        <item name="android:insetBottom">0dp</item>
-        <item name="backgroundTint">?attr/colorOnPrimary</item> <!-- Transparent background -->
-        <item name="background">?attr/colorOnPrimary</item>
-        <item name="strokeWidth">0dp</item> <!-- Remove border -->
-    </style>
-
-    <!-- Group Shape (Outer Corners Rounded) -->
     <style name="method_WMY_GroupShape" parent="ShapeAppearance.Material3.SmallComponent">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">10dp</item>
@@ -86,13 +44,14 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">46dp</item>
         <item name="android:textColor">?attr/colorPrimary</item>
-        <item name="android:fontFamily">@font/atkinsonhyperlegiblenext_medium</item>
+        <item name="android:textAppearance">?attr/textAppearanceAppButton</item>
         <item name="android:letterSpacing">0.05</item>
-        <item name="android:textSize">18.5sp</item>
+        <item name="android:textSize">18sp</item>
         <item name="android:padding">0dp</item>
         <item name="android:gravity">center</item>
         <item name="android:insetTop">0dp</item>
         <item name="android:insetBottom">0dp</item>
+        <item name="android:includeFontPadding">false</item>
         <item name="backgroundTint">?attr/colorOnPrimary</item> <!-- Transparent background -->
         <item name="background">?attr/colorOnPrimary</item>
         <item name="strokeWidth">0dp</item> <!-- Remove border -->

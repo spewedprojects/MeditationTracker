@@ -17,8 +17,8 @@
         app:cardCornerRadius="12dp"
         app:cardElevation="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0"
         app:layout_constraintWidth_max="500dp"
@@ -36,26 +36,27 @@
                 android:layout_marginTop="16dp"
                 android:filterTouchesWhenObscured="false"
                 android:focusableInTouchMode="true"
-                android:fontFamily="@font/atkinsonhyperlegiblenext_bold"
                 android:letterSpacing="0.01"
                 android:text="Year 2025"
+                android:textAppearance="?attr/textAppearanceAppTitle"
                 android:textColor="?attr/colorOnPrimary"
-                android:textSize="28sp"
+                android:textSize="23sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="TextViewEdits" /> <!-- Target duration x hours in x days -->
+                tools:ignore="TextViewEdits"
+                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.ReportTitle" /> <!-- Target duration x hours in x days -->
 
             <!-- First column -->
             <LinearLayout
                 android:id="@+id/first_row"
                 android:layout_width="0dp"
-                android:weightSum="3"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="18dp"
                 android:layout_marginEnd="16dp"
                 android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintHorizontal_chainStyle="spread"
@@ -66,20 +67,20 @@
                 <LinearLayout
                     android:id="@+id/mini_T_hrs"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/tv_total_hours_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/atkinsonhyperlegiblenext_light"
                         android:letterSpacing="0.04"
                         android:text="Total Hours"
-                        android:textSize="15sp"
+                        android:textAppearance="?attr/textAppearanceAppSubtitle"
                         android:textColor="@color/minicard_textColor"
-                        android:textStyle="bold" />
+                        android:textSize="15sp"
+                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subtitle" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -91,20 +92,20 @@
                             android:id="@+id/tv_total_hours_value"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                             android:letterSpacing="0.04"
                             android:text="48.9"
-                            android:textSize="25sp"
+                            android:textAppearance="?attr/textAppearanceCardTitle"
                             android:textColor="@color/minicard_textColor"
-                            android:textStyle="bold" />
+                            android:textSize="23sp"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.CardTitle" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                             android:text="hrs"
-                            android:textSize="14sp"
-                            android:textColor="@color/minicard_textColor"/>
+                            android:textAppearance="?attr/textAppearanceStatUnit"
+                            android:textColor="@color/minicard_textColor"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatUnit" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -112,20 +113,20 @@
                 <LinearLayout
                     android:id="@+id/mini_B_streak"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/tv_best_streak_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/atkinsonhyperlegiblenext_light"
                         android:letterSpacing="0.04"
                         android:text="Best Streak"
-                        android:textSize="15sp"
+                        android:textAppearance="?attr/textAppearanceAppSubtitle"
                         android:textColor="@color/minicard_textColor"
-                        android:textStyle="bold" />
+                        android:textSize="15sp"
+                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subtitle" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -137,20 +138,20 @@
                             android:id="@+id/tv_best_streak_value"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                             android:letterSpacing="0.04"
                             android:text="21"
-                            android:textSize="25sp"
+                            android:textAppearance="?attr/textAppearanceCardTitle"
                             android:textColor="@color/minicard_textColor"
-                            android:textStyle="bold" />
+                            android:textSize="23sp"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.CardTitle" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                             android:text="days"
-                            android:textSize="14sp"
-                            android:textColor="@color/minicard_textColor" />
+                            android:textAppearance="?attr/textAppearanceStatUnit"
+                            android:textColor="@color/minicard_textColor"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatUnit" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -158,20 +159,20 @@
                 <LinearLayout
                     android:id="@+id/mini_A_session"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/tv_avg_session_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/atkinsonhyperlegiblenext_light"
                         android:letterSpacing="0.04"
                         android:text="Avg. Session"
-                        android:textSize="15sp"
+                        android:textAppearance="?attr/textAppearanceAppSubtitle"
                         android:textColor="@color/minicard_textColor"
-                        android:textStyle="bold" />
+                        android:textSize="15sp"
+                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subtitle" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -183,20 +184,20 @@
                             android:id="@+id/tv_avg_session_value"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                             android:letterSpacing="0.04"
                             android:text="17"
-                            android:textSize="25sp"
+                            android:textAppearance="?attr/textAppearanceCardTitle"
                             android:textColor="@color/minicard_textColor"
-                            android:textStyle="bold" />
+                            android:textSize="23sp"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.CardTitle" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                             android:text="mins"
-                            android:textSize="14sp"
-                            android:textColor="@color/minicard_textColor" />
+                            android:textAppearance="?attr/textAppearanceStatUnit"
+                            android:textColor="@color/minicard_textColor"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatUnit" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -207,39 +208,39 @@
             <LinearLayout
                 android:id="@+id/second_row"
                 android:layout_width="0dp"
-                android:weightSum="3"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:elevation="-2dp"
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="18dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="20dp"
+                android:elevation="-2dp"
+                android:orientation="horizontal"
+                android:weightSum="3"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintHorizontal_chainStyle="spread"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/first_row"
-                app:layout_constraintBottom_toBottomOf="parent">
+                app:layout_constraintTop_toBottomOf="@id/first_row">
 
                 <!-- Consistency -->
                 <LinearLayout
                     android:id="@+id/mini_C_percent"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/tv_consistency_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/atkinsonhyperlegiblenext_light"
                         android:letterSpacing="0.04"
                         android:text="Consistency"
-                        android:textSize="15sp"
+                        android:textAppearance="?attr/textAppearanceAppSubtitle"
                         android:textColor="@color/minicard_textColor"
-                        android:textStyle="bold" />
+                        android:textSize="15sp"
+                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subtitle" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -251,20 +252,20 @@
                             android:id="@+id/tv_consistency_value"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                             android:letterSpacing="0.04"
                             android:text="25"
-                            android:textSize="25sp"
+                            android:textAppearance="?attr/textAppearanceCardTitle"
                             android:textColor="@color/minicard_textColor"
-                            android:textStyle="bold" />
+                            android:textSize="23sp"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.CardTitle" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                             android:text="%"
-                            android:textSize="14sp"
-                            android:textColor="@color/minicard_textColor" />
+                            android:textAppearance="?attr/textAppearanceStatUnit"
+                            android:textColor="@color/minicard_textColor"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatUnit" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -272,20 +273,20 @@
                 <LinearLayout
                     android:id="@+id/mini_D_womed"
                     android:layout_width="0dp"
-                    android:layout_weight="1.6"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1.6"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/tv_days_without_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/atkinsonhyperlegiblenext_light"
                         android:letterSpacing="0.025"
                         android:text="Days w/o Meditation"
-                        android:textSize="15sp"
+                        android:textAppearance="?attr/textAppearanceAppSubtitle"
                         android:textColor="@color/minicard_textColor"
-                        android:textStyle="bold" />
+                        android:textSize="15sp"
+                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subtitle" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -297,20 +298,20 @@
                             android:id="@+id/tv_days_without_value"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                             android:letterSpacing="0.04"
                             android:text="128"
-                            android:textSize="25sp"
+                            android:textAppearance="?attr/textAppearanceCardTitle"
                             android:textColor="@color/minicard_textColor"
-                            android:textStyle="bold" />
+                            android:textSize="23sp"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.CardTitle" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
                             android:text="days"
-                            android:textSize="14sp"
-                            android:textColor="@color/minicard_textColor" />
+                            android:textAppearance="?attr/textAppearanceStatUnit"
+                            android:textColor="@color/minicard_textColor"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatUnit" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>

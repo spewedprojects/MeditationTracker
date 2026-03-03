@@ -18,8 +18,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
-        <include
-            layout="@layout/actiontoolbar"/>
+
+        <include layout="@layout/actiontoolbar" />
 
     </androidx.constraintlayout.widget.ConstraintLayout> <!-- Constrained layout for menubutton and Title -->
 
@@ -27,10 +27,10 @@
         android:id="@+id/card_constraint_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/toolbar2_constG"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar2_constG"
         app:layout_constraintVertical_bias="0">
 
         <androidx.cardview.widget.CardView
@@ -40,13 +40,13 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="0dp"
-            app:barrierMargin="16dp"
-            app:cardCornerRadius="12dp"
             android:elevation="8dp"
-            app:cardElevation="6dp"
+            app:barrierMargin="16dp"
             app:cardBackgroundColor="?attr/colorPrimaryVariant"
-            app:layout_constraintStart_toStartOf="parent"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="6dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.core.widget.NestedScrollView
@@ -65,18 +65,14 @@
                         android:layout_marginTop="16dp"
                         android:filterTouchesWhenObscured="false"
                         android:focusableInTouchMode="true"
-                        android:fontFamily="@font/atkinsonhyperlegiblenext_bold"
                         android:letterSpacing="0.01"
                         android:text="@string/goals_title"
+                        android:textAppearance="?attr/textAppearanceAppTitle"
                         android:textColor="?attr/colorOnPrimary"
-                        android:textSize="23sp"
-                        app:layout_constraintBottom_toTopOf="@id/goals_desc"
-                        app:layout_constraintHorizontal_bias="0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_chainStyle="packed"
-                        app:layout_constraintVertical_bias="0"
-                        tools:ignore="TextViewEdits" /> <!-- Set new goal - card title -->
+                        tools:ignore="TextViewEdits"
+                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.AppTitle" /> <!-- Set new goal - card title -->
 
                     <ImageButton
                         android:id="@+id/col_exp_button"
@@ -84,13 +80,13 @@
                         android:layout_height="52dp"
                         android:layout_margin="16dp"
                         android:layout_marginBottom="16dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        android:src="@drawable/outline_chevron_line_up_24"
                         android:background="@drawable/round_button_bg"
                         android:rotation="0"
-                        app:layout_constraintVertical_bias="0"/>
+                        android:src="@drawable/outline_chevron_line_up_24"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0" />
 
                     <TextView
                         android:id="@+id/goals_desc"
@@ -101,44 +97,44 @@
                         android:layout_marginBottom="16dp"
                         android:filterTouchesWhenObscured="false"
                         android:focusableInTouchMode="true"
-                        android:fontFamily="@font/atkinsonhyperlegiblenext_regular"
                         android:letterSpacing="0.02"
                         android:text="@string/goals_desc"
+                        android:textAppearance="?attr/textAppearanceStatUnit"
                         android:textColor="@color/onPrimary2"
-                        android:textSize="13sp"
-                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/goals_title"
                         app:layout_constraintVertical_bias="0"
                         app:layout_constraintVertical_chainStyle="packed"
-                        app:layout_constraintTop_toBottomOf="@+id/goals_title"
-                        tools:ignore="TextViewEdits" /> <!-- Goals card description -->
+                        tools:ignore="TextViewEdits"
+                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatUnit" /> <!-- Goals card description -->
 
                     <LinearLayout
                         android:id="@+id/goals_expandable_container"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
                         android:gravity="center"
-                        app:layout_constraintTop_toBottomOf="@id/goals_desc"
+                        android:orientation="vertical"
                         app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent">
+                        app:layout_constraintTop_toBottomOf="@id/goals_desc">
 
                         <TextView
                             android:id="@+id/goal_input_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="start"
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="12dp"
-                            android:layout_gravity="start"
                             android:filterTouchesWhenObscured="false"
                             android:focusableInTouchMode="true"
-                            android:fontFamily="@font/atkinsonhyperlegiblenext_semibold"
                             android:letterSpacing="0.01"
                             android:text="Goal description"
+                            android:textAppearance="?attr/textAppearanceSubhead"
                             android:textColor="?attr/colorOnPrimary"
-                            android:textSize="15sp"
-                            tools:ignore="TextViewEdits" /> <!-- Set goal blank title -->
+                            tools:ignore="TextViewEdits"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subhead" /> <!-- Set goal blank title -->
 
                         <EditText
                             android:id="@+id/goal_input"
@@ -146,40 +142,55 @@
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="16dp"
                             android:layout_marginTop="0dp"
-                            android:fontFamily="@font/atkinsonhyperlegiblenext_semibold"
-                            android:letterSpacing="0.05"
                             android:hint="Meditate every day"
                             android:inputType="text|textCapSentences"
-                            android:textSize="15sp" /> <!-- Set goal blank (input) -->
+                            android:letterSpacing="0.05"
+                            android:textAppearance="?attr/textAppearanceTextInput"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.TextInput" /> <!-- Set goal blank (input) -->
 
                         <!-- Method change button group -->
                         <com.google.android.material.button.MaterialButtonToggleGroup
                             android:id="@+id/A_B_group"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginVertical="7dp"
                             android:layout_marginHorizontal="36dp"
+                            android:layout_marginVertical="7dp"
                             android:padding="5dp"
-                            app:shapeAppearance="@style/method_A_B_GroupShape"
-                            app:singleSelection="true">
+                            android:orientation="horizontal"
+                            app:singleSelection="true"
+                            app:innerCornerSize="3dp">
 
                             <!-- Export Button -->
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/method_A_Button"
-                                style="@style/method_A_B_Group_ButtonStyle"
-                                android:text="A"
-                                app:shapeAppearanceOverlay="@style/ExportButtonCorners"
+                                android:layout_width="48dp"
+                                android:layout_height="35dp"
+                                android:backgroundTint="@color/black_white"
+                                android:insetTop="0dp"
                                 android:insetRight="1dp"
-                                android:paddingEnd="0dp"/>
+                                android:insetBottom="0dp"
+                                android:padding="0dp"
+                                android:text="A"
+                                android:textAppearance="?attr/textAppearanceAppButton"
+                                android:textColor="@color/white_black"
+                                app:cornerRadius="10dp"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.AppButton" />
 
                             <!-- Import Button -->
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/method_B_Button"
-                                style="@style/method_A_B_Group_ButtonStyle"
-                                android:text="B"
-                                app:shapeAppearanceOverlay="@style/ImportButtonCorners"
+                                android:layout_width="48dp"
+                                android:layout_height="35dp"
+                                android:backgroundTint="@color/black_white"
+                                android:insetTop="0dp"
                                 android:insetLeft="1dp"
-                                android:paddingStart="0dp"/>
+                                android:insetBottom="0dp"
+                                android:padding="0dp"
+                                android:text="B"
+                                android:textAppearance="?attr/textAppearanceAppButton"
+                                android:textColor="@color/white_black"
+                                app:cornerRadius="10dp"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.AppButton"/>
 
                         </com.google.android.material.button.MaterialButtonToggleGroup> <!-- Method change button group -->
 
@@ -187,8 +198,8 @@
                             android:id="@+id/methods_A_B"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:layout_constraintTop_toBottomOf="@id/goal_input"
-                            app:layout_constraintBottom_toBottomOf="parent">
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/goal_input">
 
                             <!-- Method A -->
                             <TextView
@@ -199,17 +210,17 @@
                                 android:layout_marginTop="2dp"
                                 android:filterTouchesWhenObscured="false"
                                 android:focusableInTouchMode="true"
-                                android:fontFamily="@font/atkinsonhyperlegiblenext_semibold"
                                 android:letterSpacing="0.01"
                                 android:text="Target Hours"
+                                android:textAppearance="?attr/textAppearanceSubhead"
                                 android:textColor="?attr/colorOnPrimary"
-                                android:textSize="15sp"
                                 app:layout_constraintBottom_toTopOf="@id/target_input"
+                                app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintHorizontal_bias="0"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                tools:ignore="TextViewEdits"/> <!-- Target hours blank title-->
+                                tools:ignore="TextViewEdits"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subhead" /> <!-- Target hours blank title-->
 
                             <!-- Method A -->
                             <EditText
@@ -218,16 +229,16 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginHorizontal="16dp"
                                 android:layout_marginTop="0dp"
-                                android:fontFamily="@font/atkinsonhyperlegiblenext_semibold"
-                                android:letterSpacing="0.05"
-                                android:textSize="15sp"
                                 android:hint="50"
                                 android:inputType="numberDecimal"
+                                android:letterSpacing="0.05"
                                 app:layout_constraintBottom_toTopOf="@id/start_date_input_title"
                                 app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@id/target_input_title"
-                                app:layout_constraintHorizontal_bias="0"/> <!-- Target hours blank (input) -->
+                                android:textAppearance="?attr/textAppearanceTextInput"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.TextInput" /> <!-- Target hours blank (input) -->
 
                             <!-- Method A -->
                             <TextView
@@ -238,17 +249,17 @@
                                 android:layout_marginTop="14dp"
                                 android:filterTouchesWhenObscured="false"
                                 android:focusableInTouchMode="true"
-                                android:fontFamily="@font/atkinsonhyperlegiblenext_semibold"
                                 android:letterSpacing="0.01"
                                 android:text="Start Date"
+                                android:textAppearance="?attr/textAppearanceSubhead"
                                 android:textColor="?attr/colorOnPrimary"
-                                android:textSize="15sp"
                                 app:layout_constraintBottom_toTopOf="@id/start_date_input"
+                                app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintHorizontal_bias="0"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/target_input"
-                                tools:ignore="TextViewEdits"/> <!-- Start date input title-->
+                                tools:ignore="TextViewEdits"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subhead" /> <!-- Start date input title-->
 
                             <!-- Method A -->
                             <EditText
@@ -257,18 +268,18 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginHorizontal="16dp"
                                 android:layout_marginTop="0dp"
-                                android:fontFamily="@font/atkinsonhyperlegiblenext_semibold"
-                                android:letterSpacing="0.05"
-                                android:textSize="15sp"
+                                android:clickable="true"
+                                android:focusable="false"
                                 android:hint="01/01/2026"
                                 android:inputType="date"
-                                android:focusable="false"
-                                android:clickable="true"
+                                android:letterSpacing="0.05"
                                 app:layout_constraintBottom_toTopOf="@id/end_date_input_title"
                                 app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@id/start_date_input_title"
-                                app:layout_constraintHorizontal_bias="0"/> <!-- Start date input -->
+                                android:textAppearance="?attr/textAppearanceTextInput"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.TextInput" /> <!-- Start date input -->
 
                             <!-- Method A -->
                             <TextView
@@ -279,17 +290,17 @@
                                 android:layout_marginTop="14dp"
                                 android:filterTouchesWhenObscured="false"
                                 android:focusableInTouchMode="true"
-                                android:fontFamily="@font/atkinsonhyperlegiblenext_semibold"
                                 android:letterSpacing="0.01"
                                 android:text="End Date"
+                                android:textAppearance="?attr/textAppearanceSubhead"
                                 android:textColor="?attr/colorOnPrimary"
-                                android:textSize="15sp"
                                 app:layout_constraintBottom_toTopOf="@id/end_date_input"
+                                app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintHorizontal_bias="0"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/start_date_input"
-                                tools:ignore="TextViewEdits"/> <!-- End date input title-->
+                                tools:ignore="TextViewEdits"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subhead" /> <!-- End date input title-->
 
                             <!-- Method A -->
                             <EditText
@@ -299,32 +310,32 @@
                                 android:layout_marginHorizontal="16dp"
                                 android:layout_marginTop="0dp"
                                 android:layout_marginBottom="16dp"
-                                android:fontFamily="@font/atkinsonhyperlegiblenext_semibold"
-                                android:letterSpacing="0.05"
-                                android:textSize="15sp"
-                                android:inputType="date"
-                                android:hint="28/01/2026"
-                                android:focusable="false"
                                 android:clickable="true"
+                                android:focusable="false"
+                                android:hint="28/01/2026"
+                                android:inputType="date"
+                                android:letterSpacing="0.05"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@id/end_date_input_title"
-                                app:layout_constraintHorizontal_bias="0"/> <!-- End date input -->
+                                android:textAppearance="?attr/textAppearanceTextInput"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.TextInput" /> <!-- End date input -->
 
                             <androidx.constraintlayout.widget.Group
                                 android:id="@+id/method_A_group"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                app:constraint_referenced_ids="target_input_title, target_input, start_date_input_title, start_date_input, end_date_input_title, end_date_input"
-                                android:visibility="visible"/>
+                                android:visibility="visible"
+                                app:constraint_referenced_ids="target_input_title, target_input, start_date_input_title, start_date_input, end_date_input_title, end_date_input" />
 
                             <androidx.constraintlayout.widget.Group
                                 android:id="@+id/method_B_group"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                app:constraint_referenced_ids="daily_duration_title, daily_duration_input, totaldays_input_title, totaldays_input, B_startdate_title, B_startdate_input"
-                                android:visibility="gone"/>
+                                android:visibility="gone"
+                                app:constraint_referenced_ids="daily_duration_title, daily_duration_input, totaldays_input_title, totaldays_input, B_startdate_title, B_startdate_input" />
 
                             <!--Method B-->
                             <TextView
@@ -335,17 +346,17 @@
                                 android:layout_marginTop="2dp"
                                 android:filterTouchesWhenObscured="false"
                                 android:focusableInTouchMode="true"
-                                android:fontFamily="@font/atkinsonhyperlegiblenext_semibold"
                                 android:letterSpacing="0.01"
                                 android:text="Daily Duration"
+                                android:textAppearance="?attr/textAppearanceSubhead"
                                 android:textColor="?attr/colorOnPrimary"
-                                android:textSize="15sp"
                                 app:layout_constraintBottom_toTopOf="@id/daily_duration_input"
+                                app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintHorizontal_bias="0"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                tools:ignore="TextViewEdits"/> <!-- Method B_Daily duration title-->
+                                tools:ignore="TextViewEdits"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subhead" /> <!-- Method B_Daily duration title-->
 
                             <EditText
                                 android:id="@+id/daily_duration_input"
@@ -353,18 +364,18 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginHorizontal="16dp"
                                 android:layout_marginTop="0dp"
-                                android:fontFamily="@font/atkinsonhyperlegiblenext_semibold"
-                                android:letterSpacing="0.05"
-                                android:textSize="15sp"
+                                android:clickable="true"
+                                android:focusable="false"
                                 android:hint="hh:mm"
+                                android:inputType="time"
+                                android:letterSpacing="0.05"
                                 app:layout_constraintBottom_toTopOf="@id/totaldays_input_title"
                                 app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@id/daily_duration_title"
-                                app:layout_constraintHorizontal_bias="0"
-                                android:focusable="false"
-                                android:clickable="true"
-                                android:inputType="time"/> <!-- Daily duration input blank (input) -->
+                                android:textAppearance="?attr/textAppearanceTextInput"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.TextInput"/> <!-- Daily duration input blank (input) -->
 
                             <TextView
                                 android:id="@+id/totaldays_input_title"
@@ -374,17 +385,17 @@
                                 android:layout_marginTop="14dp"
                                 android:filterTouchesWhenObscured="false"
                                 android:focusableInTouchMode="true"
-                                android:fontFamily="@font/atkinsonhyperlegiblenext_semibold"
                                 android:letterSpacing="0.01"
                                 android:text="No. of Days"
+                                android:textAppearance="?attr/textAppearanceSubhead"
                                 android:textColor="?attr/colorOnPrimary"
-                                android:textSize="15sp"
                                 app:layout_constraintBottom_toTopOf="@id/totaldays_input"
+                                app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintHorizontal_bias="0"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/daily_duration_input"
-                                tools:ignore="TextViewEdits"/> <!-- Total days input title-->
+                                tools:ignore="TextViewEdits"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subhead" /> <!-- Total days input title-->
 
                             <EditText
                                 android:id="@+id/totaldays_input"
@@ -392,18 +403,18 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginHorizontal="16dp"
                                 android:layout_marginTop="0dp"
-                                android:fontFamily="@font/atkinsonhyperlegiblenext_semibold"
-                                android:letterSpacing="0.05"
-                                android:textSize="15sp"
-                                android:hint="7"
-                                android:focusable="true"
                                 android:clickable="true"
+                                android:focusable="true"
+                                android:hint="7"
                                 android:inputType="number"
+                                android:letterSpacing="0.05"
                                 app:layout_constraintBottom_toTopOf="@id/B_startdate_title"
                                 app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@id/totaldays_input_title"
-                                app:layout_constraintHorizontal_bias="0"/> <!-- Total days input -->
+                                android:textAppearance="?attr/textAppearanceTextInput"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.TextInput" /> <!-- Total days input -->
 
                             <TextView
                                 android:id="@+id/B_startdate_title"
@@ -413,17 +424,17 @@
                                 android:layout_marginTop="14dp"
                                 android:filterTouchesWhenObscured="false"
                                 android:focusableInTouchMode="true"
-                                android:fontFamily="@font/atkinsonhyperlegiblenext_semibold"
                                 android:letterSpacing="0.01"
                                 android:text="Start date"
+                                android:textAppearance="?attr/textAppearanceSubhead"
                                 android:textColor="?attr/colorOnPrimary"
-                                android:textSize="15sp"
                                 app:layout_constraintBottom_toTopOf="@id/B_startdate_input"
+                                app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintHorizontal_bias="0"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/totaldays_input"
-                                tools:ignore="TextViewEdits"/> <!-- B Start date title-->
+                                tools:ignore="TextViewEdits"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subhead" /> <!-- B Start date title-->
 
                             <EditText
                                 android:id="@+id/B_startdate_input"
@@ -432,18 +443,18 @@
                                 android:layout_marginHorizontal="16dp"
                                 android:layout_marginTop="0dp"
                                 android:layout_marginBottom="16dp"
-                                android:fontFamily="@font/atkinsonhyperlegiblenext_semibold"
-                                android:letterSpacing="0.06"
-                                android:textSize="15sp"
+                                android:clickable="true"
+                                android:focusable="false"
                                 android:hint="01/01/2026"
                                 android:inputType="date"
-                                android:focusable="false"
-                                android:clickable="true"
+                                android:letterSpacing="0.06"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@id/B_startdate_title"
-                                app:layout_constraintHorizontal_bias="0"/> <!-- B Start End date input -->
+                                android:textAppearance="?attr/textAppearanceTextInput"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.TextInput" /> <!-- B Start End date input -->
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <Button
@@ -451,18 +462,18 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
-                            android:layout_marginEnd="16dp"
                             android:layout_marginTop="0dp"
+                            android:layout_marginEnd="16dp"
                             android:layout_marginBottom="16dp"
                             android:backgroundTint="?attr/colorOnPrimary"
-                            android:fontFamily="@font/atkinsonhyperlegiblenext_regular"
-                            android:textStyle="bold"
                             android:letterSpacing="0.1"
                             android:text="Add Goal"
-                            android:textColor="?attr/colorPrimary"
-                            android:textSize="15.5sp"
                             android:textAllCaps="false"
-                            app:cornerRadius="10dp"/> <!-- Add goal button -->
+                            android:textAppearance="?attr/textAppearanceAppButton"
+                            android:textColor="?attr/colorPrimary"
+                            android:textStyle="bold"
+                            app:cornerRadius="10dp"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.AppButton" /> <!-- Add goal button -->
                     </LinearLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout> <!-- items constrained to cardview -->
             </androidx.core.widget.NestedScrollView>
@@ -473,14 +484,14 @@
             android:id="@+id/goals_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:scrollbars="none"
             android:clipToPadding="true"
             android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@id/cardView_goals"
+            android:scrollbars="none"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintVertical_bias="0"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardView_goals"
+            app:layout_constraintVertical_bias="0" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

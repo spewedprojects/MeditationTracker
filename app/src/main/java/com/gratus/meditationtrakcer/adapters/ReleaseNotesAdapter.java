@@ -7,7 +7,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.gratus.meditationtrakcer.BaseActivity;
 import com.gratus.meditationtrakcer.R;
 
 import java.util.List;
@@ -26,9 +25,9 @@ public class ReleaseNotesAdapter extends RecyclerView.Adapter<ReleaseNotesAdapte
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.release_items, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_release, parent, false);
         /*
-        This will completely remove teh abnormal spacing beneath each inflated item.
+         * This will completely remove teh abnormal spacing beneath each inflated item.
          */
         ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
         layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT; // Set to wrap content
@@ -36,9 +35,7 @@ public class ReleaseNotesAdapter extends RecyclerView.Adapter<ReleaseNotesAdapte
         /* Until here */
 
         // Catch all text inside the newly created list item
-        if (parent.getContext() instanceof BaseActivity) {
-            ((BaseActivity) parent.getContext()).applySystemFontToView(view);
-        }
+
         return new ViewHolder(view);
     }
 

@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ======================================================================================= -->
+    <!-- APP FONT STYLES (Atkinson Hyperlegible) -->
+    <!-- Preserves nuances: Light+Bold, Medium+Bold, Specific Letter Spacing -->
+    <!-- ======================================================================================= -->
+
+    <!-- Base style to satisfy implicit inheritance -->
+    <style name="TextAppearance.MeditationTracker.AppFont" parent="TextAppearance.AppCompat" />
+
+    <style name="TextAppearance.MeditationTracker.AppFont.CardTitle">
+        <item name="android:fontFamily">@font/atkinsonhyperlegiblenext_medium</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">0.05</item>
+    </style>
+
+    <style name="TextAppearance.MeditationTracker.AppFont.CardSubTitle">
+        <item name="android:fontFamily">@font/atkinsonhyperlegiblenext_semibold</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">0.01</item>
+    </style>
+
+    <style name="TextAppearance.MeditationTracker.AppFont.ReportTitle">
+        <item name="android:fontFamily">@font/atkinsonhyperlegiblenext_bold</item>
+    </style>
+
+    <style name="TextAppearance.MeditationTracker.AppFont.HeroValue">
+        <item name="android:fontFamily">@font/atkinsonhyperlegiblenext_regular</item>
+        <item name="android:textSize">64sp</item>
+        <item name="android:letterSpacing">0.055</item>
+    </style>
+
+    <style name="TextAppearance.MeditationTracker.AppFont.ToolbarTitle">
+        <item name="android:fontFamily">@font/atkinsonhyperlegiblenext_bold</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:letterSpacing">0.05</item>
+    </style>
+
+    <style name="TextAppearance.MeditationTracker.AppFont.AppTitle">
+        <item name="android:fontFamily">@font/atkinsonhyperlegiblenext_bold</item>
+        <item name="android:textSize">23sp</item>
+    </style>
+
+    <style name="TextAppearance.MeditationTracker.AppFont.DateHeader">
+        <item name="android:fontFamily">@font/atkinsonhyperlegiblenext_regular</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">0.04</item>
+    </style>
+
+    <style name="TextAppearance.MeditationTracker.AppFont.Subheader">
+        <item name="android:fontFamily">@font/atkinsonhyperlegiblenext_medium</item>
+        <item name="android:textSize">19sp</item>
+    </style>
+
+    <style name="TextAppearance.MeditationTracker.AppFont.StatValue">
+        <item name="android:fontFamily">@font/atkinsonhyperlegiblenext_medium</item>
+        <item name="android:textSize">54dp</item>
+    </style>
+
+    <style name="TextAppearance.MeditationTracker.AppFont.StatLabel">
+        <item name="android:fontFamily">@font/atkinsonhyperlegiblenext_medium</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:letterSpacing">0.03</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="TextAppearance.MeditationTracker.AppFont.StatUnit">
+        <item name="android:fontFamily">@font/atkinsonhyperlegiblenext_medium</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="TextAppearance.MeditationTracker.AppFont.Subtitle">
+        <item name="android:fontFamily">@font/atkinsonhyperlegiblenext_light</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:letterSpacing">0.03</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.MeditationTracker.AppFont.Subtitle2">
+        <item name="android:fontFamily">@font/atkinsonhyperlegiblenext_light</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:letterSpacing">0.03</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.MeditationTracker.AppFont.AppButton">
+        <item name="android:fontFamily">@font/atkinsonhyperlegiblenext_semibold</item>
+        <item name="android:textSize">15.5sp</item>
+        <item name="android:letterSpacing">0.05</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="TextAppearance.MeditationTracker.AppFont.ProgressLabel">
+        <item name="android:fontFamily">@font/atkinsonhyperlegiblenext_medium</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="TextAppearance.MeditationTracker.AppFont.Subhead">
+        <item name="android:fontFamily">@font/atkinsonhyperlegiblenext_semibold</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:letterSpacing">0.01</item>
+    </style>
+
+    <style name="TextAppearance.MeditationTracker.AppFont.TextInput">
+        <item name="android:fontFamily">@font/atkinsonhyperlegiblenext_medium</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:letterSpacing">0.05</item>
+    </style>
+
+
+    <!-- ======================================================================================= -->
+    <!-- SYSTEM FONT STYLES -->
+    <!-- Clean, standard look. Nuances mapped to closest standard weight. -->
+    <!-- ======================================================================================= -->
+
+    <!-- Base style to satisfy implicit inheritance -->
+    <style name="TextAppearance.MeditationTracker.SystemFont" parent="TextAppearance.AppCompat" />
+
+    <style name="TextAppearance.MeditationTracker.SystemFont.CardTitle">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="TextAppearance.MeditationTracker.SystemFont.CardSubTitle">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">0.01</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="TextAppearance.MeditationTracker.SystemFont.ReportTitle">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="TextAppearance.MeditationTracker.SystemFont.HeroValue">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">64sp</item>
+        <item name="android:letterSpacing">0.055</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="TextAppearance.MeditationTracker.SystemFont.ToolbarTitle">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">0.05</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="TextAppearance.MeditationTracker.SystemFont.AppTitle">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">23sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="TextAppearance.MeditationTracker.SystemFont.DateHeader">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">0.04</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="TextAppearance.MeditationTracker.SystemFont.Subheader">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">19sp</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="TextAppearance.MeditationTracker.SystemFont.StatValue">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">54dp</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="TextAppearance.MeditationTracker.SystemFont.StatLabel">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:letterSpacing">0</item>
+    </style>
+
+    <style name="TextAppearance.MeditationTracker.SystemFont.StatUnit">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="TextAppearance.MeditationTracker.SystemFont.Subtitle">
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="TextAppearance.MeditationTracker.SystemFont.Subtitle2">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="TextAppearance.MeditationTracker.SystemFont.AppButton">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">15.5sp</item>
+        <item name="android:letterSpacing">0.01</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="TextAppearance.MeditationTracker.SystemFont.ProgressLabel">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="TextAppearance.MeditationTracker.SystemFont.Subhead">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:letterSpacing">0.01</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="TextAppearance.MeditationTracker.SystemFont.TextInput">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:letterSpacing">0.05</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+</resources>

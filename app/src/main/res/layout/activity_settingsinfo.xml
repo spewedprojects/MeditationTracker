@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/settingsInfo"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -17,19 +18,24 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout> <!-- Constrained layout for menubutton and Title -->
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/settingscard_const_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar2_constW">
+        app:layout_constraintTop_toBottomOf="@id/toolbar2_constW"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0"
+        android:animateLayoutChanges="true">
 
         <!-- ======================= -->
         <!-- Usage Guide Card -->
         <!-- ======================= -->
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/usage_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
@@ -37,7 +43,8 @@
             android:layout_marginTop="16dp"
             app:cardBackgroundColor="@color/primary"
             app:cardCornerRadius="12dp"
-            app:cardElevation="3dp">
+            app:cardElevation="3dp"
+            app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -62,10 +69,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
                         android:alpha="0.9"
-                        android:fontFamily="@font/atkinsonhyperlegiblenext_regular"
+                        android:textAppearance="?attr/textAppearanceCardTitle"
+                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.CardTitle"
                         android:text="Usage Guide"
                         android:textColor="@color/black_white"
-                        android:textSize="20sp"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -98,10 +105,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:alpha="0.85"
-                            android:fontFamily="@font/atkinsonhyperlegiblenext_regular"
+                            android:textAppearance="?attr/textAppearanceAppButton"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.AppButton"
                             android:text="Hidden Shortcuts"
                             android:textColor="@color/black_white"
-                            android:textSize="16sp"
                             android:textStyle="bold" />
 
                         <TextView
@@ -109,10 +116,10 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
                             android:alpha="0.7"
-                            android:fontFamily="@font/atkinsonhyperlegiblenext_regular"
+                            android:textAppearance="?attr/textAppearanceAppSubtitle2"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subtitle2"
                             android:text="Long-press on the Streak card to set streak goals and to view the streak stats.\n\nLong-press on `Add Manually` button to open the dialog to add back-dated entry.\n*Note: All future dates are disabled."
-                            android:textColor="@color/black_white"
-                            android:textSize="14sp" />
+                            android:textColor="@color/black_white" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -127,13 +134,18 @@
         <!-- ======================= -->
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/global_settings_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginVertical="16dp"
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="16dp"
             app:cardBackgroundColor="@color/primary"
             app:cardCornerRadius="12dp"
-            app:cardElevation="3dp">
+            app:cardElevation="3dp"
+            android:animateLayoutChanges="true"
+            app:layout_constraintTop_toBottomOf="@id/usage_card"
+            app:layout_constraintBottom_toBottomOf="parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -141,6 +153,7 @@
                 android:orientation="vertical"
                 android:paddingHorizontal="20dp"
                 android:paddingTop="20dp"
+                android:animateLayoutChanges="true"
                 android:paddingBottom="12dp">
 
                 <!-- Title Row -->
@@ -160,10 +173,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
                         android:alpha="0.9"
-                        android:fontFamily="@font/atkinsonhyperlegiblenext_regular"
+                        android:textAppearance="?attr/textAppearanceCardTitle"
+                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.CardTitle"
                         android:text="Global App Settings"
                         android:textColor="@color/black_white"
-                        android:textSize="20sp"
                         android:textStyle="bold"/>
                 </LinearLayout>
 
@@ -190,20 +203,20 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:alpha="0.8"
-                            android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
+                            android:textAppearance="?attr/textAppearanceAppButton"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.AppButton"
                             android:text="Graph Y-Axis Lines"
-                            android:textColor="@color/black_white"
-                            android:textSize="16sp"/>
+                            android:textColor="@color/black_white"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
                             android:alpha="0.65"
-                            android:fontFamily="@font/atkinsonhyperlegiblenext_regular"
+                            android:textAppearance="?attr/textAppearanceAppSubtitle2"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subtitle2"
                             android:text="Show vertical axis and grid on charts"
-                            android:textColor="@color/black_white"
-                            android:textSize="14sp"/>
+                            android:textColor="@color/black_white"/>
                     </LinearLayout>
 
                     <com.google.android.material.materialswitch.MaterialSwitch
@@ -213,12 +226,216 @@
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:enabled="true"
-                        android:checked="false"
+                        android:checked="true"
                         app:thumbTint="@color/switch_thumb_colors"
                         app:trackTint="@color/switch_track_colors"/>
 
                 </RelativeLayout>
 
+                <!-- Week start day -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="8dp"
+                    android:visibility="visible">
+
+                    <LinearLayout
+                        android:id="@+id/weekStartTextContainer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_alignParentStart="true">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:alpha="0.8"
+                            android:textAppearance="?attr/textAppearanceAppButton"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.AppButton"
+                            android:text="Week starts from"
+                            android:textColor="@color/black_white"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:alpha="0.65"
+                            android:textAppearance="?attr/textAppearanceAppSubtitle"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subtitle"
+                            android:text="Monday"
+                            android:textColor="@color/black_white"/>
+                    </LinearLayout>
+
+                    <com.google.android.material.button.MaterialButtonToggleGroup
+                        android:id="@+id/switchDay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
+                        app:singleSelection="true"
+                        app:innerCornerSize="3dp">
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/set_Sun_btn"
+                            android:layout_width="58dp"
+                            android:layout_height="48dp"
+                            android:text="Sun"
+                            app:cornerRadius="8dp"
+                            android:padding="0dp"
+                            android:insetRight="1dp"
+                            app:strokeWidth="0dp"
+                            app:strokeColor="@color/black_white_0.4"
+                            android:includeFontPadding="false"
+                            android:textAppearance="?attr/textAppearanceAppButton"
+                            tools:textAppearance="@style/TextAppearance.MeditationTracker.AppFont.AppButton"
+                            android:backgroundTint="@color/black_white_0.1"
+                            android:textColor="@color/black_white"/>
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/set_Mon_btn"
+                            android:layout_width="58dp"
+                            android:layout_height="48dp"
+                            android:text="Mon"
+                            app:cornerRadius="8dp"
+                            android:padding="0dp"
+                            android:insetLeft="1dp"
+                            app:strokeWidth="0dp"
+                            android:textAppearance="?attr/textAppearanceAppButton"
+                            tools:textAppearance="@style/TextAppearance.MeditationTracker.AppFont.AppButton"
+                            app:strokeColor="@color/black_white_0.4"
+                            android:includeFontPadding="false"
+                            android:backgroundTint="@color/black_white_0.1"
+                            android:textColor="@color/black_white"/>
+                    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+                </RelativeLayout>
+
+                <!-- Set custom radius -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="8dp"
+                    android:visibility="visible">
+
+                    <LinearLayout
+                        android:id="@+id/customRadiusSwitch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_alignParentStart="true">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:alpha="0.8"
+                            android:textAppearance="?attr/textAppearanceAppButton"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.AppButton"
+                            android:text="Set custom radius"
+                            android:textColor="@color/black_white"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:alpha="0.65"
+                            android:textAppearance="?attr/textAppearanceAppSubtitle2"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subtitle2"
+                            android:text="Custom radius for Cards, Buttons"
+                            android:textColor="@color/black_white"/>
+                    </LinearLayout>
+
+                    <ImageButton
+                        android:id="@+id/btn_expand_radius_options"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/arrow_down_24"
+                        android:background="@color/transparent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentTop="true"
+                        android:padding="12dp"
+                        android:layout_marginTop="-4dp"
+                        android:layout_marginEnd="8dp"/>
+
+                    <LinearLayout
+                        android:id="@+id/customRadiiContainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_below="@id/customRadiusSwitch"
+                        android:gravity="end"
+                        android:visibility="gone">
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginVertical="2dp">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:text="Cards radius:"
+                                android:layout_gravity="center_vertical"
+                                android:gravity="end|center_vertical"
+                                android:textAppearance="?attr/textAppearanceAppSubtitle2"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subtitle2"/>
+
+                            <com.google.android.material.slider.Slider
+                                android:layout_width="0dp"
+                                android:layout_weight="2"
+                                android:layout_height="wrap_content"
+                                android:valueFrom="12.0"
+                                android:valueTo="36.0"
+                                android:stepSize="12.0"
+                                android:value="12.0"
+                                app:thumbRadius="14dp"
+                                app:thumbWidth="6dp"
+                                app:trackCornerSize="8dp"
+                                app:trackInsideCornerSize="4dp"
+                                app:trackColor="@color/black_white_0.x"
+                                app:trackColorActive="@color/black_white_0.4"
+                                app:thumbColor="@color/black_white"
+                                app:thumbHeight="28dp"
+                                app:trackHeight="16dp"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginVertical="2dp">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:text="Buttons radius:"
+                                android:layout_gravity="center_vertical"
+                                android:gravity="end|center_vertical"
+                                android:textAppearance="?attr/textAppearanceAppSubtitle2"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subtitle2"/>
+
+                            <com.google.android.material.slider.Slider
+                                android:layout_width="0dp"
+                                android:layout_weight="2"
+                                android:layout_height="wrap_content"
+                                android:valueFrom="10.0"
+                                android:valueTo="20.0"
+                                android:stepSize="5.0"
+                                android:value="10.0"
+                                app:thumbRadius="14dp"
+                                app:thumbWidth="6dp"
+                                app:trackCornerSize="8dp"
+                                app:trackInsideCornerSize="4dp"
+                                app:trackColor="@color/black_white_0.x"
+                                app:trackColorActive="@color/black_white_0.4"
+                                app:thumbColor="@color/black_white"
+                                app:thumbHeight="28dp"
+                                app:trackHeight="16dp"/>
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </RelativeLayout>
 
                 <!-- App Font -->
                 <RelativeLayout
@@ -238,10 +455,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:alpha="0.8"
-                            android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
+                            android:textAppearance="?attr/textAppearanceAppButton"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.AppButton"
                             android:text="App Font"
-                            android:textColor="@color/black_white"
-                            android:textSize="16sp" />
+                            android:textColor="@color/black_white" />
 
                         <TextView
                             android:id="@+id/fontSubtitle"
@@ -249,10 +466,10 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
                             android:alpha="0.65"
-                            android:fontFamily="@font/atkinsonhyperlegiblenext_regular"
+                            android:textAppearance="?attr/textAppearanceAppSubtitle2"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subtitle2"
                             android:text="Using App Font"
-                            android:textColor="@color/black_white"
-                            android:textSize="14sp" />
+                            android:textColor="@color/black_white" />
                     </LinearLayout>
 
                     <com.google.android.material.button.MaterialButtonToggleGroup
@@ -261,7 +478,8 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_alignParentEnd="true"
-                        app:singleSelection="true">
+                        app:singleSelection="true"
+                        app:innerCornerSize="3dp">
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/set_system_font_btn"
                             android:layout_width="wrap_content"
@@ -273,6 +491,7 @@
                             app:strokeWidth="0dp"
                             app:strokeColor="@color/black_white_0.4"
                             android:includeFontPadding="false"
+                            android:textAppearance="@style/TextAppearance.MeditationTracker.SystemFont.AppButton"
                             android:backgroundTint="@color/black_white_0.1"
                             android:textColor="@color/black_white"/>
                         <com.google.android.material.button.MaterialButton
@@ -286,7 +505,7 @@
                             app:strokeWidth="0dp"
                             app:strokeColor="@color/black_white_0.4"
                             android:includeFontPadding="false"
-                            android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
+                            android:textAppearance="@style/TextAppearance.MeditationTracker.AppFont.AppButton"
                             android:backgroundTint="@color/black_white_0.1"
                             android:textColor="@color/black_white"/>
                     </com.google.android.material.button.MaterialButtonToggleGroup>
@@ -297,6 +516,6 @@
 
         </androidx.cardview.widget.CardView>
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

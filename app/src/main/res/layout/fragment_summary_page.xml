@@ -41,16 +41,16 @@
                     android:layout_marginEnd="16dp"
                     android:filterTouchesWhenObscured="false"
                     android:focusableInTouchMode="true"
-                    android:fontFamily="@font/atkinsonhyperlegiblenext_bold"
+                    android:textAppearance="?attr/textAppearanceToolbarTitle"
+                    tools:theme="@style/TextAppearance.MeditationTracker.AppFont.ToolbarTitle"
                     android:letterSpacing="0.02"
                     android:text="@string/menu_monthly"
                     android:textColor="?attr/colorOnPrimary"
-                    android:textSize="23sp"
                     app:layout_constraintBottom_toTopOf="@id/page_desc"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0"
-                    tools:ignore="TextViewEdits" /> <!-- Month overview -->
+                tools:ignore="TextViewEdits" /> <!-- Month overview -->
 
                 <TextView
                     android:id="@+id/page_desc"
@@ -61,16 +61,16 @@
                     android:layout_marginBottom="6dp"
                     android:filterTouchesWhenObscured="false"
                     android:focusableInTouchMode="true"
-                    android:fontFamily="@font/atkinsonhyperlegiblenext_regular"
+                    android:textAppearance="?attr/textAppearanceStatUnit"
+                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatUnit"
                     android:letterSpacing="0.02"
                     android:text="@string/month_summ_desc"
                     android:textColor="@color/onPrimary2"
-                    android:textSize="13sp"
                     app:layout_constraintBottom_toTopOf="@id/total_hours"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/page_title"
                     app:layout_constraintVertical_bias="0.0"
-                    tools:ignore="TextViewEdits" /> <!-- Month Overview description -->
+                tools:ignore="TextViewEdits" /> <!-- Month Overview description -->
 
                 <ImageButton
                     android:id="@+id/report_button"
@@ -97,11 +97,12 @@
                     android:layout_marginBottom="8dp"
                     android:filterTouchesWhenObscured="false"
                     android:focusableInTouchMode="true"
-                    android:fontFamily="@font/atkinsonhyperlegiblenext_bold"
+                    android:textAppearance="?attr/textAppearanceCardTitle"
+                    tools:theme="@style/TextAppearance.MeditationTracker.AppFont.CardTitle"
                     android:letterSpacing="0.01"
                     android:text="@string/total_hours_placeholder"
                     android:textColor="?attr/colorOnPrimary"
-                    android:textSize="20sp"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@id/barChart"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/page_desc"
@@ -181,10 +182,10 @@
                             android:layout_height="wrap_content"
                             android:filterTouchesWhenObscured="false"
                             android:focusableInTouchMode="true"
-                            android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
+                            android:textAppearance="?attr/textAppearanceStatLabel"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatLabel"
                             android:text="@string/nav_label_main_placeholder"
                             android:textColor="@color/onPrimary2"
-                            android:textSize="18sp"
                             tools:ignore="TextViewEdits" />
 
                         <TextView
@@ -193,10 +194,10 @@
                             android:layout_height="wrap_content"
                             android:filterTouchesWhenObscured="false"
                             android:focusableInTouchMode="true"
-                            android:fontFamily="@font/atkinsonhyperlegiblenext_medium"
+                            android:textAppearance="?attr/textAppearanceStatUnit"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatUnit"
                             android:text="@string/nav_label_sub_placeholder"
                             android:textColor="@color/onPrimary2"
-                            android:textSize="12sp"
                             tools:ignore="TextViewEdits" /> <!-- Week Date display -->
                     </LinearLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
