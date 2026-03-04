@@ -3,14 +3,14 @@
     <!-- Group Shape (Outer Corners Rounded) -->
     <style name="ExportImportGroupShape" parent="ShapeAppearance.Material3.SmallComponent">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">10dp</item>
+        <item name="cornerSize">?attr/customButtonRadius</item>
     </style>
 
     <!-- Export Button Corners (Left Rounded, Right Square) -->
     <style name="StartButtonCorners">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSizeTopLeft">10dp</item>
-        <item name="cornerSizeBottomLeft">10dp</item>
+        <item name="cornerSizeTopLeft">?attr/customButtonRadius</item>
+        <item name="cornerSizeBottomLeft">?attr/customButtonRadius</item>
         <item name="cornerSizeTopRight">0dp</item>
         <item name="cornerSizeBottomRight">0dp</item>
     </style>
@@ -18,8 +18,8 @@
     <!-- Import Button Corners (Right Rounded, Left Square) -->
     <style name="EndButtonCorners">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSizeTopRight">10dp</item>
-        <item name="cornerSizeBottomRight">10dp</item>
+        <item name="cornerSizeTopRight">?attr/customButtonRadius</item>
+        <item name="cornerSizeBottomRight">?attr/customButtonRadius</item>
         <item name="cornerSizeTopLeft">0dp</item>
         <item name="cornerSizeBottomLeft">0dp</item>
     </style>
@@ -36,7 +36,7 @@
     <!-- Group Shape (Outer Corners Rounded) -->
     <style name="method_WMY_GroupShape" parent="ShapeAppearance.Material3.SmallComponent">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">10dp</item>
+        <item name="cornerSize">?attr/customButtonRadius</item>
     </style>
 
     <!-- Button Style (Shared Properties) -->
@@ -55,6 +55,34 @@
         <item name="backgroundTint">?attr/colorOnPrimary</item> <!-- Transparent background -->
         <item name="background">?attr/colorOnPrimary</item>
         <item name="strokeWidth">0dp</item> <!-- Remove border -->
+    </style>
+
+    <!-- Base Theme Overlay -->
+    <style name="ThemeOverlay.MeditationTracker" parent="ThemeOverlay.MaterialComponents">
+        <!-- You can put shared defaults here -->
+        <!-- Example: -->
+        <!-- <item name="colorPrimary">@color/meditation_primary</item> -->
+    </style>
+
+    <!-- Theme Overlays for Dynamic Radii -->
+    <style name="ThemeOverlay.MeditationTracker.CardRadius12">
+        <item name="customCardRadius">12dp</item>
+    </style>
+    <style name="ThemeOverlay.MeditationTracker.CardRadius24">
+        <item name="customCardRadius">24dp</item>
+    </style>
+    <style name="ThemeOverlay.MeditationTracker.CardRadius36">
+        <item name="customCardRadius">36dp</item>
+    </style>
+
+    <style name="ThemeOverlay.MeditationTracker.ButtonRadius10">
+        <item name="customButtonRadius">10dp</item>
+    </style>
+    <style name="ThemeOverlay.MeditationTracker.ButtonRadius15">
+        <item name="customButtonRadius">15dp</item>
+    </style>
+    <style name="ThemeOverlay.MeditationTracker.ButtonRadius20">
+        <item name="customButtonRadius">20dp</item>
     </style>
 
 </resources>

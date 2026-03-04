@@ -24,13 +24,12 @@
     <string name="goals_title">Set a New Goal</string>
     <string name="goals_desc">Create a new meditation goal</string>
     <string name="current_version_details">
-        • Consolidated all fonts by centralizing typography in `attrs.xml` and `type.xml`.
-        \n• Increased the opacity of widget bg to 75% from 60%.
-        \n• Added placeholder for switching app week start day.
-        \n• Added placeholder global sliders to change The radii of cards and buttons .
+        - Introduced `customCardRadius` and `customButtonRadius` attributes in `attrs.xml`. to set custom radii across app.
+        \n- Flexible Week Start Logic.
+        \n- Added `TextFormatUtils` specifically for this current version details textview.
         \n
         \nNEXT:
-        \n  ৹ Add function to the placeholders.
+        \n- Add function to the placeholders.
     </string>
     <string name="v1.16.c">v1.16.c:\n- NOICE!\n  - Next indent.\n   • bullet 1 ▶ Bullet 2 › bullet 3 ৹</string>
     <string name="close_menu_button">Close Menu</string>

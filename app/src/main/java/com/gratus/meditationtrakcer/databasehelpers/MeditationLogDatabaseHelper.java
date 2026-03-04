@@ -32,14 +32,30 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_DATE = "date";
     public static final String COLUMN_TOTAL_SECONDS = "total_seconds";
 
-    private static final String TABLE_CREATE =
-            "CREATE TABLE " + TABLE_LOGS + " (" +
-                    COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    COLUMN_DATE + " TEXT, " + // Updated to include timestamp
-                    COLUMN_TOTAL_SECONDS + " INTEGER DEFAULT 0);";
+    private static final String TABLE_CREATE = "CREATE TABLE " + TABLE_LOGS + " (" +
+            COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            COLUMN_DATE + " TEXT, " + // Updated to include timestamp
+            COLUMN_TOTAL_SECONDS + " INTEGER DEFAULT 0);";
+
+    private final Context mContext;
 
     public MeditationLogDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        this.mContext = context;
+    }
+
+    private int getStartDay() {
+        android.content.SharedPreferences prefs = mContext.getSharedPreferences("MeditationTrackerPrefs",
+                Context.MODE_PRIVATE);
+        boolean isSunday = prefs.getBoolean("week_start_sun", false);
+        return isSunday ? Calendar.SUNDAY : Calendar.MONDAY;
+    }
+
+    private DayOfWeek getStartDayOfWeek() {
+        android.content.SharedPreferences prefs = mContext.getSharedPreferences("MeditationTrackerPrefs",
+                Context.MODE_PRIVATE);
+        boolean isSunday = prefs.getBoolean("week_start_sun", false);
+        return isSunday ? DayOfWeek.SUNDAY : DayOfWeek.MONDAY;
     }
 
     @Override
@@ -56,7 +72,8 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
                     "date TEXT, " + // Now stores timestamps
                     "total_seconds INTEGER DEFAULT 0);");
 
-            // Step 2: Copy data from the old table to the new table, appending '00:00:00' to the date
+            // Step 2: Copy data from the old table to the new table, appending '00:00:00'
+            // to the date
             db.execSQL("INSERT INTO logs_new (date, total_seconds) " +
                     "SELECT date || ' 00:00:00', total_seconds FROM " + TABLE_LOGS);
 
@@ -74,12 +91,12 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
         String now = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
 
         db.execSQL("INSERT OR IGNORE INTO " + TABLE_LOGS +
-                        " (" + COLUMN_DATE + ", " + COLUMN_TOTAL_SECONDS + ") VALUES (?, 0)",
-                new String[]{now});
+                " (" + COLUMN_DATE + ", " + COLUMN_TOTAL_SECONDS + ") VALUES (?, 0)",
+                new String[] { now });
 
         db.execSQL("UPDATE " + TABLE_LOGS +
                 " SET " + COLUMN_TOTAL_SECONDS + " = " + COLUMN_TOTAL_SECONDS + " + ?" +
-                " WHERE " + COLUMN_DATE + " = ?", new String[]{String.valueOf(additionalSeconds), now});
+                " WHERE " + COLUMN_DATE + " = ?", new String[] { String.valueOf(additionalSeconds), now });
 
         db.close();
     }
@@ -88,15 +105,16 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
     public void logSessionWithTimestamp(long startTimeMillis, int durationSeconds) {
         SQLiteDatabase db = this.getWritableDatabase();
         // Convert the start time millis to the database string format
-        String timestampString = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date(startTimeMillis));
+        String timestampString = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+                .format(new Date(startTimeMillis));
 
         db.execSQL("INSERT OR IGNORE INTO " + TABLE_LOGS +
-                        " (" + COLUMN_DATE + ", " + COLUMN_TOTAL_SECONDS + ") VALUES (?, 0)",
-                new String[]{timestampString});
+                " (" + COLUMN_DATE + ", " + COLUMN_TOTAL_SECONDS + ") VALUES (?, 0)",
+                new String[] { timestampString });
 
         db.execSQL("UPDATE " + TABLE_LOGS +
                 " SET " + COLUMN_TOTAL_SECONDS + " = " + COLUMN_TOTAL_SECONDS + " + ?" +
-                " WHERE " + COLUMN_DATE + " = ?", new String[]{String.valueOf(durationSeconds), timestampString});
+                " WHERE " + COLUMN_DATE + " = ?", new String[] { String.valueOf(durationSeconds), timestampString });
 
         db.close();
     }
@@ -105,19 +123,22 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
     public void logBackdatedSession(long dateInMillis, int durationSeconds) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        // Use the provided date, but set a fixed time (e.g., 12:00:00) or current time to ensure format consistency
+        // Use the provided date, but set a fixed time (e.g., 12:00:00) or current time
+        // to ensure format consistency
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         String timestampString = sdf.format(new Date(dateInMillis));
 
-        // We use the same logic as daily logs: Insert a row if it doesn't exist for this exact timestamp, then update it.
-        // Since we are generating a unique timestamp based on selection, this acts as adding a new session.
+        // We use the same logic as daily logs: Insert a row if it doesn't exist for
+        // this exact timestamp, then update it.
+        // Since we are generating a unique timestamp based on selection, this acts as
+        // adding a new session.
         db.execSQL("INSERT OR IGNORE INTO " + TABLE_LOGS +
-                        " (" + COLUMN_DATE + ", " + COLUMN_TOTAL_SECONDS + ") VALUES (?, 0)",
-                new String[]{timestampString});
+                " (" + COLUMN_DATE + ", " + COLUMN_TOTAL_SECONDS + ") VALUES (?, 0)",
+                new String[] { timestampString });
 
         db.execSQL("UPDATE " + TABLE_LOGS +
                 " SET " + COLUMN_TOTAL_SECONDS + " = " + COLUMN_TOTAL_SECONDS + " + ?" +
-                " WHERE " + COLUMN_DATE + " = ?", new String[]{String.valueOf(durationSeconds), timestampString});
+                " WHERE " + COLUMN_DATE + " = ?", new String[] { String.valueOf(durationSeconds), timestampString });
 
         db.close();
     }
@@ -135,8 +156,7 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
             String adjustedEndDateTime = endDateTime.split(" ")[0] + " 23:59:59"; // Ensure it includes full day
 
             String query = "SELECT SUM(total_seconds) FROM logs WHERE datetime(date) >= datetime(?) AND datetime(date) <= datetime(?)";
-            Cursor cursor = db.rawQuery(query, new String[]{adjustedStartDateTime, adjustedEndDateTime});
-
+            Cursor cursor = db.rawQuery(query, new String[] { adjustedStartDateTime, adjustedEndDateTime });
 
             if (cursor != null && cursor.moveToFirst()) {
                 totalHours = cursor.getDouble(0) / 3600.0; // Convert seconds to hours
@@ -145,9 +165,10 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
                 Log.d("MeditationLogHelper", "No matching records found for the given range.");
             }
 
-            if (cursor != null) cursor.close();
+            if (cursor != null)
+                cursor.close();
         } catch (Exception e) {
-            Log.e("MeditationLogHelper", "Error in getLoggedHours: " +e.getMessage());
+            Log.e("MeditationLogHelper", "Error in getLoggedHours: " + e.getMessage());
         } finally {
             db.close();
             Log.d("MeditationLogHelper", "Database connection closed.");
@@ -163,26 +184,30 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
         int totalSeconds = 0;
 
         try {
-//            String query = "SELECT SUM(total_seconds) FROM logs WHERE strftime('%Y-%m-%d %H:%M:%S', date) >= ? AND strftime('%Y-%m-%d %H:%M:%S', date) <= ?"; // datetime(date) BETWEEN datetime(?) AND datetime(?)" <- this doesn't work.
-//            Cursor cursor = db.rawQuery(query, new String[]{startDateTime, endDateTime});
+            // String query = "SELECT SUM(total_seconds) FROM logs WHERE strftime('%Y-%m-%d
+            // %H:%M:%S', date) >= ? AND strftime('%Y-%m-%d %H:%M:%S', date) <= ?"; //
+            // datetime(date) BETWEEN datetime(?) AND datetime(?)" <- this doesn't work.
+            // Cursor cursor = db.rawQuery(query, new String[]{startDateTime, endDateTime});
             String adjustedStartDateTime = startDateTime.split(" ")[0] + " 00:00:00"; // Ensure it includes full day
             String adjustedEndDateTime = endDateTime.split(" ")[0] + " 23:59:59"; // Ensure it includes full day
 
             String query = "SELECT SUM(total_seconds) FROM logs WHERE datetime(date) >= datetime(?) AND datetime(date) <= datetime(?)";
-            Cursor cursor = db.rawQuery(query, new String[]{adjustedStartDateTime, adjustedEndDateTime});
+            Cursor cursor = db.rawQuery(query, new String[] { adjustedStartDateTime, adjustedEndDateTime });
 
             if (cursor != null && cursor.moveToFirst()) {
                 totalSeconds = cursor.getInt(0);
             }
 
-            if (cursor != null) cursor.close();
+            if (cursor != null)
+                cursor.close();
         } catch (Exception e) {
             Log.e("MeditationLogHelper", "Error in getTotalSecondsForRange: " + e.getMessage());
         } finally {
             db.close();
         }
 
-        Log.d("MeditationLogHelper", "Total Seconds for range " + startDateTime + " to " + endDateTime + ": " + totalSeconds);
+        Log.d("MeditationLogHelper",
+                "Total Seconds for range " + startDateTime + " to " + endDateTime + ": " + totalSeconds);
         return totalSeconds;
     }
 
@@ -193,8 +218,7 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(
                 "SELECT SUM(" + COLUMN_TOTAL_SECONDS + ") FROM " + TABLE_LOGS +
                         " WHERE date(" + COLUMN_DATE + ") = date(?)",
-                new String[]{today}
-        );
+                new String[] { today });
 
         int totalSeconds = 0;
         if (cursor.moveToFirst()) {
@@ -217,7 +241,7 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery(
                 "SELECT date FROM logs WHERE datetime(date) >= datetime(?) AND datetime(date) <= datetime(?) ORDER BY date ASC",
-                new String[]{start, end});
+                new String[] { start, end });
 
         if (cursor.moveToFirst()) {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
@@ -225,10 +249,14 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
                 try {
                     String dateStr = cursor.getString(0);
                     // Handle potentially legacy dates without time
-                    if(dateStr.length() == 10) dateStr += " 00:00:00";
+                    if (dateStr.length() == 10)
+                        dateStr += " 00:00:00";
                     Date d = sdf.parse(dateStr);
-                    if(d != null) timestamps.add(d.getTime());
-                } catch (Exception e) { e.printStackTrace(); }
+                    if (d != null)
+                        timestamps.add(d.getTime());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             } while (cursor.moveToNext());
         }
         cursor.close();
@@ -257,7 +285,7 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
         String end = endDate.split(" ")[0] + " 23:59:59";
 
         String query = "SELECT date, total_seconds FROM logs WHERE datetime(date) >= datetime(?) AND datetime(date) <= datetime(?) ORDER BY date ASC";
-        Cursor cursor = db.rawQuery(query, new String[]{start, end});
+        Cursor cursor = db.rawQuery(query, new String[] { start, end });
 
         if (cursor.moveToFirst()) {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
@@ -268,7 +296,8 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
                 try {
                     String dateStr = cursor.getString(colDate);
                     // Handle legacy dates lacking time
-                    if (dateStr.length() == 10) dateStr += " 00:00:00";
+                    if (dateStr.length() == 10)
+                        dateStr += " 00:00:00";
 
                     Date d = sdf.parse(dateStr);
                     int seconds = cursor.getInt(colSec);
@@ -286,10 +315,10 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
         return dataList;
     }
 
-    // MeditationLogDatabaseHelper.java  (just below other helpers)
+    // MeditationLogDatabaseHelper.java (just below other helpers)
     public double getHoursForCurrentWeek() {
-        LocalDate today      = LocalDate.now();
-        LocalDate monday     = today.with(DayOfWeek.MONDAY);
+        LocalDate today = LocalDate.now();
+        LocalDate monday = today.with(getStartDayOfWeek());
         LocalDate nextMonday = monday.plusWeeks(1);
 
         return getTotalWeeklyMeditationHoursForDateRange(
@@ -306,9 +335,10 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery(
                 "SELECT ((strftime('%w', date) + 6) % 7) AS day, SUM(total_seconds)/3600.0 " +
-                        "FROM logs WHERE strftime('%Y-%m-%d', date) >= ? AND strftime('%Y-%m-%d', date) < date(?, '+7 days') " +
+                        "FROM logs WHERE strftime('%Y-%m-%d', date) >= ? AND strftime('%Y-%m-%d', date) < date(?, '+7 days') "
+                        +
                         "GROUP BY day ORDER BY day",
-                new String[]{startDate, startDate});
+                new String[] { startDate, startDate });
 
         if (cursor.moveToFirst()) {
             do {
@@ -321,7 +351,7 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
         db.close();
 
         for (int i = 0; i < 7; i++) {
-            if (dayTotals[i] > 0f) {          // skip zeros
+            if (dayTotals[i] > 0f) { // skip zeros
                 entries.add(new BarEntry(i, dayTotals[i]));
             }
         }
@@ -335,7 +365,7 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery(
                 "SELECT SUM(total_seconds)/3600.0 FROM logs WHERE strftime('%Y-%m-%d', date) >= ? AND strftime('%Y-%m-%d', date) < ?",
-                new String[]{startDate, endDate});
+                new String[] { startDate, endDate });
 
         if (cursor.moveToFirst()) {
             totalHours = cursor.getFloat(0);
@@ -356,7 +386,7 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
                 "FROM logs WHERE date >= ? AND date < date(?, '+1 month') " +
                 "GROUP BY date ORDER BY date";
 
-        Cursor cursor = db.rawQuery(query, new String[]{startDate, startDate});
+        Cursor cursor = db.rawQuery(query, new String[] { startDate, startDate });
 
         if (cursor.moveToFirst()) {
             do {
@@ -370,14 +400,15 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
                         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
                         date = dateFormat.parse(logDate);
                     } else { // Format `yyyy-MM-dd HH:mm:ss`
-                        SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+                        SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
+                                Locale.getDefault());
                         date = dateTimeFormat.parse(logDate);
                     }
 
                     // Determine the week of the month
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTime(date);
-                    calendar.setFirstDayOfWeek(Calendar.MONDAY);
+                    calendar.setFirstDayOfWeek(getStartDay());
                     int weekOfMonth = calendar.get(Calendar.WEEK_OF_MONTH) - 1; // Zero-based index
                     if (weekOfMonth >= 0 && weekOfMonth < 5) {
                         weekTotals[weekOfMonth] += totalHours; // Add hours to the respective week
@@ -392,7 +423,7 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
 
         // Populate the BarEntry list
         for (int i = 0; i < 5; i++) {
-            if (weekTotals[i] > 0f) {          // skip zeros
+            if (weekTotals[i] > 0f) { // skip zeros
                 entries.add(new BarEntry(i, weekTotals[i]));
             }
         }
@@ -406,7 +437,7 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery(
                 "SELECT SUM(total_seconds)/3600.0 FROM logs WHERE strftime('%Y-%m-%d', date) >= ? AND strftime('%Y-%m-%d', date) < ?",
-                new String[]{startDate, endDate});
+                new String[] { startDate, endDate });
 
         if (cursor.moveToFirst()) {
             totalHours = cursor.getFloat(0);
@@ -424,10 +455,10 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery(
                 "SELECT strftime('%m', date) AS month, SUM(total_seconds)/3600.0 " +
-                        "FROM logs WHERE strftime('%Y-%m-%d', date) >= ? AND strftime('%Y-%m-%d', date) < date(?, '+1 year') " +
+                        "FROM logs WHERE strftime('%Y-%m-%d', date) >= ? AND strftime('%Y-%m-%d', date) < date(?, '+1 year') "
+                        +
                         "GROUP BY month ORDER BY month",
-                new String[]{startDate, startDate});
-
+                new String[] { startDate, startDate });
 
         if (cursor.moveToFirst()) {
             do {
@@ -440,7 +471,7 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
         db.close();
 
         for (int i = 0; i < 12; i++) {
-            if (monthTotals[i] > 0f) {          // skip zeros
+            if (monthTotals[i] > 0f) { // skip zeros
                 entries.add(new BarEntry(i, monthTotals[i]));
             }
         }
@@ -456,7 +487,7 @@ public class MeditationLogDatabaseHelper extends SQLiteOpenHelper {
         try {
             cursor = db.rawQuery(
                     "SELECT SUM(total_seconds)/3600.0 FROM logs WHERE strftime('%Y-%m-%d', date) >= ? AND strftime('%Y-%m-%d', date) < ?",
-                    new String[]{startDate, endDate});
+                    new String[] { startDate, endDate });
 
             if (cursor.moveToFirst()) {
                 totalHours = cursor.getFloat(0);

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <solid android:color="@color/mid_button_bg"/> <!-- Change the color as needed -->
-    <corners android:radius="16dp"/> <!-- Adjust the radius as needed -->
+    <corners android:radius="?attr/customButtonRadius"/> <!-- Adjust the radius as needed -->
     <stroke
         android:width="2dp"
         android:dashWidth="9dp"

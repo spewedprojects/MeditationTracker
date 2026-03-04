@@ -269,7 +269,7 @@ public class SummaryActivity extends BaseActivity {
 //            LocalDate date = LocalDate.parse(startDate, formatter);
 //
 //            // Force ISO-8601 (Monday start) calculation
-//            WeekFields weekFields = WeekFields.of(DayOfWeek.MONDAY, 4);
+//            WeekFields weekFields = WeekFields.of(getStartDayOfWeek(), 4);
 //            int weekOfYear = date.get(weekFields.weekOfWeekBasedYear());
 //
 //            return "Week #" + weekOfYear;
@@ -327,8 +327,8 @@ public class SummaryActivity extends BaseActivity {
     // ----- WEEKLY VIEW -----
     private String getMondayOfCurrentWeek() {
         Calendar calendar = Calendar.getInstance();
-        calendar.setFirstDayOfWeek(Calendar.MONDAY);
-        calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        calendar.setFirstDayOfWeek(getStartDay());
+        calendar.set(Calendar.DAY_OF_WEEK, getStartDay());
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         return sdf.format(calendar.getTime());
     }
@@ -429,7 +429,7 @@ public class SummaryActivity extends BaseActivity {
             DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.getDefault());
             LocalDate monthStart = LocalDate.parse(selectedMonthStartDate, fmt);
             LocalDate target = monthStart.plusWeeks(weekOffset)
-                    .with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+                    .with(TemporalAdjusters.previousOrSame(getStartDayOfWeek()));
             selectedWeekStartDate = target.format(fmt);
 
             // FIX: Find the nearest "Week" page relative to where we are now. (29/01/26)

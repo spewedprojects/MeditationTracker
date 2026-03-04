@@ -17,4 +17,6 @@
     <attr name="textAppearanceProgressLabel" format="reference" />
     <attr name="textAppearanceSubhead" format="reference" />
     <attr name="textAppearanceTextInput" format="reference" />
+    <attr name="customCardRadius" format="dimension" />
+    <attr name="customButtonRadius" format="dimension" />
 </resources>

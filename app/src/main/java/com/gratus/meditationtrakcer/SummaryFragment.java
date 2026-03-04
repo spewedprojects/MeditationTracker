@@ -255,7 +255,7 @@ public class SummaryFragment extends Fragment {
                 DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.getDefault());
                 LocalDate start = LocalDate.parse(startDate, fmt);
                 DateTimeFormatter outFmt = DateTimeFormatter.ofPattern("dd-E", Locale.getDefault());
-                LocalDate monday = start.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+                LocalDate monday = start.with(TemporalAdjusters.previousOrSame(getParent().getStartDayOfWeek()));
                 for (int i = 0; i < 7; i++)
                     labels.add(monday.plusDays(i).format(outFmt));
             } catch (Exception e) {
@@ -303,7 +303,7 @@ public class SummaryFragment extends Fragment {
             try {
                 DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.getDefault());
                 LocalDate start = LocalDate.parse(startDate, fmt);
-                WeekFields wf = WeekFields.of(DayOfWeek.MONDAY, 4);
+                WeekFields wf = WeekFields.of(getParent().getStartDayOfWeek(), 4);
                 for (int i = 0; i < 5; i++) {
                     int weekNum = start.plusWeeks(i).get(wf.weekOfWeekBasedYear());
                     labels.add("Week #" + weekNum);

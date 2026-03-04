@@ -2,6 +2,7 @@ package com.gratus.meditationtrakcer;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.core.graphics.Insets;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gratus.meditationtrakcer.adapters.ReleaseNotesAdapter;
+import com.gratus.meditationtrakcer.utils.TextFormatUtils;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -41,6 +43,17 @@ public class ReleaseNotesActivity extends BaseActivity {
 
         // Initialize the toolbar and menu button
         setupToolbar(R.id.toolbar2, R.id.menubutton);
+
+        TextView formattedCurrentVersionDetails = findViewById(R.id.current_version_details);
+        // Get raw text from resources
+        String rawText = getString(R.string.current_version_details);
+
+        // Format it using your utility
+        CharSequence formattedText = TextFormatUtils.formatNotesForDisplay(rawText);
+
+        // Apply to TextView
+        formattedCurrentVersionDetails.setText(formattedText);
+
 
         recyclerView = findViewById(R.id.RN_recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

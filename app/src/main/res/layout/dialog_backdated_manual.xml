@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_marginVertical="48dp"
         android:layout_marginHorizontal="58dp"
-        app:cardCornerRadius="12dp"
+        app:cardCornerRadius="?attr/customCardRadius"
         app:strokeWidth="0dp"
         app:strokeColor="@color/success_green"
         app:cardElevation="16dp"
@@ -116,7 +116,7 @@
                         android:text="@string/add_entry"
                         android:textAllCaps="false"
                         android:textColor="?attr/colorPrimary"
-                        app:cornerRadius="8dp"/> <!-- Add goal button -->
+                        app:cornerRadius="?attr/customButtonRadius"/> <!-- Add goal button -->
 
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>

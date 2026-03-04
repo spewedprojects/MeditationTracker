@@ -35,7 +35,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintVertical_bias="0"
         app:cardBackgroundColor="?attr/colorPrimaryVariant"
-        app:cardCornerRadius="12dp"
+        app:cardCornerRadius="?attr/customCardRadius"
         android:elevation="10dp">
 
         <LinearLayout
@@ -64,6 +64,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
+            android:letterSpacing="0"
             android:filterTouchesWhenObscured="false"
             android:focusableInTouchMode="true"
             android:textAppearance="?attr/textAppearanceAppButton"
@@ -82,9 +83,9 @@
             android:layout_marginBottom="16dp"
             android:filterTouchesWhenObscured="false"
             android:focusableInTouchMode="true"
-            android:textAppearance="?attr/textAppearanceAppSubtitle"
-                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subtitle"
-            android:letterSpacing="0.01"
+            android:textAppearance="?attr/textAppearanceAppSubtitle2"
+            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subtitle2"
+            android:letterSpacing="0.02"
             android:text="@string/current_version_details"
             android:textColor="?attr/colorOnPrimary"
             tools:ignore="TextViewEdits" /> <!-- Release notes page title -->

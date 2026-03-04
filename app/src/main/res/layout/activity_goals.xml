@@ -43,7 +43,7 @@
             android:elevation="8dp"
             app:barrierMargin="16dp"
             app:cardBackgroundColor="?attr/colorPrimaryVariant"
-            app:cardCornerRadius="12dp"
+            app:cardCornerRadius="?attr/customCardRadius"
             app:cardElevation="6dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -173,7 +173,7 @@
                                 android:text="A"
                                 android:textAppearance="?attr/textAppearanceAppButton"
                                 android:textColor="@color/white_black"
-                                app:cornerRadius="10dp"
+                                app:cornerRadius="?attr/customButtonRadius"
                                 tools:theme="@style/TextAppearance.MeditationTracker.AppFont.AppButton" />
 
                             <!-- Import Button -->
@@ -189,7 +189,7 @@
                                 android:text="B"
                                 android:textAppearance="?attr/textAppearanceAppButton"
                                 android:textColor="@color/white_black"
-                                app:cornerRadius="10dp"
+                                app:cornerRadius="?attr/customButtonRadius"
                                 tools:theme="@style/TextAppearance.MeditationTracker.AppFont.AppButton"/>
 
                         </com.google.android.material.button.MaterialButtonToggleGroup> <!-- Method change button group -->
@@ -472,7 +472,7 @@
                             android:textAppearance="?attr/textAppearanceAppButton"
                             android:textColor="?attr/colorPrimary"
                             android:textStyle="bold"
-                            app:cornerRadius="10dp"
+                            app:cornerRadius="?attr/customButtonRadius"
                             tools:theme="@style/TextAppearance.MeditationTracker.AppFont.AppButton" /> <!-- Add goal button -->
                     </LinearLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout> <!-- items constrained to cardview -->

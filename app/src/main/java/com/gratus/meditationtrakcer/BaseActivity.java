@@ -59,6 +59,7 @@ import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
 import java.util.Date;
 import java.util.Locale;
 
@@ -93,6 +94,9 @@ public class BaseActivity extends AppCompatActivity {
             setTheme(R.style.Theme_MeditationTracker_AppFont);
         }
 
+        // Apply Corner Radius Theme Overlays BEFORE super.onCreate
+        applyCornerRadiusThemes(prefs);
+
         migrateLegacyPreferences(); // Run migration before applying theme
         applyTheme();
         super.onCreate(savedInstanceState);
@@ -100,12 +104,46 @@ public class BaseActivity extends AppCompatActivity {
         setupOnDoubleBackPressed();
     }
 
+    private void applyCornerRadiusThemes(SharedPreferences prefs) {
+        float cardRadius = prefs.getFloat("custom_card_radius", 12f);
+        float btnRadius = prefs.getFloat("custom_btn_radius", 10f);
+
+        if (cardRadius == 12f) {
+            getTheme().applyStyle(R.style.ThemeOverlay_MeditationTracker_CardRadius12, true);
+        } else if (cardRadius == 24f) {
+            getTheme().applyStyle(R.style.ThemeOverlay_MeditationTracker_CardRadius24, true);
+        } else if (cardRadius == 36f) {
+            getTheme().applyStyle(R.style.ThemeOverlay_MeditationTracker_CardRadius36, true);
+        }
+
+        if (btnRadius == 10f) {
+            getTheme().applyStyle(R.style.ThemeOverlay_MeditationTracker_ButtonRadius10, true);
+        } else if (btnRadius == 15f) {
+            getTheme().applyStyle(R.style.ThemeOverlay_MeditationTracker_ButtonRadius15, true);
+        } else if (btnRadius == 20f) {
+            getTheme().applyStyle(R.style.ThemeOverlay_MeditationTracker_ButtonRadius20, true);
+        }
+    }
+
+    // Helper to get Calendar start day
+    public int getStartDay() {
+        SharedPreferences prefs = getSharedPreferences(SHARED_PREFS_NAME, MODE_PRIVATE);
+        boolean isSunday = prefs.getBoolean("week_start_sun", false);
+        return isSunday ? java.util.Calendar.SUNDAY : java.util.Calendar.MONDAY;
+    }
+
+    // Helper to get LocalTime start day
+    public DayOfWeek getStartDayOfWeek() {
+        SharedPreferences prefs = getSharedPreferences(SHARED_PREFS_NAME, MODE_PRIVATE);
+        boolean isSunday = prefs.getBoolean("week_start_sun", false);
+        return isSunday ? DayOfWeek.SUNDAY : DayOfWeek.MONDAY;
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
 
-        // Check if the font preference changed while this activity was in the
-        // background
+        // Check if the font preference changed while this activity was in the background
         SharedPreferences prefs = getSharedPreferences(SHARED_PREFS_NAME, MODE_PRIVATE);
         boolean shouldBeSystemFont = prefs.getBoolean("use_system_font", false);
 

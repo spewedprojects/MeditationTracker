@@ -192,7 +192,7 @@ public class StreakDialogFragment extends DialogFragment {
                     calendar.get(Calendar.MONTH),
                     calendar.get(Calendar.DAY_OF_MONTH));
             // After creating the dialog, set the first day of week on its DatePicker
-            dPDialog.getDatePicker().setFirstDayOfWeek(Calendar.MONDAY);
+            dPDialog.getDatePicker().setFirstDayOfWeek(((BaseActivity) requireActivity()).getStartDay());
 
             dPDialog.setOnShowListener(dialog -> {
                 Button positiveButton = dPDialog.getButton(DialogInterface.BUTTON_POSITIVE);

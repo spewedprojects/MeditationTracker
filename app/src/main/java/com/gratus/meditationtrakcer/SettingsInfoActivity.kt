@@ -34,6 +34,7 @@ class SettingsInfoActivity : BaseActivity(){
 
         setupYAxisSwitch()
         setupFontToggle()
+        setupWeekStartToggle()
         setupCustomRadiiBlock()
     }
 
@@ -94,6 +95,49 @@ class SettingsInfoActivity : BaseActivity(){
         }
     }
 
+    private fun setupWeekStartToggle() {
+        val dayToggleGroup = findViewById<com.google.android.material.button.MaterialButtonToggleGroup>(R.id.switchDay)
+        val prefs = getSharedPreferences(BaseActivity.SHARED_PREFS_NAME, Context.MODE_PRIVATE)
+
+        val sunBtn = findViewById<com.google.android.material.button.MaterialButton>(R.id.set_Sun_btn)
+        val monBtn = findViewById<com.google.android.material.button.MaterialButton>(R.id.set_Mon_btn)
+        val subtitleContainer = findViewById<ViewGroup>(R.id.weekStartTextContainer)
+        val subtitle = subtitleContainer?.getChildAt(1) as? TextView
+
+        val isSunday = prefs.getBoolean("week_start_sun", false)
+        val activeStroke = resources.getDimensionPixelSize(R.dimen.active_stroke_width)
+
+        if (isSunday) {
+            dayToggleGroup.check(R.id.set_Sun_btn)
+            sunBtn.strokeWidth = activeStroke
+            monBtn.strokeWidth = 0
+            subtitle?.text = "Sunday"
+        } else {
+            dayToggleGroup.check(R.id.set_Mon_btn)
+            monBtn.strokeWidth = activeStroke
+            sunBtn.strokeWidth = 0
+            subtitle?.text = "Monday"
+        }
+
+        dayToggleGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->
+            if (isChecked) {
+                val setSunday = (checkedId == R.id.set_Sun_btn)
+                prefs.edit { putBoolean("week_start_sun", setSunday) }
+                
+                if (setSunday) {
+                    sunBtn.strokeWidth = activeStroke
+                    monBtn.strokeWidth = 0
+                    subtitle?.text = "Sunday"
+                } else {
+                    monBtn.strokeWidth = activeStroke
+                    sunBtn.strokeWidth = 0
+                    subtitle?.text = "Monday"
+                }
+                recreate()
+            }
+        }
+    }
+
     private fun setupCustomRadiiBlock(){
         // 1. Initialize the new Views
         val colExpButton = findViewById<ImageButton?>(R.id.btn_expand_radius_options)
@@ -129,6 +173,34 @@ class SettingsInfoActivity : BaseActivity(){
                     .rotation(0f)
                     .setDuration(150)
                     .start()
+            }
+        }
+
+        // --- Slider Logic ---
+        val prefs = getSharedPreferences(BaseActivity.SHARED_PREFS_NAME, Context.MODE_PRIVATE)
+        val cardSlider = findViewById<com.google.android.material.slider.Slider>(R.id.setcard_radius_slider)
+        val btnSlider = findViewById<com.google.android.material.slider.Slider>(R.id.setbtn_radius_slider)
+
+        // Guard
+        if (cardSlider == null || btnSlider == null) return
+
+        // Set initial values
+        cardSlider.value = prefs.getFloat("custom_card_radius", 12f)
+        btnSlider.value = prefs.getFloat("custom_btn_radius", 10f)
+
+        cardSlider.addOnChangeListener { _, value, fromUser ->
+            if (fromUser) {
+                prefs.edit { putFloat("custom_card_radius", value) }
+                // Debouncing or recreation
+                cardSlider.postDelayed({ recreate() }, 200)
+            }
+        }
+
+        btnSlider.addOnChangeListener { _, value, fromUser ->
+            if (fromUser) {
+                prefs.edit { putFloat("custom_btn_radius", value) }
+                // Debouncing or recreation
+                btnSlider.postDelayed({ recreate() }, 200)
             }
         }
 

@@ -83,7 +83,7 @@ public class BackdatedDialogFragment extends DialogFragment {
         // Configure CalendarView
         long today = System.currentTimeMillis();
         calendarView.setMaxDate(today); // Disable future dates
-        calendarView.setFirstDayOfWeek(Calendar.MONDAY);
+        calendarView.setFirstDayOfWeek(((BaseActivity) requireActivity()).getStartDay());
         selectedDateInMillis = today; // Default to today
 
         calendarView.setOnDateChangeListener((view1, year, month, dayOfMonth) -> {

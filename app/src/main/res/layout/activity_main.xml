@@ -34,7 +34,7 @@
         android:layout_marginBottom="0dp"
         app:barrierMargin="16dp"
         app:cardElevation="4dp"
-        app:cardCornerRadius="12dp"
+        app:cardCornerRadius="?attr/customCardRadius"
         android:elevation="6dp"
         app:cardBackgroundColor="?attr/colorPrimaryVariant"
         app:layout_constraintTop_toBottomOf="@id/toolbar2_const"
@@ -120,7 +120,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginStart="8dp"
         android:layout_marginBottom="0dp"
-        app:cardCornerRadius="12dp"
+        app:cardCornerRadius="?attr/customCardRadius"
         app:strokeWidth="2dp"
         app:strokeColor="@color/success_green"
         app:cardElevation="4dp"
@@ -146,21 +146,15 @@
                 android:layout_marginTop="22dp"
                 android:layout_marginBottom="8dp"
                 android:layout_marginHorizontal="25dp"
-                android:clickable="false"
                 android:cursorVisible="false"
-                android:filterTouchesWhenObscured="false"
-                android:focusable="false"
-                android:focusableInTouchMode="true"
                 android:textAppearance="?attr/textAppearanceDateHeader"
                 tools:theme="@style/TextAppearance.MeditationTracker.AppFont.DateHeader"
                 android:inputType="date"
-                android:longClickable="false"
                 android:text="Streak"
                 android:textColor="@color/onPrimary2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="TextViewEdits" /> <!-- android:ems="10" removing this removed the touchsize too small and one another warning-->
+                app:layout_constraintTop_toTopOf="parent"/> <!-- android:ems="10" removing this removed the touchsize too small and one another warning-->
 
             <TextView
                 android:id="@+id/streak"
@@ -168,8 +162,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="24dp"
                 android:layout_marginBottom="4dp"
-                android:filterTouchesWhenObscured="false"
-                android:focusableInTouchMode="true"
                 android:textAppearance="?attr/textAppearanceStatValue"
                 tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatValue"
                 android:text="111"
@@ -179,8 +171,7 @@
                 app:layout_constraintBottom_toTopOf="@id/streak_progress_bar"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintVertical_bias="0.41"
-                tools:ignore="TextViewEdits" /> <!-- Streak duration -->
+                app:layout_constraintVertical_bias="0.41"/> <!-- Streak duration -->
 
             <ProgressBar
                 android:id="@+id/streak_progress_bar"
@@ -226,7 +217,7 @@
                 android:layout_marginTop="16dp"
                 app:barrierMargin="16dp"
                 app:cardBackgroundColor="?attr/colorPrimaryVariant"
-                app:cardCornerRadius="12dp"
+                app:cardCornerRadius="?attr/customCardRadius"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintCircleRadius="8dp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -281,7 +272,7 @@
                         android:text="@string/record"
                         android:textAllCaps="false"
                         android:textColor="@color/white_black"
-                        app:cornerRadius="8dp"
+                        app:cornerRadius="?attr/customButtonRadius"
                         app:rippleColor="@color/big_button_bg" /> <!-- Record button -->
 
                 </LinearLayout>
@@ -296,7 +287,7 @@
                 android:layout_marginHorizontal="22dp"
                 android:layout_marginTop="16dp"
                 app:barrierMargin="16dp"
-                app:cardCornerRadius="12dp"
+                app:cardCornerRadius="?attr/customCardRadius"
                 app:cardBackgroundColor="?attr/colorPrimaryVariant"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintCircleRadius="8dp"
@@ -386,7 +377,7 @@
                         android:textAllCaps="false"
                         android:letterSpacing="0.1"
                         android:textColor="@color/white_black"
-                        app:cornerRadius="8dp"/> <!-- Add manually button -->
+                        app:cornerRadius="?attr/customButtonRadius"/> <!-- Add manually button -->
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView> <!-- For cardview Manual Entry-->
@@ -401,7 +392,7 @@
                 android:layout_marginBottom="16dp"
                 android:visibility="visible"
                 app:cardBackgroundColor="?attr/colorPrimaryVariant"
-                app:cardCornerRadius="12dp"
+                app:cardCornerRadius="?attr/customCardRadius"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

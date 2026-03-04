@@ -24,7 +24,7 @@
         tools:theme="@style/TextAppearance.MeditationTracker.AppFont.AppButton"
         android:textColor="?attr/colorOnPrimary"
         android:backgroundTint="@android:color/transparent"
-        app:cornerRadius="8dp"
+        app:cornerRadius="?attr/customButtonRadius"
         android:insetBottom="0dp"
         android:insetTop="0dp"
         android:clickable="true"
@@ -45,7 +45,7 @@
         android:backgroundTint="@android:color/transparent"
         android:clickable="true"
         android:focusable="true"
-        app:cornerRadius="8dp"
+        app:cornerRadius="?attr/customButtonRadius"
         android:insetBottom="0dp"
         android:insetTop="0dp"/>
 
@@ -64,7 +64,7 @@
         android:backgroundTint="@android:color/transparent"
         android:clickable="true"
         android:focusable="true"
-        app:cornerRadius="8dp"
+        app:cornerRadius="?attr/customButtonRadius"
         android:insetBottom="0dp"
         android:insetTop="0dp"/>
 
@@ -83,7 +83,7 @@
         android:backgroundTint="@android:color/transparent"
         android:clickable="true"
         android:focusable="true"
-        app:cornerRadius="8dp"
+        app:cornerRadius="?attr/customButtonRadius"
         android:insetBottom="0dp"
         android:insetTop="0dp"/>
 
@@ -102,7 +102,7 @@
         android:backgroundTint="@android:color/transparent"
         android:clickable="true"
         android:focusable="true"
-        app:cornerRadius="8dp"
+        app:cornerRadius="?attr/customButtonRadius"
         android:insetBottom="0dp"
         android:insetTop="0dp"/>
 
@@ -121,7 +121,7 @@
         android:backgroundTint="@android:color/transparent"
         android:clickable="true"
         android:focusable="true"
-        app:cornerRadius="8dp"
+        app:cornerRadius="?attr/customButtonRadius"
         android:insetBottom="0dp"
         android:insetTop="0dp"/>
 
@@ -140,7 +140,7 @@
         android:backgroundTint="@android:color/transparent"
         android:clickable="true"
         android:focusable="true"
-        app:cornerRadius="8dp"
+        app:cornerRadius="?attr/customButtonRadius"
         android:insetBottom="0dp"
         android:insetTop="0dp"/>
 
@@ -159,7 +159,7 @@
         android:backgroundTint="@android:color/transparent"
         android:clickable="true"
         android:focusable="true"
-        app:cornerRadius="8dp"
+        app:cornerRadius="?attr/customButtonRadius"
         android:insetBottom="0dp"
         android:insetTop="0dp"/>
 
@@ -178,7 +178,7 @@
         android:backgroundTint="@android:color/transparent"
         android:clickable="true"
         android:focusable="true"
-        app:cornerRadius="8dp"
+        app:cornerRadius="?attr/customButtonRadius"
         android:insetBottom="0dp"
         android:insetTop="0dp"/>
 
@@ -197,7 +197,7 @@
         android:backgroundTint="@android:color/transparent"
         android:clickable="true"
         android:focusable="true"
-        app:cornerRadius="8dp"
+        app:cornerRadius="?attr/customButtonRadius"
         android:insetBottom="0dp"
         android:insetTop="0dp"/>
 
@@ -216,7 +216,7 @@
         android:backgroundTint="@android:color/transparent"
         android:clickable="true"
         android:focusable="true"
-        app:cornerRadius="8dp"
+        app:cornerRadius="?attr/customButtonRadius"
         android:insetBottom="0dp"
         android:insetTop="0dp"/>
 
@@ -235,7 +235,7 @@
         android:backgroundTint="@android:color/transparent"
         android:clickable="true"
         android:focusable="true"
-        app:cornerRadius="8dp"
+        app:cornerRadius="?attr/customButtonRadius"
         android:insetBottom="0dp"
         android:insetTop="0dp"/>
 

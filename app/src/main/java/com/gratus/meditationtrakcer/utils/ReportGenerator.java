@@ -20,11 +20,13 @@ import java.util.concurrent.TimeUnit;
 
 public class ReportGenerator {
 
-    public static MeditationReportData generateReport(Context context, String startDate, String endDate, boolean isYearly, String title) {
+    public static MeditationReportData generateReport(Context context, String startDate, String endDate,
+            boolean isYearly, String title) {
         MeditationLogDatabaseHelper db = new MeditationLogDatabaseHelper(context);
         MeditationReportData data = new MeditationReportData();
 
-        data.reportId = (isYearly ? "Y_" : "M_") + startDate.split("-")[0] + (isYearly ? "" : "_" + startDate.split("-")[1]);
+        data.reportId = (isYearly ? "Y_" : "M_") + startDate.split("-")[0]
+                + (isYearly ? "" : "_" + startDate.split("-")[1]);
         data.title = title;
         data.isYearly = isYearly;
         data.generatedTimestamp = System.currentTimeMillis();
@@ -33,17 +35,19 @@ public class ReportGenerator {
         ArrayList<MeditationLogDatabaseHelper.SessionData> sessions = db.getSessionDataForRange(startDate, endDate);
         data.totalSessions = sessions.size();
 
-        if (sessions.isEmpty()) return data;
+        if (sessions.isEmpty())
+            return data;
 
         // 2. Calculate Totals & Averages
         long totalSeconds = 0;
-        for (MeditationLogDatabaseHelper.SessionData s : sessions) totalSeconds += s.durationSeconds;
+        for (MeditationLogDatabaseHelper.SessionData s : sessions)
+            totalSeconds += s.durationSeconds;
 
         data.totalHours = totalSeconds / 3600f;
         data.avgSessionLength = (data.totalSessions > 0) ? (int) ((totalSeconds / 60) / data.totalSessions) : 0;
 
         // 3. Complex Calculations (Streaks, Gaps, Monthly Activity)
-        processDatesAndActivity(data, sessions, startDate, endDate);
+        processDatesAndActivity(context, data, sessions, startDate, endDate);
 
         // 4. Charts Data
         processCharts(data, sessions);
@@ -51,7 +55,8 @@ public class ReportGenerator {
         return data;
     }
 
-    private static void processDatesAndActivity(MeditationReportData data, ArrayList<MeditationLogDatabaseHelper.SessionData> sessions, String startStr, String endStr) {
+    private static void processDatesAndActivity(Context context, MeditationReportData data,
+            ArrayList<MeditationLogDatabaseHelper.SessionData> sessions, String startStr, String endStr) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         Set<String> uniqueDateStrings = new HashSet<>();
         List<Long> uniqueDayTimestamps = new ArrayList<>();
@@ -67,7 +72,10 @@ public class ReportGenerator {
             String d = sdf.format(new Date(s.timestamp));
             if (!uniqueDateStrings.contains(d)) {
                 uniqueDateStrings.add(d);
-                try { uniqueDayTimestamps.add(sdf.parse(d).getTime()); } catch (Exception e) {}
+                try {
+                    uniqueDayTimestamps.add(sdf.parse(d).getTime());
+                } catch (Exception e) {
+                }
             }
 
             // Monthly Aggregation (Only if Yearly)
@@ -86,7 +94,8 @@ public class ReportGenerator {
             Date s = sdf.parse(startStr);
             Date e = sdf.parse(endStr);
             diffInMillies = Math.abs(e.getTime() - s.getTime());
-        } catch (Exception ex) {}
+        } catch (Exception ex) {
+        }
 
         int totalDaysInRange = (int) TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS) + 1;
         int activeDays = uniqueDayTimestamps.size();
@@ -140,7 +149,8 @@ public class ReportGenerator {
         // Metric 1: Streak Stability = Average Streak Length
         if (!streakLengths.isEmpty()) {
             int sumStreaks = 0;
-            for (int len : streakLengths) sumStreaks += len;
+            for (int len : streakLengths)
+                sumStreaks += len;
             data.streakStability = (float) sumStreaks / streakLengths.size();
         } else {
             data.streakStability = 0;
@@ -151,9 +161,10 @@ public class ReportGenerator {
 
         // --- C. Weeks Not Meditated ---
         try {
+            int startDay = getStartDay(context);
             cal.setTime(sdf.parse(startStr));
-            cal.setFirstDayOfWeek(Calendar.MONDAY);
-            while (cal.get(Calendar.DAY_OF_WEEK) != Calendar.MONDAY) {
+            cal.setFirstDayOfWeek(startDay);
+            while (cal.get(Calendar.DAY_OF_WEEK) != startDay) {
                 cal.add(Calendar.DAY_OF_YEAR, -1);
             }
 
@@ -172,11 +183,14 @@ public class ReportGenerator {
                         break;
                     }
                 }
-                if (!meditatedThisWeek) zeroWeeks++;
+                if (!meditatedThisWeek)
+                    zeroWeeks++;
             }
             data.weeksNotMeditated = zeroWeeks;
 
-        } catch (Exception e) { e.printStackTrace(); }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         // --- D. Yearly Activity Extremes (NEW LOGIC) ---
         if (data.isYearly && !monthlyHours.isEmpty()) {
@@ -209,20 +223,35 @@ public class ReportGenerator {
         }
     }
 
-    private static void processCharts(MeditationReportData data, ArrayList<MeditationLogDatabaseHelper.SessionData> sessions) {
+    private static void processCharts(MeditationReportData data,
+            ArrayList<MeditationLogDatabaseHelper.SessionData> sessions) {
         Calendar cal = Calendar.getInstance();
         for (MeditationLogDatabaseHelper.SessionData s : sessions) {
             cal.setTimeInMillis(s.timestamp);
             int hour = cal.get(Calendar.HOUR_OF_DAY);
-            if (hour >= 4 && hour < 12) data.preferredTimes.put("Morning", data.preferredTimes.get("Morning") + 1);
-            else if (hour >= 12 && hour < 17) data.preferredTimes.put("Noon", data.preferredTimes.get("Noon") + 1);
-            else data.preferredTimes.put("Evening", data.preferredTimes.get("Evening") + 1);
+            if (hour >= 4 && hour < 12)
+                data.preferredTimes.put("Morning", data.preferredTimes.get("Morning") + 1);
+            else if (hour >= 12 && hour < 17)
+                data.preferredTimes.put("Noon", data.preferredTimes.get("Noon") + 1);
+            else
+                data.preferredTimes.put("Evening", data.preferredTimes.get("Evening") + 1);
 
             int mins = s.durationSeconds / 60;
-            if (mins < 5) data.sessionFrequency.put("0-5 min", data.sessionFrequency.get("0-5 min") + 1);
-            else if (mins < 10) data.sessionFrequency.put("5-10 min", data.sessionFrequency.get("5-10 min") + 1);
-            else if (mins <= 25) data.sessionFrequency.put("10-25 min", data.sessionFrequency.get("10-25 min") + 1);
-            else data.sessionFrequency.put(">25mins", data.sessionFrequency.get(">25mins") + 1);
+            if (mins < 5)
+                data.sessionFrequency.put("0-5 min", data.sessionFrequency.get("0-5 min") + 1);
+            else if (mins < 10)
+                data.sessionFrequency.put("5-10 min", data.sessionFrequency.get("5-10 min") + 1);
+            else if (mins <= 25)
+                data.sessionFrequency.put("10-25 min", data.sessionFrequency.get("10-25 min") + 1);
+            else
+                data.sessionFrequency.put(">25mins", data.sessionFrequency.get(">25mins") + 1);
         }
+    }
+
+    private static int getStartDay(Context context) {
+        android.content.SharedPreferences prefs = context.getSharedPreferences("MeditationTrackerPrefs",
+                Context.MODE_PRIVATE);
+        boolean isSunday = prefs.getBoolean("week_start_sun", false);
+        return isSunday ? Calendar.SUNDAY : Calendar.MONDAY;
     }
 }

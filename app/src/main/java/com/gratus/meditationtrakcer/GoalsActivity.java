@@ -432,7 +432,7 @@ public class GoalsActivity extends BaseActivity {
             dateInput.setText(selectedDate);
         }, year, month, day);
         // After creating the dialog, set the first day of week on its DatePicker
-        dPDialog.getDatePicker().setFirstDayOfWeek(Calendar.MONDAY);
+        dPDialog.getDatePicker().setFirstDayOfWeek(getStartDay());
 
         InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         if (imm != null) {
