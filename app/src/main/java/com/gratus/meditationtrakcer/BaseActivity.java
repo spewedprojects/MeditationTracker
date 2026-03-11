@@ -112,28 +112,24 @@ public class BaseActivity extends AppCompatActivity {
         float cardRadius = prefs.getFloat("custom_card_radius", 12f);
         float btnRadius = prefs.getFloat("custom_btn_radius", 10f);
 
-        if (cardRadius == 12f) {
-            getTheme().applyStyle(R.style.ThemeOverlay_MeditationTracker_CardRadius12, true);
-        } else if (cardRadius == 16f) {
-            getTheme().applyStyle(R.style.ThemeOverlay_MeditationTracker_CardRadius16, true);
-        } else if (cardRadius == 20f) {
-            getTheme().applyStyle(R.style.ThemeOverlay_MeditationTracker_CardRadius20, true);
-        } else if (cardRadius == 24f) {
-            getTheme().applyStyle(R.style.ThemeOverlay_MeditationTracker_CardRadius24, true);
-        } else if (cardRadius == 28f) {
-            getTheme().applyStyle(R.style.ThemeOverlay_MeditationTracker_CardRadius28, true);
-        } else if (cardRadius == 32f) {
-            getTheme().applyStyle(R.style.ThemeOverlay_MeditationTracker_CardRadius32, true);
-        } else if (cardRadius == 36f) {
-            getTheme().applyStyle(R.style.ThemeOverlay_MeditationTracker_CardRadius36, true);
-        }
+        // Apply card radius overlay
+        applyOverlayForRadius("ThemeOverlay.MeditationTracker.CardRadius", cardRadius);
 
-        if (btnRadius == 10f) {
-            getTheme().applyStyle(R.style.ThemeOverlay_MeditationTracker_ButtonRadius10, true);
-        } else if (btnRadius == 15f) {
-            getTheme().applyStyle(R.style.ThemeOverlay_MeditationTracker_ButtonRadius15, true);
-        } else if (btnRadius == 20f) {
-            getTheme().applyStyle(R.style.ThemeOverlay_MeditationTracker_ButtonRadius20, true);
+        // Apply button radius overlay
+        applyOverlayForRadius("ThemeOverlay.MeditationTracker.ButtonRadius", btnRadius);
+    }
+
+    private void applyOverlayForRadius(String prefix, float radius) {
+        // Build the style name dynamically
+        String styleName = prefix + (int) radius;
+
+        // Look up the resource ID
+        int styleResId = getResources().getIdentifier(styleName, "style", getPackageName());
+
+        if (styleResId != 0) {
+            getTheme().applyStyle(styleResId, true);
+        } else {
+            Log.w("ThemeOverlay", "No style found for " + styleName);
         }
     }
 

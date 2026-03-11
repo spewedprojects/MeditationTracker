@@ -18,8 +18,20 @@ import com.google.android.material.materialswitch.MaterialSwitch
 
 class SettingsInfoActivity : BaseActivity(){
 
+    private var radiiExpanded = false // Standard variable
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBoolean("radii_expanded", radiiExpanded)
+    }
+
     override fun onCreate(savedInstanceState : Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // --- ADD THIS ---
+        // Restore the state if coming from recreate(), otherwise default to false
+        radiiExpanded = savedInstanceState?.getBoolean("radii_expanded", false) ?: false
+
         this.enableEdgeToEdge()
         setContentView(R.layout.activity_settingsinfo)
 
@@ -151,34 +163,28 @@ class SettingsInfoActivity : BaseActivity(){
         // Guard against nulls
         if (colExpButton == null || radiiContainer == null) return
 
-        // Restore expanded state
-        val wasExpanded = prefs.getBoolean("radii_expanded", false)
-        if (wasExpanded) {
+        if (radiiExpanded) {
             radiiContainer.visibility = View.VISIBLE
             colExpButton.rotation = 180f
+        } else {
+            radiiContainer.visibility = View.GONE
+            colExpButton.rotation = 0f
         }
 
         // Click listener to toggle visibility and rotate the button
         colExpButton.setOnClickListener {
-            val isCollapsed = radiiContainer.isGone
-            prefs.edit { putBoolean("radii_expanded", isCollapsed) }
+            radiiExpanded = !radiiExpanded
 
             TransitionManager.beginDelayedTransition(cardLinearLayout, AutoTransition())
 
-            if (isCollapsed) {
+            if (radiiExpanded) {
                 // Expand: make visible and rotate to 180 degrees
                 radiiContainer.visibility = View.VISIBLE
-                colExpButton.animate()
-                    .rotation(180f)
-                    .setDuration(150)
-                    .start()
+                colExpButton.animate().rotation(180f).setDuration(150).start()
             } else {
                 // Collapse: hide and rotate back to 0 degrees
                 radiiContainer.visibility = View.GONE
-                colExpButton.animate()
-                    .rotation(0f)
-                    .setDuration(150)
-                    .start()
+                colExpButton.animate().rotation(0f).setDuration(150).start()
             }
         }
 
@@ -189,30 +195,29 @@ class SettingsInfoActivity : BaseActivity(){
         // Guard
         if (cardSlider == null || btnSlider == null) return
 
-        // Set initial values
+        // Set initial values (Make sure to remove the old addOnChangeListener blocks!)
         cardSlider.value = prefs.getFloat("custom_card_radius", 12f)
         btnSlider.value = prefs.getFloat("custom_btn_radius", 10f)
 
-        cardSlider.addOnChangeListener { _, value, fromUser ->
-            if (fromUser) {
-                prefs.edit { putFloat("custom_card_radius", value) }
-                // Debouncing or recreation
-                cardSlider.postDelayed({ recreate() }, 200)
+        // Only save and recreate when the user lets go of the slider
+        cardSlider.addOnSliderTouchListener(object : com.google.android.material.slider.Slider.OnSliderTouchListener {
+            override fun onStartTrackingTouch(slider: com.google.android.material.slider.Slider) {
+                // Do nothing while dragging
             }
-        }
 
-        btnSlider.addOnChangeListener { _, value, fromUser ->
-            if (fromUser) {
-                prefs.edit { putFloat("custom_btn_radius", value) }
-                // Debouncing or recreation
-                btnSlider.postDelayed({ recreate() }, 200)
+            override fun onStopTrackingTouch(slider: com.google.android.material.slider.Slider) {
+                prefs.edit { putFloat("custom_card_radius", slider.value) }
+                recreate() // Recreate exactly once when they drop it
             }
-        }
-    }
+        })
 
-    override fun onStop() {
-        super.onStop()
-        getSharedPreferences(BaseActivity.SHARED_PREFS_NAME, Context.MODE_PRIVATE)
-            .edit { putBoolean("radii_expanded", false) }
+        btnSlider.addOnSliderTouchListener(object : com.google.android.material.slider.Slider.OnSliderTouchListener {
+            override fun onStartTrackingTouch(slider: com.google.android.material.slider.Slider) {}
+
+            override fun onStopTrackingTouch(slider: com.google.android.material.slider.Slider) {
+                prefs.edit { putFloat("custom_btn_radius", slider.value) }
+                recreate()
+            }
+        })
     }
 }
