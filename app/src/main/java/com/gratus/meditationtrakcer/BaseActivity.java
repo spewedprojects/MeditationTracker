@@ -80,12 +80,16 @@ public class BaseActivity extends AppCompatActivity {
     private boolean doubleBackToExitPressedOnce = false;
     private final Handler backPressHandler = new Handler(Looper.getMainLooper());
     private boolean useSystemFont = false;
+    private float savedCardRadius;
+    private float savedBtnRadius;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // 1. Read the preference before any layouts are inflated
         SharedPreferences prefs = getSharedPreferences(SHARED_PREFS_NAME, MODE_PRIVATE);
         useSystemFont = prefs.getBoolean("use_system_font", false);
+        savedCardRadius = prefs.getFloat("custom_card_radius", 12f);  // ← snapshot
+        savedBtnRadius = prefs.getFloat("custom_btn_radius", 10f);    // ← snapshot
 
         // Apply Font Theme BEFORE super.onCreate
         if (useSystemFont) {
@@ -110,8 +114,16 @@ public class BaseActivity extends AppCompatActivity {
 
         if (cardRadius == 12f) {
             getTheme().applyStyle(R.style.ThemeOverlay_MeditationTracker_CardRadius12, true);
+        } else if (cardRadius == 16f) {
+            getTheme().applyStyle(R.style.ThemeOverlay_MeditationTracker_CardRadius16, true);
+        } else if (cardRadius == 20f) {
+            getTheme().applyStyle(R.style.ThemeOverlay_MeditationTracker_CardRadius20, true);
         } else if (cardRadius == 24f) {
             getTheme().applyStyle(R.style.ThemeOverlay_MeditationTracker_CardRadius24, true);
+        } else if (cardRadius == 28f) {
+            getTheme().applyStyle(R.style.ThemeOverlay_MeditationTracker_CardRadius28, true);
+        } else if (cardRadius == 32f) {
+            getTheme().applyStyle(R.style.ThemeOverlay_MeditationTracker_CardRadius32, true);
         } else if (cardRadius == 36f) {
             getTheme().applyStyle(R.style.ThemeOverlay_MeditationTracker_CardRadius36, true);
         }
@@ -146,9 +158,11 @@ public class BaseActivity extends AppCompatActivity {
         // Check if the font preference changed while this activity was in the background
         SharedPreferences prefs = getSharedPreferences(SHARED_PREFS_NAME, MODE_PRIVATE);
         boolean shouldBeSystemFont = prefs.getBoolean("use_system_font", false);
+        float currentCardRadius = prefs.getFloat("custom_card_radius", 12f);
+        float currentBtnRadius = prefs.getFloat("custom_btn_radius", 10f);
 
         // If the stored pref doesn't match the boolean we set in onCreate...
-        if (shouldBeSystemFont != useSystemFont) {
+        if (shouldBeSystemFont != useSystemFont || currentCardRadius != savedCardRadius || currentBtnRadius != savedBtnRadius) {
             recreate(); // ...restart this activity to apply the new font!
         }
     }

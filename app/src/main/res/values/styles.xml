@@ -68,8 +68,20 @@
     <style name="ThemeOverlay.MeditationTracker.CardRadius12">
         <item name="customCardRadius">12dp</item>
     </style>
+    <style name="ThemeOverlay.MeditationTracker.CardRadius16">
+        <item name="customCardRadius">16dp</item>
+    </style>
+    <style name="ThemeOverlay.MeditationTracker.CardRadius20">
+        <item name="customCardRadius">20dp</item>
+    </style>
     <style name="ThemeOverlay.MeditationTracker.CardRadius24">
         <item name="customCardRadius">24dp</item>
+    </style>
+    <style name="ThemeOverlay.MeditationTracker.CardRadius28">
+        <item name="customCardRadius">28dp</item>
+    </style>
+    <style name="ThemeOverlay.MeditationTracker.CardRadius32">
+        <item name="customCardRadius">32dp</item>
     </style>
     <style name="ThemeOverlay.MeditationTracker.CardRadius36">
         <item name="customCardRadius">36dp</item>

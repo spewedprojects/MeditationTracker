@@ -160,7 +160,7 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
 
     private void setupOnCLickListeners() {
         // Streak dialog toggle
-        streakCard.setOnLongClickListener(v -> {
+        streakCard.setOnClickListener(v -> {
             StreakDialogFragment dialog = StreakDialogFragment.newInstance((days, startDate) -> {
                 // This is the callback from the dialog
                 streakManager.startNewStreak(startDate, days);
@@ -168,7 +168,7 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
                 refreshStreakUI();
             });
             dialog.show(getSupportFragmentManager(), "streak_dialog");
-            return true;
+            //return true;
         });
 
         // Back dated entry dialog long click

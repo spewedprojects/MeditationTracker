@@ -143,21 +143,27 @@ class SettingsInfoActivity : BaseActivity(){
         val colExpButton = findViewById<ImageButton?>(R.id.btn_expand_radius_options)
         val radiiContainer = findViewById<ViewGroup?>(R.id.customRadiiContainer)
 
-
         // Prepare the smooth transition (AutoTransition handles layout changes automatically)
         val cardLinearLayout = findViewById<ViewGroup?>(R.id.settingscard_const_layout)
-        TransitionManager.beginDelayedTransition(cardLinearLayout, AutoTransition())
+
+        val prefs = getSharedPreferences(BaseActivity.SHARED_PREFS_NAME, Context.MODE_PRIVATE)
 
         // Guard against nulls
         if (colExpButton == null || radiiContainer == null) return
 
-        // Ensure initial state
-        radiiContainer.visibility = View.GONE
-        colExpButton.rotation = 0f
+        // Restore expanded state
+        val wasExpanded = prefs.getBoolean("radii_expanded", false)
+        if (wasExpanded) {
+            radiiContainer.visibility = View.VISIBLE
+            colExpButton.rotation = 180f
+        }
 
         // Click listener to toggle visibility and rotate the button
         colExpButton.setOnClickListener {
             val isCollapsed = radiiContainer.isGone
+            prefs.edit { putBoolean("radii_expanded", isCollapsed) }
+
+            TransitionManager.beginDelayedTransition(cardLinearLayout, AutoTransition())
 
             if (isCollapsed) {
                 // Expand: make visible and rotate to 180 degrees
@@ -177,7 +183,6 @@ class SettingsInfoActivity : BaseActivity(){
         }
 
         // --- Slider Logic ---
-        val prefs = getSharedPreferences(BaseActivity.SHARED_PREFS_NAME, Context.MODE_PRIVATE)
         val cardSlider = findViewById<com.google.android.material.slider.Slider>(R.id.setcard_radius_slider)
         val btnSlider = findViewById<com.google.android.material.slider.Slider>(R.id.setbtn_radius_slider)
 
@@ -203,6 +208,11 @@ class SettingsInfoActivity : BaseActivity(){
                 btnSlider.postDelayed({ recreate() }, 200)
             }
         }
+    }
 
+    override fun onStop() {
+        super.onStop()
+        getSharedPreferences(BaseActivity.SHARED_PREFS_NAME, Context.MODE_PRIVATE)
+            .edit { putBoolean("radii_expanded", false) }
     }
 }

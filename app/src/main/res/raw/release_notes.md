@@ -64,7 +64,12 @@
 
 Latest release **_[here](https://github.com/spewedprojects/MeditationTracker/releases/latest)_**.
 
-98. _**[13.5.0 (04/03/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v13.5.0)**_
+99. _**[14.0.0 (04/03/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v14.0.0)**_
+    > - Introduced `customCardRadius` and `customButtonRadius` attributes in `attrs.xml`. to set custom radii across app.
+    > - Flexible Week Start Logic.
+    > - Added `TextFormatUtils` specifically for this current version details textview.
+
+    98. [13.5.0 (04/03/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v13.5.0)
     > - Consolidated all fonts by centralizing typography in `attrs.xml` and `type.xml`.
     > - Increased the opacity of widget bg to 75% from 60%.
     > - Added placeholder for switching app week start day.
@@ -208,7 +213,7 @@ Latest release **_[here](https://github.com/spewedprojects/MeditationTracker/rel
     71. [7.3.b (10/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v7.3.b)
     >  - Organized classes into new packages.
     >  - Updated dialog fragment windows to `MATCH_PARENT` width, touching the edges of the screen.
-    >    - Since hte sides will touch the edges, the dialog boxes will not prematurely shrink and will also retain the elevation shadow.
+    >    - Since the sides will touch the edges, the dialog boxes will not prematurely shrink and will also retain the elevation shadow.
 
     70. [7.3.a (10/01/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v7.3.a)
     >  - Correctly handling streak database upgrade.
