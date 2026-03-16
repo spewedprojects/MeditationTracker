@@ -65,6 +65,9 @@
     </style>
 
     <!-- Theme Overlays for Dynamic Radii -->
+    <style name="ThemeOverlay.MeditationTracker.CardRadius8">
+        <item name="customCardRadius">8dp</item>
+    </style>
     <style name="ThemeOverlay.MeditationTracker.CardRadius12">
         <item name="customCardRadius">12dp</item>
     </style>
@@ -85,6 +88,10 @@
     </style>
     <style name="ThemeOverlay.MeditationTracker.CardRadius36">
         <item name="customCardRadius">36dp</item>
+    </style>
+
+    <style name="ThemeOverlay.MeditationTracker.ButtonRadius5">
+        <item name="customButtonRadius">5dp</item>
     </style>
 
     <style name="ThemeOverlay.MeditationTracker.ButtonRadius10">

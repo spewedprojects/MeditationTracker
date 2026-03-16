@@ -140,13 +140,11 @@ public class ReportDetailDialogFragment extends DialogFragment {
 
     private void populateViews(View view, MeditationReportData data) {
         // --- Header ---
-        // Note: I added a null check or use a fallback if title is missing
         TextView tvTitle = view.findViewById(R.id.tvReportTitle);
         if (tvTitle != null)
             tvTitle.setText(data.title);
 
         TextView tvSub = view.findViewById(R.id.tvReportYearMonth);
-        // Assuming your Data model has title/isYearly logic, or use generic text
         if (tvSub != null)
             tvSub.setText(data.isYearly ? "Yearly Meditation Report" : "Monthly Meditation Report");
 
@@ -158,31 +156,76 @@ public class ReportDetailDialogFragment extends DialogFragment {
         // --- Row 2: Gaps ---
         ((TextView) view.findViewById(R.id.tvDaysNotMeditatedValue)).setText(String.valueOf(data.daysNotMeditated));
         ((TextView) view.findViewById(R.id.tvWeeksNotMeditatedValue)).setText(String.valueOf(data.weeksNotMeditated));
-        ((TextView) view.findViewById(R.id.tvStreakStabilityValue)).setText(fmt(data.streakStability));
+        
+        // --- Streak Stability Toggle ---
+        TextView tvStreakStabilityLabel = view.findViewById(R.id.tvStreakStabilityLabel);
+        TextView tvStreakStabilityValue = view.findViewById(R.id.tvStreakStabilityValue);
+        View containerStreakStability = view.findViewById(R.id.container_StreakStability);
+        
+        // Default to Weighted
+        tvStreakStabilityLabel.setText("Wt. Streak\nStability");
+        tvStreakStabilityValue.setText(fmt(data.weightedStreakStability));
+        
+        containerStreakStability.setOnClickListener(v -> {
+            boolean isWeighted = tvStreakStabilityLabel.getText().toString().startsWith("Wt.");
+            if (isWeighted) {
+                tvStreakStabilityLabel.setText("Streak\nStability");
+                tvStreakStabilityValue.setText(fmt(data.streakStability));
+            } else {
+                tvStreakStabilityLabel.setText("Wt. Streak\nStability");
+                tvStreakStabilityValue.setText(fmt(data.weightedStreakStability));
+            }
+        });
 
         // --- Row 3: Sessions ---
         ((TextView) view.findViewById(R.id.tvTotalSessionsValue)).setText(String.valueOf(data.totalSessions));
         ((TextView) view.findViewById(R.id.tvAvgGapValue)).setText(fmt(data.avgSessionGap));
-        ((TextView) view.findViewById(R.id.tvAvgSessionValue)).setText(String.valueOf(data.avgSessionLength));
+        
+        // --- Session Length Toggle ---
+        TextView tvAvgSessionLabel = view.findViewById(R.id.tvAvgSessionLabel);
+        TextView tvAvgSessionValue = view.findViewById(R.id.tvAvgSessionValue);
+        View containerSessionLength = view.findViewById(R.id.container_SessionLength);
+        
+        // Default to Weighted
+        tvAvgSessionLabel.setText("Wt. Avg.\nSession length");
+        tvAvgSessionValue.setText(String.valueOf(data.weightedAvgSessionLength));
+        
+        containerSessionLength.setOnClickListener(v -> {
+            boolean isWeighted = tvAvgSessionLabel.getText().toString().startsWith("Wt.");
+            if (isWeighted) {
+                tvAvgSessionLabel.setText("Avg.\nSession length");
+                tvAvgSessionValue.setText(String.valueOf(data.avgSessionLength));
+            } else {
+                tvAvgSessionLabel.setText("Wt. Avg.\nSession length");
+                tvAvgSessionValue.setText(String.valueOf(data.weightedAvgSessionLength));
+            }
+        });
 
         // --- Row 4: Activity ---
-        TextView tvMost = view.findViewById(R.id.tvMostActiveValue);
-        if (data.mostActiveMonthLabel != null) {
-            tvMost.setText(data.mostActiveMonthLabel + " – " + fmt(data.mostActiveMonthValue));
-        } else {
-            tvMost.setText("N/A");
-        }
+        View rowMonthStats = view.findViewById(R.id.rowMonthStats);
+        if (data.isYearly) {
+            rowMonthStats.setVisibility(View.VISIBLE);
+            TextView tvMost = view.findViewById(R.id.tvMostActiveValue);
+            if (data.mostActiveMonthLabel != null) {
+                tvMost.setText(data.mostActiveMonthLabel + " – " + fmt(data.mostActiveMonthValue));
+            } else {
+                tvMost.setText("N/A");
+            }
 
-        TextView tvLeast = view.findViewById(R.id.tvLeastActiveValue);
-        if (data.leastActiveMonthLabel != null) {
-            tvLeast.setText(data.leastActiveMonthLabel + " – " + fmt(data.leastActiveMonthValue));
+            TextView tvLeast = view.findViewById(R.id.tvLeastActiveValue);
+            if (data.leastActiveMonthLabel != null) {
+                tvLeast.setText(data.leastActiveMonthLabel + " – " + fmt(data.leastActiveMonthValue));
+            } else {
+                tvLeast.setText("N/A");
+            }
         } else {
-            tvLeast.setText("N/A");
+            rowMonthStats.setVisibility(View.GONE);
         }
 
         // --- Row 5: Charts ---
         setupCharts(view, data);
     }
+
 
     private void setupCharts(View view, MeditationReportData data) {
 

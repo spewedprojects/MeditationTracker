@@ -36,6 +36,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.GravityCompat;
 import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.customview.widget.ViewDragHelper;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -345,8 +346,14 @@ public class BaseActivity extends AppCompatActivity {
         // Inflate the child layout into the container
         getLayoutInflater().inflate(layoutResID, activityContainer, true);
         // Set the full view as the content view
-        EdgeToEdge.enable(this);
+        //EdgeToEdge.enable(this);
         super.setContentView(fullView);
+
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+        getWindow().setNavigationBarColor(Color.TRANSPARENT);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            getWindow().setNavigationBarContrastEnforced(false);
+        }
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.menu_drawer), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);

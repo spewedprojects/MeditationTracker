@@ -22,8 +22,10 @@ public class MeditationReportData {
     // --- Detail Stats ---
     public int weeksNotMeditated;
     public float streakStability;
+    public float weightedStreakStability;
     public int totalSessions;
     public float avgSessionGap;
+    public int weightedAvgSessionLength;
 
     // --- Activity Extremes ---
     public String mostActiveMonthLabel;

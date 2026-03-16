@@ -41,9 +41,13 @@ public class ReportJsonHelper {
             obj.put("consistency", d.consistencyScore);
             obj.put("bestStreak", d.bestStreak);
             obj.put("avgSession", d.avgSessionLength);
+            obj.put("weightedAvgSession", d.weightedAvgSessionLength);
             obj.put("daysWithout", d.daysNotMeditated);
             obj.put("weeksWithout", d.weeksNotMeditated);
             obj.put("streakStability", (double) d.streakStability);
+            obj.put("weightedStreakStability", (double) d.weightedStreakStability);
+
+
             obj.put("totalSessions", d.totalSessions);
             obj.put("avgSessionGap", (double) d.avgSessionGap);
 
@@ -116,9 +120,12 @@ public class ReportJsonHelper {
                 d.consistencyScore = obj.optInt("consistency");
                 d.bestStreak = obj.optInt("bestStreak");
                 d.avgSessionLength = obj.optInt("avgSession");
+                d.weightedAvgSessionLength = obj.optInt("weightedAvgSession", 0);
                 d.daysNotMeditated = obj.optInt("daysWithout");
                 d.weeksNotMeditated = obj.optInt("weeksWithout");
                 d.streakStability = (float) obj.optDouble("streakStability");
+                d.weightedStreakStability = (float) obj.optDouble("weightedStreakStability", 0.0);
+
                 d.totalSessions = obj.optInt("totalSessions");
                 d.avgSessionGap = (float) obj.optDouble("avgSessionGap", 0.0);
 

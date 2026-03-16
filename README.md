@@ -6,7 +6,7 @@ Or alternatively, you can find it in Releases section also.
 
 ***
 
-# (v13.0.0) 10/02/2026
+# (v14.1.0) 16/03/2026
 **Current known issues:**
 - **NONE (...of which I noticed).**
 - ~~Streak Goal (when enabled) doesn't reset to 0 when the the chain is broken; only displays the no. of days contiguously recorded.~~ __DONE!! 08/01/2026__
@@ -25,7 +25,7 @@ __Resolved long standing issues:__
 - Overlay on existing graphs, showing time of mediation in a day.
   - A toggle to show/hide this.
   - Monthly graphs will show week wise avg.
-- **Adding a homescreen widget to remind of meditation progress, specifically, most current goal progress and streak.**
+- ~~**Adding a homescreen widget to remind of meditation progress, specifically, most current goal progress and streak.**~~ __DONE!!__ -> (v13 - 10/02/2026)
 - ~~Making menu more intuitive - swipe gestures (using navigation drawer)~~ __DONE!!__
 - ~~Adding theme switcher.~~ __DONE!!__
 - ~~Changes to method of adding goals (Daily duration, total hours, Start date, end date will be automatically determined)~~ __DONE!!__

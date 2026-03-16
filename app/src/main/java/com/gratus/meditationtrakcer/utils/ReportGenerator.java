@@ -46,6 +46,19 @@ public class ReportGenerator {
         data.totalHours = totalSeconds / 3600f;
         data.avgSessionLength = (data.totalSessions > 0) ? (int) ((totalSeconds / 60) / data.totalSessions) : 0;
 
+        // For weighted avg. session length:
+        long weightedSumSession = 0;
+        for (MeditationLogDatabaseHelper.SessionData s : sessions) {
+            weightedSumSession += (long) s.durationSeconds * s.durationSeconds; // value * weight
+        }
+
+        if (data.totalSessions > 0 && totalSeconds > 0) {
+            data.weightedAvgSessionLength = (int) ((weightedSumSession / (float) totalSeconds) / 60);
+        } else {
+            data.weightedAvgSessionLength = 0;
+        }
+
+
         // 3. Complex Calculations (Streaks, Gaps, Monthly Activity)
         processDatesAndActivity(context, data, sessions, startDate, endDate);
 
@@ -155,6 +168,22 @@ public class ReportGenerator {
         } else {
             data.streakStability = 0;
         }
+
+        // For Weighted avg. streak stability:
+        if (!streakLengths.isEmpty()) {
+            float weightedSumStreak = 0;
+            float totalWeightStreak = 0;
+
+            for (int len : streakLengths) {
+                weightedSumStreak += len * len;   // value * weight (weight = len)
+                totalWeightStreak += len;
+            }
+
+            data.weightedStreakStability = totalWeightStreak > 0 ? weightedSumStreak / totalWeightStreak : 0;
+        } else {
+            data.weightedStreakStability = 0;
+        }
+
 
         // Metric 2: Avg Session Gap = Average gap between active days
         data.avgSessionGap = (gapCount > 0) ? (float) totalGapDays / gapCount : 0;

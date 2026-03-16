@@ -23,10 +23,10 @@
     <string name="total_hours">Total hours: </string>
     <string name="goals_title">Set a New Goal</string>
     <string name="goals_desc">Create a new meditation goal</string>
-    <string name="current_version_details">
-        - Replaced hardcoded conditional logic in `BaseActivity.java` with a generic `applyOverlayForRadius` method that dynamically looks up style resource IDs by name.
-        \n- Migrated the expansion state of the radii customization section in `SettingsInfoActivity.kt` from `SharedPreferences` to `onSaveInstanceState`.
-        \n- Replaced `addOnChangeListener` with `onStopTrackingTouch` for card and button radius sliders to ensure `recreate()` is only called once after the user finishes adjusting the value.
+    <string name="current_version_details">- Added `weightedAvgSessionLength` and `weightedStreakStability` fields to `MeditationReportData`.
+        \n- Implemented interactive toggles in `ReportDetailDialogFragment.java` for "Streak Stability" and "Avg. Session Length" containers, allowing users to switch between standard and weighted values.
+        \n- Added logic to `ReportDetailDialogFragment.java` to hide the "Monthly Activity" stats row when viewing monthly reports.
+        \n- Navigation bar color is now transparent.
         \n
         \nNEXT:
         \n- NONE.

@@ -64,7 +64,12 @@
 
 Latest release **_[here](https://github.com/spewedprojects/MeditationTracker/releases/latest)_**.
 
-100. _**[14.0.1 (11/03/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v14.0.1)**_
+101. _**[14.0.2 (11/03/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v14.0.2)**_
+> - Replaced hardcoded conditional logic in `BaseActivity.java` with a generic `applyOverlayForRadius` method that dynamically looks up style resource IDs by name.
+> - Migrated the expansion state of the radii customization section in `SettingsInfoActivity.kt` from `SharedPreferences` to `onSaveInstanceState`.
+> - Replaced `addOnChangeListener` with `onStopTrackingTouch` for card and button radius sliders to ensure `recreate()` is only called once after the user finishes adjusting the value.
+
+100. [14.0.1 (11/03/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v14.0.1)
 > - Converted the streak card interaction from a long-press to a standard click in `MainActivity.java` and updated `activity_main.xml` and `activity_settingsinfo.xml` to reflect this change.
 > - Expanded the range of customizable card corner radii, adding 16dp, 20dp, 28dp, and 32dp options in `styles.xml` and `BaseActivity.java`.
 > - Main screen now updates as expected - Updated `BaseActivity.java` to snapshot card and button radius preferences on creation and trigger `recreate()` in `onResume()`.
