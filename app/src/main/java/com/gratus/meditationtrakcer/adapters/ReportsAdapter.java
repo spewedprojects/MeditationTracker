@@ -53,7 +53,7 @@ public class ReportsAdapter extends RecyclerView.Adapter<ReportsAdapter.ReportVi
         holder.title.setText(data.title);
         holder.totalHours.setText(String.format(Locale.getDefault(), "%.1f", data.totalHours));
         holder.bestStreak.setText(String.valueOf(data.bestStreak));
-        holder.avgSession.setText(String.valueOf(data.avgSessionLength));
+        holder.avgSession.setText(String.valueOf(data.weightedAvgSessionLength));
         holder.consistency.setText(String.valueOf(data.consistencyScore));
         holder.daysWithout.setText(String.valueOf(data.daysNotMeditated));
 

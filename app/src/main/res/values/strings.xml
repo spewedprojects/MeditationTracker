@@ -23,10 +23,9 @@
     <string name="total_hours">Total hours: </string>
     <string name="goals_title">Set a New Goal</string>
     <string name="goals_desc">Create a new meditation goal</string>
-    <string name="current_version_details">- Added `weightedAvgSessionLength` and `weightedStreakStability` fields to `MeditationReportData`.
-        \n- Implemented interactive toggles in `ReportDetailDialogFragment.java` for "Streak Stability" and "Avg. Session Length" containers, allowing users to switch between standard and weighted values.
-        \n- Added logic to `ReportDetailDialogFragment.java` to hide the "Monthly Activity" stats row when viewing monthly reports.
-        \n- Navigation bar color is now transparent.
+    <string name="current_version_details">- Wrapped the settings content in a `NestedScrollView` in `activity_settingsinfo.xml`.
+        \n- Added a `tooltipText` attribute to the streak card in `activity_main.xml` to improve feature discoverability.
+        \n- Updated `ReportsAdapter.java` to display `weightedAvgSessionLength` instead of the raw average session length for more accurate reporting.
         \n
         \nNEXT:
         \n- NONE.
