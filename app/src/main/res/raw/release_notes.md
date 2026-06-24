@@ -64,13 +64,18 @@
 
 Latest release **_[here](https://github.com/spewedprojects/MeditationTracker/releases/latest)_**.
 
-102. **[14.1.0 (16/03/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v14.1.0)**
+103. **_[14.1.1 (07/06/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v14.1.1)_**
+> - Wrapped the settings content in a `NestedScrollView` in `activity_settingsinfo.xml`.
+> - Added a `tooltipText` attribute to the streak card in `activity_main.xml` to improve feature discoverability.
+> - Updated `ReportsAdapter.java` to display `weightedAvgSessionLength` instead of the raw average session length for more accurate reporting.
+
+102. [14.1.0 (16/03/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v14.1.0)
 > - Added `weightedAvgSessionLength` and `weightedStreakStability` fields to `MeditationReportData`.
 > - Implemented interactive toggles in `ReportDetailDialogFragment.java` for "Streak Stability" and "Avg. Session Length" containers, allowing users to switch between standard and weighted values.
 > - Added logic to `ReportDetailDialogFragment.java` to hide the "Monthly Activity" stats row when viewing monthly reports.
 > - Navigation bar color is now transparent.
 
-101. _**[14.0.2 (11/03/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v14.0.2)**_
+101. [14.0.2 (11/03/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v14.0.2)
 > - Replaced hardcoded conditional logic in `BaseActivity.java` with a generic `applyOverlayForRadius` method that dynamically looks up style resource IDs by name.
 > - Migrated the expansion state of the radii customization section in `SettingsInfoActivity.kt` from `SharedPreferences` to `onSaveInstanceState`.
 > - Replaced `addOnChangeListener` with `onStopTrackingTouch` for card and button radius sliders to ensure `recreate()` is only called once after the user finishes adjusting the value.

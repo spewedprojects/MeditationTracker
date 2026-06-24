@@ -23,12 +23,15 @@
     <string name="total_hours">Total hours: </string>
     <string name="goals_title">Set a New Goal</string>
     <string name="goals_desc">Create a new meditation goal</string>
-    <string name="current_version_details">- Wrapped the settings content in a `NestedScrollView` in `activity_settingsinfo.xml`.
-        \n- Added a `tooltipText` attribute to the streak card in `activity_main.xml` to improve feature discoverability.
-        \n- Updated `ReportsAdapter.java` to display `weightedAvgSessionLength` instead of the raw average session length for more accurate reporting.
+    <string name="current_version_details"> 25/06/2026
+        \n- Created landscape-specific layouts for all major screens, including Main Screen, Goals, Summary, Reports, About and Release Notes.
+        \n- Chart fragment also now supports landscape orientation,along with month-year picker dialog.
         \n
         \nNEXT:
-        \n- NONE.
+        \n- Summary screen needs a vertical scroll for landscape mode.
+        \n- Main screen should dynamically adjust constraints based on goals visibility.
+        \n- Smaller devices still need meticulous planning.
+        \n- Add an option in settings to disable landscape specific layouts.
     </string>
     <string name="v1.16.c">v1.16.c:\n- NOICE!\n  - Next indent.\n   • bullet 1 ▶ Bullet 2 › bullet 3 ৹</string>
     <string name="close_menu_button">Close Menu</string>

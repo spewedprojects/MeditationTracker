@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GoalsActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/toolbar2_constG"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <include layout="@layout/actiontoolbar" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout> <!-- Constrained layout for menubutton and Title -->
+
+    <LinearLayout
+        android:id="@+id/card_constraint_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar2_constG"
+        app:layout_constraintVertical_bias="0">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView_goals"
+            android:layout_width="wrap_content"
+            android:layout_weight="1.2"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:elevation="8dp"
+            app:barrierMargin="16dp"
+            app:cardBackgroundColor="?attr/colorPrimaryVariant"
+            app:cardCornerRadius="?attr/customCardRadius"
+            app:cardElevation="6dp">
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:requiresFadingEdge="vertical"
+                android:fadingEdgeLength="8dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/goals_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:filterTouchesWhenObscured="false"
+                        android:focusableInTouchMode="true"
+                        android:letterSpacing="0.01"
+                        android:text="@string/goals_title"
+                        android:textAppearance="?attr/textAppearanceAppTitle"
+                        android:textColor="?attr/colorOnPrimary"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="TextViewEdits"
+                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.AppTitle" /> <!-- Set new goal - card title -->
+
+                    <ImageButton
+                        android:id="@+id/col_exp_button"
+                        android:layout_width="52dp"
+                        android:layout_height="52dp"
+                        android:layout_margin="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:background="@drawable/round_button_bg"
+                        android:rotation="0"
+                        android:src="@drawable/outline_chevron_line_up_24"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0" />
+
+                    <TextView
+                        android:id="@+id/goals_desc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginBottom="16dp"
+                        android:filterTouchesWhenObscured="false"
+                        android:focusableInTouchMode="true"
+                        android:letterSpacing="0.02"
+                        android:text="@string/goals_desc"
+                        android:textAppearance="?attr/textAppearanceStatUnit"
+                        android:textColor="@color/onPrimary2"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/goals_title"
+                        app:layout_constraintVertical_bias="0"
+                        app:layout_constraintVertical_chainStyle="packed"
+                        tools:ignore="TextViewEdits"
+                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatUnit" /> <!-- Goals card description -->
+
+                    <LinearLayout
+                        android:id="@+id/goals_expandable_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/goals_desc">
+
+                        <TextView
+                            android:id="@+id/goal_input_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="12dp"
+                            android:filterTouchesWhenObscured="false"
+                            android:focusableInTouchMode="true"
+                            android:letterSpacing="0.01"
+                            android:text="Goal description"
+                            android:textAppearance="?attr/textAppearanceSubhead"
+                            android:textColor="?attr/colorOnPrimary"
+                            tools:ignore="TextViewEdits"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subhead" /> <!-- Set goal blank title -->
+
+                        <EditText
+                            android:id="@+id/goal_input"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="16dp"
+                            android:layout_marginTop="0dp"
+                            android:hint="Meditate every day"
+                            android:inputType="text|textCapSentences"
+                            android:letterSpacing="0.05"
+                            android:textAppearance="?attr/textAppearanceTextInput"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.TextInput" /> <!-- Set goal blank (input) -->
+
+                        <!-- Method change button group -->
+                        <com.google.android.material.button.MaterialButtonToggleGroup
+                            android:id="@+id/A_B_group"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="36dp"
+                            android:layout_marginVertical="7dp"
+                            android:padding="5dp"
+                            android:orientation="horizontal"
+                            app:singleSelection="true"
+                            app:innerCornerSize="3dp">
+
+                            <!-- Export Button -->
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/method_A_Button"
+                                android:layout_width="48dp"
+                                android:layout_height="35dp"
+                                android:backgroundTint="@color/black_white"
+                                android:insetTop="0dp"
+                                android:insetRight="1dp"
+                                android:insetBottom="0dp"
+                                android:padding="0dp"
+                                android:text="A"
+                                android:textAppearance="?attr/textAppearanceAppButton"
+                                android:textColor="@color/white_black"
+                                app:cornerRadius="?attr/customButtonRadius"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.AppButton" />
+
+                            <!-- Import Button -->
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/method_B_Button"
+                                android:layout_width="48dp"
+                                android:layout_height="35dp"
+                                android:backgroundTint="@color/black_white"
+                                android:insetTop="0dp"
+                                android:insetLeft="1dp"
+                                android:insetBottom="0dp"
+                                android:padding="0dp"
+                                android:text="B"
+                                android:textAppearance="?attr/textAppearanceAppButton"
+                                android:textColor="@color/white_black"
+                                app:cornerRadius="?attr/customButtonRadius"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.AppButton"/>
+
+                        </com.google.android.material.button.MaterialButtonToggleGroup> <!-- Method change button group -->
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/methods_A_B"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/goal_input">
+
+                            <!-- Method A -->
+                            <TextView
+                                android:id="@+id/target_input_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="2dp"
+                                android:filterTouchesWhenObscured="false"
+                                android:focusableInTouchMode="true"
+                                android:letterSpacing="0.01"
+                                android:text="Target Hours"
+                                android:textAppearance="?attr/textAppearanceSubhead"
+                                android:textColor="?attr/colorOnPrimary"
+                                app:layout_constraintBottom_toTopOf="@id/target_input"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                tools:ignore="TextViewEdits"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subhead" /> <!-- Target hours blank title-->
+
+                            <!-- Method A -->
+                            <EditText
+                                android:id="@+id/target_input"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="16dp"
+                                android:layout_marginTop="0dp"
+                                android:hint="50"
+                                android:inputType="numberDecimal"
+                                android:letterSpacing="0.05"
+                                app:layout_constraintBottom_toTopOf="@id/start_date_input_title"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/target_input_title"
+                                android:textAppearance="?attr/textAppearanceTextInput"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.TextInput" /> <!-- Target hours blank (input) -->
+
+                            <!-- Method A -->
+                            <TextView
+                                android:id="@+id/start_date_input_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="14dp"
+                                android:filterTouchesWhenObscured="false"
+                                android:focusableInTouchMode="true"
+                                android:letterSpacing="0.01"
+                                android:text="Start Date"
+                                android:textAppearance="?attr/textAppearanceSubhead"
+                                android:textColor="?attr/colorOnPrimary"
+                                app:layout_constraintBottom_toTopOf="@id/start_date_input"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/target_input"
+                                tools:ignore="TextViewEdits"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subhead" /> <!-- Start date input title-->
+
+                            <!-- Method A -->
+                            <EditText
+                                android:id="@+id/start_date_input"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="16dp"
+                                android:layout_marginTop="0dp"
+                                android:clickable="true"
+                                android:focusable="false"
+                                android:hint="01/01/2026"
+                                android:inputType="date"
+                                android:letterSpacing="0.05"
+                                app:layout_constraintBottom_toTopOf="@id/end_date_input_title"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/start_date_input_title"
+                                android:textAppearance="?attr/textAppearanceTextInput"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.TextInput" /> <!-- Start date input -->
+
+                            <!-- Method A -->
+                            <TextView
+                                android:id="@+id/end_date_input_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="14dp"
+                                android:filterTouchesWhenObscured="false"
+                                android:focusableInTouchMode="true"
+                                android:letterSpacing="0.01"
+                                android:text="End Date"
+                                android:textAppearance="?attr/textAppearanceSubhead"
+                                android:textColor="?attr/colorOnPrimary"
+                                app:layout_constraintBottom_toTopOf="@id/end_date_input"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/start_date_input"
+                                tools:ignore="TextViewEdits"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subhead" /> <!-- End date input title-->
+
+                            <!-- Method A -->
+                            <EditText
+                                android:id="@+id/end_date_input"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="16dp"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginBottom="16dp"
+                                android:clickable="true"
+                                android:focusable="false"
+                                android:hint="28/01/2026"
+                                android:inputType="date"
+                                android:letterSpacing="0.05"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/end_date_input_title"
+                                android:textAppearance="?attr/textAppearanceTextInput"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.TextInput" /> <!-- End date input -->
+
+                            <androidx.constraintlayout.widget.Group
+                                android:id="@+id/method_A_group"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:visibility="visible"
+                                app:constraint_referenced_ids="target_input_title, target_input, start_date_input_title, start_date_input, end_date_input_title, end_date_input" />
+
+                            <androidx.constraintlayout.widget.Group
+                                android:id="@+id/method_B_group"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:visibility="gone"
+                                app:constraint_referenced_ids="daily_duration_title, daily_duration_input, totaldays_input_title, totaldays_input, B_startdate_title, B_startdate_input" />
+
+                            <!--Method B-->
+                            <TextView
+                                android:id="@+id/daily_duration_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="2dp"
+                                android:filterTouchesWhenObscured="false"
+                                android:focusableInTouchMode="true"
+                                android:letterSpacing="0.01"
+                                android:text="Daily Duration"
+                                android:textAppearance="?attr/textAppearanceSubhead"
+                                android:textColor="?attr/colorOnPrimary"
+                                app:layout_constraintBottom_toTopOf="@id/daily_duration_input"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                tools:ignore="TextViewEdits"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subhead" /> <!-- Method B_Daily duration title-->
+
+                            <EditText
+                                android:id="@+id/daily_duration_input"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="16dp"
+                                android:layout_marginTop="0dp"
+                                android:clickable="true"
+                                android:focusable="false"
+                                android:hint="hh:mm"
+                                android:inputType="time"
+                                android:letterSpacing="0.05"
+                                app:layout_constraintBottom_toTopOf="@id/totaldays_input_title"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/daily_duration_title"
+                                android:textAppearance="?attr/textAppearanceTextInput"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.TextInput"/> <!-- Daily duration input blank (input) -->
+
+                            <TextView
+                                android:id="@+id/totaldays_input_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="14dp"
+                                android:filterTouchesWhenObscured="false"
+                                android:focusableInTouchMode="true"
+                                android:letterSpacing="0.01"
+                                android:text="No. of Days"
+                                android:textAppearance="?attr/textAppearanceSubhead"
+                                android:textColor="?attr/colorOnPrimary"
+                                app:layout_constraintBottom_toTopOf="@id/totaldays_input"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/daily_duration_input"
+                                tools:ignore="TextViewEdits"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subhead" /> <!-- Total days input title-->
+
+                            <EditText
+                                android:id="@+id/totaldays_input"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="16dp"
+                                android:layout_marginTop="0dp"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:hint="7"
+                                android:inputType="number"
+                                android:letterSpacing="0.05"
+                                app:layout_constraintBottom_toTopOf="@id/B_startdate_title"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/totaldays_input_title"
+                                android:textAppearance="?attr/textAppearanceTextInput"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.TextInput" /> <!-- Total days input -->
+
+                            <TextView
+                                android:id="@+id/B_startdate_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="14dp"
+                                android:filterTouchesWhenObscured="false"
+                                android:focusableInTouchMode="true"
+                                android:letterSpacing="0.01"
+                                android:text="Start date"
+                                android:textAppearance="?attr/textAppearanceSubhead"
+                                android:textColor="?attr/colorOnPrimary"
+                                app:layout_constraintBottom_toTopOf="@id/B_startdate_input"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/totaldays_input"
+                                tools:ignore="TextViewEdits"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subhead" /> <!-- B Start date title-->
+
+                            <EditText
+                                android:id="@+id/B_startdate_input"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="16dp"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginBottom="16dp"
+                                android:clickable="true"
+                                android:focusable="false"
+                                android:hint="01/01/2026"
+                                android:inputType="date"
+                                android:letterSpacing="0.06"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/B_startdate_title"
+                                android:textAppearance="?attr/textAppearanceTextInput"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.TextInput" /> <!-- B Start End date input -->
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <Button
+                            android:id="@+id/add_goal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="0dp"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginBottom="16dp"
+                            android:backgroundTint="?attr/colorOnPrimary"
+                            android:letterSpacing="0.1"
+                            android:text="Add Goal"
+                            android:textAllCaps="false"
+                            android:textAppearance="?attr/textAppearanceAppButton"
+                            android:textColor="?attr/colorPrimary"
+                            android:textStyle="bold"
+                            app:cornerRadius="?attr/customButtonRadius"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.AppButton" /> <!-- Add goal button -->
+                    </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout> <!-- items constrained to cardview -->
+            </androidx.core.widget.NestedScrollView>
+
+        </androidx.cardview.widget.CardView> <!-- Set new goal card -->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/goals_recycler_view"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_marginTop="0dp"
+            android:layout_marginHorizontal="0dp"
+            android:layout_marginBottom="8dp"
+            android:clipToPadding="true"
+            android:orientation="vertical"
+            android:requiresFadingEdge="vertical"
+            android:scrollbars="none" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

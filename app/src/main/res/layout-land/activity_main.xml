@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/toolbar2_const"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <include layout="@layout/actiontoolbar" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout> <!-- Constrained layout for menubutton and Title -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:weightSum="6"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar2_const">
+
+        <LinearLayout
+            android:id="@+id/fristBlock"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2.5"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toStartOf="@id/secondBlock"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintTop_toBottomOf="@id/toolbar2_const"
+            app:layout_constraintVertical_bias="0.5">
+
+
+            <!-- For cardview Date and Total-->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="0dp"
+                android:elevation="6dp"
+                app:cardBackgroundColor="?attr/colorPrimaryVariant"
+                app:cardCornerRadius="?attr/customCardRadius"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/date_display"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="22dp"
+                        android:layout_marginBottom="8dp"
+                        android:gravity="center"
+                        android:text="Mon, Jan. 13, 2025"
+                        android:textAppearance="?attr/textAppearanceDateHeader"
+                        android:textColor="@color/onPrimary2"
+                        tools:ignore="TextViewEdits"
+                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.DateHeader" /> <!-- android:ems="10" removing this removed the touchsize too small and one another warning-->
+
+                    <TextView
+                        android:id="@+id/today_total"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginBottom="8dp"
+                        android:gravity="center"
+                        android:text="Today: 0h 0m 0s"
+                        android:textAppearance="?attr/textAppearanceReportTitle"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:textSize="24sp"
+                        tools:ignore="TextViewEdits"
+                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.ReportTitle" /> <!-- Today's total time -->
+
+                    <TextView
+                        android:id="@+id/week_total"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginBottom="24dp"
+                        android:filterTouchesWhenObscured="false"
+                        android:focusableInTouchMode="true"
+                        android:gravity="center"
+                        android:text="This Week: 0.00hrs"
+                        android:textAppearance="?attr/textAppearanceAppSubheader"
+                        android:textColor="?attr/colorOnPrimary"
+                        tools:ignore="TextViewEdits"
+                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subheader" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView> <!-- For cardview Date and Total-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <!-- For cardview streak-->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardView3_streak"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_weight="1.2"
+                    android:animateLayoutChanges="true"
+                    android:clickable="true"
+                    android:elevation="6dp"
+                    android:tooltipText="Open Streak Dialog"
+                    app:cardBackgroundColor="?attr/colorPrimaryVariant"
+                    app:cardCornerRadius="?attr/customCardRadius"
+                    app:cardElevation="4dp"
+                    app:strokeColor="@color/success_green"
+                    app:strokeWidth="2dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/streak_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="25dp"
+                            android:layout_marginTop="22dp"
+                            android:layout_marginBottom="8dp"
+                            android:cursorVisible="false"
+                            android:inputType="date"
+                            android:text="Streak"
+                            android:textAppearance="?attr/textAppearanceDateHeader"
+                            android:textColor="@color/onPrimary2"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.DateHeader" /> <!-- android:ems="10" removing this removed the touchsize too small and one another warning-->
+
+                        <TextView
+                            android:id="@+id/streak"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="24dp"
+                            android:layout_marginVertical="0dp"
+                            android:layout_marginBottom="4dp"
+                            android:text="111"
+                            android:textAppearance="?attr/textAppearanceStatValue"
+                            android:textColor="?attr/colorOnPrimary"
+                            app:layout_constraintBottom_toTopOf="@id/streak_progress_bar"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/streak_title"
+                            app:layout_constraintVertical_bias="0.41"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatValue" /> <!-- Streak duration -->
+
+                        <ProgressBar
+                            android:id="@+id/streak_progress_bar"
+                            style="@android:style/Widget.ProgressBar.Horizontal"
+                            android:layout_width="0dp"
+                            android:layout_height="6dp"
+                            android:layout_marginHorizontal="24dp"
+                            android:layout_marginBottom="24dp"
+                            android:max="100"
+                            android:progress="0"
+                            android:progressDrawable="@drawable/progress_bar_style"
+                            android:visibility="visible"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent" /> <!-- Streak progress bar -->
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView> <!-- For cardview streak-->
+
+                <!-- For cardview Goals -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView_goal"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_weight="1.8"
+                    android:visibility="visible"
+                    app:cardBackgroundColor="?attr/colorPrimaryVariant"
+                    app:cardCornerRadius="?attr/customCardRadius">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <!-- Add manually button -->
+
+                        <ImageButton
+                            android:id="@+id/goto_goals"
+                            android:layout_width="70dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="6dp"
+                            android:background="#00000000"
+                            android:clickable="true"
+                            android:contentDescription="Go to goals screen"
+                            android:padding="16dp"
+                            android:src="@drawable/baseline_arrow_forward"
+                            app:iconGravity="end"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/goal_title_home"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:filterTouchesWhenObscured="false"
+                            android:focusableInTouchMode="true"
+                            android:text="Goal title"
+                            android:textAppearance="?attr/textAppearanceStatLabel"
+                            android:textColor="?attr/colorOnPrimary"
+                            app:layout_constraintEnd_toStartOf="@id/goto_goals"
+                            app:layout_constraintHorizontal_bias="0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:ignore="TextViewEdits"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatLabel" /> <!-- Target duration x hours in x days -->
+
+                        <TextView
+                            android:id="@+id/goal_duration_home"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="16dp"
+                            android:layout_marginTop="6dp"
+                            android:layout_marginBottom="16dp"
+                            android:filterTouchesWhenObscured="false"
+                            android:focusableInTouchMode="true"
+                            android:text="Target: 0 hours | 0 days"
+                            android:textAppearance="?attr/textAppearanceAppSubtitle2"
+                            android:textColor="@color/onPrimary2"
+                            app:layout_constraintBottom_toTopOf="@id/goal_progress_bar2"
+                            app:layout_constraintEnd_toStartOf="@id/goto_goals"
+                            app:layout_constraintHorizontal_bias="0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/goal_title_home"
+                            app:layout_constraintVertical_bias="0.0"
+                            tools:ignore="TextViewEdits"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subtitle2" /> <!-- Goals summary description -->
+
+                        <ProgressBar
+                            android:id="@+id/goal_progress_bar2"
+                            style="@android:style/Widget.ProgressBar.Horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="55dp"
+                            android:layout_marginBottom="16dp"
+                            android:max="100"
+                            android:progress="0"
+                            android:progressDrawable="@drawable/progress_bar_style"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent" /> <!-- Goal progress bar -->
+
+                        <TextView
+                            android:id="@+id/goal_progress_percentage2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="15dp"
+                            android:layout_marginBottom="17dp"
+                            android:filterTouchesWhenObscured="false"
+                            android:focusableInTouchMode="true"
+                            android:text="100%"
+                            android:textAppearance="?attr/textAppearanceProgressLabel"
+                            android:textColor="?attr/colorOnPrimary"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0"
+                            app:layout_constraintStart_toEndOf="@+id/goal_progress_bar2"
+                            tools:ignore="TextViewEdits"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.ProgressLabel" /> <!-- Goal completion progressbar -->
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView> <!-- For cardview Goals -->
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/secondBlock"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3.5"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintStart_toEndOf="@id/fristBlock"
+            app:layout_constraintTop_toBottomOf="@id/toolbar2_const"
+            app:layout_constraintVertical_bias="0.5">
+
+            <!-- For cardview Timer -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:layout_weight="1"
+                app:barrierMargin="16dp"
+                app:cardBackgroundColor="?attr/colorPrimaryVariant"
+                app:cardCornerRadius="?attr/customCardRadius">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/timer_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="28dp"
+                            android:layout_marginTop="21dp"
+                            android:layout_marginBottom="8dp"
+                            android:layout_alignParentStart="true"
+                            android:gravity="start"
+                            android:text="@string/timer_card_title"
+                            android:textAppearance="?attr/textAppearanceCardTitle"
+                            android:textColor="?attr/colorOnPrimary"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.CardTitle" /> <!-- Timer title -->
+
+                        <TextView
+                            android:id="@+id/timer_display"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="4dp"
+                            android:layout_below="@id/timer_title"
+                            android:gravity="center"
+                            android:includeFontPadding="false"
+                            android:text="00:00:00"
+                            android:textAppearance="?attr/textAppearanceHeroValue"
+                            android:textColor="?attr/colorOnPrimary"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.HeroValue" /> <!-- Timer display -->
+                    </RelativeLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/record"
+                        android:layout_width="130dp"
+                        android:layout_height="100dp"
+                        android:layout_margin="28dp"
+                        android:backgroundTint="@color/black_white"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:letterSpacing="0.1"
+                        android:text="@string/record"
+                        android:textAllCaps="false"
+                        android:textAppearance="?attr/textAppearanceAppButton"
+                        android:textColor="@color/white_black"
+                        app:cornerRadius="?attr/customButtonRadius"
+                        app:rippleColor="@color/big_button_bg"
+                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.AppButton" /> <!-- Record button -->
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView> <!-- For cardview Timer -->
+
+            <!-- For cardview Manual Entry-->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView2"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="9dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:layout_weight="1"
+                app:barrierMargin="16dp"
+                app:cardBackgroundColor="?attr/colorPrimaryVariant"
+                app:cardCornerRadius="?attr/customCardRadius">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/manualentry_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="28dp"
+                            android:layout_marginTop="21dp"
+                            android:layout_marginBottom="0dp"
+                            android:gravity="start"
+                            android:text="@string/manual_card_title"
+                            android:layout_alignParentStart="true"
+                            android:textAppearance="?attr/textAppearanceCardTitle"
+                            android:textColor="?attr/colorOnPrimary"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.CardTitle" /> <!-- Title for manual entry  -->
+
+                        <!-- Horizontal layout for HH MM SS -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginTop="22dp"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:layout_below="@id/manualentry_title"
+                            android:layout_centerVertical="true">
+
+                            <EditText
+                                android:id="@+id/manual_hours"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="12dp"
+                                android:gravity="center"
+                                android:hint="hh"
+                                android:inputType="number"
+                                android:padding="10dp"
+                                android:textAppearance="?attr/textAppearanceAppSubheader"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subheader" /> <!-- hrs -->
+
+                            <EditText
+                                android:id="@+id/manual_minutes"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="12dp"
+                                android:gravity="center"
+                                android:hint="mm"
+                                android:inputType="number"
+                                android:padding="10dp"
+                                android:textAppearance="?attr/textAppearanceAppSubheader"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subheader" /> <!-- mm -->
+
+                            <EditText
+                                android:id="@+id/manual_seconds"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:gravity="center"
+                                android:hint="ss"
+                                android:inputType="number"
+                                android:padding="10dp"
+                                android:textAppearance="?attr/textAppearanceAppSubheader"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subheader" /> <!-- ss -->
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/add_entry"
+                        android:layout_width="130dp"
+                        android:layout_height="100dp"
+                        android:layout_margin="28dp"
+                        android:backgroundTint="@color/black_white"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:letterSpacing="0.1"
+                        android:text="@string/add_entry"
+                        android:textAllCaps="false"
+                        android:textAppearance="?attr/textAppearanceAppButton"
+                        android:textColor="@color/white_black"
+                        app:cornerRadius="?attr/customButtonRadius"
+                        app:rippleColor="@color/big_button_bg"
+                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.AppButton" /> <!-- Add manually button -->
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView> <!-- For cardview Manual Entry-->
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
