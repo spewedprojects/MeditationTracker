@@ -1,0 +1,723 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:clickable="true">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="16dp"
+        app:cardBackgroundColor="?attr/colorPrimaryVariant"
+        app:cardCornerRadius="?attr/customCardRadius"
+        app:cardElevation="4dp"
+        app:layout_constraintHeight_max="800dp"
+        app:layout_constraintWidth_max="1000dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/textHintcolor"
+        app:strokeWidth="2dp">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="20dp">
+
+                <LinearLayout
+                    android:id="@+id/tvReportHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toStartOf="@id/ivMeditationIcon"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <!-- Title -->
+                    <TextView
+                        android:id="@+id/tvReportTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:letterSpacing="0.04"
+                        android:text="Meditation Report"
+                        android:textAppearance="?attr/textAppearanceReportTitle"
+                        android:textColor="@color/inverseprimary"
+                        android:textSize="30dp"
+                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.ReportTitle" />
+
+                    <TextView
+                        android:id="@+id/tvReportYearMonth"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:letterSpacing="0.04"
+                        android:text="For Year/Month 2025"
+                        android:textAppearance="?attr/textAppearanceStatUnit"
+                        android:textColor="@color/inverseprimary"
+                        android:textSize="15dp"
+                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatUnit" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/ivMeditationIcon"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="6dp"
+                    android:src="@drawable/mtapp_icon2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/inverseprimary" />
+
+                <!-- Dashed Divider -->
+                <View
+                    android:id="@+id/dividerTop"
+                    android:layout_width="0dp"
+                    android:layout_height="4dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/dashed_line"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvReportHeader"
+                    app:layout_constraintVertical_bias="0" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/dividerTop"
+                    app:layout_constraintVertical_bias="0">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <!-- ===== METRIC ROW 1 ===== -->
+                        <LinearLayout
+                            android:id="@+id/rowTopMetrics"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="3"
+                            app:layout_constraintVertical_chainStyle="packed">
+
+                            <!-- Total Hours -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/tvTotalHoursLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:alpha="0.7"
+                                    android:gravity="center"
+                                    android:text="Total hrs\nMeditated"
+                                    android:textAppearance="?attr/textAppearanceStatLabel"
+                                    android:textColor="@color/inverseprimary"
+                                    android:textSize="15dp"
+                                    tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatLabel" />
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:id="@+id/tvTotalHoursValue"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="48"
+                                        android:textAppearance="?attr/textAppearanceStatValue"
+                                        android:textColor="@color/inverseprimary"
+                                        android:textSize="36dp"
+                                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatValue" />
+
+                                    <TextView
+                                        android:id="@+id/tvTotalHoursUnit"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="hrs"
+                                        android:textAppearance="?attr/textAppearanceStatUnit"
+                                        android:textColor="@color/inverseprimary"
+                                        android:textSize="14.5dp"
+                                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatUnit" />
+                                </LinearLayout>
+                            </LinearLayout>
+
+                            <!-- Consistency -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/tvConsistencyLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:alpha="0.7"
+                                    android:gravity="center"
+                                    android:text="Consistency\nScore"
+                                    android:textAppearance="?attr/textAppearanceStatLabel"
+                                    android:textColor="@color/inverseprimary"
+                                    android:textSize="15dp"
+                                    tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatLabel" />
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:id="@+id/tvConsistencyValue"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="45"
+                                        android:textAppearance="?attr/textAppearanceStatValue"
+                                        android:textColor="@color/inverseprimary"
+                                        android:textSize="36dp"
+                                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatValue" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="%"
+                                        android:textAppearance="?attr/textAppearanceStatUnit"
+                                        android:textColor="@color/inverseprimary"
+                                        android:textSize="14.5dp"
+                                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatUnit" />
+                                </LinearLayout>
+                            </LinearLayout>
+
+                            <!-- Best Streak -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/tvBestStreakLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:alpha="0.7"
+                                    android:gravity="center"
+                                    android:text="Best\nstreak"
+                                    android:textAppearance="?attr/textAppearanceStatLabel"
+                                    android:textColor="@color/inverseprimary"
+                                    android:textSize="15dp"
+                                    tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatLabel" />
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:id="@+id/tvBestStreakValue"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="21"
+                                        android:textAppearance="?attr/textAppearanceStatValue"
+                                        android:textColor="@color/inverseprimary"
+                                        android:textSize="36dp"
+                                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatValue" />
+
+                                    <TextView
+                                        android:id="@+id/tvBestStreakUnit"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="days"
+                                        android:textAppearance="?attr/textAppearanceStatUnit"
+                                        android:textColor="@color/inverseprimary"
+                                        android:textSize="14.5dp"
+                                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatUnit" />
+                                </LinearLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <!-- Divider -->
+                        <View
+                            android:id="@+id/dividerMid1"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginVertical="12dp"
+                            android:background="#DDDDDD"
+                            app:layout_constraintBottom_toTopOf="@id/rowMidMetrics"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/rowTopMetrics"
+                            app:layout_constraintVertical_bias="0"
+                            app:layout_constraintVertical_chainStyle="packed" />
+
+                        <!-- ===== METRIC ROW 2 ===== -->
+                        <LinearLayout
+                            android:id="@+id/rowMidMetrics"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="3"
+                            app:layout_constraintBottom_toTopOf="@id/dividerMid2"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/dividerMid1"
+                            app:layout_constraintVertical_bias="0"
+                            app:layout_constraintVertical_chainStyle="packed">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/tvDaysNotMeditatedLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:alpha="0.7"
+                                    android:gravity="center"
+                                    android:text="Days not\nMeditated"
+                                    android:textAppearance="?attr/textAppearanceStatLabel"
+                                    android:textColor="@color/inverseprimary"
+                                    android:textSize="15dp"
+                                    tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatLabel" />
+
+                                <TextView
+                                    android:id="@+id/tvDaysNotMeditatedValue"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="185"
+                                    android:textAppearance="?attr/textAppearanceStatValue"
+                                    android:textColor="@color/inverseprimary"
+                                    android:textSize="32dp"
+                                    tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatValue" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/tvWeeksNotMeditatedLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:alpha="0.7"
+                                    android:gravity="center"
+                                    android:text="Weeks not\nMeditated"
+                                    android:textAppearance="?attr/textAppearanceStatLabel"
+                                    android:textColor="@color/inverseprimary"
+                                    android:textSize="15dp"
+                                    tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatLabel" />
+
+                                <TextView
+                                    android:id="@+id/tvWeeksNotMeditatedValue"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="15"
+                                    android:textAppearance="?attr/textAppearanceStatValue"
+                                    android:textColor="@color/inverseprimary"
+                                    android:textSize="32dp"
+                                    tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatValue" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/container_StreakStability"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/tvStreakStabilityLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:alpha="0.7"
+                                    android:gravity="center"
+                                    android:text="Streak\nStability"
+                                    android:textAppearance="?attr/textAppearanceStatLabel"
+                                    android:textColor="@color/inverseprimary"
+                                    android:textSize="15dp"
+                                    tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatLabel" />
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:id="@+id/tvStreakStabilityValue"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="5"
+                                        android:textAppearance="?attr/textAppearanceStatValue"
+                                        android:textColor="@color/inverseprimary"
+                                        android:textSize="32dp"
+                                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatValue" />
+
+                                    <TextView
+                                        android:id="@+id/tvStreakStabilityUnit"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="days"
+                                        android:textAppearance="?attr/textAppearanceStatUnit"
+                                        android:textColor="@color/inverseprimary"
+                                        android:textSize="14.5dp"
+                                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatUnit" />
+                                </LinearLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <!-- Divider -->
+                        <View
+                            android:id="@+id/dividerMid2"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginVertical="12dp"
+                            android:background="#DDDDDD"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/rowMidMetrics"
+                            app:layout_constraintVertical_bias="0"
+                            app:layout_constraintVertical_chainStyle="packed" />
+
+                        <!-- ===== METRIC ROW 3 ===== -->
+                        <LinearLayout
+                            android:id="@+id/rowLowerMetrics"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="3"
+                            app:layout_constraintBottom_toTopOf="@id/rowMonthStats"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/dividerMid2"
+                            app:layout_constraintVertical_bias="0"
+                            app:layout_constraintVertical_chainStyle="packed">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/tvTotalSessionsLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:alpha="0.7"
+                                    android:gravity="center"
+                                    android:text="Total\nsessions"
+                                    android:textAppearance="?attr/textAppearanceStatLabel"
+                                    android:textColor="@color/inverseprimary"
+                                    android:textSize="15dp"
+                                    tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatLabel" />
+
+                                <TextView
+                                    android:id="@+id/tvTotalSessionsValue"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="121"
+                                    android:textAppearance="?attr/textAppearanceStatValue"
+                                    android:textColor="@color/inverseprimary"
+                                    android:textSize="32dp"
+                                    tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatValue" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/tvAvgGapLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:alpha="0.7"
+                                    android:gravity="center"
+                                    android:text="Avg. session\nGap"
+                                    android:textAppearance="?attr/textAppearanceStatLabel"
+                                    android:textColor="@color/inverseprimary"
+                                    android:textSize="15dp"
+                                    tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatLabel" />
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:id="@+id/tvAvgGapValue"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="4"
+                                        android:textAppearance="?attr/textAppearanceStatValue"
+                                        android:textColor="@color/inverseprimary"
+                                        android:textSize="32dp"
+                                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatValue" />
+
+                                    <TextView
+                                        android:id="@+id/tvAvgGapUnit"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="days"
+                                        android:textAppearance="?attr/textAppearanceStatUnit"
+                                        android:textColor="@color/inverseprimary"
+                                        android:textSize="14.5dp"
+                                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatUnit" />
+                                </LinearLayout>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/container_SessionLength"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/tvAvgSessionLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:alpha="0.7"
+                                    android:gravity="center"
+                                    android:text="Avg.\nSession length"
+                                    android:textAppearance="?attr/textAppearanceStatLabel"
+                                    android:textColor="@color/inverseprimary"
+                                    android:textSize="15dp"
+                                    tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatLabel" />
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:id="@+id/tvAvgSessionValue"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="15"
+                                        android:textAppearance="?attr/textAppearanceStatValue"
+                                        android:textColor="@color/inverseprimary"
+                                        android:textSize="32dp"
+                                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatValue" />
+
+                                    <TextView
+                                        android:id="@+id/tvAvgSessionUnit"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="mins"
+                                        android:textAppearance="?attr/textAppearanceStatUnit"
+                                        android:textColor="@color/inverseprimary"
+                                        android:textSize="14.5dp"
+                                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatUnit" />
+                                </LinearLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:layout_gravity="fill_vertical">
+
+                        <!-- Most / Least Active -->
+                        <LinearLayout
+                            android:id="@+id/rowMonthStats"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="2"
+                            android:layout_alignParentTop="true"
+                            android:visibility="visible">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/tvMostActiveLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:alpha="0.85"
+                                    android:text="Most active Month"
+                                    android:textAppearance="?attr/textAppearanceStatLabel"
+                                    android:textColor="@color/inverseprimary"
+                                    android:textSize="15dp"
+                                    tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatLabel" />
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:id="@+id/tvMostActiveValue"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="May – 9"
+                                        android:textAppearance="?attr/textAppearanceStatValue"
+                                        android:textColor="@color/inverseprimary"
+                                        android:textSize="26dp"
+                                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatValue" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="hrs"
+                                        android:textAppearance="?attr/textAppearanceStatUnit"
+                                        android:textColor="@color/inverseprimary"
+                                        android:textSize="15.5dp"
+                                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatUnit" />
+                                </LinearLayout>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/tvLeastActiveLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:alpha="0.85"
+                                    android:text="Least active Month"
+                                    android:textAppearance="?attr/textAppearanceStatLabel"
+                                    android:textColor="@color/inverseprimary"
+                                    android:textSize="15dp"
+                                    tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatLabel" />
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:id="@+id/tvLeastActiveValue"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Apr – 0.9"
+                                        android:textAppearance="?attr/textAppearanceStatValue"
+                                        android:textColor="@color/inverseprimary"
+                                        android:textSize="26dp"
+                                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatValue" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="hrs"
+                                        android:textAppearance="?attr/textAppearanceStatUnit"
+                                        android:textColor="@color/inverseprimary"
+                                        android:textSize="15.5dp"
+                                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatUnit" />
+                                </LinearLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <!-- Preferred Times & Session Frequency placeholders -->
+                        <LinearLayout
+                            android:id="@+id/rowCharts"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:paddingTop="24dp"
+                            android:weightSum="2"
+                            android:layout_below="@id/rowMonthStats"
+                            android:layout_alignParentBottom="true">
+
+                            <!-- Preferred times chart -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Preferred Times"
+                                    android:textAppearance="?attr/textAppearanceStatLabel"
+                                    android:textColor="@color/inverseprimary"
+                                    tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatLabel" />
+
+                                <com.github.mikephil.charting.charts.BarChart
+                                    android:id="@+id/chartPreferredTimes"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="200dp" />
+                            </LinearLayout>
+
+                            <!-- Session frequency chart -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Session Frequency"
+                                    android:textAppearance="?attr/textAppearanceStatLabel"
+                                    android:textColor="@color/inverseprimary"
+                                    tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatLabel" />
+
+                                <com.github.mikephil.charting.charts.BarChart
+                                    android:id="@+id/chartSessionFrequency"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="200dp" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </com.google.android.material.card.MaterialCardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

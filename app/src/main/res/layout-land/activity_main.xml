@@ -49,9 +49,10 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView0"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="0.8"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="0dp"
                 android:elevation="6dp"
@@ -115,7 +116,8 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:orientation="horizontal">
                 <!-- For cardview streak-->
                 <com.google.android.material.card.MaterialCardView
@@ -310,7 +312,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3.5"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1"
@@ -321,62 +323,89 @@
             <!-- For cardview Timer -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView1"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
                 android:layout_weight="1"
                 app:barrierMargin="16dp"
                 app:cardBackgroundColor="?attr/colorPrimaryVariant"
                 app:cardCornerRadius="?attr/customCardRadius">
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
-                    <RelativeLayout
+                    <TextView
+                        android:id="@+id/timer_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="28dp"
+                        android:layout_marginTop="21dp"
+                        android:layout_marginBottom="8dp"
+                        android:gravity="start"
+                        android:text="@string/timer_card_title"
+                        android:textAppearance="?attr/textAppearanceCardTitle"
+                        android:textColor="?attr/colorOnPrimary"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.CardTitle" /> <!-- Timer title -->
+
+                    <LinearLayout
+                        android:id="@+id/timer_display_container"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2"
-                        android:orientation="vertical">
-
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="visible"
+                        app:layout_constraintBottom_toTopOf="@id/record"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/timer_title"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:gravity="center">
                         <TextView
-                            android:id="@+id/timer_title"
-                            android:layout_width="match_parent"
+                            android:id="@+id/timer_display_hh"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="28dp"
-                            android:layout_marginTop="21dp"
-                            android:layout_marginBottom="8dp"
-                            android:layout_alignParentStart="true"
-                            android:gravity="start"
-                            android:text="@string/timer_card_title"
-                            android:textAppearance="?attr/textAppearanceCardTitle"
-                            android:textColor="?attr/colorOnPrimary"
-                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.CardTitle" /> <!-- Timer title -->
-
-                        <TextView
-                            android:id="@+id/timer_display"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:layout_marginBottom="4dp"
-                            android:layout_below="@id/timer_title"
+                            android:layout_marginVertical="0dp"
                             android:gravity="center"
                             android:includeFontPadding="false"
-                            android:text="00:00:00"
+                            android:text="00"
                             android:textAppearance="?attr/textAppearanceHeroValue"
                             android:textColor="?attr/colorOnPrimary"
-                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.HeroValue" /> <!-- Timer display -->
-                    </RelativeLayout>
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.HeroValue" />
+                        <TextView
+                            android:id="@+id/timer_display_mm"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="0dp"
+                            android:gravity="center"
+                            android:includeFontPadding="false"
+                            android:text="00"
+                            android:textAppearance="?attr/textAppearanceHeroValue"
+                            android:textColor="?attr/colorOnPrimary"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.HeroValue" />
+                        <TextView
+                            android:id="@+id/timer_display_ss"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="0dp"
+                            android:gravity="center"
+                            android:includeFontPadding="false"
+                            android:text="00"
+                            android:textAppearance="?attr/textAppearanceHeroValue"
+                            android:textColor="?attr/colorOnPrimary"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.HeroValue" />
+                    </LinearLayout>
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/record"
-                        android:layout_width="130dp"
-                        android:layout_height="100dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_margin="28dp"
                         android:backgroundTint="@color/black_white"
                         android:gravity="center"
@@ -387,19 +416,22 @@
                         android:textAppearance="?attr/textAppearanceAppButton"
                         android:textColor="@color/white_black"
                         app:cornerRadius="?attr/customButtonRadius"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:rippleColor="@color/big_button_bg"
                         tools:theme="@style/TextAppearance.MeditationTracker.AppFont.AppButton" /> <!-- Record button -->
 
-                </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView> <!-- For cardview Timer -->
 
             <!-- For cardview Manual Entry-->
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView2"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="9dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
                 android:layout_weight="1"
@@ -407,17 +439,11 @@
                 app:cardBackgroundColor="?attr/colorPrimaryVariant"
                 app:cardCornerRadius="?attr/customCardRadius">
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:orientation="horizontal">
-
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2"
-                        android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/manualentry_title"
@@ -431,31 +457,34 @@
                             android:layout_alignParentStart="true"
                             android:textAppearance="?attr/textAppearanceCardTitle"
                             android:textColor="?attr/colorOnPrimary"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
                             tools:theme="@style/TextAppearance.MeditationTracker.AppFont.CardTitle" /> <!-- Title for manual entry  -->
 
                         <!-- Horizontal layout for HH MM SS -->
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:layout_marginTop="22dp"
                             android:gravity="center"
-                            android:orientation="horizontal"
-                            android:layout_below="@id/manualentry_title"
+                            android:orientation="vertical"
+                            app:layout_constraintBottom_toTopOf="@id/add_entry"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/manualentry_title"
+                            app:layout_constraintEnd_toEndOf="parent"
                             android:layout_centerVertical="true">
-
                             <EditText
                                 android:id="@+id/manual_hours"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginEnd="12dp"
+                                android:layout_marginHorizontal="12dp"
                                 android:gravity="center"
                                 android:hint="hh"
                                 android:inputType="number"
                                 android:padding="10dp"
                                 android:textAppearance="?attr/textAppearanceAppSubheader"
                                 tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subheader" /> <!-- hrs -->
-
                             <EditText
                                 android:id="@+id/manual_minutes"
                                 android:layout_width="wrap_content"
@@ -467,27 +496,23 @@
                                 android:padding="10dp"
                                 android:textAppearance="?attr/textAppearanceAppSubheader"
                                 tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subheader" /> <!-- mm -->
-
                             <EditText
                                 android:id="@+id/manual_seconds"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="12dp"
+                                android:layout_marginHorizontal="12dp"
                                 android:gravity="center"
                                 android:hint="ss"
                                 android:inputType="number"
                                 android:padding="10dp"
                                 android:textAppearance="?attr/textAppearanceAppSubheader"
                                 tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subheader" /> <!-- ss -->
-
                         </LinearLayout>
-
-                    </RelativeLayout>
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/add_entry"
-                        android:layout_width="130dp"
-                        android:layout_height="100dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_margin="28dp"
                         android:backgroundTint="@color/black_white"
                         android:gravity="center"
@@ -499,9 +524,12 @@
                         android:textColor="@color/white_black"
                         app:cornerRadius="?attr/customButtonRadius"
                         app:rippleColor="@color/big_button_bg"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
                         tools:theme="@style/TextAppearance.MeditationTracker.AppFont.AppButton" /> <!-- Add manually button -->
 
-                </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView> <!-- For cardview Manual Entry-->
 
         </LinearLayout>

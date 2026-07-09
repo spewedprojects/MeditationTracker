@@ -23,12 +23,11 @@
     <string name="total_hours">Total hours: </string>
     <string name="goals_title">Set a New Goal</string>
     <string name="goals_desc">Create a new meditation goal</string>
-    <string name="current_version_details"> 25/06/2026
-        \n- Created landscape-specific layouts for all major screens, including Main Screen, Goals, Summary, Reports, About and Release Notes.
-        \n- Chart fragment also now supports landscape orientation,along with month-year picker dialog.
+    <string name="current_version_details"> 09/07/2026
+        \n- Summary screen needs a vertical scroll for landscape mode - Done.
+        \n- Main screen now features optimized layout.
         \n
         \nNEXT:
-        \n- Summary screen needs a vertical scroll for landscape mode.
         \n- Main screen should dynamically adjust constraints based on goals visibility.
         \n- Smaller devices still need meticulous planning.
         \n- Add an option in settings to disable landscape specific layouts.

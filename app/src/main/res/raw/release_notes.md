@@ -64,7 +64,11 @@
 
 Latest release **_[here](https://github.com/spewedprojects/MeditationTracker/releases/latest)_**.
 
-103. **_[14.1.1 (07/06/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v14.1.1)_**
+104. **_[14.2.0 (25/06/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v14.2.0)_**
+> - Created landscape-specific layouts for all major screens, including Main Screen, Goals, Summary, Reports, About and Release Notes.
+> - Chart fragment also now supports landscape orientation,along with month-year picker dialog.
+
+103. [14.1.1 (07/06/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v14.1.1)
 > - Wrapped the settings content in a `NestedScrollView` in `activity_settingsinfo.xml`.
 > - Added a `tooltipText` attribute to the streak card in `activity_main.xml` to improve feature discoverability.
 > - Updated `ReportsAdapter.java` to display `weightedAvgSessionLength` instead of the raw average session length for more accurate reporting.

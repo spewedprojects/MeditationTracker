@@ -57,7 +57,7 @@ import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends BaseActivity implements BackdatedDialogFragment.BackdatedEntryListener {
 
-    private TextView dateDisplay, timerDisplay, todayTotalDisplay, weekTotalDisplay, streakText;
+    private TextView dateDisplay, timerDisplay, todayTotalDisplay, weekTotalDisplay, streakText, timerDisplayHH, timerDisplayMM, timerDisplaySS;
     private Button recordButton, addEntryButton;
     private ImageButton gotoGoalsButton, moreMenuButton;
     private MaterialCardView streakCard;
@@ -88,6 +88,9 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
         // Initialize UI elements
         dateDisplay = findViewById(R.id.date_display);
         timerDisplay = findViewById(R.id.timer_display);
+        timerDisplayHH = findViewById(R.id.timer_display_hh);
+        timerDisplayMM = findViewById(R.id.timer_display_mm);
+        timerDisplaySS = findViewById(R.id.timer_display_ss);
         todayTotalDisplay = findViewById(R.id.today_total);
         weekTotalDisplay = findViewById(R.id.week_total);
         recordButton = findViewById(R.id.record);
@@ -351,7 +354,17 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
         int hours = secondsElapsed / 3600;
         int minutes = (secondsElapsed % 3600) / 60;
         int seconds = secondsElapsed % 60;
-        timerDisplay.setText(String.format(Locale.getDefault(), "%02d:%02d:%02d", hours, minutes, seconds));
+        // Update the single TextView (Portrait)
+        if (timerDisplay != null) {
+            timerDisplay.setText(String.format(Locale.getDefault(), "%02d:%02d:%02d", hours, minutes, seconds));
+        }
+
+        // Update the stacked TextViews (Landscape)
+        if (timerDisplayHH != null && timerDisplayMM != null && timerDisplaySS != null) {
+            timerDisplayHH.setText(String.format(Locale.getDefault(), "%02d", hours));
+            timerDisplayMM.setText(String.format(Locale.getDefault(), "%02d", minutes));
+            timerDisplaySS.setText(String.format(Locale.getDefault(), "%02d", seconds));
+        }
     }
 
     // Update today's total time display
