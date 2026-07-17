@@ -1,6 +1,7 @@
 package com.gratus.meditationtrakcer;
 
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -12,6 +13,7 @@ import androidx.constraintlayout.motion.widget.MotionLayout;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -58,10 +60,18 @@ public class ReportsActivity extends BaseActivity {
         rvReports = findViewById(R.id.rv_reports_list);
 
         // Setup RecyclerView
-        rvReports.setLayoutManager(new LinearLayoutManager(this));
+        DisplayMetrics metrics = getResources().getDisplayMetrics();
+        float screenWidthDp = metrics.widthPixels / metrics.density;
 
-        // Load Data
+        int desiredItemWidthDp = 410;
+        int spanCount = Math.max(1, (int)(screenWidthDp / desiredItemWidthDp));
+        GridLayoutManager layoutManager = new GridLayoutManager(this, spanCount);
+
+        // Load Data (Initializes Adapter)
         refreshDataAndState();
+
+        adapter.setSpanCount(spanCount);
+        rvReports.setLayoutManager(layoutManager);
 
         btn_MonthReport.setOnClickListener(v -> {
             YMPickerDialogFragment.newInstance(

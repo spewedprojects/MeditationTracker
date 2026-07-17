@@ -2,19 +2,24 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_17)
+    }
 }
 
 android {
     namespace = "com.gratus.meditationtrakcer"
-    compileSdk = 36
+    compileSdk { version = release(37) { minorApiLevel = 0 } }
 
     defaultConfig {
         applicationId = "com.gratus.meditationtrakcer"
         minSdk = 31
         targetSdk = 36
-        versionCode = 97
-        versionName = "14.3.0" // Format: Major (4), Minor (0), Patch (a)
+        versionCode = 98
+        versionName = "14.3.1" // Format: Major (4), Minor (0), Patch (a)
 
         // Pass versionName to the app as a resource
         resValue(
@@ -37,13 +42,22 @@ android {
             signingConfig = signingConfigs.getByName("debug")
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlin {
-        compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_17)
+}
+
+androidComponents {
+    onVariants { variant ->
+        variant.outputs.forEach { output ->
+            val baseName = if (variant.buildType == "debug") {
+                "MeditationTracker-${variant.buildType}"
+            } else {
+                "MeditationTracker-${android.defaultConfig.versionName}-${variant.buildType}"
+            }
+            output.outputFileName.set("$baseName.apk")
         }
     }
 }

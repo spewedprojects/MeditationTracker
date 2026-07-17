@@ -1,6 +1,7 @@
 package com.gratus.meditationtrakcer.adapters;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,12 @@ public class ReportsAdapter extends RecyclerView.Adapter<ReportsAdapter.ReportVi
     private Context context;
     private List<MeditationReportData> reports;
     private OnReportClickListener listener;
+
+    private int spanCount = 1;
+
+    public void setSpanCount(int spanCount) {
+        this.spanCount = spanCount;
+    }
 
     public ReportsAdapter(Context context, List<MeditationReportData> reports, OnReportClickListener listener) {
         this.context = context;
@@ -69,6 +76,29 @@ public class ReportsAdapter extends RecyclerView.Adapter<ReportsAdapter.ReportVi
         holder.itemView.setOnClickListener(v -> {
             listener.onReportClick(data, holder.cardView);
         });
+
+        ViewGroup.MarginLayoutParams lp =
+                (ViewGroup.MarginLayoutParams) holder.itemView.getLayoutParams();
+
+        int outer = dpToPx(12);
+        int inner = dpToPx(1);
+
+        if (spanCount == 1) {
+            lp.setMarginStart(outer);
+            lp.setMarginEnd(outer);
+        } else {
+            if (position % spanCount == 0) {
+                // Left column
+                lp.setMarginStart(inner);
+                lp.setMarginEnd(inner);
+            } else {
+                // Right column
+                lp.setMarginStart(inner);
+                lp.setMarginEnd(outer);
+            }
+        }
+
+        holder.itemView.setLayoutParams(lp);
     }
 
     @Override
@@ -92,5 +122,9 @@ public class ReportsAdapter extends RecyclerView.Adapter<ReportsAdapter.ReportVi
             daysWithout = itemView.findViewById(R.id.tv_days_without_value);
             btnDelete = itemView.findViewById(R.id.delete_report_button);
         }
+    }
+
+    private int dpToPx(int dp) {
+        return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
     }
 }

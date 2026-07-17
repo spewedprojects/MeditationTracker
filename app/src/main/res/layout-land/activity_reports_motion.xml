@@ -6,7 +6,6 @@
     android:id="@+id/report_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
     app:layoutDescription="@xml/activity_reports_motion_scene"
     app:applyMotionScene="true"
     tools:context=".ReportsActivity">
@@ -92,19 +91,21 @@
         android:layout_height="match_parent"
         android:layout_width="1.5dp"
         android:layout_marginTop="18dp"
-        android:alpha="0.2"
+        android:alpha="0.0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/btn_reportYear"
+        app:layout_constraintStart_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar2_constG"
         app:layout_constraintHorizontal_bias="1" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_reports_list"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
+        android:requiresFadingEdge="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar2_constG"
-        app:layout_constraintStart_toEndOf="@id/divider_report"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="parent"/>
 
 </androidx.constraintlayout.motion.widget.MotionLayout>

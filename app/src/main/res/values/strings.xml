@@ -23,9 +23,11 @@
     <string name="total_hours">Total hours: </string>
     <string name="goals_title">Set a New Goal</string>
     <string name="goals_desc">Create a new meditation goal</string>
-    <string name="current_version_details"> 09/07/2026
-        \n- Summary screen needs a vertical scroll for landscape mode - Done.
-        \n- Main screen now features optimized layout.
+    <string name="current_version_details"> 17/07/2026
+        \n- New app icon, more simplified.
+        \n- Landscape specific layouts for more screens.
+        \n- Report screen now uses two columns automatically if there is enough space in landscape mode.
+        \n- Added dynamic margins for mini report cards when in 2-column mode.
         \n
         \nNEXT:
         \n- Main screen should dynamically adjust constraints based on goals visibility.

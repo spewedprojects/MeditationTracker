@@ -28,7 +28,7 @@
 
     <style name="TextAppearance.MeditationTracker.AppFont.HeroValue">
         <item name="android:fontFamily">@font/atkinsonhyperlegiblenext_regular</item>
-        <item name="android:textSize">40sp</item>
+        <item name="android:textSize">43sp</item>
         <item name="android:letterSpacing">0.055</item>
     </style>
 
@@ -143,7 +143,7 @@
 
     <style name="TextAppearance.MeditationTracker.SystemFont.HeroValue">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textSize">40sp</item>
+        <item name="android:textSize">43sp</item>
         <item name="android:letterSpacing">0.055</item>
         <item name="android:includeFontPadding">false</item>
     </style>

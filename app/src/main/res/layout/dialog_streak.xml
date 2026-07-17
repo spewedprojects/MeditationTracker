@@ -25,227 +25,232 @@
         app:strokeColor="@color/success_green"
         app:strokeWidth="0dp">
 
-        <HorizontalScrollView
-            android:id="@+id/streak_scroll"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fadeScrollbars="true"
-            android:fillViewport="true"
-            android:overScrollMode="never"
-            android:scrollbarFadeDuration="200"
-            android:scrollbarSize="2dp"
-            android:scrollbarStyle="insideOverlay"
-            android:scrollbars="horizontal">
+            android:layout_height="match_parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent">
+            <HorizontalScrollView
+                android:id="@+id/streak_scroll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fadeScrollbars="true"
+                android:fillViewport="true"
+                android:overScrollMode="never"
+                android:scrollbarFadeDuration="200"
+                android:scrollbarSize="2dp"
+                android:scrollbarStyle="insideOverlay"
+                android:scrollbars="horizontal">
 
-                <!-- Streak input screen 1 -->
-                <LinearLayout
-                    android:id="@+id/streak_input"
-                    android:layout_width="290dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/streak_info"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="21dp"
-                        android:background="@drawable/round_button_bg2"
-                        android:scaleType="center"
-                        android:scaleX="0.9"
-                        android:scaleY="0.9"
-                        android:src="@drawable/streak_24dp_e3e3e3" />
-
-                    <TextView
-                        android:id="@+id/streakDialog_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="28dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="0dp"
-                        android:gravity="center"
-                        android:text="Streak Goal"
-                        android:textAppearance="?attr/textAppearanceAppTitle"
-                        android:textColor="?attr/colorOnPrimary"
-                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.AppTitle" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="16dp"
-                        android:layout_marginTop="8dp"
-                        android:gravity="center"
-                        android:text="Make sure to put an achievable goal. Start small, finish big!"
-                        android:textAppearance="?attr/textAppearanceStatUnit"
-                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatUnit" />
-
-                    <EditText
-                        android:id="@+id/streak_days_input"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="28dp"
-                        android:layout_marginTop="18dp"
-                        android:layout_marginBottom="8dp"
-                        android:gravity="center"
-                        android:hint="Number of days"
-                        android:inputType="number"
-                        android:padding="10dp"
-                        android:textAppearance="?attr/textAppearanceTextInput"
-                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.TextInput" />
-
-                    <EditText
-                        android:id="@+id/streak_start_date"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="28dp"
-                        android:layout_marginTop="0dp"
-                        android:clickable="true"
-                        android:focusable="false"
-                        android:gravity="center"
-                        android:hint="Start date"
-                        android:inputType="date"
-                        android:textAppearance="?attr/textAppearanceTextInput"
-                        android:visibility="visible"
-                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.TextInput" />
-
-                    <Button
-                        android:id="@+id/add_streak"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="38dp"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginBottom="20dp"
-                        android:backgroundTint="?attr/colorOnPrimary"
-                        android:clickable="true"
-                        android:text="Add Streak goal"
-                        android:textAllCaps="false"
-                        android:textAppearance="?attr/textAppearanceAppButton"
-                        android:textColor="?attr/colorPrimary"
-                        app:cornerRadius="?attr/customButtonRadius"
-                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.AppButton" /> <!-- Add goal button -->
-
-                </LinearLayout>
-
-                <!-- Streak info screen 2 -->
-                <LinearLayout
-                    android:id="@+id/streak_info"
-                    android:layout_width="290dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/streak_input"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="21dp"
-                        android:background="@drawable/round_button_bg2"
-                        android:scaleType="center"
-                        android:scaleX="0.9"
-                        android:scaleY="0.9"
-                        android:src="@drawable/trending_up_38dp" />
-
-                    <!-- Longest streak view -->
-                    <TextView
-                        android:id="@+id/streak_longest_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="28dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="0dp"
-                        android:gravity="center"
-                        android:text="Longest streak"
-                        android:textAppearance="?attr/textAppearanceCardTitle"
-                        android:textColor="@color/onPrimary2"
-                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.CardTitle" />
-
+                    <!-- Streak input screen 1 -->
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:id="@+id/streak_input"
+                        android:layout_width="290dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:orientation="horizontal">
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/streak_info"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
 
-                        <TextView
-                            android:id="@+id/streak_longest_int"
+                        <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="21dp"
+                            android:background="@drawable/round_button_bg2"
+                            android:scaleType="center"
+                            android:scaleX="0.9"
+                            android:scaleY="0.9"
+                            android:src="@drawable/streak_24dp_e3e3e3" />
+
+                        <TextView
+                            android:id="@+id/streakDialog_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="28dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginBottom="0dp"
                             android:gravity="center"
-                            android:text="25"
-                            android:textAppearance="?attr/textAppearanceStatValue"
+                            android:text="Streak Goal"
+                            android:textAppearance="?attr/textAppearanceAppTitle"
                             android:textColor="?attr/colorOnPrimary"
-                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatValue" />
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.AppTitle" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="days"
-                            android:textAppearance="?attr/textAppearanceStatLabel"
-                            android:textColor="?attr/colorOnPrimary"
-                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatLabel" />
+                            android:layout_marginHorizontal="16dp"
+                            android:layout_marginTop="8dp"
+                            android:gravity="center"
+                            android:text="Make sure to put an achievable goal. Start small, finish big!"
+                            android:textAppearance="?attr/textAppearanceStatUnit"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatUnit" />
+
+                        <EditText
+                            android:id="@+id/streak_days_input"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="28dp"
+                            android:layout_marginTop="18dp"
+                            android:layout_marginBottom="8dp"
+                            android:gravity="center"
+                            android:hint="Number of days"
+                            android:inputType="number"
+                            android:padding="10dp"
+                            android:textAppearance="?attr/textAppearanceTextInput"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.TextInput" />
+
+                        <EditText
+                            android:id="@+id/streak_start_date"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="28dp"
+                            android:layout_marginTop="0dp"
+                            android:clickable="true"
+                            android:focusable="false"
+                            android:gravity="center"
+                            android:hint="Start date"
+                            android:inputType="date"
+                            android:textAppearance="?attr/textAppearanceTextInput"
+                            android:visibility="visible"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.TextInput" />
+
+                        <Button
+                            android:id="@+id/add_streak"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="38dp"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginBottom="20dp"
+                            android:backgroundTint="?attr/colorOnPrimary"
+                            android:clickable="true"
+                            android:text="Add Streak goal"
+                            android:textAllCaps="false"
+                            android:textAppearance="?attr/textAppearanceAppButton"
+                            android:textColor="?attr/colorPrimary"
+                            app:cornerRadius="?attr/customButtonRadius"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.AppButton" /> <!-- Add goal button -->
 
                     </LinearLayout>
 
-                    <!-- Current streak view -->
-                    <TextView
-                        android:id="@+id/streak_current_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="28dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="0dp"
-                        android:gravity="center"
-                        android:text="Current Active streak"
-                        android:textAppearance="?attr/textAppearanceCardSubTitle"
-                        android:textColor="@color/onPrimary2"
-                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.CardSubTitle" />
-
+                    <!-- Streak info screen 2 -->
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:id="@+id/streak_info"
+                        android:layout_width="290dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="20dp"
-                        android:orientation="horizontal">
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/streak_input"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0">
 
-                        <TextView
-                            android:id="@+id/streak_current_int"
+                        <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="21dp"
+                            android:background="@drawable/round_button_bg2"
+                            android:scaleType="center"
+                            android:scaleX="0.9"
+                            android:scaleY="0.9"
+                            android:src="@drawable/trending_up_38dp" />
+
+                        <!-- Longest streak view -->
+                        <TextView
+                            android:id="@+id/streak_longest_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="28dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginBottom="0dp"
                             android:gravity="center"
-                            android:text="23/26"
-                            android:textAppearance="?attr/textAppearanceStatValue"
-                            android:textColor="?attr/colorOnPrimary"
-                            android:textSize="44dp"
-                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatValue" />
+                            android:text="Longest streak"
+                            android:textAppearance="?attr/textAppearanceCardTitle"
+                            android:textColor="@color/onPrimary2"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.CardTitle" />
 
-                        <TextView
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=" days"
-                            android:textAppearance="?attr/textAppearanceStatLabel"
-                            android:textColor="?attr/colorOnPrimary"
-                            android:textSize="16sp"
-                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatLabel" />
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/streak_longest_int"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="25"
+                                android:textAppearance="?attr/textAppearanceStatValue"
+                                android:textColor="?attr/colorOnPrimary"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatValue" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="days"
+                                android:textAppearance="?attr/textAppearanceStatLabel"
+                                android:textColor="?attr/colorOnPrimary"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatLabel" />
+
+                        </LinearLayout>
+
+                        <!-- Current streak view -->
+                        <TextView
+                            android:id="@+id/streak_current_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="28dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="0dp"
+                            android:gravity="center"
+                            android:text="Current Active streak"
+                            android:textAppearance="?attr/textAppearanceCardSubTitle"
+                            android:textColor="@color/onPrimary2"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.CardSubTitle" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="20dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/streak_current_int"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="23/26"
+                                android:textAppearance="?attr/textAppearanceStatValue"
+                                android:textColor="?attr/colorOnPrimary"
+                                android:textSize="44dp"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatValue" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=" days"
+                                android:textAppearance="?attr/textAppearanceStatLabel"
+                                android:textColor="?attr/colorOnPrimary"
+                                android:textSize="16sp"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatLabel" />
+
+                        </LinearLayout>
 
                     </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                </LinearLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </HorizontalScrollView>
+            </HorizontalScrollView>
+        </androidx.core.widget.NestedScrollView>
 
     </com.google.android.material.card.MaterialCardView>
 

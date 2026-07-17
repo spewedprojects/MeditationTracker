@@ -12,6 +12,7 @@
 /.idea/assetWizardSettings.xml
 /icons and others
 /app/release/baselineProfiles
+/.artifacts/
 .DS_Store
 /build
 /captures

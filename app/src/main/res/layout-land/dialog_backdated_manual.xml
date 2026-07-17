@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/backdated_entry"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:clickable="true"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/dialogbox_backmanual"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_max="400dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="48dp"
+        android:layout_marginHorizontal="58dp"
+        app:cardCornerRadius="?attr/customCardRadius"
+        app:strokeWidth="0dp"
+        app:strokeColor="@color/success_green"
+        app:cardElevation="16dp"
+        app:cardBackgroundColor="?attr/colorPrimaryVariant"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:id="@+id/items_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingBottom="12dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/top_tV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="12dp"
+                        android:textAppearance="?attr/textAppearanceAppSubheader"
+                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subheader"
+                        android:gravity="center"
+                        android:text="Be honest with yourself!"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"/>
+
+                    <CalendarView
+                        android:id="@+id/backdate_picker"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_below="@id/top_tV"
+                        android:layout_alignParentStart="true"
+                        android:layout_toStartOf="@id/timeInput_container"/>
+
+                    <LinearLayout
+                        android:id="@+id/timeInput_container"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:layout_marginEnd="16dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true">
+
+                        <EditText
+                            android:id="@+id/manual_hours_B"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="8dp"
+                            android:textAppearance="?attr/textAppearanceAppSubheader"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subheader"
+                            android:gravity="center"
+                            android:hint="hh"
+                            android:inputType="number"
+                            android:padding="10dp" /> <!-- hrs -->
+
+                        <EditText
+                            android:id="@+id/manual_minutes_B"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="8dp"
+                            android:textAppearance="?attr/textAppearanceAppSubheader"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subheader"
+                            android:gravity="center"
+                            android:hint="mm"
+                            android:inputType="number"
+                            android:padding="10dp" /> <!-- mm -->
+
+                        <EditText
+                            android:id="@+id/manual_seconds_B"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="8dp"
+                            android:textAppearance="?attr/textAppearanceAppSubheader"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subheader"
+                            android:gravity="center"
+                            android:hint="ss"
+                            android:inputType="number"
+                            android:padding="10dp" /> <!-- ss -->
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/add_entry_B"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="38dp"
+                        android:layout_marginBottom="12dp"
+                        android:textAppearance="?attr/textAppearanceAppButton"
+                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.AppButton"
+                        android:gravity="center"
+                        android:backgroundTint="?attr/colorOnPrimary"
+                        android:includeFontPadding="false"
+                        android:text="@string/add_entry"
+                        android:textAllCaps="false"
+                        android:textColor="?attr/colorPrimary"
+                        app:cornerRadius="?attr/customButtonRadius"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@id/backdate_picker"/> <!-- Add goal button -->
+
+                </RelativeLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

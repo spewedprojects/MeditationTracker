@@ -1,34 +1,9 @@
-<div align="center">
-    <img width="200" src="docs/MT_icon_v4.svg" alt="GHBanner"/>
-    <h1>Meditation Tracker</h1>
-
-</div>
-
-Simple meditation tracker, to help to track your meditation progress, set goals and check streak.
-Fully offline, with ability to export logs to transfer between devices.
-
-#### _Google Play protect may ask to scan the app before installing; let it scan. **The app is safe to use.**_
-
-## Features
-* Unkillable timer, will keep working no matter what in regular conditions
-* Manual entry of meditation time
-* Back-dated manual entry
-* Goal setting and progress tracking
-* Streak Goal setting and passive streak monitoring.
-* Weekly/Monthly/Yearly summaries with charts.
-* Generate Monthly and Yearly Meditation reports.
-* Data export/import functionality.
-* Home Screen widgets for streak display, goals and to start timer from home screen.
-* Detdicated support for landscape orientation.
-* Dark mode support
-
-## Screenshots
-For detailed screenshots, check _[here](screenshots_detailed.md)_.
-
 Home Screen - Streak dialog and back-dated entry dialog
 <table>
   <tr>
     <td><img src="docs/screenshots/home_01.png" width="100%"></td>
+    <td><img src="docs/screenshots/home_02_streaksdialog.png" width="100%"></td>
+    <td><img src="docs/screenshots/home_03_streaksdialog.png" width="100%"></td>
     <td><img src="docs/screenshots/home_04_backdatedentry.png" width="100%"></td>
   </tr>
 </table>
@@ -37,6 +12,7 @@ Summary Screen
 <table>
   <tr>
     <td><img src="docs/screenshots/summary_01_week.png" width="100%"></td>
+    <td><img src="docs/screenshots/summary_02_month.png" width="100%"></td>
     <td><img src="docs/screenshots/summary_03_year.png" width="100%"></td>
   </tr>
 </table>
@@ -46,6 +22,8 @@ Reports Screen
   <tr>
     <td><img src="docs/screenshots/reports_01.png" width="100%"></td>
     <td><img src="docs/screenshots/reports_02.png" width="100%"></td>
+    <td><img src="docs/screenshots/reports_04_Mdialog.png" width="100%"></td>
+    <td><img src="docs/screenshots/reports_05_Ydialog.png" width="100%"></td>
     <td><img src="docs/screenshots/reports_03_detailedreport.png" width="100%"></td>
   </tr>
 </table>
@@ -54,6 +32,7 @@ Goals Screen - two methods to add goals
 <table>
   <tr>
     <td><img src="docs/screenshots/goals_01_A.png" width="100%"></td>
+    <td><img src="docs/screenshots/goals_02_B.png" width="100%"></td>
     <td><img src="docs/screenshots/goals_03.png" width="100%"></td>
   </tr>
 </table>
@@ -63,6 +42,7 @@ Settings Screen - notice card and button radii
   <tr>
     <td><img src="docs/screenshots/settings_01.png" width="100%"></td>
     <td><img src="docs/screenshots/settings_02.png" width="100%"></td>
+    <td><img src="docs/screenshots/settings_03.png" width="100%"></td>
   </tr>
 </table>
 
@@ -73,6 +53,3 @@ Navifation Drawer and Extra screens
     <td><img src="docs/screenshots/releasenotes.png" width="100%"></td>
   </tr>
 </table>
-
-## Getting started
-Download to install from _**[GitHub Releases](https://www.github.com/spewedprojects/MeditationTracker/releases/latest)**_
