@@ -3,7 +3,13 @@
 
 Latest release **_[here](https://github.com/spewedprojects/MeditationTracker/releases/latest)_**.
 
-105. _**[14.3.0 (09/07/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v14.3.0)**_
+106. **_[14.3.1 (17/07/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v14.3.1)_**
+> - New app icon, more simplified.
+> - Landscape specific layouts for more screens.
+> - Report screen now uses two columns automatically if there is enough space in landscape mode.
+> - Added dynamic margins for mini report cards when in 2-column mode.
+
+105. [14.3.0 (09/07/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v14.3.0)
 > - Summary screen needs a vertical scroll for landscape mode - Done.
 > - Main screen now features optimized layout.
 

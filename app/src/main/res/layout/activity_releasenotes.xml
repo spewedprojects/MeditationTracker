@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    android:background="?attr/colorSurface"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ReleaseNotesActivity">
@@ -34,7 +35,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintVertical_bias="0"
-        app:cardBackgroundColor="?attr/colorPrimaryVariant"
+        app:cardBackgroundColor="?attr/colorSurfaceContainerHigh"
         app:cardCornerRadius="?attr/customCardRadius"
         android:elevation="10dp">
 
@@ -54,7 +55,7 @@
             android:textAppearance="?attr/textAppearanceAppTitle"
             tools:theme="@style/TextAppearance.MeditationTracker.AppFont.AppTitle"
             android:text="Release Notes"
-            android:textColor="?attr/colorOnPrimary"
+            android:textColor="?attr/colorOnSurface"
             tools:ignore="TextViewEdits" /> <!-- Release notes page title -->
 
         <TextView
@@ -70,7 +71,7 @@
             android:textAppearance="?attr/textAppearanceAppButton"
             tools:theme="@style/TextAppearance.MeditationTracker.AppFont.AppButton"
             android:text="@string/app_version"
-            android:textColor="?attr/colorOnPrimary"
+            android:textColor="?attr/colorOnSurface"
             tools:ignore="TextViewEdits" /> <!-- current version display -->
 
         <TextView
@@ -87,7 +88,7 @@
             tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subtitle2"
             android:letterSpacing="0.02"
             android:text="@string/current_version_details"
-            android:textColor="?attr/colorOnPrimary"
+            android:textColor="?attr/colorOnSurface"
             tools:ignore="TextViewEdits" /> <!-- Release notes page title -->
         </LinearLayout>
 

@@ -25,13 +25,10 @@
         android:layout_marginStart="12dp"
         android:gravity="center"
         android:layout_toStartOf="@id/widget_record_btn"
-        android:letterSpacing="0.04"
-        android:scaleX="1.0"
-        android:scaleY="1.2"
         android:text="00:00:00"
         android:textStyle="normal"
         android:textColor="@color/black_white"
-        android:textSize="42dp"
+        android:textSize="39dp"
         android:includeFontPadding="false"
         android:typeface="monospace" />
 

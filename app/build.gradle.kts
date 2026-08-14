@@ -18,14 +18,14 @@ android {
         applicationId = "com.gratus.meditationtrakcer"
         minSdk = 31
         targetSdk = 36
-        versionCode = 98
-        versionName = "14.3.1" // Format: Major (4), Minor (0), Patch (a)
+        versionCode = 99
+        versionName = "14.4.0" // Format: Major (4), Minor (0), Patch (a)
 
         // Pass versionName to the app as a resource
         resValue(
             type = "string",
             name = "app_version",
-            value = "Current: v" + versionName!! + " (" + versionCode!! + ")"
+            value = "v${versionName} ($versionCode)"
         )
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

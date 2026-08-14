@@ -19,7 +19,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="6dp"
             app:barrierMargin="16dp"
-            app:cardBackgroundColor="?attr/colorPrimaryVariant"
+            app:cardBackgroundColor="?attr/colorSurfaceContainerHigh"
             app:cardCornerRadius="?attr/customCardRadius"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +45,7 @@
                     tools:theme="@style/TextAppearance.MeditationTracker.AppFont.ToolbarTitle"
                     android:letterSpacing="0.02"
                     android:text="@string/menu_monthly"
-                    android:textColor="?attr/colorOnPrimary"
+                    android:textColor="?attr/colorOnSurface"
                     app:layout_constraintBottom_toTopOf="@id/page_desc"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -65,7 +65,7 @@
                 tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatUnit"
                     android:letterSpacing="0.02"
                     android:text="@string/month_summ_desc"
-                    android:textColor="@color/onPrimary2"
+                    android:textColor="?attr/colorOnSurfaceVariant"
                     app:layout_constraintBottom_toTopOf="@id/total_hours"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/page_title"
@@ -101,7 +101,7 @@
                     tools:theme="@style/TextAppearance.MeditationTracker.AppFont.CardTitle"
                     android:letterSpacing="0.01"
                     android:text="@string/total_hours_placeholder"
-                    android:textColor="?attr/colorOnPrimary"
+                    android:textColor="?attr/colorOnSurface"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@id/barChart"
                     app:layout_constraintStart_toStartOf="parent"
@@ -185,7 +185,7 @@
                             android:textAppearance="?attr/textAppearanceStatLabel"
                             tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatLabel"
                             android:text="@string/nav_label_main_placeholder"
-                            android:textColor="@color/onPrimary2"
+                            android:textColor="?attr/colorOnSurfaceVariant"
                             tools:ignore="TextViewEdits" />
 
                         <TextView
@@ -197,7 +197,7 @@
                             android:textAppearance="?attr/textAppearanceStatUnit"
                             tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatUnit"
                             android:text="@string/nav_label_sub_placeholder"
-                            android:textColor="@color/onPrimary2"
+                            android:textColor="?attr/colorOnSurfaceVariant"
                             tools:ignore="TextViewEdits" /> <!-- Week Date display -->
                     </LinearLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>

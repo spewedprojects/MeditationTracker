@@ -15,7 +15,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         app:barrierMargin="16dp"
-        app:cardBackgroundColor="?attr/colorPrimaryVariant"
+        app:cardBackgroundColor="?attr/colorSurfaceContainerHigh"
         app:cardCornerRadius="?attr/customCardRadius"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,7 +48,7 @@
                     android:letterSpacing="0.02"
                     android:text="@string/menu_monthly"
                     android:textAppearance="?attr/textAppearanceToolbarTitle"
-                    android:textColor="?attr/colorOnPrimary"
+                    android:textColor="?attr/colorOnSurface"
                     android:layout_alignParentTop="true"
                     tools:ignore="TextViewEdits"
                     tools:theme="@style/TextAppearance.MeditationTracker.AppFont.ToolbarTitle" /> <!-- Month overview -->
@@ -66,7 +66,7 @@
                     android:letterSpacing="0.02"
                     android:text="@string/month_summ_desc"
                     android:textAppearance="?attr/textAppearanceStatUnit"
-                    android:textColor="@color/onPrimary2"
+                    android:textColor="?attr/colorOnSurfaceVariant"
                     tools:ignore="TextViewEdits"
                     tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatUnit" /> <!-- Month Overview description -->
 
@@ -83,7 +83,7 @@
                     android:text="@string/total_hours_placeholder"
                     android:textAppearance="?attr/textAppearanceCardTitle"
                     android:layout_below="@id/page_desc"
-                    android:textColor="?attr/colorOnPrimary"
+                    android:textColor="?attr/colorOnSurface"
                     android:textStyle="bold"
                     tools:ignore="TextViewEdits"
                     tools:theme="@style/TextAppearance.MeditationTracker.AppFont.CardTitle" /> <!-- Month's total time -->
@@ -180,7 +180,7 @@
                         android:focusableInTouchMode="true"
                         android:text="@string/nav_label_main_placeholder"
                         android:textAppearance="?attr/textAppearanceStatLabel"
-                        android:textColor="@color/onPrimary2"
+                        android:textColor="?attr/colorOnSurfaceVariant"
                         tools:ignore="TextViewEdits"
                         tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatLabel" />
 
@@ -192,7 +192,7 @@
                         android:focusableInTouchMode="true"
                         android:text="@string/nav_label_sub_placeholder"
                         android:textAppearance="?attr/textAppearanceStatUnit"
-                        android:textColor="@color/onPrimary2"
+                        android:textColor="?attr/colorOnSurfaceVariant"
                         tools:ignore="TextViewEdits"
                         tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatUnit" /> <!-- Week Date display -->
                 </LinearLayout>

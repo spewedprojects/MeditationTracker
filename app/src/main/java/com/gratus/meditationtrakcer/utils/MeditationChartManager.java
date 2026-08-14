@@ -1,6 +1,7 @@
 package com.gratus.meditationtrakcer.utils;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.util.TypedValue;
@@ -124,7 +125,20 @@ public class MeditationChartManager {
 
     private int resolveThemeColor() {
         TypedValue tv = new TypedValue();
-        context.getTheme().resolveAttribute(com.google.android.material.R.attr.colorOnPrimarySurface, tv, true);
+
+        // When Monet is enabled, use colorPrimary (wallpaper accent) for chart bars.
+        // When Monet is off, use colorOnPrimarySurface (the existing gray).
+        SharedPreferences prefs = context.getSharedPreferences(
+                "MeditationTrackerPrefs", Context.MODE_PRIVATE);
+        boolean isMonetEnabled = prefs.getBoolean("use_monet_theme", false);
+
+        if (isMonetEnabled) {
+            context.getTheme().resolveAttribute(
+                    android.R.attr.colorPrimary, tv, true);
+        } else {
+            context.getTheme().resolveAttribute(
+                    com.google.android.material.R.attr.colorOnPrimarySurface, tv, true);
+        }
         return tv.data;
     }
 }

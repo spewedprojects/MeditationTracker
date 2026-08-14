@@ -23,11 +23,10 @@
     <string name="total_hours">Total hours: </string>
     <string name="goals_title">Set a New Goal</string>
     <string name="goals_desc">Create a new meditation goal</string>
-    <string name="current_version_details"> 17/07/2026
-        \n- New app icon, more simplified.
-        \n- Landscape specific layouts for more screens.
-        \n- Report screen now uses two columns automatically if there is enough space in landscape mode.
-        \n- Added dynamic margins for mini report cards when in 2-column mode.
+    <string name="current_version_details"> 14/08/2026
+        \n- Dynamic Colors &amp; Theming support - Monet
+        \n- UI &amp; Layout Refinements - theme aware color attribution
+        \n- Improved app security by setting `android:exported="false"` and removing unnecessary intent filters for internal activities.
         \n
         \nNEXT:
         \n- Main screen should dynamically adjust constraints based on goals visibility.

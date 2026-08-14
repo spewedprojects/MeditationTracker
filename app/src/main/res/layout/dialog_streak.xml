@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="58dp"
         android:layout_marginVertical="48dp"
-        app:cardBackgroundColor="?attr/colorPrimaryVariant"
+        app:cardBackgroundColor="?attr/colorSurfaceContainer"
         app:cardCornerRadius="?attr/customCardRadius"
         app:cardElevation="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -78,7 +78,7 @@
                             android:gravity="center"
                             android:text="Streak Goal"
                             android:textAppearance="?attr/textAppearanceAppTitle"
-                            android:textColor="?attr/colorOnPrimary"
+                            android:textColor="?attr/colorOnSurface"
                             tools:theme="@style/TextAppearance.MeditationTracker.AppFont.AppTitle" />
 
                         <TextView
@@ -127,12 +127,12 @@
                             android:layout_marginHorizontal="38dp"
                             android:layout_marginTop="12dp"
                             android:layout_marginBottom="20dp"
-                            android:backgroundTint="?attr/colorOnPrimary"
+                            android:backgroundTint="?attr/colorPrimary"
                             android:clickable="true"
                             android:text="Add Streak goal"
                             android:textAllCaps="false"
                             android:textAppearance="?attr/textAppearanceAppButton"
-                            android:textColor="?attr/colorPrimary"
+                            android:textColor="?attr/colorOnPrimary"
                             app:cornerRadius="?attr/customButtonRadius"
                             tools:theme="@style/TextAppearance.MeditationTracker.AppFont.AppButton" /> <!-- Add goal button -->
 
@@ -173,7 +173,7 @@
                             android:gravity="center"
                             android:text="Longest streak"
                             android:textAppearance="?attr/textAppearanceCardTitle"
-                            android:textColor="@color/onPrimary2"
+                            android:textColor="?attr/colorOnSurfaceVariant"
                             tools:theme="@style/TextAppearance.MeditationTracker.AppFont.CardTitle" />
 
                         <LinearLayout
@@ -190,7 +190,7 @@
                                 android:gravity="center"
                                 android:text="25"
                                 android:textAppearance="?attr/textAppearanceStatValue"
-                                android:textColor="?attr/colorOnPrimary"
+                                android:textColor="?attr/colorOnSurface"
                                 tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatValue" />
 
                             <TextView
@@ -198,7 +198,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="days"
                                 android:textAppearance="?attr/textAppearanceStatLabel"
-                                android:textColor="?attr/colorOnPrimary"
+                                android:textColor="?attr/colorOnSurface"
                                 tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatLabel" />
 
                         </LinearLayout>
@@ -214,7 +214,7 @@
                             android:gravity="center"
                             android:text="Current Active streak"
                             android:textAppearance="?attr/textAppearanceCardSubTitle"
-                            android:textColor="@color/onPrimary2"
+                            android:textColor="?attr/colorOnSurfaceVariant"
                             tools:theme="@style/TextAppearance.MeditationTracker.AppFont.CardSubTitle" />
 
                         <LinearLayout
@@ -231,7 +231,7 @@
                                 android:gravity="center"
                                 android:text="23/26"
                                 android:textAppearance="?attr/textAppearanceStatValue"
-                                android:textColor="?attr/colorOnPrimary"
+                                android:textColor="?attr/colorOnSurface"
                                 android:textSize="44dp"
                                 tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatValue" />
 
@@ -240,7 +240,7 @@
                                 android:layout_height="wrap_content"
                                 android:text=" days"
                                 android:textAppearance="?attr/textAppearanceStatLabel"
-                                android:textColor="?attr/colorOnPrimary"
+                                android:textColor="?attr/colorOnSurface"
                                 android:textSize="16sp"
                                 tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatLabel" />
 

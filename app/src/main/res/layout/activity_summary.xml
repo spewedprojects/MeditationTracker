@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    android:background="?attr/colorSurface"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SummaryActivity">
@@ -107,8 +108,8 @@
             android:layout_marginTop="0dp"
             app:cornerRadius="?attr/customButtonRadius"
             android:paddingHorizontal="12dp"
-            android:backgroundTint="?attr/colorOnPrimary"
-            android:textColor="?attr/colorPrimary"
+            android:backgroundTint="?attr/colorPrimary"
+            android:textColor="?attr/colorOnPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cards_container"
             app:layout_constraintEnd_toEndOf="parent"

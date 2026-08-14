@@ -1,14 +1,23 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="AppTheme_Auto" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/black</item>
-        <item name="colorSurface">@color/primaryVariant</item>
-        <item name="colorOnSurface">@color/white</item>
-        <item name="colorOnSurfaceVariant">@color/white</item>
-        <item name="colorOutlineVariant">@color/white</item>
-        <item name="colorPrimaryVariant">@color/primary</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <!-- Primary (CTA buttons, accents) -->
+        <item name="colorPrimary">@color/black_white</item>
+        <item name="colorOnPrimary">@color/white_black</item>
+
+        <!-- Surfaces -->
+        <item name="colorSurface">@color/window_background</item>
+        <item name="colorSurfaceContainer">@color/primaryVariant</item>
+        <item name="colorSurfaceContainerHigh">@color/primary</item>
+        <item name="colorSurfaceContainerHighest">@color/primary</item>
+
+        <!-- Content on surfaces -->
+        <item name="colorOnSurface">@color/black_white</item>
+        <item name="colorOnSurfaceVariant">@color/onPrimary2</item>
+        <item name="colorOutlineVariant">@color/black_white_0.1</item>
+
+        <!-- Legacy (kept for compatibility) -->
+        <item name="colorPrimaryVariant">@color/primaryVariant</item>
         <item name="colorAccent">@color/onPrimary2</item>
         <item name="colorButtonNormal">@color/switchbutton</item>
         <item name="colorBackgroundFloating">@color/deletebutton</item>

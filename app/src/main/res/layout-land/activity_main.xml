@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    android:background="?attr/colorSurface"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
@@ -56,7 +57,7 @@
                 android:layout_marginBottom="0dp"
                 android:layout_weight="0.8"
                 android:elevation="6dp"
-                app:cardBackgroundColor="?attr/colorPrimaryVariant"
+                app:cardBackgroundColor="?attr/colorSurfaceContainerHigh"
                 app:cardCornerRadius="?attr/customCardRadius"
                 app:cardElevation="4dp">
 
@@ -82,7 +83,7 @@
                             android:gravity="center"
                             android:text="Mon, Jan. 13, 2025"
                             android:textAppearance="?attr/textAppearanceDateHeader"
-                            android:textColor="@color/onPrimary2"
+                            android:textColor="?attr/colorOnSurfaceVariant"
                             tools:ignore="TextViewEdits"
                             tools:theme="@style/TextAppearance.MeditationTracker.AppFont.DateHeader" /> <!-- android:ems="10" removing this removed the touchsize too small and one another warning-->
 
@@ -96,7 +97,7 @@
                             android:gravity="center"
                             android:text="Today: 0h 0m 0s"
                             android:textAppearance="?attr/textAppearanceReportTitle"
-                            android:textColor="?attr/colorOnPrimary"
+                            android:textColor="?attr/colorOnSurface"
                             android:textSize="24sp"
                             tools:ignore="TextViewEdits"
                             tools:theme="@style/TextAppearance.MeditationTracker.AppFont.ReportTitle" /> <!-- Today's total time -->
@@ -113,7 +114,7 @@
                             android:gravity="center"
                             android:text="This Week: 0.00hrs"
                             android:textAppearance="?attr/textAppearanceAppSubheader"
-                            android:textColor="?attr/colorOnPrimary"
+                            android:textColor="?attr/colorOnSurface"
                             tools:ignore="TextViewEdits"
                             tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subheader" />
 
@@ -140,7 +141,7 @@
                     android:clickable="true"
                     android:elevation="6dp"
                     android:tooltipText="Open Streak Dialog"
-                    app:cardBackgroundColor="?attr/colorPrimaryVariant"
+                    app:cardBackgroundColor="?attr/colorSurfaceContainerHigh"
                     app:cardCornerRadius="?attr/customCardRadius"
                     app:cardElevation="4dp"
                     app:strokeColor="@color/success_green"
@@ -161,7 +162,7 @@
                             android:inputType="date"
                             android:text="Streak"
                             android:textAppearance="?attr/textAppearanceDateHeader"
-                            android:textColor="@color/onPrimary2"
+                            android:textColor="?attr/colorOnSurfaceVariant"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
@@ -176,7 +177,7 @@
                             android:layout_marginBottom="4dp"
                             android:text="111"
                             android:textAppearance="?attr/textAppearanceStatValue"
-                            android:textColor="?attr/colorOnPrimary"
+                            android:textColor="?attr/colorOnSurface"
                             app:layout_constraintBottom_toTopOf="@id/streak_progress_bar"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -212,7 +213,7 @@
                     android:layout_marginBottom="16dp"
                     android:layout_weight="1.8"
                     android:visibility="visible"
-                    app:cardBackgroundColor="?attr/colorPrimaryVariant"
+                    app:cardBackgroundColor="?attr/colorSurfaceContainerHigh"
                     app:cardCornerRadius="?attr/customCardRadius">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -246,7 +247,7 @@
                             android:focusableInTouchMode="true"
                             android:text="Goal title"
                             android:textAppearance="?attr/textAppearanceStatLabel"
-                            android:textColor="?attr/colorOnPrimary"
+                            android:textColor="?attr/colorOnSurface"
                             app:layout_constraintEnd_toStartOf="@id/goto_goals"
                             app:layout_constraintHorizontal_bias="0"
                             app:layout_constraintStart_toStartOf="parent"
@@ -265,7 +266,7 @@
                             android:focusableInTouchMode="true"
                             android:text="Target: 0 hours | 0 days"
                             android:textAppearance="?attr/textAppearanceAppSubtitle2"
-                            android:textColor="@color/onPrimary2"
+                            android:textColor="?attr/colorOnSurfaceVariant"
                             app:layout_constraintBottom_toTopOf="@id/goal_progress_bar2"
                             app:layout_constraintEnd_toStartOf="@id/goto_goals"
                             app:layout_constraintHorizontal_bias="0"
@@ -301,7 +302,7 @@
                             android:focusableInTouchMode="true"
                             android:text="100%"
                             android:textAppearance="?attr/textAppearanceProgressLabel"
-                            android:textColor="?attr/colorOnPrimary"
+                            android:textColor="?attr/colorOnSurface"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0"
@@ -338,7 +339,7 @@
                 android:layout_marginBottom="16dp"
                 android:layout_weight="1"
                 app:barrierMargin="16dp"
-                app:cardBackgroundColor="?attr/colorPrimaryVariant"
+                app:cardBackgroundColor="?attr/colorSurfaceContainerHigh"
                 app:cardCornerRadius="?attr/customCardRadius">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -357,7 +358,7 @@
                         android:gravity="start"
                         android:text="@string/timer_card_title"
                         android:textAppearance="?attr/textAppearanceCardTitle"
-                        android:textColor="?attr/colorOnPrimary"
+                        android:textColor="?attr/colorOnSurface"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -384,7 +385,7 @@
                             android:includeFontPadding="false"
                             android:text="00"
                             android:textAppearance="?attr/textAppearanceHeroValue"
-                            android:textColor="?attr/colorOnPrimary"
+                            android:textColor="?attr/colorOnSurface"
                             tools:theme="@style/TextAppearance.MeditationTracker.AppFont.HeroValue" />
 
                         <TextView
@@ -396,7 +397,7 @@
                             android:includeFontPadding="false"
                             android:text="00"
                             android:textAppearance="?attr/textAppearanceHeroValue"
-                            android:textColor="?attr/colorOnPrimary"
+                            android:textColor="?attr/colorOnSurface"
                             tools:theme="@style/TextAppearance.MeditationTracker.AppFont.HeroValue" />
 
                         <TextView
@@ -408,7 +409,7 @@
                             android:includeFontPadding="false"
                             android:text="00"
                             android:textAppearance="?attr/textAppearanceHeroValue"
-                            android:textColor="?attr/colorOnPrimary"
+                            android:textColor="?attr/colorOnSurface"
                             tools:theme="@style/TextAppearance.MeditationTracker.AppFont.HeroValue" />
                     </LinearLayout>
 
@@ -417,14 +418,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="28dp"
-                        android:backgroundTint="@color/black_white"
+                        android:backgroundTint="?attr/colorPrimary"
                         android:gravity="center"
                         android:includeFontPadding="false"
                         android:letterSpacing="0.1"
                         android:text="@string/record"
                         android:textAllCaps="false"
                         android:textAppearance="?attr/textAppearanceAppButton"
-                        android:textColor="@color/white_black"
+                        android:textColor="?attr/colorOnPrimary"
                         app:cornerRadius="?attr/customButtonRadius"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -446,7 +447,7 @@
                 android:layout_marginBottom="16dp"
                 android:layout_weight="1"
                 app:barrierMargin="16dp"
-                app:cardBackgroundColor="?attr/colorPrimaryVariant"
+                app:cardBackgroundColor="?attr/colorSurfaceContainerHigh"
                 app:cardCornerRadius="?attr/customCardRadius">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -466,7 +467,7 @@
                         android:gravity="start"
                         android:text="@string/manual_card_title"
                         android:textAppearance="?attr/textAppearanceCardTitle"
-                        android:textColor="?attr/colorOnPrimary"
+                        android:textColor="?attr/colorOnSurface"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -525,14 +526,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="28dp"
-                        android:backgroundTint="@color/black_white"
+                        android:backgroundTint="?attr/colorPrimary"
                         android:gravity="center"
                         android:includeFontPadding="false"
                         android:letterSpacing="0.1"
                         android:text="@string/add_entry"
                         android:textAllCaps="false"
                         android:textAppearance="?attr/textAppearanceAppButton"
-                        android:textColor="@color/white_black"
+                        android:textColor="?attr/colorOnPrimary"
                         app:cornerRadius="?attr/customButtonRadius"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"

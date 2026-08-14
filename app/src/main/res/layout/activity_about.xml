@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_about"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_energy"
+    android:background="?attr/colorSurface"
     tools:context=".AboutActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_energy">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar2"
@@ -43,7 +48,7 @@
             android:scaleX="1.05"
             android:scaleY="1.05"
             android:visibility="visible"
-            android:backgroundTint="@color/onPrimary2"
+            android:backgroundTint="?attr/colorOnSurfaceVariant"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -67,7 +72,7 @@
         tools:theme="@style/TextAppearance.MeditationTracker.AppFont.CardTitle"
         android:gravity="center"
         android:text="A simple meditation tracking app to log your hours, monitor the regularity of your practice, and set goals."
-        android:textColor="?attr/colorOnPrimary"
+        android:textColor="?attr/colorOnSurface"
         app:layout_constraintBottom_toTopOf="@id/github_icon"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -93,3 +98,4 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

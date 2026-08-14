@@ -11,7 +11,7 @@
         android:state_enabled="false"/>
 
     <!-- Default (Unchecked) -->
-    <item android:color="@color/black_white"
+    <item android:color="?attr/colorPrimary"
         android:state_checked="false"/>
 
 </selector>

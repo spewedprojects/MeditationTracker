@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginVertical="16dp"
-        app:cardBackgroundColor="?attr/colorPrimaryVariant"
+        app:cardBackgroundColor="?attr/colorSurfaceContainerHigh"
         app:cardCornerRadius="?attr/customCardRadius"
         app:cardElevation="4dp"
         app:layout_constraintHeight_max="800dp"
@@ -52,7 +52,7 @@
                         android:letterSpacing="0.04"
                         android:text="Meditation Report"
                         android:textAppearance="?attr/textAppearanceReportTitle"
-                        android:textColor="@color/inverseprimary"
+                        android:textColor="?attr/colorOnSurface"
                         android:textSize="30dp"
                         tools:theme="@style/TextAppearance.MeditationTracker.AppFont.ReportTitle" />
 
@@ -63,7 +63,7 @@
                         android:letterSpacing="0.04"
                         android:text="For Year/Month 2025"
                         android:textAppearance="?attr/textAppearanceStatUnit"
-                        android:textColor="@color/inverseprimary"
+                        android:textColor="?attr/colorOnSurface"
                         android:textSize="15dp"
                         tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatUnit" />
                 </LinearLayout>
@@ -77,7 +77,7 @@
                     android:src="@drawable/mtapp_icon2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/inverseprimary" />
+                    app:tint="?attr/colorOnSurface" />
 
                 <!-- Dashed Divider -->
                 <View
@@ -134,7 +134,7 @@
                                     android:gravity="center"
                                     android:text="Total hrs\nMeditated"
                                     android:textAppearance="?attr/textAppearanceStatLabel"
-                                    android:textColor="@color/inverseprimary"
+                                    android:textColor="?attr/colorOnSurface"
                                     android:textSize="15dp"
                                     tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatLabel" />
 
@@ -149,7 +149,7 @@
                                         android:layout_height="wrap_content"
                                         android:text="48"
                                         android:textAppearance="?attr/textAppearanceStatValue"
-                                        android:textColor="@color/inverseprimary"
+                                        android:textColor="?attr/colorOnSurface"
                                         android:textSize="36dp"
                                         tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatValue" />
 
@@ -159,7 +159,7 @@
                                         android:layout_height="wrap_content"
                                         android:text="hrs"
                                         android:textAppearance="?attr/textAppearanceStatUnit"
-                                        android:textColor="@color/inverseprimary"
+                                        android:textColor="?attr/colorOnSurface"
                                         android:textSize="14.5dp"
                                         tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatUnit" />
                                 </LinearLayout>
@@ -181,7 +181,7 @@
                                     android:gravity="center"
                                     android:text="Consistency\nScore"
                                     android:textAppearance="?attr/textAppearanceStatLabel"
-                                    android:textColor="@color/inverseprimary"
+                                    android:textColor="?attr/colorOnSurface"
                                     android:textSize="15dp"
                                     tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatLabel" />
 
@@ -196,7 +196,7 @@
                                         android:layout_height="wrap_content"
                                         android:text="45"
                                         android:textAppearance="?attr/textAppearanceStatValue"
-                                        android:textColor="@color/inverseprimary"
+                                        android:textColor="?attr/colorOnSurface"
                                         android:textSize="36dp"
                                         tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatValue" />
 
@@ -205,7 +205,7 @@
                                         android:layout_height="wrap_content"
                                         android:text="%"
                                         android:textAppearance="?attr/textAppearanceStatUnit"
-                                        android:textColor="@color/inverseprimary"
+                                        android:textColor="?attr/colorOnSurface"
                                         android:textSize="14.5dp"
                                         tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatUnit" />
                                 </LinearLayout>
@@ -227,7 +227,7 @@
                                     android:gravity="center"
                                     android:text="Best\nstreak"
                                     android:textAppearance="?attr/textAppearanceStatLabel"
-                                    android:textColor="@color/inverseprimary"
+                                    android:textColor="?attr/colorOnSurface"
                                     android:textSize="15dp"
                                     tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatLabel" />
 
@@ -242,7 +242,7 @@
                                         android:layout_height="wrap_content"
                                         android:text="21"
                                         android:textAppearance="?attr/textAppearanceStatValue"
-                                        android:textColor="@color/inverseprimary"
+                                        android:textColor="?attr/colorOnSurface"
                                         android:textSize="36dp"
                                         tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatValue" />
 
@@ -252,7 +252,7 @@
                                         android:layout_height="wrap_content"
                                         android:text="days"
                                         android:textAppearance="?attr/textAppearanceStatUnit"
-                                        android:textColor="@color/inverseprimary"
+                                        android:textColor="?attr/colorOnSurface"
                                         android:textSize="14.5dp"
                                         tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatUnit" />
                                 </LinearLayout>
@@ -302,7 +302,7 @@
                                     android:gravity="center"
                                     android:text="Days not\nMeditated"
                                     android:textAppearance="?attr/textAppearanceStatLabel"
-                                    android:textColor="@color/inverseprimary"
+                                    android:textColor="?attr/colorOnSurface"
                                     android:textSize="15dp"
                                     tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatLabel" />
 
@@ -312,7 +312,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="185"
                                     android:textAppearance="?attr/textAppearanceStatValue"
-                                    android:textColor="@color/inverseprimary"
+                                    android:textColor="?attr/colorOnSurface"
                                     android:textSize="32dp"
                                     tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatValue" />
                             </LinearLayout>
@@ -332,7 +332,7 @@
                                     android:gravity="center"
                                     android:text="Weeks not\nMeditated"
                                     android:textAppearance="?attr/textAppearanceStatLabel"
-                                    android:textColor="@color/inverseprimary"
+                                    android:textColor="?attr/colorOnSurface"
                                     android:textSize="15dp"
                                     tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatLabel" />
 
@@ -342,7 +342,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="15"
                                     android:textAppearance="?attr/textAppearanceStatValue"
-                                    android:textColor="@color/inverseprimary"
+                                    android:textColor="?attr/colorOnSurface"
                                     android:textSize="32dp"
                                     tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatValue" />
                             </LinearLayout>
@@ -363,7 +363,7 @@
                                     android:gravity="center"
                                     android:text="Streak\nStability"
                                     android:textAppearance="?attr/textAppearanceStatLabel"
-                                    android:textColor="@color/inverseprimary"
+                                    android:textColor="?attr/colorOnSurface"
                                     android:textSize="15dp"
                                     tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatLabel" />
 
@@ -378,7 +378,7 @@
                                         android:layout_height="wrap_content"
                                         android:text="5"
                                         android:textAppearance="?attr/textAppearanceStatValue"
-                                        android:textColor="@color/inverseprimary"
+                                        android:textColor="?attr/colorOnSurface"
                                         android:textSize="32dp"
                                         tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatValue" />
 
@@ -388,7 +388,7 @@
                                         android:layout_height="wrap_content"
                                         android:text="days"
                                         android:textAppearance="?attr/textAppearanceStatUnit"
-                                        android:textColor="@color/inverseprimary"
+                                        android:textColor="?attr/colorOnSurface"
                                         android:textSize="14.5dp"
                                         tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatUnit" />
                                 </LinearLayout>
@@ -437,7 +437,7 @@
                                     android:gravity="center"
                                     android:text="Total\nsessions"
                                     android:textAppearance="?attr/textAppearanceStatLabel"
-                                    android:textColor="@color/inverseprimary"
+                                    android:textColor="?attr/colorOnSurface"
                                     android:textSize="15dp"
                                     tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatLabel" />
 
@@ -447,7 +447,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="121"
                                     android:textAppearance="?attr/textAppearanceStatValue"
-                                    android:textColor="@color/inverseprimary"
+                                    android:textColor="?attr/colorOnSurface"
                                     android:textSize="32dp"
                                     tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatValue" />
                             </LinearLayout>
@@ -467,7 +467,7 @@
                                     android:gravity="center"
                                     android:text="Avg. session\nGap"
                                     android:textAppearance="?attr/textAppearanceStatLabel"
-                                    android:textColor="@color/inverseprimary"
+                                    android:textColor="?attr/colorOnSurface"
                                     android:textSize="15dp"
                                     tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatLabel" />
 
@@ -482,7 +482,7 @@
                                         android:layout_height="wrap_content"
                                         android:text="4"
                                         android:textAppearance="?attr/textAppearanceStatValue"
-                                        android:textColor="@color/inverseprimary"
+                                        android:textColor="?attr/colorOnSurface"
                                         android:textSize="32dp"
                                         tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatValue" />
 
@@ -492,7 +492,7 @@
                                         android:layout_height="wrap_content"
                                         android:text="days"
                                         android:textAppearance="?attr/textAppearanceStatUnit"
-                                        android:textColor="@color/inverseprimary"
+                                        android:textColor="?attr/colorOnSurface"
                                         android:textSize="14.5dp"
                                         tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatUnit" />
                                 </LinearLayout>
@@ -514,7 +514,7 @@
                                     android:gravity="center"
                                     android:text="Avg.\nSession length"
                                     android:textAppearance="?attr/textAppearanceStatLabel"
-                                    android:textColor="@color/inverseprimary"
+                                    android:textColor="?attr/colorOnSurface"
                                     android:textSize="15dp"
                                     tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatLabel" />
 
@@ -529,7 +529,7 @@
                                         android:layout_height="wrap_content"
                                         android:text="15"
                                         android:textAppearance="?attr/textAppearanceStatValue"
-                                        android:textColor="@color/inverseprimary"
+                                        android:textColor="?attr/colorOnSurface"
                                         android:textSize="32dp"
                                         tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatValue" />
 
@@ -539,7 +539,7 @@
                                         android:layout_height="wrap_content"
                                         android:text="mins"
                                         android:textAppearance="?attr/textAppearanceStatUnit"
-                                        android:textColor="@color/inverseprimary"
+                                        android:textColor="?attr/colorOnSurface"
                                         android:textSize="14.5dp"
                                         tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatUnit" />
                                 </LinearLayout>
@@ -579,7 +579,7 @@
                                     android:alpha="0.85"
                                     android:text="Most active Month"
                                     android:textAppearance="?attr/textAppearanceStatLabel"
-                                    android:textColor="@color/inverseprimary"
+                                    android:textColor="?attr/colorOnSurface"
                                     android:textSize="15dp"
                                     tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatLabel" />
 
@@ -594,7 +594,7 @@
                                         android:layout_height="wrap_content"
                                         android:text="May – 9"
                                         android:textAppearance="?attr/textAppearanceStatValue"
-                                        android:textColor="@color/inverseprimary"
+                                        android:textColor="?attr/colorOnSurface"
                                         android:textSize="26dp"
                                         tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatValue" />
 
@@ -603,7 +603,7 @@
                                         android:layout_height="wrap_content"
                                         android:text="hrs"
                                         android:textAppearance="?attr/textAppearanceStatUnit"
-                                        android:textColor="@color/inverseprimary"
+                                        android:textColor="?attr/colorOnSurface"
                                         android:textSize="15.5dp"
                                         tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatUnit" />
                                 </LinearLayout>
@@ -623,7 +623,7 @@
                                     android:alpha="0.85"
                                     android:text="Least active Month"
                                     android:textAppearance="?attr/textAppearanceStatLabel"
-                                    android:textColor="@color/inverseprimary"
+                                    android:textColor="?attr/colorOnSurface"
                                     android:textSize="15dp"
                                     tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatLabel" />
 
@@ -638,7 +638,7 @@
                                         android:layout_height="wrap_content"
                                         android:text="Apr – 0.9"
                                         android:textAppearance="?attr/textAppearanceStatValue"
-                                        android:textColor="@color/inverseprimary"
+                                        android:textColor="?attr/colorOnSurface"
                                         android:textSize="26dp"
                                         tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatValue" />
 
@@ -647,7 +647,7 @@
                                         android:layout_height="wrap_content"
                                         android:text="hrs"
                                         android:textAppearance="?attr/textAppearanceStatUnit"
-                                        android:textColor="@color/inverseprimary"
+                                        android:textColor="?attr/colorOnSurface"
                                         android:textSize="15.5dp"
                                         tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatUnit" />
                                 </LinearLayout>
@@ -678,7 +678,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="Preferred Times"
                                     android:textAppearance="?attr/textAppearanceStatLabel"
-                                    android:textColor="@color/inverseprimary"
+                                    android:textColor="?attr/colorOnSurface"
                                     tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatLabel" />
 
                                 <com.github.mikephil.charting.charts.BarChart
@@ -700,7 +700,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="Session Frequency"
                                     android:textAppearance="?attr/textAppearanceStatLabel"
-                                    android:textColor="@color/inverseprimary"
+                                    android:textColor="?attr/colorOnSurface"
                                     tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatLabel" />
 
                                 <com.github.mikephil.charting.charts.BarChart

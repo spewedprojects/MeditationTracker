@@ -17,6 +17,7 @@ import android.provider.OpenableColumns;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 
@@ -43,6 +44,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.annotation.LayoutRes;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.color.DynamicColors;
 import com.gratus.meditationtrakcer.databasehelpers.GoalsDatabaseHelper;
 import com.gratus.meditationtrakcer.databasehelpers.MeditationLogDatabaseHelper;
 import com.gratus.meditationtrakcer.databasehelpers.StreakDatabaseHelper;
@@ -81,6 +83,7 @@ public class BaseActivity extends AppCompatActivity {
     private boolean doubleBackToExitPressedOnce = false;
     private final Handler backPressHandler = new Handler(Looper.getMainLooper());
     private boolean useSystemFont = false;
+    private boolean savedMonetEnabled = false;
     private float savedCardRadius;
     private float savedBtnRadius;
 
@@ -91,12 +94,18 @@ public class BaseActivity extends AppCompatActivity {
         useSystemFont = prefs.getBoolean("use_system_font", false);
         savedCardRadius = prefs.getFloat("custom_card_radius", 12f);  // ← snapshot
         savedBtnRadius = prefs.getFloat("custom_btn_radius", 10f);    // ← snapshot
+        savedMonetEnabled = prefs.getBoolean("use_monet_theme", false);
 
         // Apply Font Theme BEFORE super.onCreate
         if (useSystemFont) {
             setTheme(R.style.Theme_MeditationTracker_SystemFont);
         } else {
             setTheme(R.style.Theme_MeditationTracker_AppFont);
+        }
+
+        // Apply Dynamic Colors (Monet) BEFORE corner radius and super.onCreate
+        if (savedMonetEnabled) {
+            DynamicColors.applyToActivityIfAvailable(this);
         }
 
         // Apply Corner Radius Theme Overlays BEFORE super.onCreate
@@ -152,15 +161,19 @@ public class BaseActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        // Check if the font preference changed while this activity was in the background
+        // Check if preferences changed while this activity was in the background
         SharedPreferences prefs = getSharedPreferences(SHARED_PREFS_NAME, MODE_PRIVATE);
         boolean shouldBeSystemFont = prefs.getBoolean("use_system_font", false);
         float currentCardRadius = prefs.getFloat("custom_card_radius", 12f);
         float currentBtnRadius = prefs.getFloat("custom_btn_radius", 10f);
+        boolean currentMonetEnabled = prefs.getBoolean("use_monet_theme", false);
 
-        // If the stored pref doesn't match the boolean we set in onCreate...
-        if (shouldBeSystemFont != useSystemFont || currentCardRadius != savedCardRadius || currentBtnRadius != savedBtnRadius) {
-            recreate(); // ...restart this activity to apply the new font!
+        // If any visual pref changed, restart this activity to apply
+        if (shouldBeSystemFont != useSystemFont
+                || currentCardRadius != savedCardRadius
+                || currentBtnRadius != savedBtnRadius
+                || currentMonetEnabled != savedMonetEnabled) {
+            recreate();
         }
     }
 
@@ -470,23 +483,36 @@ public class BaseActivity extends AppCompatActivity {
         };
 
         // 3. Loop through buttons and set Icon Tint
+        int accentColor = resolveAccentColor(R.color.active_dot_color);
         for (int id : allMenuIds) {
             MaterialButton btn = findViewById(id);
             if (btn == null)
                 continue;
 
             if (id == activeId) {
-                // ACTIVE: Set tint to your green color (or fetch from resources)
-                // Use R.color.success_green if defined, or parse the color manually if you
-                // don't have a resource handle handy
-                btn.setIconTint(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.active_dot_color)));
-                // If you don't have R.color.success_green defined in java, use:
-                // Color.parseColor("#YOUR_HEX_CODE")
+                // ACTIVE: Set tint to accent color (Monet-aware)
+                btn.setIconTint(ColorStateList.valueOf(accentColor));
             } else {
                 // INACTIVE: Set tint to Transparent (hides the dot but keeps layout stable)
                 btn.setIconTint(ColorStateList.valueOf(Color.TRANSPARENT));
             }
         }
+    }
+
+    /**
+     * Resolves the accent color based on whether Monet (Dynamic Colors) is enabled.
+     * When Monet is ON, returns the dynamic colorPrimary from the wallpaper palette.
+     * When Monet is OFF, returns the provided fallback color resource.
+     */
+    public int resolveAccentColor(int fallbackColorRes) {
+        SharedPreferences prefs = getSharedPreferences(SHARED_PREFS_NAME, MODE_PRIVATE);
+        if (prefs.getBoolean("use_monet_theme", false)) {
+            TypedValue tv = new TypedValue();
+            getTheme().resolveAttribute(
+                    android.R.attr.colorPrimary, tv, true);
+            return tv.data;
+        }
+        return ContextCompat.getColor(this, fallbackColorRes);
     }
 
     /**

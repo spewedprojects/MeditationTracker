@@ -19,7 +19,7 @@
         app:strokeWidth="0dp"
         app:strokeColor="@color/success_green"
         app:cardElevation="16dp"
-        app:cardBackgroundColor="?attr/colorPrimaryVariant"
+        app:cardBackgroundColor="?attr/colorSurfaceContainerHigh"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -111,11 +111,11 @@
                         android:textAppearance="?attr/textAppearanceAppButton"
                         tools:theme="@style/TextAppearance.MeditationTracker.AppFont.AppButton"
                         android:gravity="center"
-                        android:backgroundTint="?attr/colorOnPrimary"
+                        android:backgroundTint="?attr/colorPrimary"
                         android:includeFontPadding="false"
                         android:text="@string/add_entry"
                         android:textAllCaps="false"
-                        android:textColor="?attr/colorPrimary"
+                        android:textColor="?attr/colorOnPrimary"
                         app:cornerRadius="?attr/customButtonRadius"/> <!-- Add goal button -->
 
                 </LinearLayout>

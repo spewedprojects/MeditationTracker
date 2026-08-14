@@ -32,56 +32,32 @@
 
         <activity
             android:name=".SummaryActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
+            android:exported="false">
         </activity> <!-- Summary activity -->
 
         <activity
             android:name=".ReportsActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
+            android:exported="false">
         </activity> <!-- Reports activity -->
 
         <activity
             android:name=".GoalsActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
         </activity> <!-- Custom goals activity -->
 
         <activity
             android:name=".AboutActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
+            android:exported="false">
         </activity> <!-- About activity -->
 
         <activity
             android:name=".ReleaseNotesActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
+            android:exported="false">
         </activity> <!-- About activity -->
 
         <activity
             android:name=".SettingsInfoActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
+            android:exported="false">
         </activity> <!-- Settings/Info activity -->
 
         <service android:name=".datamanagers.TimerService" android:foregroundServiceType="dataSync" />

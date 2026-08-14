@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/menu_drawer"
-    android:background="?attr/colorPrimaryVariant"
+    android:background="?attr/colorSurfaceContainer"
     android:clickable="true"
     tools:context=".BaseActivity">
 
@@ -32,7 +32,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/onPrimary2" /> <!-- Close Menu Button -->
+            app:tint="?attr/colorOnSurfaceVariant" /> <!-- Close Menu Button -->
 
         <!-- Centered title on actionbar -->
         <TextView
@@ -46,7 +46,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="16dp"
             android:text="@string/menu_title"
-            android:textColor="?attr/colorOnPrimary"
+            android:textColor="?attr/colorOnSurface"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -81,7 +81,7 @@
                 android:letterSpacing="0.03"
                 android:text="@string/menu_home"
                 android:textAllCaps="false"
-                android:textColor="@color/onPrimary2"
+                android:textColor="?attr/colorOnSurfaceVariant"
                 app:icon="@drawable/active_dot"
                 app:iconGravity="end"
                 app:iconSize="8dp"/>
@@ -95,7 +95,7 @@
                 android:textAppearance="?attr/textAppearanceAppButton"
                 tools:theme="@style/TextAppearance.MeditationTracker.AppFont.AppButton"
                 android:text="@string/menu_summary"
-                android:textColor="@color/onPrimary2"
+                android:textColor="?attr/colorOnSurfaceVariant"
                 android:textAllCaps="false"
                 android:letterSpacing="0.03"
                 android:background="@android:color/transparent"
@@ -112,7 +112,7 @@
                 android:textAppearance="?attr/textAppearanceAppButton"
                 tools:theme="@style/TextAppearance.MeditationTracker.AppFont.AppButton"
                 android:text="@string/menu_reports_button_text"
-                android:textColor="@color/onPrimary2"
+                android:textColor="?attr/colorOnSurfaceVariant"
                 android:textAllCaps="false"
                 android:letterSpacing="0.03"
                 android:background="@android:color/transparent"
@@ -131,7 +131,7 @@
                 tools:theme="@style/TextAppearance.MeditationTracker.AppFont.AppButton"
                 android:background="@android:color/transparent"
                 android:text="@string/menu_custgoals"
-                android:textColor="@color/onPrimary2"
+                android:textColor="?attr/colorOnSurfaceVariant"
                 android:textAllCaps="false"
                 android:elevation="0dp"
                 android:letterSpacing="0.03"
@@ -150,7 +150,7 @@
                 tools:theme="@style/TextAppearance.MeditationTracker.AppFont.AppButton"
                 android:text="@string/menu_about_app_button_text"
                 android:textAllCaps="false"
-                android:textColor="@color/onPrimary2"
+                android:textColor="?attr/colorOnSurfaceVariant"
                 android:letterSpacing="0.03"
                 app:icon="@drawable/active_dot"
                 app:iconGravity="end"
@@ -167,7 +167,7 @@
                 tools:theme="@style/TextAppearance.MeditationTracker.AppFont.AppButton"
                 android:textAllCaps="false"
                 android:text="@string/menu_release_notes_button_text"
-                android:textColor="@color/onPrimary2"
+                android:textColor="?attr/colorOnSurfaceVariant"
                 android:letterSpacing="0.03"
                 app:icon="@drawable/active_dot"
                 app:iconGravity="end"
@@ -194,17 +194,17 @@
                     android:id="@+id/menu_exportButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/black_white"
+                    android:backgroundTint="?attr/colorPrimary"
                     android:insetRight="1dp"
                     android:padding="12dp"
                     android:text="@string/menu_export_button_text"
                     android:textAppearance="?attr/textAppearanceAppButton"
-                    android:textColor="@color/white_black"
+                    android:textColor="?attr/colorOnPrimary"
                     app:cornerRadius="?attr/customButtonRadius"
                     android:letterSpacing="0.08"
                     app:icon="@drawable/download_icon_inverse"
                     app:iconGravity="textStart"
-                    app:iconTint="@color/white_black"
+                    app:iconTint="?attr/colorOnPrimary"
                     tools:theme="@style/TextAppearance.MeditationTracker.AppFont.AppButton" />
 
                 <!-- Import Button -->
@@ -212,17 +212,17 @@
                     android:id="@+id/menu_importButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/black_white"
+                    android:backgroundTint="?attr/colorPrimary"
                     android:insetLeft="1dp"
                     android:padding="12dp"
                     android:text="@string/menu_import_button_text"
                     android:letterSpacing="0.08"
                     android:textAppearance="?attr/textAppearanceAppButton"
-                    android:textColor="@color/white_black"
+                    android:textColor="?attr/colorOnPrimary"
                     app:cornerRadius="?attr/customButtonRadius"
                     app:icon="@drawable/download_icon"
                     app:iconGravity="textEnd"
-                    app:iconTint="@color/white_black"
+                    app:iconTint="?attr/colorOnPrimary"
                     tools:theme="@style/TextAppearance.MeditationTracker.AppFont.AppButton" />
 
             </com.google.android.material.button.MaterialButtonToggleGroup>
@@ -253,7 +253,7 @@
             android:elevation="2dp"
             android:alpha="0.5"
             app:srcCompat="@drawable/settings_24dp_opsz40"
-            app:tint="?attr/colorOnPrimary"
+            app:tint="?attr/colorOnSurface"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="65dp"/>
 
@@ -267,8 +267,7 @@
             android:scaleY="1.1"
             android:visibility="visible"
             android:elevation="2dp"
-            app:srcCompat="@drawable/light_mode"
-            app:tint="?attr/colorOnPrimary"
+            app:srcCompat="@drawable/mode_light"
             android:layout_alignParentEnd="true"/>
 
         <ImageButton
@@ -281,8 +280,7 @@
             android:scaleY="1.1"
             android:visibility="visible"
             android:elevation="2dp"
-            app:srcCompat="@drawable/dark_mode"
-            app:tint="?attr/colorOnPrimary"
+            app:srcCompat="@drawable/mode_dark"
             android:layout_alignParentEnd="true"/>
 
         <ImageButton
@@ -295,7 +293,7 @@
             android:scaleY="1"
             android:visibility="visible"
             android:elevation="2dp"
-            app:srcCompat="@drawable/auto_mode"
+            app:srcCompat="@drawable/mode_auto"
             android:layout_alignParentEnd="true"/>
 
     </RelativeLayout>

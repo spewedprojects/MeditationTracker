@@ -8,5 +8,5 @@
     android:includeFontPadding="false"
     android:textAppearance="?attr/textAppearanceStatValue"
     tools:theme="@style/TextAppearance.MeditationTracker.AppFont.StatValue"
-    android:textColor="@color/inverseprimary"
+    android:textColor="?attr/colorOnSurface"
     android:alpha="1.0" />

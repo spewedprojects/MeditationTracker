@@ -80,8 +80,8 @@ public class ReportsAdapter extends RecyclerView.Adapter<ReportsAdapter.ReportVi
         ViewGroup.MarginLayoutParams lp =
                 (ViewGroup.MarginLayoutParams) holder.itemView.getLayoutParams();
 
-        int outer = dpToPx(12);
-        int inner = dpToPx(1);
+        int outer = dpToPx(4);
+        int inner = dpToPx(2);
 
         if (spanCount == 1) {
             lp.setMarginStart(outer);

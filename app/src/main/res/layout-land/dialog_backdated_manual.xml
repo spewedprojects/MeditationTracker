@@ -11,7 +11,7 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/dialogbox_backmanual"
         android:layout_width="0dp"
-        app:layout_constraintWidth_max="400dp"
+        app:layout_constraintWidth_max="600dp"
         android:layout_height="wrap_content"
         android:layout_marginVertical="48dp"
         android:layout_marginHorizontal="58dp"
@@ -19,7 +19,7 @@
         app:strokeWidth="0dp"
         app:strokeColor="@color/success_green"
         app:cardElevation="16dp"
-        app:cardBackgroundColor="?attr/colorPrimaryVariant"
+        app:cardBackgroundColor="?attr/colorSurfaceContainerHigh"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -65,6 +65,8 @@
                         android:layout_gravity="center"
                         android:layout_below="@id/top_tV"
                         android:layout_alignParentStart="true"
+                        android:firstDayOfWeek="2"
+                        android:layout_alignParentBottom="true"
                         android:layout_toStartOf="@id/timeInput_container"/>
 
                     <LinearLayout
@@ -73,9 +75,11 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:gravity="center"
-                        android:layout_marginEnd="16dp"
+                        android:layout_marginEnd="12dp"
                         android:layout_centerVertical="true"
-                        android:layout_alignParentEnd="true">
+                        android:layout_alignParentBottom="true"
+                        android:layout_below="@id/top_tV"
+                        android:layout_toStartOf="@id/add_entry_B">
 
                         <EditText
                             android:id="@+id/manual_hours_B"
@@ -118,20 +122,20 @@
                         android:id="@+id/add_entry_B"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="38dp"
-                        android:layout_marginBottom="12dp"
+                        android:layout_marginEnd="16dp"
                         android:textAppearance="?attr/textAppearanceAppButton"
                         tools:theme="@style/TextAppearance.MeditationTracker.AppFont.AppButton"
                         android:gravity="center"
-                        android:backgroundTint="?attr/colorOnPrimary"
+                        android:backgroundTint="?attr/colorPrimary"
                         android:includeFontPadding="false"
-                        android:text="@string/add_entry"
+                        android:text="Add"
                         android:textAllCaps="false"
-                        android:textColor="?attr/colorPrimary"
+                        android:textColor="?attr/colorOnPrimary"
                         app:cornerRadius="?attr/customButtonRadius"
+                        android:layout_alignParentEnd="true"
                         android:layout_alignParentBottom="true"
-                        android:layout_centerHorizontal="true"
-                        android:layout_below="@id/backdate_picker"/> <!-- Add goal button -->
+                        android:layout_centerVertical="true"
+                        android:layout_below="@id/top_tV"/> <!-- Add goal button -->
 
                 </RelativeLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>

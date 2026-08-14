@@ -273,7 +273,7 @@ public class MainActivity extends BaseActivity implements BackdatedDialogFragmen
             streakText.setText(createStyledStreakText(progressDays));
             streakProgress.setProgress(Math.min(percentage, 100));
             streakProgress.setVisibility(View.VISIBLE);
-            streakCard.setStrokeColor(ContextCompat.getColor(this, R.color.success_green));
+            streakCard.setStrokeColor(resolveAccentColor(R.color.success_green));
             streakCard.setStrokeWidth(2);
 
         } else {

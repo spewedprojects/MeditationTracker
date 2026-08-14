@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
 import androidx.core.graphics.Insets
 import androidx.core.view.ViewCompat
@@ -44,10 +45,101 @@ class SettingsInfoActivity : BaseActivity(){
         // Initialize the toolbar and menu button
         setupToolbar(R.id.toolbar2, R.id.menubutton)
 
+        setupThemeToggle()
+        setupMonetSwitch()
         setupYAxisSwitch()
         setupFontToggle()
         setupWeekStartToggle()
         setupCustomRadiiBlock()
+    }
+
+    private fun setupThemeToggle() {
+        val themeToggleGroup = findViewById<com.google.android.material.button.MaterialButtonToggleGroup>(R.id.switchTheme)
+        val prefs = getSharedPreferences(BaseActivity.SHARED_PREFS_NAME, Context.MODE_PRIVATE)
+
+        val lightBtn = findViewById<com.google.android.material.button.MaterialButton>(R.id.set_light_theme_btn)
+        val darkBtn = findViewById<com.google.android.material.button.MaterialButton>(R.id.set_dark_theme_btn)
+        val autoBtn = findViewById<com.google.android.material.button.MaterialButton>(R.id.set_auto_theme_btn)
+        val subtitle = findViewById<TextView>(R.id.themeSubtitle)
+
+        val activeStroke = resources.getDimensionPixelSize(R.dimen.active_stroke_width)
+        val currentTheme = prefs.getString("SelectedTheme", "auto") ?: "auto"
+
+        // Set initial state
+        when (currentTheme) {
+            "light" -> {
+                themeToggleGroup.check(R.id.set_light_theme_btn)
+                lightBtn.strokeWidth = activeStroke
+                darkBtn.strokeWidth = 0
+                autoBtn.strokeWidth = 0
+                subtitle.text = "Light"
+            }
+            "dark" -> {
+                themeToggleGroup.check(R.id.set_dark_theme_btn)
+                lightBtn.strokeWidth = 0
+                darkBtn.strokeWidth = activeStroke
+                autoBtn.strokeWidth = 0
+                subtitle.text = "Dark"
+            }
+            else -> {
+                themeToggleGroup.check(R.id.set_auto_theme_btn)
+                lightBtn.strokeWidth = 0
+                darkBtn.strokeWidth = 0
+                autoBtn.strokeWidth = activeStroke
+                subtitle.text = "Follow System"
+            }
+        }
+
+        themeToggleGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->
+            if (isChecked) {
+                val theme = when (checkedId) {
+                    R.id.set_light_theme_btn -> "light"
+                    R.id.set_dark_theme_btn -> "dark"
+                    else -> "auto"
+                }
+                prefs.edit { putString("SelectedTheme", theme) }
+
+                when (theme) {
+                    "light" -> {
+                        lightBtn.strokeWidth = activeStroke
+                        darkBtn.strokeWidth = 0
+                        autoBtn.strokeWidth = 0
+                        subtitle.text = "Light"
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                    }
+                    "dark" -> {
+                        lightBtn.strokeWidth = 0
+                        darkBtn.strokeWidth = activeStroke
+                        autoBtn.strokeWidth = 0
+                        subtitle.text = "Dark"
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                    }
+                    else -> {
+                        lightBtn.strokeWidth = 0
+                        darkBtn.strokeWidth = 0
+                        autoBtn.strokeWidth = activeStroke
+                        subtitle.text = "Follow System"
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+                    }
+                }
+                recreate()
+            }
+        }
+    }
+
+    private fun setupMonetSwitch() {
+        val monetSwitch = findViewById<MaterialSwitch>(R.id.switchMonet)
+        if (monetSwitch != null) {
+            val prefs = getSharedPreferences(BaseActivity.SHARED_PREFS_NAME, Context.MODE_PRIVATE)
+            val isMonetEnabled = prefs.getBoolean("use_monet_theme", false)
+
+            monetSwitch.isChecked = isMonetEnabled
+
+            monetSwitch.setOnCheckedChangeListener { _, isChecked ->
+                prefs.edit { putBoolean("use_monet_theme", isChecked) }
+                recreate()
+            }
+        }
     }
 
     private fun setupYAxisSwitch() {

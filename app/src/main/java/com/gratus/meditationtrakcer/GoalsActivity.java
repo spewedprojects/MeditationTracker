@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -444,17 +445,13 @@ public class GoalsActivity extends BaseActivity {
             Button positiveButton = dPDialog.getButton(DialogInterface.BUTTON_POSITIVE);
             Button negativeButton = dPDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
 
-            // Determine the current effective theme
-            boolean isDarkMode = isDarkMode();
+            // Resolve text color from theme (Monet-aware via colorOnSurface)
+            TypedValue tv = new TypedValue();
+            getTheme().resolveAttribute(com.google.android.material.R.attr.colorOnSurface, tv, true);
+            int dialogBtnColor = tv.data;
 
-            // Apply colors based on the theme
-            int positiveColor = isDarkMode ? ContextCompat.getColor(this, R.color.inverseprimary)
-                    : ContextCompat.getColor(this, R.color.inverseprimary);
-            int negativeColor = isDarkMode ? ContextCompat.getColor(this, R.color.inverseprimary)
-                    : ContextCompat.getColor(this, R.color.inverseprimary);
-
-            positiveButton.setTextColor(positiveColor);
-            negativeButton.setTextColor(negativeColor);
+            positiveButton.setTextColor(dialogBtnColor);
+            negativeButton.setTextColor(dialogBtnColor);
 
             // Apply rounded background
             Objects.requireNonNull(dPDialog.getWindow())
@@ -485,9 +482,9 @@ public class GoalsActivity extends BaseActivity {
 
         // match the colour-tint logic you already use for DatePicker
         tPDialog.setOnShowListener(d -> {
-            boolean dark = isDarkMode();
-            int colour = ContextCompat.getColor(this,
-                    dark ? R.color.inverseprimary : R.color.inverseprimary);
+            TypedValue tv = new TypedValue();
+            getTheme().resolveAttribute(com.google.android.material.R.attr.colorOnSurface, tv, true);
+            int colour = tv.data;
             tPDialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(colour);
             tPDialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(colour);
             // Apply rounded background

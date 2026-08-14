@@ -10,7 +10,7 @@
         android:translateX="-96"
         android:translateY="-96">
     <path
-        android:fillColor="?attr/colorOnPrimary"
+        android:fillColor="?attr/colorPrimary"
         android:fillAlpha="0.5"
         android:pathData="M240,320L240,240L720,240L720,320L240,320ZM296,736L240,680L480,440L720,680L664,736L480,552L296,736Z"/>
     </group>
