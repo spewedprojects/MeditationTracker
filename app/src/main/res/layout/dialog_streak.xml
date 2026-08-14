@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="58dp"
         android:layout_marginVertical="48dp"
-        app:cardBackgroundColor="?attr/colorSurfaceContainer"
+        app:cardBackgroundColor="?attr/colorSurfaceContainerHigh"
         app:cardCornerRadius="?attr/customCardRadius"
         app:cardElevation="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
