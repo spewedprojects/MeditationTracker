@@ -37,103 +37,228 @@
                 android:layout_height="wrap_content"
                 android:requiresFadingEdge="vertical">
 
-                <!-- ======================= -->
-                <!-- Usage Guide Card -->
-                <!-- ======================= -->
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/usage_card"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginTop="8dp"
-                    app:cardBackgroundColor="?attr/colorSurfaceContainerHigh"
-                    app:cardCornerRadius="?attr/customCardRadius"
-                    app:cardElevation="3dp">
+                    android:orientation="vertical">
 
-                    <LinearLayout
+                    <!-- ======================= -->
+                    <!-- Usage Guide Card -->
+                    <!-- ======================= -->
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/usage_card"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="20dp">
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginVertical="8dp"
+                        app:cardBackgroundColor="?attr/colorSurfaceContainerHigh"
+                        app:cardCornerRadius="?attr/customCardRadius"
+                        app:cardElevation="3dp">
 
-                        <!-- Title Row -->
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
+                            android:orientation="vertical"
+                            android:padding="20dp">
 
-                            <ImageView
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:src="@drawable/info_24dp_fill1" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="12dp"
-                                android:alpha="0.9"
-                                android:textAppearance="?attr/textAppearanceCardTitle"
-                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.CardTitle"
-                                android:text="Usage Guide"
-                                android:textColor="?attr/colorOnSurface"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-
-                        <com.google.android.material.divider.MaterialDivider
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_marginVertical="12dp"
-                            android:alpha="0.3" />
-
-                        <!-- Hidden Shortcuts -->
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:layout_marginTop="2dp"
-                                android:src="@drawable/touch_long_24dp" />
-
+                            <!-- Title Row -->
                             <LinearLayout
-                                android:layout_width="0dp"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="12dp"
-                                android:layout_weight="1"
-                                android:orientation="vertical">
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="24dp"
+                                    android:layout_height="24dp"
+                                    android:src="@drawable/info_24dp_fill1" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:alpha="0.85"
-                                    android:textAppearance="?attr/textAppearanceAppButton"
-                                    tools:theme="@style/TextAppearance.MeditationTracker.AppFont.AppButton"
-                                    android:text="Hidden Shortcuts"
+                                    android:layout_marginStart="12dp"
+                                    android:alpha="0.9"
+                                    android:textAppearance="?attr/textAppearanceCardTitle"
+                                    tools:theme="@style/TextAppearance.MeditationTracker.AppFont.CardTitle"
+                                    android:text="Usage Guide"
                                     android:textColor="?attr/colorOnSurface"
                                     android:textStyle="bold" />
+                            </LinearLayout>
 
-                                <TextView
-                                    android:layout_width="wrap_content"
+                            <com.google.android.material.divider.MaterialDivider
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_marginVertical="12dp"
+                                android:alpha="0.5" />
+
+                            <!-- Hidden Shortcuts -->
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="24dp"
+                                    android:layout_height="24dp"
+                                    android:layout_marginTop="2dp"
+                                    android:src="@drawable/touch_long_24dp" />
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="4dp"
-                                    android:alpha="0.7"
-                                    android:textAppearance="?attr/textAppearanceAppSubtitle2"
-                                    tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subtitle2"
-                                    android:text="Press on the Streak card to set streak goals and to view the streak stats.\n\nLong-press on `Add Manually` button to open the dialog to add back-dated entry.\n**Note: All future dates are disabled."
-                                    android:textColor="?attr/colorOnSurface" />
+                                    android:layout_marginStart="12dp"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:alpha="0.85"
+                                        android:textAppearance="?attr/textAppearanceAppButton"
+                                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.AppButton"
+                                        android:text="Hidden Shortcuts"
+                                        android:textColor="?attr/colorOnSurface"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="4dp"
+                                        android:alpha="0.7"
+                                        android:textAppearance="?attr/textAppearanceAppSubtitle2"
+                                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subtitle2"
+                                        android:text="Press on the Streak card to set streak goals and to view the streak stats.\n\nLong-press on `Add Manually` button to open the dialog to add back-dated entry.\n**Note: All future dates are disabled."
+                                        android:textColor="?attr/colorOnSurface" />
+                                </LinearLayout>
+
                             </LinearLayout>
 
                         </LinearLayout>
 
-                    </LinearLayout>
+                    </androidx.cardview.widget.CardView>
 
-                </androidx.cardview.widget.CardView>
+                    <!-- ======================= -->
+                    <!-- Backup and Restore Card -->
+                    <!-- ======================= -->
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/ExpImp_settings_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="16dp"
+                        app:cardBackgroundColor="?attr/colorSurfaceContainerHigh"
+                        app:cardCornerRadius="?attr/customCardRadius"
+                        app:cardElevation="3dp"
+                        android:animateLayoutChanges="true"
+                        app:layout_constraintTop_toBottomOf="@id/global_settings_card"
+                        app:layout_constraintBottom_toBottomOf="parent">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:animateLayoutChanges="true"
+                            android:orientation="vertical"
+                            android:paddingHorizontal="20dp"
+                            android:paddingTop="20dp"
+                            android:paddingBottom="12dp">
+
+                            <!-- Title Row -->
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="24dp"
+                                    android:layout_height="24dp"
+                                    android:src="@drawable/settings_backup_restore_24dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="12dp"
+                                    android:alpha="0.9"
+                                    android:text="Backup &amp; Restore"
+                                    android:textAppearance="?attr/textAppearanceCardTitle"
+                                    android:textColor="?attr/colorOnSurface"
+                                    android:textStyle="bold"
+                                    tools:theme="@style/TextAppearance.MeditationTracker.AppFont.CardTitle" />
+                            </LinearLayout>
+
+                            <com.google.android.material.divider.MaterialDivider
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_marginVertical="12dp"
+                                android:alpha="0.5" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:paddingBottom="8dp"
+                                android:alpha="0.7"
+                                android:textAppearance="?attr/textAppearanceAppSubtitle2"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subtitle2"
+                                android:text="Files are saved in *.db and *.json formats in Documents/MeditationExports"
+                                android:textColor="?attr/colorOnSurface" />
+
+                            <!-- Export Button -->
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/menu_exportButton"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:backgroundTint="?attr/colorPrimary"
+                                android:letterSpacing="0.08"
+                                android:padding="12dp"
+                                android:text="Save to Documents folder"
+                                android:textAppearance="?attr/textAppearanceAppButton"
+                                android:textColor="?attr/colorOnPrimary"
+                                app:cornerRadius="?attr/customButtonRadius"
+                                app:icon="@drawable/upload_2_fill_24dp"
+                                app:iconGravity="textStart"
+                                app:iconTint="?attr/colorOnPrimary"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.AppButton" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:paddingBottom="8dp"
+                                android:alpha="0.7"
+                                android:textAppearance="?attr/textAppearanceAppSubtitle2"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subtitle2"
+                                android:text="Your data can be restored from individual *.db files or the singular *.json file."
+                                android:textColor="?attr/colorOnSurface" />
+
+                            <!-- Import Button -->
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/menu_importButton"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:backgroundTint="?attr/colorPrimary"
+                                android:letterSpacing="0.08"
+                                android:padding="12dp"
+                                android:text="Restore from files"
+                                android:textAppearance="?attr/textAppearanceAppButton"
+                                android:textColor="?attr/colorOnPrimary"
+                                app:cornerRadius="?attr/customButtonRadius"
+                                app:icon="@drawable/download_2_fill_24dp"
+                                app:iconGravity="textStart"
+                                app:iconTint="?attr/colorOnPrimary"
+                                tools:theme="@style/TextAppearance.MeditationTracker.AppFont.AppButton" />
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+
             </androidx.core.widget.NestedScrollView>
 
             <androidx.core.widget.NestedScrollView
@@ -197,7 +322,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:layout_marginVertical="12dp"
-                            android:alpha="0.3" />
+                            android:alpha="0.5" />
 
                         <!-- App Theme Switcher -->
                         <RelativeLayout
@@ -500,6 +625,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:src="@drawable/arrow_down_24"
+                                app:tint="?attr/colorOnSurface"
                                 android:background="@color/transparent"
                                 android:layout_alignParentEnd="true"
                                 android:layout_alignParentTop="true"

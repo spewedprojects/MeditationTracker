@@ -52,7 +52,7 @@ public class ReportsActivity extends BaseActivity {
             return insets;
         });
         // Initialize the toolbar and menu button
-        setupToolbar(R.id.toolbar2, R.id.menubutton);
+        setupToolbar(R.id.toolbar2, R.id.menubutton, R.string.title_activity_reports);
 
         btn_YearReport = findViewById(R.id.btn_reportYear);
         btn_MonthReport = findViewById(R.id.btn_reportMonth);

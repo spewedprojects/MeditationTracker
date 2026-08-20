@@ -14,7 +14,7 @@ import androidx.core.content.edit
 import androidx.core.graphics.Insets
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.isGone
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.materialswitch.MaterialSwitch
 
 class SettingsInfoActivity : BaseActivity(){
@@ -43,7 +43,7 @@ class SettingsInfoActivity : BaseActivity(){
         }
 
         // Initialize the toolbar and menu button
-        setupToolbar(R.id.toolbar2, R.id.menubutton)
+        setupToolbar(R.id.toolbar2, R.id.menubutton, R.string.title_activity_settings)
 
         setupThemeToggle()
         setupMonetSwitch()
@@ -51,6 +51,7 @@ class SettingsInfoActivity : BaseActivity(){
         setupFontToggle()
         setupWeekStartToggle()
         setupCustomRadiiBlock()
+        setupExportImportBtns()
     }
 
     private fun setupThemeToggle() {
@@ -311,5 +312,15 @@ class SettingsInfoActivity : BaseActivity(){
                 recreate()
             }
         })
+    }
+
+    private fun setupExportImportBtns(){
+        val exportButton = findViewById<MaterialButton>(R.id.menu_exportButton)
+        val importButton = findViewById<MaterialButton>(R.id.menu_importButton)
+
+
+        // Export/Import buttons can be set up here too.
+        exportButton.setOnClickListener(View.OnClickListener { v: View? -> exportData() })
+        importButton.setOnClickListener(View.OnClickListener { v: View? -> showFileChooser() })
     }
 }

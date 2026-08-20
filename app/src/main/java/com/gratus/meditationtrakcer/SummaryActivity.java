@@ -81,7 +81,7 @@ public class SummaryActivity extends BaseActivity {
         // ----------------------
 
         // Initialize the toolbar and menu button
-        setupToolbar(R.id.toolbar2, R.id.menubutton);
+        setupToolbar(R.id.toolbar2, R.id.menubutton, R.string.title_activity_summary);
 
         // 1) grab view handles (already done in your file) ……………………………………
         viewGroup = findViewById(R.id.WMY_group);

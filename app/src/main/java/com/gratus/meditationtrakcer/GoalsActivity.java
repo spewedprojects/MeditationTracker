@@ -104,7 +104,7 @@ public class GoalsActivity extends BaseActivity {
         });
 
         // Call setupToolbar to bind toolbar and menu button
-        setupToolbar(R.id.toolbar2, R.id.menubutton);
+        setupToolbar(R.id.toolbar2, R.id.menubutton, R.string.title_activity_goals);
 
         // Existing initializations
         goalDescription = findViewById(R.id.goal_input);

@@ -23,9 +23,9 @@
     <string name="total_hours">Total hours: </string>
     <string name="goals_title">Set a New Goal</string>
     <string name="goals_desc">Create a new meditation goal</string>
-    <string name="current_version_details"> 14/08/2026
-        \n- Dynamic Colors &amp; Theming support - Monet
-        \n- UI &amp; Layout Refinements - theme aware color attribution
+    <string name="current_version_details"> 20/08/2026
+        \n- Moved Export/Import to Settings &amp; Info screen.
+        \n- Now supports different title for each screen.
         \n- Improved app security by setting `android:exported="false"` and removing unnecessary intent filters for internal activities.
         \n
         \nNEXT:
@@ -39,7 +39,7 @@
     <string name="total_hours_placeholder">Total: 0.00 hours</string>
     <string name="nav_label_main_placeholder">January</string>
     <string name="nav_label_sub_placeholder">2026</string>
-    <string name="report_button_desc">Generate report for displaye Month or Year</string>
+    <string name="report_button_desc">Generate report for displayed Month or Year</string>
     <string name="next_nav_button_desc">Switch to next week or month or year</string>
     <string name="prev_nav_button_desc">Switch to previous week or month or year</string>
     <string name="menu_import_button_text">Import</string>
@@ -50,4 +50,13 @@
     <string name="btn_light_mode">Switch to Light mode</string>
     <string name="btn_auto_mode">Switch to Auto mode</string>
     <string name="btn_dark_mode">Switch to Dark mode</string>
+
+    <!-- Screen Toolbar Titles -->
+    <string name="title_activity_main">Meditation Tracker</string>
+    <string name="title_activity_summary">Summary</string>
+    <string name="title_activity_reports">Reports</string>
+    <string name="title_activity_goals">Goals</string>
+    <string name="title_activity_about">About</string>
+    <string name="title_activity_release_notes">Changelogs</string>
+    <string name="title_activity_settings">Settings &amp; Info</string>
 </resources>

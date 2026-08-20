@@ -3,7 +3,16 @@
 
 Latest release **_[here](https://github.com/spewedprojects/MeditationTracker/releases/latest)_**.
 
-106. **_[14.3.1 (17/07/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v14.3.1)_**
+108. **_[14.4.1 (17/07/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v14.4.1)_**
+> - Restructured `activity_settingsinfo.xml` (landscape) into a dual-column nestedscroll container - for individual scrolling.
+> - Updated `dialog_streak.xml` to use colorSurfaceContainerHigh for the card background.
+
+107. [14.4.0 (17/07/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v14.4.0)
+> - Dynamic Colors & Theming support - Monet
+> - UI & Layout Refinements - theme aware color attribution
+> - Improved app security by setting `android:exported="false"` and removing unnecessary intent filters for internal activities.
+
+106. [14.3.1 (17/07/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v14.3.1)
 > - New app icon, more simplified.
 > - Landscape specific layouts for more screens.
 > - Report screen now uses two columns automatically if there is enough space in landscape mode.

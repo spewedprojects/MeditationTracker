@@ -22,7 +22,7 @@ class AboutActivity : BaseActivity() {
         }
 
         // Initialize the toolbar and menu button
-        setupToolbar(R.id.toolbar2, R.id.menubutton)
+        setupToolbar(R.id.toolbar2, R.id.menubutton, R.string.title_activity_about)
 
         val icon = findViewById<ImageView>(R.id.github_icon)
         icon.setOnClickListener { v: View? ->

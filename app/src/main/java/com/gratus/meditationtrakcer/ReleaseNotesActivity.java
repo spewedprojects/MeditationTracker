@@ -42,7 +42,7 @@ public class ReleaseNotesActivity extends BaseActivity {
         });
 
         // Initialize the toolbar and menu button
-        setupToolbar(R.id.toolbar2, R.id.menubutton);
+        setupToolbar(R.id.toolbar2, R.id.menubutton, R.string.title_activity_release_notes);
 
         TextView formattedCurrentVersionDetails = findViewById(R.id.current_version_details);
         // Get raw text from resources

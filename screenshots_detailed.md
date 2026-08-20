@@ -46,10 +46,18 @@ Settings Screen - notice card and button radii
   </tr>
 </table>
 
-Navifation Drawer and Extra screens
+Navigation Drawer and Extra screens
 <table>
   <tr>
     <td><img src="docs/screenshots/navdrawer.png" width="100%"></td>
     <td><img src="docs/screenshots/releasenotes.png" width="100%"></td>
   </tr>
 </table>
+
+Landscape mode:
+<p align="center">
+  <img src='docs/screenshots/landscape_bw.jpg' width='100%'>
+</p>
+<p align="center">
+  <img src='docs/screenshots/landscape_monet.jpg' width='100%'>
+</p>

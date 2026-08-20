@@ -17,22 +17,23 @@ import android.provider.OpenableColumns;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.os.Build;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
-
-import android.os.Build;
-import android.widget.FrameLayout;
-import android.widget.ImageButton;
-import android.widget.Toast;
-
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.GravityCompat;
@@ -41,7 +42,6 @@ import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.customview.widget.ViewDragHelper;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.annotation.LayoutRes;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.color.DynamicColors;
@@ -351,7 +351,7 @@ public class BaseActivity extends AppCompatActivity {
         DrawerLayout fullView = (DrawerLayout) getLayoutInflater().inflate(R.layout.activity_base, null);
         fullView.setScrimColor(Color.parseColor("#33000000")); // 20% black
 
-        setDrawerLeftEdgeSize(drawerLayout, 0.20f); // sets edge swipe area to 20% of screen width
+        setDrawerLeftEdgeSize(drawerLayout, 1.0f); // sets edge swipe area to 20% of screen width
 
         // Find the container into which we will inflate the child layout
         // (child layouts like activity_main.xml, etc.)
@@ -403,24 +403,70 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     /**
-     * Set up the toolbar and menu button.
+     * Set up the toolbar and menu button without changing the title.
      * Call this from your child activities (e.g., in onCreate after setContentView)
      */
     protected void setupToolbar(int toolbarId, int menuButtonId) {
+        setupToolbar(toolbarId, menuButtonId, (CharSequence) null);
+    }
+
+    /**
+     * Set up the toolbar, menu button, and custom title from a string resource ID.
+     */
+    protected void setupToolbar(int toolbarId, int menuButtonId, @StringRes int titleResId) {
+        setupToolbar(toolbarId, menuButtonId, getString(titleResId));
+    }
+
+    /**
+     * Set up the toolbar, menu button, and custom title.
+     */
+    protected void setupToolbar(int toolbarId, int menuButtonId, @Nullable CharSequence title) {
         Toolbar toolbar = findViewById(toolbarId);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
         ImageButton menuButton = findViewById(menuButtonId);
-        menuButton.setOnClickListener(v -> {
-            // Toggle the drawer when the menu button is clicked
-            if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-                drawerLayout.closeDrawer(GravityCompat.START);
-            } else {
-                drawerLayout.openDrawer(GravityCompat.START);
-            }
-        });
+        if (menuButton != null) {
+            menuButton.setOnClickListener(v -> {
+                // Toggle the drawer when the menu button is clicked
+                if (drawerLayout != null) {
+                    if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                    } else {
+                        drawerLayout.openDrawer(GravityCompat.START);
+                    }
+                }
+            });
+        }
+        if (title != null) {
+            setToolbarTitle(title);
+        }
+    }
+
+    /**
+     * Sets the toolbar title text on R.id.toolbar_title.
+     */
+    public void setToolbarTitle(@Nullable CharSequence title) {
+        TextView toolbarTitle = findViewById(R.id.toolbar_title);
+        if (toolbarTitle != null && title != null) {
+            toolbarTitle.setText(title);
+        }
+    }
+
+    /**
+     * Sets the toolbar title text from a string resource on R.id.toolbar_title.
+     */
+    public void setToolbarTitle(@StringRes int titleResId) {
+        setToolbarTitle(getString(titleResId));
+    }
+
+    /**
+     * Returns the toolbar title TextView, or null if not present in the current layout.
+     */
+    @Nullable
+    public TextView getToolbarTitleTextView() {
+        return findViewById(R.id.toolbar_title);
     }
 
     /**
@@ -540,7 +586,7 @@ public class BaseActivity extends AppCompatActivity {
         drawerLayout.closeDrawer(GravityCompat.START);
     }
 
-    private void exportData() {
+    public void exportData() {
         try {
             String timestamp = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss", Locale.getDefault()).format(new Date());
 
@@ -635,7 +681,7 @@ public class BaseActivity extends AppCompatActivity {
         outputStream.write(exportData.toString().getBytes(StandardCharsets.UTF_8));
     }
 
-    private void showFileChooser() {
+    public void showFileChooser() {
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.setType("*/*");
         intent.addCategory(Intent.CATEGORY_OPENABLE);

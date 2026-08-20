@@ -88,7 +88,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginVertical="12dp"
-                        android:alpha="0.3" />
+                        android:alpha="0.5" />
 
                     <!-- Hidden Shortcuts -->
                     <LinearLayout
@@ -152,8 +152,7 @@
                 app:cardCornerRadius="?attr/customCardRadius"
                 app:cardElevation="3dp"
                 android:animateLayoutChanges="true"
-                app:layout_constraintTop_toBottomOf="@id/usage_card"
-                app:layout_constraintBottom_toBottomOf="parent">
+                app:layout_constraintTop_toBottomOf="@id/usage_card">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -192,7 +191,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginVertical="12dp"
-                        android:alpha="0.3" />
+                        android:alpha="0.5" />
 
                     <!-- App Theme Switcher -->
                     <RelativeLayout
@@ -662,6 +661,123 @@
                         </com.google.android.material.button.MaterialButtonToggleGroup>
 
                     </RelativeLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- ======================= -->
+            <!-- Backup and Restore Card -->
+            <!-- ======================= -->
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/ExpImp_settings_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="16dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginBottom="16dp"
+                app:cardBackgroundColor="?attr/colorSurfaceContainerHigh"
+                app:cardCornerRadius="?attr/customCardRadius"
+                app:cardElevation="3dp"
+                android:animateLayoutChanges="true"
+                app:layout_constraintTop_toBottomOf="@id/global_settings_card"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:animateLayoutChanges="true"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="20dp"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="12dp">
+
+                    <!-- Title Row -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/settings_backup_restore_24dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:alpha="0.9"
+                            android:text="Backup &amp; Restore"
+                            android:textAppearance="?attr/textAppearanceCardTitle"
+                            android:textColor="?attr/colorOnSurface"
+                            android:textStyle="bold"
+                            tools:theme="@style/TextAppearance.MeditationTracker.AppFont.CardTitle" />
+                    </LinearLayout>
+
+                    <com.google.android.material.divider.MaterialDivider
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginVertical="12dp"
+                        android:alpha="0.5" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:paddingBottom="8dp"
+                        android:alpha="0.7"
+                        android:textAppearance="?attr/textAppearanceAppSubtitle2"
+                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subtitle2"
+                        android:text="Files are saved in *.db and *.json formats in Documents/MeditationExports"
+                        android:textColor="?attr/colorOnSurface" />
+
+                    <!-- Export Button -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/menu_exportButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="?attr/colorPrimary"
+                        android:letterSpacing="0.08"
+                        android:padding="12dp"
+                        android:text="Save to Documents folder"
+                        android:textAppearance="?attr/textAppearanceAppButton"
+                        android:textColor="?attr/colorOnPrimary"
+                        app:cornerRadius="?attr/customButtonRadius"
+                        app:icon="@drawable/upload_2_fill_24dp"
+                        app:iconGravity="textStart"
+                        app:iconTint="?attr/colorOnPrimary"
+                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.AppButton" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:paddingBottom="8dp"
+                        android:alpha="0.7"
+                        android:textAppearance="?attr/textAppearanceAppSubtitle2"
+                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.Subtitle2"
+                        android:text="Your data can be restored from individual *.db files or the singular *.json file."
+                        android:textColor="?attr/colorOnSurface" />
+
+                    <!-- Import Button -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/menu_importButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="?attr/colorPrimary"
+                        android:letterSpacing="0.08"
+                        android:padding="12dp"
+                        android:text="Restore from files"
+                        android:textAppearance="?attr/textAppearanceAppButton"
+                        android:textColor="?attr/colorOnPrimary"
+                        app:cornerRadius="?attr/customButtonRadius"
+                        app:icon="@drawable/download_2_fill_24dp"
+                        app:iconGravity="textStart"
+                        app:iconTint="?attr/colorOnPrimary"
+                        tools:theme="@style/TextAppearance.MeditationTracker.AppFont.AppButton" />
 
                 </LinearLayout>
 
