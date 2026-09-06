@@ -145,7 +145,7 @@
                     app:cardCornerRadius="?attr/customCardRadius"
                     app:cardElevation="4dp"
                     app:strokeColor="@color/success_green"
-                    app:strokeWidth="2dp">
+                    app:strokeWidth="3dp">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -257,7 +257,7 @@
 
                         <TextView
                             android:id="@+id/goal_duration_home"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="16dp"
                             android:layout_marginTop="6dp"
@@ -267,7 +267,6 @@
                             android:text="Target: 0 hours | 0 days"
                             android:textAppearance="?attr/textAppearanceAppSubtitle2"
                             android:textColor="?attr/colorOnSurfaceVariant"
-                            app:layout_constraintBottom_toTopOf="@id/goal_progress_bar2"
                             app:layout_constraintEnd_toStartOf="@id/goto_goals"
                             app:layout_constraintHorizontal_bias="0"
                             app:layout_constraintStart_toStartOf="parent"
@@ -279,24 +278,25 @@
                         <ProgressBar
                             android:id="@+id/goal_progress_bar2"
                             style="@android:style/Widget.ProgressBar.Horizontal"
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="16dp"
-                            android:layout_marginEnd="55dp"
                             android:layout_marginBottom="16dp"
                             android:max="100"
-                            android:progress="0"
+                            android:progress="56"
                             android:progressDrawable="@drawable/progress_bar_style"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent" /> <!-- Goal progress bar -->
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/goal_progress_percentage2"
+                            app:layout_constraintHorizontal_chainStyle="packed"/> <!-- Goal progress bar -->
 
                         <TextView
                             android:id="@+id/goal_progress_percentage2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
-                            android:layout_marginEnd="15dp"
+                            android:layout_marginEnd="14dp"
                             android:layout_marginBottom="17dp"
                             android:filterTouchesWhenObscured="false"
                             android:focusableInTouchMode="true"
@@ -305,7 +305,7 @@
                             android:textColor="?attr/colorOnSurface"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0"
+                            app:layout_constraintHorizontal_bias="0.5"
                             app:layout_constraintStart_toEndOf="@+id/goal_progress_bar2"
                             tools:ignore="TextViewEdits"
                             tools:theme="@style/TextAppearance.MeditationTracker.AppFont.ProgressLabel" /> <!-- Goal completion progressbar -->

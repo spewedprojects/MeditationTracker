@@ -23,15 +23,8 @@
     <string name="total_hours">Total hours: </string>
     <string name="goals_title">Set a New Goal</string>
     <string name="goals_desc">Create a new meditation goal</string>
-    <string name="current_version_details"> 20/08/2026
-        \n- Moved Export/Import to Settings &amp; Info screen.
-        \n- Now supports different title for each screen.
-        \n- Improved app security by setting `android:exported="false"` and removing unnecessary intent filters for internal activities.
-        \n
-        \nNEXT:
-        \n- Main screen should dynamically adjust constraints based on goals visibility.
-        \n- Smaller devices still need meticulous planning.
-        \n- Add an option in settings to disable landscape specific layouts.
+    <string name="current_version_details"> 06/09/2026
+        \n- Refer to latest_release.md for more details.
     </string>
     <string name="v1.16.c">v1.16.c:\n- NOICE!\n  - Next indent.\n   • bullet 1 ▶ Bullet 2 › bullet 3 ৹</string>
     <string name="close_menu_button">Close Menu</string>

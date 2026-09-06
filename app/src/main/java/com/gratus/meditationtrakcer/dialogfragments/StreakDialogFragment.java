@@ -64,7 +64,7 @@ public class StreakDialogFragment extends DialogFragment {
     private final Calendar calendar = Calendar.getInstance();
     private View blurredView, dialogView;
     private EditText inputStartDate, inputDays;
-    private TextView longestStreakText, currentStreakText;
+    private TextView longestStreakText, currentStreakText, longestStreakDate;
     private Button addStreak;
     private HorizontalScrollView scrollView;
 
@@ -86,13 +86,13 @@ public class StreakDialogFragment extends DialogFragment {
         // Stats Views
         longestStreakText = dialogView.findViewById(R.id.streak_longest_int);
         currentStreakText = dialogView.findViewById(R.id.streak_current_int);
-        TextView currentStreakLabel = dialogView.findViewById(R.id.streak_current_title); // For modifying title if
-                                                                                          // needed
+        longestStreakDate = dialogView.findViewById(R.id.streak_longest_dates); // For modifying dates if needed
+        TextView currentStreakLabel = dialogView.findViewById(R.id.streak_current_title); // For modifying title if needed
 
         clearFocusOnKeyboardHide(inputDays, dialogView);
 
         // --- 1. Populate Stats (Longest & Current) ---
-        populateStreakStats(longestStreakText, currentStreakText);
+        populateStreakStats(longestStreakText, longestStreakDate, currentStreakText);
 
         setupHorizontalScrollSnap(scrollView, dialogView);
         setupOnClickListeners();
@@ -227,10 +227,18 @@ public class StreakDialogFragment extends DialogFragment {
         });
     }
 
-    private void populateStreakStats(TextView longestTv, TextView currentTv) {
+    private void populateStreakStats(TextView longestTv, TextView longestStreakDate, TextView currentTv) {
         // 1. Longest Streak
         int longest = streakManager.getLongestStreak();
         longestTv.setText(String.valueOf(longest));
+
+        // 3. Longest streak date range
+        String streakRange = streakManager.getLongestStreakDateRange();
+        if (streakRange.isEmpty()) {
+            longestStreakDate.setVisibility(View.GONE);
+        } else {
+            longestStreakDate.setText(streakRange);
+        }
 
         // 2. Current Streak Logic
         Streak activeStreak = streakManager.getActiveStreak();

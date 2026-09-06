@@ -93,8 +93,7 @@ public class GoalsAdapter extends RecyclerView.Adapter<GoalsAdapter.GoalViewHold
         Log.d("GoalsAdapter", "Start Date: " + goal.getStartDate() + ", End Date: " + goal.getEndDate());
 
         holder.goalTitle.setText(goal.getDescription());
-        holder.durationView
-                .setText("Target: " + goal.getDailyTarget() + " | " + targetFormatted + "h | " + goal.getDateRange());
+        holder.durationView.setText("Target: " + goal.getDailyTarget() + " | " + targetFormatted + "h | " + goal.getDateRange());
         holder.progressBar.setProgress(goal.getProgressPercent());
         holder.percentageView.setText(goal.getProgressPercent() + "% completed");
 

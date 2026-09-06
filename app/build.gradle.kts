@@ -18,8 +18,8 @@ android {
         applicationId = "com.gratus.meditationtrakcer"
         minSdk = 31
         targetSdk = 36
-        versionCode = 101
-        versionName = "14.4.2" // Format: Major (4), Minor (0), Patch (a)
+        versionCode = 102
+        versionName = "14.4.3" // Format: Major (4), Minor (0), Patch (a)
 
         // Pass versionName to the app as a resource
         resValue(
@@ -75,5 +75,7 @@ dependencies {
     implementation(libs.core) // Markdown support
     implementation(libs.ext.tables) // 📌 Add Table support
     implementation(libs.html) // Add HTML support
+    implementation("io.noties.markwon:ext-tasklist:4.6.2")
+    implementation("io.noties.markwon:ext-strikethrough:4.6.2")
     implementation(libs.core.ktx) // Or the latest version
 }

@@ -41,10 +41,12 @@ public class ReleaseNotesAdapter extends RecyclerView.Adapter<ReleaseNotesAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        markwon.setMarkdown(holder.releaseNote, releaseNotes.get(position));
-        // 🔹 Replace `\n` with real line breaks before rendering
-        String formattedText = releaseNotes.get(position).replace("\\n", "\n");
-        markwon.setMarkdown(holder.releaseNote, formattedText);
+        String rawText = releaseNotes.get(position);
+        if (rawText != null) {
+            // 🔹 Replace escaped `\n` with real line breaks before rendering
+            String formattedText = rawText.replace("\\n", "\n");
+            markwon.setMarkdown(holder.releaseNote, formattedText);
+        }
     }
 
     @Override

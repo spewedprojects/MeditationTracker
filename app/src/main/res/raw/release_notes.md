@@ -3,6 +3,10 @@
 
 Latest release **_[here](https://github.com/spewedprojects/MeditationTracker/releases/latest)_**.
 
+109. **_[14.4.2 (17/07/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v14.4.2)_**
+> - Moved Export/Import to Settings &amp; Info screen.
+> - Now supports different title for each screen.
+
 108. **_[14.4.1 (17/07/2026)](https://github.com/spewedprojects/MeditationTracker/releases/tag/v14.4.1)_**
 > - Restructured `activity_settingsinfo.xml` (landscape) into a dual-column nestedscroll container - for individual scrolling.
 > - Updated `dialog_streak.xml` to use colorSurfaceContainerHigh for the card background.

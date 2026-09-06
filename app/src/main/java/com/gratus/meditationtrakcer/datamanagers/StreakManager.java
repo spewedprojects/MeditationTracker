@@ -33,6 +33,12 @@ public class StreakManager {
         return streakDbHelper.getActiveStreak();
     }
 
+    /**
+     * Starts a new streak goal with a specified start date and target duration.
+     *
+     * @param startDateStr The start date in "yyyy-MM-dd" format.
+     * @param targetDays   The number of target days for the streak.
+     */
     public void startNewStreak(String startDateStr, int targetDays) {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
@@ -90,12 +96,23 @@ public class StreakManager {
         }
     }
 
+    /**
+     * Calculates the current contiguous meditation days counting backwards from today.
+     * If the user has not meditated today, it starts counting from yesterday.
+     *
+     * @return The number of consecutive days meditated.
+     */
     public int getContiguousMeditationDays() {
         // Calculate from today backwards
         return calculateContiguousDays(null);
     }
 
-    // ✅ NEW METHOD: Calculate the Longest Streak ever recorded (29/01/2026)
+    /**
+     * Calculates the length of the longest meditation streak ever recorded.
+     * A streak is defined as consecutive days with at least one meditation log.
+     *
+     * @return The number of days in the longest streak.
+     */
     public int getLongestStreak() {
         HashSet<String> dateSet = getMeditationDates();
         if (dateSet.isEmpty()) return 0;
@@ -132,6 +149,103 @@ public class StreakManager {
         }
 
         return Math.max(maxStreak, currentStreak);
+    }
+
+    /**
+     * Calculates and formats the date range of the longest meditation streak.
+     * If multiple streaks share the same maximum length, the most recent one is returned.
+     *
+     * @return A formatted string representing the date range (e.g., "Aug 1 - 26, 26").
+     *         Returns an empty string if no meditation logs exist.
+     */
+    public String getLongestStreakDateRange() {
+        HashSet<String> dateSet = getMeditationDates();
+        if (dateSet.isEmpty()) return "";
+
+        List<Date> dates = new ArrayList<>();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+
+        for (String s : dateSet) {
+            try {
+                dates.add(sdf.parse(s));
+            } catch (Exception e) { e.printStackTrace(); }
+        }
+
+        if (dates.isEmpty()) return "";
+        Collections.sort(dates);
+
+        int maxStreak = 1;
+        int currentStreak = 1;
+        Date currentStart = dates.get(0);
+        Date maxStart = dates.get(0);
+        Date maxEnd = dates.get(0);
+
+        for (int i = 0; i < dates.size() - 1; i++) {
+            long diffInMillis = dates.get(i + 1).getTime() - dates.get(i).getTime();
+            long diffInDays = TimeUnit.DAYS.convert(diffInMillis, TimeUnit.MILLISECONDS);
+
+            if (diffInDays == 1) {
+                currentStreak++;
+            } else if (diffInDays > 1) {
+                if (currentStreak >= maxStreak) {
+                    maxStreak = currentStreak;
+                    maxStart = currentStart;
+                    maxEnd = dates.get(i);
+                }
+                currentStreak = 1;
+                currentStart = dates.get(i + 1);
+            }
+        }
+
+        // Final check after loop
+        if (currentStreak >= maxStreak) {
+            maxStart = currentStart;
+            maxEnd = dates.get(dates.size() - 1);
+        }
+
+        return formatStreakRange(maxStart, maxEnd);
+    }
+
+    /**
+     * Formats a date range according to the following rules:
+     * - Same month: "Aug 1 - 26, 26"
+     * - Same year, different months: "Aug 1 - Sep 2, 26"
+     * - Different years: "Aug 1, 25 - Jan 1, 26"
+     * - Single day: "Aug 1, 26"
+     *
+     * @param start The start date of the streak.
+     * @param end The end date of the streak.
+     * @return A formatted string representing the date range.
+     */
+    private String formatStreakRange(Date start, Date end) {
+        Calendar calStart = Calendar.getInstance();
+        calStart.setTime(start);
+        Calendar calEnd = Calendar.getInstance();
+        calEnd.setTime(end);
+
+        int startYear = calStart.get(Calendar.YEAR);
+        int endYear = calEnd.get(Calendar.YEAR);
+        int startMonth = calStart.get(Calendar.MONTH);
+        int endMonth = calEnd.get(Calendar.MONTH);
+
+        SimpleDateFormat fullDate = new SimpleDateFormat("MMM d, yy", Locale.getDefault());
+        SimpleDateFormat monthDay = new SimpleDateFormat("MMM d", Locale.getDefault());
+        SimpleDateFormat dayOnly = new SimpleDateFormat("d", Locale.getDefault());
+        SimpleDateFormat yearOnly = new SimpleDateFormat("yy", Locale.getDefault());
+
+        if (startYear != endYear) {
+            // Different years: Aug 1, 25 - Jan 1, 26
+            return fullDate.format(start) + " - " + fullDate.format(end);
+        } else if (startMonth != endMonth) {
+            // Same year, different months: Aug 1 - Sep 2, 26
+            return monthDay.format(start) + " - " + fullDate.format(end);
+        } else if (calStart.get(Calendar.DAY_OF_MONTH) != calEnd.get(Calendar.DAY_OF_MONTH)) {
+            // Same month: Aug 1 - 26, 26
+            return monthDay.format(start) + " - " + dayOnly.format(end) + ", " + yearOnly.format(end);
+        } else {
+            // Single day: Aug 1, 26
+            return fullDate.format(start);
+        }
     }
 
     private int calculateContiguousDays(String fromDateStr) {
